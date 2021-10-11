@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-**Task Description**
+**Description**
 *add a detailed description of the task here*
 
 **Possible Solutions**
