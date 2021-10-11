@@ -1,6 +1,5 @@
 ### Team 24 | [mm-dd-yyyy] | [location] | [start_time] - [end_time]
 ## [meeting_title]
----
 
 ### Attendance:
 - [ ] Adan Estrada
