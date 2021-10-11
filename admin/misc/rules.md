@@ -1,5 +1,5 @@
 ### Team 24 | Fall 2021
-## Team Working Agreement
+# Team Working Agreement
 
 ## Means of Communication
 [put communication methods and rules regarding communication here]
