@@ -25,4 +25,4 @@
 - [add unfinished issues from the agenda here, these issues will be the unresolved issues for the next meeting]
 
 ### Meeting Notes
-- [add important takeways, decisions, outcomes. opinions of the meeting here]
+- [add important takeways, decisions, outcomes, opinions of the meeting here, and include the reasons for why certain decisions were made]
