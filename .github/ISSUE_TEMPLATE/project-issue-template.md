@@ -8,9 +8,9 @@ assignees: ''
 ---
 
 **Description**
-*add a detailed description of the issue here*
+[add a detailed description of the issue here]
 
 **Possible Solutions**
-- *list possible solutions here*
+- [list possible solutions here]
 
-**Issue Points**: *add issue points here; issue points can either be 1, 2, or 3*
+**Issue Points**: [add issue points here; issue points can either be 1, 2, or 3]
