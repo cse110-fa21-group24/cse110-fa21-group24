@@ -18,7 +18,8 @@
   //Add an overview and a link to your github page
 
 - ### Andrew
-  //Add an overview and a link to your github page
+  Hello, my name is Andrew and I am a 4th year Cogsci major. I am looking forward to this project as I tend to learn better by working on projects rather
+  than completing assignments. My hobbies include lifting weights and playing piano/chess. [Here] (https://yelllowbelly.github.io/) - my personal page.
 
 - ### Ansav
   //Add an overview and a link to your github page
