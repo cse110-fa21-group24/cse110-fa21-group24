@@ -23,7 +23,7 @@
 - ### Gabriel
   //Add an overview and a link to your github page
 - ### Grant
-  //Add an overview and a link to your github page
+  Hi, my name is Grant and I am a third year Math-Computer Science major. I find creating things to be extremely fun and I can't wait to make a project with all of my team members! Some of my favorite things to do when I'm not coding are chess, video games, and singing. [Here](https://grantduntugan.github.io/GitHub-Pages/) you can find my personal page.
 - ### Keli
   //Add an overview and a link to your github page
 - ### Minh
