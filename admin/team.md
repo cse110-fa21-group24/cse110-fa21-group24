@@ -25,7 +25,9 @@
   //Add an overview and a link to your github page
 
 - ### Edgar
-  //Add an overview and a link to your github page
+  Hello, my name is Edgar and I am a 3rd year Computer Science major. I am pretty excited to get to work on an actual project instead of just regular PAs.
+  A little bit about me is that I like to play video games(which I somtimes stream over at [Twitch](https://www.twitch.tv/masterslapz)), travel, eat some 
+  delicious food, and hang out with friends and family. [Here](https://github.com/Edgar-ship-it) is my personal Github page.
 
 - ### Gabriel
   //Add an overview and a link to your github page
