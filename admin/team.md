@@ -22,7 +22,7 @@
   than completing assignments. My hobbies include lifting weights and playing piano/chess. [Here](https://yelllowbelly.github.io/) - my personal page.
 
 - ### Ansav
-  Hi, my name is Ansav and I am a third year Mathematics-Computer Science major. Some of my favorite hobbies are soccer, travelling, and playing video games. I am very excited for this class because its the first time I will be working with a team to create a product from scratch. [Here](https://github.com/ansavp) you can find my personal page.
+  Hi, my name is Ansav and I am a third year Mathematics-Computer Science major. Some of my favorite hobbies are soccer, travelling, and playing video games. I am very excited for this class because its the first time I will be working with a team to create a product from scratch! [Here](https://github.com/ansavp) you can find my personal page.
 
 - ### Edgar
   //Add an overview and a link to your github page
