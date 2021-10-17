@@ -25,7 +25,9 @@
   Hi, my name is Ansav and I am a third year Mathematics-Computer Science major. Some of my favorite hobbies are soccer, travelling, and playing video games. I am very excited for this class because its the first time I will be working with a team to create a product from scratch! [Here](https://github.com/ansavp) you can find my personal page.
 
 - ### Edgar
-  //Add an overview and a link to your github page
+  Hello, my name is Edgar and I am a 3rd year Computer Science major. I am pretty excited to get to work on an actual project instead of just regular PAs.
+  A little bit about me is that I like to play video games(which I somtimes stream over at [Twitch](https://www.twitch.tv/masterslapz)), travel, eat some 
+  delicious food, and hang out with friends and family. [Here](https://github.com/Edgar-ship-it) is my personal Github page.
 
 - ### Gabriel
   //Add an overview and a link to your github page
