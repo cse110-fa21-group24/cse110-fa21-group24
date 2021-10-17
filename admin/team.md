@@ -14,7 +14,7 @@
 - ### Adan
   //Add an overview and a link to your github page
 
-- ### Alessandro[Here](https://gbdude917.github.io/CSE110-Lab1/
+- ### Alessandro
   //Add an overview and a link to your github page
 
 - ### Andrew
