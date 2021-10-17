@@ -14,7 +14,7 @@
 - ### Adan
   //Add an overview and a link to your github page
 
-- ### Alessandro
+- ### Alessandro[Here](https://gbdude917.github.io/CSE110-Lab1/
   //Add an overview and a link to your github page
 
 - ### Andrew
@@ -30,7 +30,7 @@
   delicious food, and hang out with friends and family. [Here](https://github.com/Edgar-ship-it) is my personal Github page.
 
 - ### Gabriel
-  //Add an overview and a link to your github page
+  Hey! My name is Gabriel Leong, and I am a third year Computer Engineering student at Sixth college. I am excited to work on the project and to learn a lot from this experience. In my freetime, I like to play video games, play the piano, and exercise. [Here](https://gbdude917.github.io/CSE110-Lab1/) is my personal page.
 
 - ### Grant
   Hi, my name is Grant and I am a third year Math-Computer Science major. I find creating things to be extremely fun and I can't wait to make a project with all of my team members! Some of my favorite things to do when I'm not coding are chess, video games, and singing. [Here](https://grantduntugan.github.io/GitHub-Pages/) you can find my personal page.
