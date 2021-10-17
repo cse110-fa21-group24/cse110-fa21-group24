@@ -2,7 +2,8 @@
 
 ## Welcome to our Team!
 
-    //Also add team video here
+    Check out our cool video!
+    https://github.com/cse110-fa21-group24/cse110-fa21-group24.git
 
 ## Team Values
 
