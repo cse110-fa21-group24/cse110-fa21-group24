@@ -42,4 +42,4 @@ We also wanted to have greater customizability when modifying recipes, which inc
 
 To actually store and save recipes in cookbooks, we need to be able to save the user's data somewhere. Currently, we are leaning towards using a database to store recipe information, but learning how to use a database tool will likely increase our production time for our app. While some of us have limited experience with databases, we will still need to spend extra time learning database tools.
 
-Our app will also be influenced by which APIs we decide to use to fetch data. We are currently looking into the Spoonacular to actually fetch recipes, but we still need to decide on an API to parse recipe data.
+Our app will also be influenced by which APIs we decide to use to fetch data. We are currently looking into the Spoonacular to actually fetch recipes, but we still need to explore the other capabilities of Spoonacular to better understand how we can display recipe info.
