@@ -10,7 +10,7 @@ Before I started living near campus, my parents gave me a recipe for steamed egg
 
 ![A whole lot of chicken](frozenfood.PNG)
 
-So, what if we made a recipe app that allowed an adaptive cooking process for beginners? One in which users could search recipes, save them, and have the ability to explore cooking in their own way? That is the idea behind our app, Impasta Rosta.
+So, what if we made a recipe app that allowed an adaptive cooking process for beginners? One in which users could search recipes, save them, and have the ability to explore cooking in their own way? One of the core issues with beginners is that they lack organization in their cooking. Considering we only have five weeks to design a solution for beginner cooks, our app will focus on helping beginners not only find new recipes, but also organize those recipes in a logical manner. This is the idea behind our app, Impasta Rosta.
 
 ## Out Target Audience
 
