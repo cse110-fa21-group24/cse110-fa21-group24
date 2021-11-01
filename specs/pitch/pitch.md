@@ -30,7 +30,7 @@ Here is our solution:
 
 ![control flow diagram](control-flow.PNG)
 
-The main focus of our web app is for beginners to be able to easily locate recipes, save them to a virtual cookbook, and get cooking. Users will start at the home page. From there, users can create a cookbook, complete with a name and description. They will also be able to search for recipes from there, adding any appealing recipes to their cookbook. Users will also be able to create and edit any recipes to their liking, in order to personalize their cooking process.
+The main focus of our web app is for beginners to be able to easily locate recipes, save them to a virtual cookbook, and get cooking. Users will start at the home page. From there, users can create a cookbook, complete with a name and description. They will also be able to search for recipes from there, adding any appealing recipes to their cookbook. Users will also be able to create and edit any recipes to their liking, in order to personalize their cooking process. In each recipe, users will be able to see the name of the recipe, image of the finished product, a description, serving size, cooking time, ingredients list, and instructions for the dish. If they get tired of the dish, added it on accident, or for any reason need to remove the dish from their cookbook, they can delete the dish as well. These are the main features of our core product.
 
 ## Risks and Rabbit Holes
 
