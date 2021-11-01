@@ -16,13 +16,13 @@ So, what if we made a recipe app that allowed an adaptive cooking process for be
 
 From our original problem statement, it would seem obvious to gear our application towards young adults with little to no cooking experience. However, we decided to generalize our audience to all beginner cooks, which could range from people with zero cooking knowledge to amateur cooks. Since many members of our team are beginner cooks as well, it will be easier for us to understand the perspective of our users, and we can draw from our own cooking experiences when designing the application. Aside from young adult cooks, we are also considering middle aged cooks
 
-[insert Marienne persona]
+![Marienne persona](./marienne_persona.png)
 
-and elderly cooks
+and elderly cooks.
 
-[insert Carrie persona]
+![Carrie persona](./carrie_persona.png)
 
-By considering beginner cooks from various age groups, we are also looking to design the application in such a way that it accommodates differing levels of technology experience. That way, our application will feel beginner friendly as well as being geared towards beginners.
+By taking into account beginner cooks from various age groups, we are also looking to design the application in such a way that it accommodates both differing levels of technology experience and the different types of devices used. That way, our application will feel beginner friendly, and easy to use as well as being geared towards beginners.
 
 ## Solution
 
@@ -32,6 +32,14 @@ Here is our solution:
 
 The main focus of our web app is for beginners to be able to easily locate recipes, save them to a virtual cookbook, and get cooking. Users will start at the home page. From there, users can create a cookbook, complete with a name and description. They will also be able to search for recipes from there, adding any appealing recipes to their cookbook. Users will also be able to create and edit any recipes to their liking, in order to personalize their cooking process. In each recipe, users will be able to see the name of the recipe, image of the finished product, a description, serving size, cooking time, ingredients list, and instructions for the dish. If they get tired of the dish, added it on accident, or for any reason need to remove the dish from their cookbook, they can delete the dish as well. These are the main features of our core product.
 
-## Risks and Rabbit Holes
+## Rabbit Holes
 
-## Out of Scope Ideas
+One aspect of our app that we were strongly considering was the accessibility features when following or reading from a recipe. Although we wanted to address as many inhibiting factors as possible when using our app, we decided to keep the scope of our app within standard tap and click features. Many features could accomodate different disabilities and use cases, and we came up with several ideas, including text-to-speech and hands-off recipe viewing. However, trying to incorporate all these accessibility features would require a great amount of time that we just did not have given that we only have five weeks. 
+
+We also wanted to have greater customizability when modifying recipes, which included adjusting the measurement units and inputting nutritional info, but there were many hidden implications that came along with greater customization. Also, since we focused our scope down to beginner cooks, we realized that having all these customizable fields was not necessary for our target users.
+
+## Risks
+
+To actually store and save recipes in cookbooks, we need to be able to save the user's data somewhere. Currently, we are leaning towards using a database to store recipe information, but learning how to use a database tool will likely increase our production time for our app. While some of us have limited experience with databases, we will still need to spend extra time learning database tools.
+
+Our app will also be influenced by which APIs we decide to use to fetch data. We are currently looking into the Spoonacular to actually fetch recipes, but we still need to decide on an API to parse recipe data.
