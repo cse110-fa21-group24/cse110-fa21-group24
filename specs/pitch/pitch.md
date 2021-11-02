@@ -34,7 +34,7 @@ The main focus of our web app is for beginners to be able to easily locate recip
 complete with a name and description.
 
 ![Create cookbook](create-cookbook.PNG)
-![Cookbook Content](recipes.PNG)
+![Cookbook Content](recipe.PNG)
 
 They will also be able to search for recipes from there, adding any appealing recipes to their cookbook.
 
@@ -54,6 +54,6 @@ We also wanted to have greater customizability when modifying recipes, which inc
 
 ## Risks
 
-To actually store and save recipes in cookbooks, we need to be able to save the user's data somewhere. Currently, we are leaning towards using a database to store recipe information, but learning how to use a database tool will likely increase our production time for our app. While some of us have limited experience with databases, we will still need to spend extra time learning database tools.
+To actually store and save recipes in cookbooks, we need to be able to save the user's data somewhere. We will also need to store user account info such as a username and password, so that users can access their cookbooks across multiple devices. Currently, we are leaning towards using a database to store recipe information, but learning how to use a database tool will likely increase our production time for our app. While some of us have limited experience with databases, we will still need to spend extra time learning database tools.
 
 Our app will also be influenced by which APIs we decide to use to fetch data. We are currently looking into the Spoonacular to actually fetch recipes, but we still need to explore the other capabilities of Spoonacular to better understand how we can display recipe info.
