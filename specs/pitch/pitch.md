@@ -30,11 +30,25 @@ Here is our solution:
 
 ![control flow diagram](control-flow.PNG)
 
-The main focus of our web app is for beginners to be able to easily locate recipes, save them to a virtual cookbook, and get cooking. Users will start at the home page. From there, users can create a cookbook, complete with a name and description. They will also be able to search for recipes from there, adding any appealing recipes to their cookbook. Users will also be able to create and edit any recipes to their liking, in order to personalize their cooking process. In each recipe, users will be able to see the name of the recipe, image of the finished product, a description, serving size, cooking time, ingredients list, and instructions for the dish. If they get tired of the dish, added it on accident, or for any reason need to remove the dish from their cookbook, they can delete the dish as well. These are the main features of our core product.
+The main focus of our web app is for beginners to be able to easily locate recipes, save them to a virtual cookbook, and get cooking. Users will start at the home page. From there, users can create a cookbook,
+complete with a name and description.
+
+![Create cookbook](create-cookbook.PNG)
+![Cookbook Content](recipes.PNG)
+
+They will also be able to search for recipes from there, adding any appealing recipes to their cookbook.
+
+![Explore Page](explore.PNG)
+
+Users will also be able to create and edit any recipes to their liking, in order to personalize their cooking process. In each recipe, users will be able to see the name of the recipe, image of the finished product, a description, serving size, cooking time, ingredients list, and instructions for the dish.
+
+![Recipe Page](recipe.PNG)
+
+If they get tired of the dish, added it on accident, or for any reason need to remove the dish from their cookbook, they can delete the dish as well. These are the main features of our core product.
 
 ## Rabbit Holes
 
-One aspect of our app that we were strongly considering was the accessibility features when following or reading from a recipe. Although we wanted to address as many inhibiting factors as possible when using our app, we decided to keep the scope of our app within standard tap and click features. Many features could accomodate different disabilities and use cases, and we came up with several ideas, including text-to-speech and hands-off recipe viewing. However, trying to incorporate all these accessibility features would require a great amount of time that we just did not have given that we only have five weeks. 
+One aspect of our app that we were strongly considering was the accessibility features when following or reading from a recipe. Although we wanted to address as many inhibiting factors as possible when using our app, we decided to keep the scope of our app within standard tap and click features. Many features could accomodate different disabilities and use cases, and we came up with several ideas, including text-to-speech and hands-off recipe viewing. However, trying to incorporate all these accessibility features would require a great amount of time that we just did not have given that we only have five weeks.
 
 We also wanted to have greater customizability when modifying recipes, which included adjusting the measurement units and inputting nutritional info, but there were many hidden implications that came along with greater customization. Also, since we focused our scope down to beginner cooks, we realized that having all these customizable fields was not necessary for our target users.
 
