@@ -1,0 +1,40 @@
+body {
+  text-align: center; /* Aligns load more button */
+}
+
+main {
+  display: flex; /* Row alignment */
+}
+
+.filter-section {
+  background-color: #f5f3f4;
+  width: 20%;
+}
+
+.display-section {
+  background-color: aqua; /*Testing color*/
+  width: 65%;
+  text-align: center; /*Title, search for text*/
+
+  display: flex;
+  flex-direction: column;
+}
+
+.load-button {
+  /*Details taken from Figma*/
+  border: 1px solid #adadad;
+  border-radius: 16px;
+  box-sizing: border-box;
+  height: 48px;
+  width: 146px;
+}
+
+/* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp*/
+input {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}

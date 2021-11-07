@@ -7,9 +7,31 @@
     <title>Impasta Rosta - Explore</title>
 
     <!-- Main Stylesheet & Scripts -->
-    <link rel="stylesheet" href="assets/styles/explore-page.css" />
-    <script src="./assets/scripts/explore-page.js" type="module"></script>
+    <link rel="stylesheet" href="explore-page.css" />
   </head>
 
-  <body></body>
+  <body>
+    <!-- Main contains filter section with recipe cards -->
+    <main>
+      <!-- Filter by box -->
+      <section class="filter-section">
+        <p>Filter by:</p>
+
+        <div>
+          <p>Cuisine</p>
+        </div>
+        <form class="filter-cuisine-choices"></form>
+      </section>
+
+      <!-- Display with search bar, food options -->
+      <section class="display-section">
+        <input type="text" placeholder="Search.." />
+        <p>Explore Recipes</p>
+        <section class="recipe-cards-section"></section>
+      </section>
+    </main>
+
+    <!-- Load button -->
+    <button class="load-button">Load More</button>
+  </body>
 </html>
