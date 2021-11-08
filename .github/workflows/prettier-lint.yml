@@ -20,4 +20,4 @@ jobs:
       - name: Install Prettier
         run: npm install --save-dev --save-exact prettier
       - name: Run Prettier on all files
-        run: prettier --config ./.prettierrc.json --write .
+        run: npx prettier --config ./.prettierrc.json --write .
