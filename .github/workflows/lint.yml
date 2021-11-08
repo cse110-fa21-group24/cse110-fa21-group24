@@ -27,7 +27,7 @@ jobs:
       - name: Install HTMLHint
         run: npm install --save-dev htmlhint
       - name: Run HTMLHint on all HTML files
-        run: npx htmlhint --config ./.htmlhintrc.json "**/*.html"
+        run: npx htmlhint --config ./.htmlhintrc "**/*.html"
 
       - name: Install Stylelint
         run: npm install --save-dev stylelint stylelint-config-standard
