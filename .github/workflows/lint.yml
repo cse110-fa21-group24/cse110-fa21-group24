@@ -1,0 +1,35 @@
+# Lints all merges into main branch
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run-all-lints:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Prettier
+        run: npm install --save-dev --save-exact prettier
+      - name: Run Prettier on all files
+        run: npx prettier --config ./.prettierrc --write .
+
+      - name: Install HTMLHint
+        run: npm install --save-dev htmlhint
+      - name: Run HTMLHint on all HTML files
+        run: npx htmlhint --config ./.htmlhintrc.json "**/*.html"
+
+      - name: Install Stylelint
+        run: npm install --save-dev stylelint stylelint-config-standard
+      - name: Run Stylelint on all CSS files
+        run: npx stylelint --config ./.stylelintrc "**/*.css"
