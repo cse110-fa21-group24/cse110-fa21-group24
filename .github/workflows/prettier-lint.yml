@@ -13,8 +13,10 @@ jobs:
     steps:
       - name: Checkout GitHub repository
         uses: actions/checkout@v2
-      - name: Run Prettier
-        uses: wearerequired/lint-action@v1.10.0
+      - name: Use Node.js
+        uses: actions/setup-node@v2
         with:
-          prettier: true
-          prettier_args: "--config ./.prettierrc.json"
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install and run Prettier on all files
+        run: npm install --save-dev --save-exact prettier
+        run: prettier --config ./.prettierrc.json --write .
