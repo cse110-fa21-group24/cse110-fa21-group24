@@ -1,0 +1,132 @@
+body {
+  margin: 0px;
+}
+
+.navbar-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
+
+#web-app-title {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.3vw;
+}
+
+.tab:link {
+  color: #dfdede;
+}
+
+.tab:visited {
+  color: #dfdede;
+}
+
+.tab:focus {
+  color: #ffffff;
+}
+
+.tab:hover {
+  color: #ffffff;
+}
+
+.tab:active {
+  color: #ffffff;
+}
+
+@media (orientation: landscape) {
+  #navbar {
+    background: #e5383b;
+    font-family: Helvetica, sans-serif;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  #navbar-section-left {
+    flex: 1;
+    padding-left: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  #navbar-section-middle {
+    flex: 2;
+  }
+
+  #navbar-section-right {
+    flex: 1;
+  }
+
+  .tab-divider {
+    color: #fdcb6e;
+    padding-left: 9%;
+    padding-right: 9%;
+    font-size: 1vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tab {
+    text-decoration: none;
+    font-size: 1vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (orientation: portrait) {
+  #navbar {
+    background: #e5383b;
+    font-family: Helvetica, sans-serif;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  #navbar-section-left {
+    display: none;
+  }
+
+  #navbar-section-middle {
+    flex: 1;
+  }
+
+  #navbar-section-right {
+    display: none;
+  }
+
+  .tab-divider {
+    color: #fdcb6e;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-size: 2vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tab {
+    text-decoration: none;
+    font-size: 2vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
