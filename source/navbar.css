@@ -5,7 +5,6 @@ body {
 .navbar-section {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: stretch;
 }
 
@@ -55,12 +54,9 @@ body {
     justify-content: flex-start;
   }
 
-  #navbar-section-middle {
-    flex: 2;
-  }
-
   #navbar-section-right {
-    flex: 1;
+    flex: 5;
+    justify-content: flex-start;
   }
 
   .tab-divider {
@@ -100,12 +96,9 @@ body {
     display: none;
   }
 
-  #navbar-section-middle {
-    flex: 1;
-  }
-
   #navbar-section-right {
-    display: none;
+    flex: 1;
+    justify-content: center;
   }
 
   .tab-divider {
