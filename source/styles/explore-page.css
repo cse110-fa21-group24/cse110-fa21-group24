@@ -3,20 +3,20 @@ main {
   font-weight: bold;
   display: flex; /* Row alignment */
   margin-top: 5%;
-  height: 80vh;
+  height: 80vh; /* Relative height */
 }
 
 .filter-section {
   text-align: center;
   background-color: #f5f3f4;
-  width: 20%;
+  width: 20vw;
   font-size: 30px;
 }
 
 .display-section {
   text-align: center;
   align-items: center;
-  width: 80%;
+  width: 80vw;
   text-align: center; /*Title, search for text*/
 
   font-size: 45px;
