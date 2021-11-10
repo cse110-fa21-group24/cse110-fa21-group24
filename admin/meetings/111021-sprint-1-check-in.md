@@ -33,33 +33,31 @@ N/A
 
 ### Meeting Notes
 
-- establish IndexedDB
-- main idea: need a flexible way to create functions for our buttons without getting to specific
-- steps:
-  - research indexeddb
-  - create flexible interface in which front end can make calls to
+- Stories
 
--Spoonacular api
--need to look into api key security issues
--interface should be easier than the indexeddb
+  - establish IndexedDB
 
-Linters/PR flow
+    - main idea: need a flexible way to create functions for our buttons without getting to specific
+    - research indexeddb
+    - create flexible interface in which front end can make calls to
 
-- on PR there are checks
-- must pass checks in order to merge (for consistency)
-- can comment on PRs and request reviews
-- need two approvals in order to merge as well
-- must re-check code after change requests are made and fulfilled
-- will eventually set up a javascript check (Jest)
+  - Spoonacular api
+    - need to look into api key security issues
+    - interface should be easier than the indexeddb
 
-VSCode Extensions
+- Linters/PR flow
 
-- Prettier code formatter
-- formats upon command and can be configured upon save
-- Stylelint
-- run npm install stylelint stylelint-config-standard
-- highlights "errors" in CSS files
-- also possible to auto fix all errors
+  - on PR there are checks
+  - must pass checks in order to merge (for consistency)
+  - can comment on PRs and request reviews
+  - need two approvals in order to merge as well
+  - must re-check code after change requests are made and fulfilled
+  - will eventually set up a javascript check (Jest)
 
--some team members could use help on issues
--extra help assigned
+- VSCode Extensions
+  - Prettier code formatter
+  - formats upon command and can be configured upon save
+  - Stylelint
+  - run npm install stylelint stylelint-config-standard
+  - highlights "errors" in CSS files
+  - also possible to auto fix all errors
