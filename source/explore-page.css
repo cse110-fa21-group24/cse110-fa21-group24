@@ -1,5 +1,9 @@
 body {
   text-align: center; /* Aligns load more button */
+  /*font-family: 'Tangerine', serif;*/
+  font-family: 'Mochiy Pop One', sans-serif;
+  font-size: 20px;
+  text-shadow: 4px 4px 4px #aaa;
 }
 
 main {
@@ -33,7 +37,7 @@ main {
 input {
   float: right;
   padding: 6px;
-  border: none;
+  border: double;
   margin-top: 8px;
   margin-right: 16px;
   font-size: 17px;
