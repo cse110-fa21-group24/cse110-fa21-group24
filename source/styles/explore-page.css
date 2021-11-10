@@ -1,23 +1,26 @@
 body {
-  text-align: center; /* Aligns load more button */
   /*font-family: 'Tangerine', serif;*/
-  font-family: 'Mochiy Pop One', sans-serif;
+  font-family: "Mochiy Pop One", sans-serif;
   font-size: 20px;
   text-shadow: 4px 4px 4px #aaa;
 }
 
 main {
   display: flex; /* Row alignment */
+  margin-top: 5%;
+  height: 80vh;
 }
 
 .filter-section {
+  text-align: center;
   background-color: #f5f3f4;
   width: 20%;
 }
 
 .display-section {
-  background-color: aqua; /*Testing color*/
-  width: 65%;
+  text-align: center;
+  align-items: center;
+  width: 80%;
   text-align: center; /*Title, search for text*/
 
   display: flex;
@@ -41,4 +44,10 @@ input {
   margin-top: 8px;
   margin-right: 16px;
   font-size: 17px;
+  width: 70%;
+}
+
+img {
+  width: 110%;
+  height: 120px;
 }

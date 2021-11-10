@@ -6,15 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Impasta Rosta - Explore</title>
 
+    <!-- Navbar Custom Element -->
+    <script src="/source/scripts/Navbar.js" type="module"></script>
+
     <!-- Main Stylesheet & Scripts -->
-    <link rel="stylesheet" href="explore-page.css" />
+    <link rel="stylesheet" href="/source/styles/explore-page.css" />
+    <script src="/source/scripts/explore-page.js" type="module"></script>
   </head>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap"
+    rel="stylesheet"
+  />
 
   <body>
+    <!-- Note: JS File inserts navbar between this comment and comment below -->
+
     <!-- Main contains filter section with recipe cards -->
     <main>
       <!-- Filter by box -->
@@ -32,10 +41,15 @@
         <input type="text" placeholder="Search Recipes" />
         <p>Explore Recipes</p>
         <section class="recipe-cards-section"></section>
+
+        <!-- Load button -->
+        <button class="load-button">Load More</button>
       </section>
     </main>
 
-    <!-- Load button -->
-    <button class="load-button">Load More</button>
+    <!-- Footer Image -->
+    <footer>
+      <img src="/source/images/Wave.png" />
+    </footer>
   </body>
 </html>
