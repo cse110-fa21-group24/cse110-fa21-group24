@@ -4,34 +4,94 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
-    </style>
+    <link rel="stylesheet" href="/source/recipe-page-style.css" />
     <title>The Impastas - Recipe Name</title>
   </head>
+
   <body>
-    <!--Header-->
-    <div class="header">
-      <h1>Recipe Name</h1>
-      <p class="author">Written by: Author</p>
-    </div>
+    <div id="recipe-container">
+      <!-- Recipe Header -->
+      <div id="recipe-header">
+        <h1 id="recipe-name">Recipe Name</h1>
+        <p id="recipe-author">Recipe by: Author</p>
+      </div>
 
-    <!--Tags-->
-    <div class="tags">
-        <div class="info">
-            <p>Cuisine: Italian</p>
-            <p>Ready In: x min</p>
+      <!-- Recipe Subheader -->
+      <div id="recipe-subheader">
+        <div id="recipe-tags">
+          <p class="recipe-tag-info">Cuisine: Italian</p>
+          <p class="recipe-tag-info">Ready In: x min</p>
         </div>
-        <div class="addToCookbook">
-            <button class="button" type="button"></button>
-            <p>Add to cookbook</p>
+        <div id="recipe-action">
+          <button id="recipe-action-button" type="button">
+            <div id="recipe-action-image-outline">
+              <div id="recipe-action-image-content"></div>
+            </div>
+            <p id="recipe-action-text">Add to cookbook</p>
+          </button>
         </div>
-    </div>
-    <img class="image" src="pasta.jpg" alt="Picture of Recipe">
+      </div>
 
-    <!--Body-->
-    <h2>Description</h2>
-    
+      <!-- Recipe Image -->
+      <div id="recipe-image-container">
+        <img id="recipe-image" src="pasta.jpg" alt="Picture of Recipe" />
+      </div>
+
+      <!-- Recipe Description -->
+      <h2 class="recipe-section-header">Description</h2>
+      <p id="recipe-description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+        sodales diam at tellus pellentesque aliquet. Donec placerat nunc sed
+        tortor posuere, a posuere lorem facilisis. Fusce non consectetur nibh,
+        at aliquet lectus. Nulla ut luctus nisi. Vestibulum quis consectetur
+        magna. Nam in aliquam nisl. Interdum et malesuada fames ac ante ipsum
+        primis in faucibus. Aenean sodales sapien quis ante tincidunt finibus.
+        Phasellus cursus consequat est venenatis molestie. Phasellus non ipsum
+        in nisl finibus volutpat ac sit amet leo. Class aptent taciti sociosqu
+        ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi
+        risus odio, dignissim vel euismod in, pharetra non felis. Vestibulum
+        ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+        curae; Vestibulum sed aliquet nibh. In quis ligula in sapien
+        sollicitudin dignissim.
+      </p>
+
+      <hr class="recipe-horizontal-rule" />
+
+      <!-- Recipe Ingredients -->
+      <h2 class="recipe-section-header">Ingredients</h2>
+      <div id="recipe-ingredients-container">
+        <section id="recipe-ingredients-section-left">
+          <li class="ingredient-item">Lorem</li>
+          <li class="ingredient-item">Ipsum</li>
+          <li class="ingredient-item">Dolor</li>
+        </section>
+        <section id="recipe-ingredients-section-right">
+          <li class="ingredient-item">Sit</li>
+          <li class="ingredient-item">Amet</li>
+          <li class="ingredient-item">Consectetur</li>
+        </section>
+      </div>
+
+      <hr class="recipe-horizontal-rule" />
+
+      <!-- Recipe Instructions -->
+      <h2 class="recipe-section-header">Instructions</h2>
+      <ol id="instructions-list">
+        <li class="instruction-item">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+          aliquet elementum nulla, at sagittis lectus.
+        </li>
+        <li class="instruction-item">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras luctus
+          efficitur odio, eget pretium dolor sollicitudin sed. Curabitur
+          fermentum, diam.
+        </li>
+        <li class="instruction-item">
+          Lorem ipsum dolor sit amet, consectetur adipiscing.
+        </li>
+      </ol>
+
+      <hr class="recipe-horizontal-rule" />
+    </div>
   </body>
 </html>
