@@ -41,6 +41,14 @@ main {
   font-weight: bold;
 }
 
+.load-button:hover {
+  background-color: #c9c7c7;
+}
+
+.load-button:active {
+  background-color: #979393;
+}
+
 /* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp */
 input {
   float: right;
