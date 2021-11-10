@@ -1,30 +1,65 @@
 ### Team 24 | 11-10-2021 | Zoom | 13:00-14:00
+
 ## Sprint 1 Check-In
 
 ### Attendance:
+
 - [ ] Adan Estrada
-- [ ] Alessandro Todaro
-- [ ] Andrew Lee
-- [ ] Ansav Panda
-- [ ] Edgar Diaz
-- [ ] Gabriel Leong
-- [ ] Grant Duntugan
+- [x] Alessandro Todaro
+- [x] Andrew Lee
+- [x] Ansav Panda
+- [x] Edgar Diaz
+- [x] Gabriel Leong
+- [x] Grant Duntugan
 - [ ] Hema Thota
-- [ ] Keli Wang
-- [ ] Minh Dinh
+- [x] Keli Wang
+- [x] Minh Dinh
 - [ ] Quyen Nguyen
 
 ### Unresolved Issues
-- [add unresolved issues from previous meetings here]
+
+N/A
 
 ### Agenda
+
 - Talk about deadlines for all assignments and for MVP
 - Check up on everyone's progress and talk about new issues
 - Show everyone how to setup the linters
 - Tell everyone about Jest testing
 
 ### Unfinished Issues
-- [add unfinished issues from the agenda here, these issues will be the unresolved issues for the next meeting]
+
+N/A
 
 ### Meeting Notes
-- [add important takeways, decisions, outcomes, opinions of the meeting here, and include the reasons for why certain decisions were made]
+
+- establish IndexedDB
+- main idea: need a flexible way to create functions for our buttons without getting to specific
+- steps:
+  - research indexeddb
+  - create flexible interface in which front end can make calls to
+
+-Spoonacular api
+-need to look into api key security issues
+-interface should be easier than the indexeddb
+
+Linters/PR flow
+
+- on PR there are checks
+- must pass checks in order to merge (for consistency)
+- can comment on PRs and request reviews
+- need two approvals in order to merge as well
+- must re-check code after change requests are made and fulfilled
+- will eventually set up a javascript check (Jest)
+
+VSCode Extensions
+
+- Prettier code formatter
+- formats upon command and can be configured upon save
+- Stylelint
+- run npm install stylelint stylelint-config-standard
+- highlights "errors" in CSS files
+- also possible to auto fix all errors
+
+-some team members could use help on issues
+-extra help assigned
