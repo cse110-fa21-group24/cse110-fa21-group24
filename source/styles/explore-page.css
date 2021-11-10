@@ -1,5 +1,5 @@
 main {
-  font-family: "Inter", sans-serif;
+  font-family: Inter, sans-serif;
   font-weight: bold;
   display: flex; /* Row alignment */
   margin-top: 5%;
@@ -14,13 +14,10 @@ main {
 }
 
 .display-section {
-  text-align: center;
   align-items: center;
   width: 80vw;
-  text-align: center; /*Title, search for text*/
-
+  text-align: center; /* Title, search for text */
   font-size: 45px;
-
   display: flex;
   flex-direction: column;
 }
@@ -32,12 +29,12 @@ main {
   box-sizing: border-box;
   height: 48px;
   width: 146px;
-  font-family: "Inter", sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
 
-/* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp*/
+/* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp */
 input {
   float: right;
   padding: 6px;
