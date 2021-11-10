@@ -10,14 +10,21 @@ main {
   text-align: center;
   background-color: #f5f3f4;
   width: 20vw;
-  font-size: 30px;
+}
+
+.filter-by-text {
+  font-size: min(30px, 3vw);
+}
+
+.filter-choice {
+  font-size: min(25px, 3vw);
 }
 
 .display-section {
   align-items: center;
   width: 80vw;
   text-align: center; /* Title, search for text */
-  font-size: 45px;
+  font-size: min(48px, 5vw);
   display: flex;
   flex-direction: column;
 }
@@ -27,10 +34,10 @@ main {
   border: 1px solid #adadad;
   border-radius: 16px;
   box-sizing: border-box;
-  height: 48px;
+  height: 5vh;
   width: 146px;
   font-family: Inter, sans-serif;
-  font-size: 18px;
+  font-size: min(18px, 3vw);
   font-weight: bold;
 }
 
