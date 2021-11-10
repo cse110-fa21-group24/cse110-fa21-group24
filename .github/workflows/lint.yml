@@ -2,8 +2,6 @@
 name: lint
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
@@ -33,3 +31,8 @@ jobs:
         run: npm install --save-dev stylelint stylelint-config-standard
       - name: Run Stylelint on all CSS files
         run: npx stylelint --config ./.stylelintrc --allow-empty-input "**/*.css"
+
+      - name: Install JSHint
+        run: npm install --save-dev jshint
+      - name: Run JSHint on all JavaScript files
+        run: npx jshint --config ./.jshintrc .
