@@ -103,7 +103,7 @@ button::after{
         margin-bottom:50px;
     }
 
-    #recipe_cards{
+    .recipe_cards{
         Width:285px;
         Height:339px;
         border-radius:10%;
@@ -162,7 +162,7 @@ button::after{
         margin-bottom:60px;
     }
 
-    #recipe_cards{
+    .recipe_cards{
         Width:90%;
         Height:300px;
         border-radius: 30px;
