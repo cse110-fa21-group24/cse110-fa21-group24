@@ -1,0 +1,68 @@
+/* Header */
+* {
+    font-family: "Inter", sans-serif;
+}
+h1 {
+  font-size: 75px;
+}
+
+.author {
+  font-size: 18px;
+}
+
+/* Body */
+.tags {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  position: static;
+}
+
+.tags .info {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 15px;
+}
+
+.tags .addToCookbook {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.tags .addToCookbook p{
+    padding-left: 5px;
+}
+
+.tags p:not(.addToCookbook p){
+  padding: 0.5em;
+  background-color: #e5383b;
+  color: #fff;
+  border-radius: 40px;
+}
+
+.tags .button {
+  width: 50px;
+  height: 50px;
+
+  background: linear-gradient(#e5383b 0 0), linear-gradient(#e5383b 0 0), #fff;
+  background-position: center;
+  background-size: 50% 2px, 2px 50%;
+  background-repeat: no-repeat;
+
+  border-radius: 50%;
+  border-color: #e5383b;
+}
+
+.image {
+  display: flex;
+  position: relative;
+  margin: auto;
+  max-width: 75%; /* Find if there's a better way to scale image*/
+  height: auto;
+  width: auto;
+
+  background: url(.png);
+  border-radius: 10px;
+}
+
+/* Footer */
