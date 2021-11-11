@@ -22,7 +22,10 @@
   color: #fff;
   background-color: #ba181b;
   border: transparent;
-  border-radius: 5px;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  vertical-align: middle;
   position: absolute;
   top: 8px;
   right: 16px;
