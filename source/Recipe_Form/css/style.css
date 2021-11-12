@@ -1,20 +1,19 @@
 :root { 
-    --black: #000000;
+    --black: #000;
     --cinnabar: #e5383b;
     --dandelion: #fdcb6e;
     --licorice: #1111117a;
-    --white: #ffffff;
-   
+    --white: #fff;
     --font-size-l: 24px;
     --font-size-m: 18px;
     --font-size-s: 16px;
     --font-size-xl: 30px;
     --font-size-xxl: 45px;
     --font-size-xxxl: 48px;
-   
-    --font-family-inter: "Inter", Helvetica;
-    --font-family-roboto: "Roboto", Helvetica;
+    --font-family-inter: "Inter", helvetica;
+    --font-family-roboto: "Roboto", helvetica;
   }
+
   .inter-medium-black-30px {
     color: var(--black);
     font-family: var(--font-family-inter);
