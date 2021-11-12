@@ -23,22 +23,45 @@
 
     <!-- Main contains filter section with recipe cards -->
     <main>
-      <!-- Filter by box -->
+      <!-- Filter by display -->
       <section class="filter-section">
         <p class="filter-by-text">Filter by:</p>
 
-        <div>
-          <p class="filter-choice">Cuisine</p>
-        </div>
-        <form class="filter-cuisine-choices"></form>
+        <!-- Each filter category goes here -->
+        <p class="filter-choice">Cuisine</p>
+        <form class="filter-cuisine-choices">
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="breakfast"
+              name="breakfast"
+              value="breakfast"
+            />
+            <label for="breakfast">Breakfast</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" id="lunch" name="lunch" value="lunch" />
+            <label for="lunch">Lunch</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" id="dinner" name="dinner" value="dinner" />
+            <label for="dinner">Dinner</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" id="brunch" name="brunch" value="brunch" />
+            <label for="brunch">Brunch</label>
+          </div>
+        </form>
       </section>
 
       <!-- Display with search bar, food options -->
       <section class="display-section">
         <input type="text" placeholder="Search Recipes" />
 
-        <p>Explore Recipes</p>
-        <section class="recipe-cards-section"></section>
+        <p class="explore-title-text">Explore Recipes</p>
+        <section class="recipe-cards-section">
+          <p class="no-results-text">No results found</p>
+        </section>
 
         <!-- Load button -->
         <button type="button" class="load-button">Load More</button>

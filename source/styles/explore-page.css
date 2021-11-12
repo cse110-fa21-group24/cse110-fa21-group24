@@ -1,3 +1,17 @@
+@media (max-width: 420px) {
+  .filter-section {
+    display: none;
+  }
+  .display-section {
+    width: 100vw;
+  }
+}
+
+@media (min-width: 421px) {
+  .display-section {
+    width: 80vw;
+  }
+}
 main {
   font-family: Inter, sans-serif;
   font-weight: bold;
@@ -8,7 +22,8 @@ main {
 
 .filter-section {
   text-align: center;
-  background-color: #f5f3f4;
+  background-color: #e7e4e6;
+  border-radius: 20px;
   width: 20vw;
 }
 
@@ -22,12 +37,39 @@ main {
 
 .display-section {
   align-items: center;
-  width: 80vw;
-  text-align: center; /* Title, search for text */
-  font-size: min(48px, 5vw);
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
+  background-color: hsl(359, 60%, 75%);
 }
+
+.explore-title-text {
+  text-align: center; /* Title, search for text */
+  font-size: min(42px, 5vw);
+}
+
+/* Checkbox related */
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+input[type="checkbox"] {
+  width: min(30px, 4vw);
+  align-self: center;
+  height: min(30px, 4vh);
+  box-shadow: none;
+}
+
+label {
+  align-self: center;
+  margin-left: 3vw;
+  font-size: min(18px, 2vw);
+}
+
+/* END Checkbox Related */
 
 .load-button {
   /* Details taken from Figma */
