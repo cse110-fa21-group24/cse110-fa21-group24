@@ -106,7 +106,7 @@ body {
   justify-content: flex-end;
 }
 
-#recipe-action-button {
+.recipe-action-button {
   color: #000;
   background-color: #fff;
   padding: 0;
@@ -119,11 +119,11 @@ body {
   gap: 1vw;
 }
 
-#recipe-action-button:hover {
+.recipe-action-button:hover {
   filter: brightness(120%);
 }
 
-#recipe-action-button:active {
+.recipe-action-button:active {
   background: none;
   filter: brightness(100%);
 }
