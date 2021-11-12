@@ -2,8 +2,6 @@
 name: lint
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
@@ -21,8 +19,8 @@ jobs:
 
       - name: Install Prettier
         run: npm install --save-dev --save-exact prettier
-      - name: Run Prettier on all files
-        run: npx prettier --config ./.prettierrc --write .
+      - name: Run Prettier formatting check on all files
+        run: npx prettier --config ./.prettierrc --check ./source
 
       - name: Install HTMLHint
         run: npm install --save-dev htmlhint
@@ -33,3 +31,8 @@ jobs:
         run: npm install --save-dev stylelint stylelint-config-standard
       - name: Run Stylelint on all CSS files
         run: npx stylelint --config ./.stylelintrc --allow-empty-input "**/*.css"
+
+      - name: Install JSHint
+        run: npm install --save-dev jshint
+      - name: Run JSHint on all JavaScript files
+        run: npx jshint --config ./.jshintrc ./source

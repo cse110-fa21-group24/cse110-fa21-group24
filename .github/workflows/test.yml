@@ -1,0 +1,23 @@
+# Runs tests on all merges into main branch
+name: test
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  run-all-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Jest
+        run: npm install --save-dev jest
+      - name: Run all JavaScript test files
+        run: npx jest --passWithNoTests
