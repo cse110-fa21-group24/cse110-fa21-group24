@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/cse110-fa21-group24/cse110-fa21-group24/issues"
   },
-  "homepage": "https://github.com/cse110-fa21-group24/cse110-fa21-group24#readme"
+  "homepage": "https://github.com/cse110-fa21-group24/cse110-fa21-group24#readme",
+  "devDependencies": {
+    "htmlhint": "^0.16.1",
+    "jest": "^27.3.1",
+    "jshint": "^2.13.1",
+    "prettier": "2.4.1",
+    "stylelint": "^14.0.1",
+    "stylelint-config-standard": "^23.0.0"
+  }
 }
