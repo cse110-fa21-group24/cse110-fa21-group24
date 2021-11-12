@@ -1,0 +1,19 @@
+{
+  "name": "cse110-sp21-group24",
+  "version": "1.0.0",
+  "description": "A website application that provides everything you need to effectively store and edit recipes.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cse110-fa21-group24/cse110-fa21-group24.git"
+  },
+  "author": "The Impastas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cse110-fa21-group24/cse110-fa21-group24/issues"
+  },
+  "homepage": "https://github.com/cse110-fa21-group24/cse110-fa21-group24#readme"
+}
