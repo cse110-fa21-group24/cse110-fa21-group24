@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  run-all-lints:
+  run-all-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GitHub repository
