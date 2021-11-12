@@ -20,4 +20,4 @@ jobs:
       - name: Install Jest
         run: npm install --save-dev jest
       - name: Run all JavaScript test files
-        run: npx jest
+        run: npx --passWithNoTests jest
