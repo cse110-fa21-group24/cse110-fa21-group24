@@ -19,8 +19,8 @@ jobs:
 
       - name: Install Prettier
         run: npm install --save-dev --save-exact prettier
-      - name: Run Prettier on all files
-        run: npx prettier --config ./.prettierrc --write ./source
+      - name: Run Prettier formatting check on all files
+        run: npx prettier --config ./.prettierrc --check ./source
 
       - name: Install HTMLHint
         run: npm install --save-dev htmlhint
