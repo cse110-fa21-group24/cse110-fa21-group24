@@ -1,0 +1,227 @@
+.edit_recipe {
+    color: #2d3436;
+    font-family:var(--font-family-inter);
+    font-size:var(--font-size-xxl);
+    text-align:center;
+    font-weight:800;
+    letter-spacing:-3.00px;
+    height:104px;
+    position:relative;
+    top: 150px;
+}
+
+input {
+    width: 100%;
+    height: 60%;
+    padding: 10px;
+    color: var(--black);
+    font-family: var(--font-family-inter);
+    font-size: 2vw;
+    font-style: normal;
+    font-weight: 500;
+    border: none;
+    border-color: transparent;
+}
+
+.title{
+    position: relative;
+    top:135px;
+    left:24%;
+    color: var(--black);
+    font-family: var(--font-family-inter);
+    font-size: 2.5vw;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.title-box {
+    top:95px;
+    left: 31%;
+    background-color: var(--white);
+    border-radius: 4px;
+    box-shadow: 0px 4px 16px #33333314 , 0px 4px 4px #3333330a;
+    display: block;
+    position:relative;
+    height: 45px;
+    width: 40%;
+}
+
+.description-box {
+    top:92px;
+    left: 31%;
+    background-color: var(--white);
+    border-radius: 4px;
+    box-shadow: 0px 4px 16px #33333314 , 0px 4px 4px #3333330a;
+    display: block;
+    position:relative;
+    height: 45px;
+    width: 40%;
+}
+
+.description {
+    position: relative;
+    top:130px;
+    left:16%;
+    color: var(--black);
+    font-family: var(--font-family-inter);
+    font-size: 2.5vw;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.ingredients {
+    position: relative;
+    top:130px;
+    left:16.2%;
+    color: var(--black);
+    font-family: var(--font-family-inter);
+    font-size: 2.5vw;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.ingredients-box {
+    top:92px;
+    left: 31%;
+    background-color: var(--white);
+    border-radius: 4px;
+    box-shadow: 0px 4px 16px #33333314 , 0px 4px 4px #3333330a;
+    display: block;
+    position:relative;
+    height: 45px;
+    width: 20%;
+}
+
+.recycle-bin-ingredients {
+    height: 2.5vw;
+    left: 56%;
+    position: relative;
+    top: 60px;
+    width: 2.5vw;
+  }
+
+  .wave{
+    height: 547px;
+    margin-bottom: -442.0px;
+    width: 100%;
+    object-position: 0px 200px;
+  }
+
+  .add-ingredient-button{
+    align-items: center;
+    background-color: #ba181b;
+    border-radius: 999px;
+    display: flex;
+    height: 20px;
+    left: 31%;
+    width: 15%;
+    padding: 0 16px;
+    position: relative;
+    top: 80px;
+  }
+
+  .add-ingredient-text {
+    color: var(--white);
+    font-family: var(--font-family-inter);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: 0.25px;
+    line-height: 36px;
+    text-shadow: 0px 4px 8px #26323814 , 0px 2px 4px #25313729;
+    width: 300px;
+    text-align: center;
+  }
+
+  .instructions {
+    position: relative;
+    top:110px;
+    left:16%;
+    color: var(--black);
+    font-family: var(--font-family-inter);
+    font-size: 2.5vw;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.instructions-box {
+    top:70px;
+    left:34%;
+    background-color: var(--white);
+    border-radius: 4px;
+    box-shadow: 0px 4px 16px #33333314 , 0px 4px 4px #3333330a;
+    display: block;
+    position:relative;
+    height: 45px;
+    width: 40%;
+}
+
+.numerate {
+    left: 30%;
+    letter-spacing: 5;
+    font-size: 2.5vw;
+    line-height: 32px;
+    position: relative;
+    top: 15px;
+    width: 182px;
+}
+
+  .add-instruction-button{
+    align-items: center;
+    background-color: #ba181b;
+    border-radius: 999px;
+    display: flex;
+    height: 20px;
+    left: 34%;
+    width: 15%;
+    padding: 0 16px;
+    position: relative;
+    top: 65px;
+  }
+
+  .add-instruction-text {
+    color: var(--white);
+    font-family: var(--font-family-inter);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: 0.25px;
+    line-height: 36px;
+    text-shadow: 0px 4px 8px #26323814 , 0px 2px 4px #25313729;
+    width: 300px;
+    text-align: center;
+  }
+
+.save-button {
+    align-items: center;
+    background-color: #ba181b;
+    border-radius: 999px;
+    display: flex;
+    height: 100px;
+    left: 38%;
+    width: 20%;
+    padding: 0 16px;
+    position: relative;
+    top: 150px;
+}
+
+.save-text {
+    color: var(--white);
+    font-family: var(--font-family-inter);
+    font-size: var(--font-size-l);
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    line-height: 36px;
+    text-shadow: 0px 4px 8px #26323814 , 0px 2px 4px #25313729;
+    width: 300px;
+    text-align: center;
+}
+
+.recycle-bin-instructions {
+    height: 2.5vw;
+    left: 79%;
+    position: relative;
+    top: 35px;
+    width: 2.5vw;
+  }
+
+
+
