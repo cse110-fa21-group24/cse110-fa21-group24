@@ -1,0 +1,110 @@
+@media (max-width: 420px) {
+  .filter-section {
+    display: none;
+  }
+
+  .display-section {
+    width: 100vw;
+  }
+}
+
+@media (min-width: 421px) {
+  .display-section {
+    width: 80vw;
+  }
+}
+
+main {
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  display: flex; /* Row alignment */
+  margin-top: 5%;
+  height: 80vh; /* Relative height */
+}
+
+.filter-section {
+  text-align: center;
+  background-color: #e7e4e6;
+  border-radius: 20px;
+  width: 20vw;
+}
+
+.filter-by-text {
+  font-size: min(30px, 3vw);
+}
+
+.filter-choice {
+  font-size: min(25px, 3vw);
+}
+
+.display-section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background-color: hsl(359deg 60% 75%);
+}
+
+.explore-title-text {
+  text-align: center; /* Title, search for text */
+  font-size: min(42px, 5vw);
+}
+
+/* Checkbox related */
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+input[type="checkbox"] {
+  width: min(30px, 4vw);
+  align-self: center;
+  height: min(30px, 4vh);
+  box-shadow: none;
+}
+
+label {
+  align-self: center;
+  margin-left: 3vw;
+  font-size: min(18px, 2vw);
+}
+
+/* END Checkbox Related */
+
+.load-button {
+  /* Details taken from Figma */
+  border: 1px solid #adadad;
+  border-radius: 16px;
+  box-sizing: border-box;
+  height: 5vh;
+  width: 146px;
+  font-family: Inter, sans-serif;
+  font-size: min(18px, 3vw);
+  font-weight: bold;
+}
+
+.load-button:hover {
+  background-color: #c9c7c7;
+}
+
+.load-button:active {
+  background-color: #979393;
+}
+
+/* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp */
+input {
+  border: 1px solid #000;
+  box-sizing: border-box;
+  box-shadow: 0 4px 4px rgba(0 0 0 / 25%);
+  border-radius: 10px;
+  font-size: 17px;
+  margin: 10px;
+  height: 36px;
+  width: 70%;
+  text-align: center;
+  background-image: url("/source/images/magnifyingglass.png");
+  background-repeat: no-repeat;
+  background-position: 30px;
+}
