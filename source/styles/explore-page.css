@@ -2,6 +2,7 @@
   .filter-section {
     display: none;
   }
+
   .display-section {
     width: 100vw;
   }
@@ -12,6 +13,7 @@
     width: 80vw;
   }
 }
+
 main {
   font-family: Inter, sans-serif;
   font-weight: bold;
@@ -40,7 +42,7 @@ main {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  background-color: hsl(359, 60%, 75%);
+  background-color: hsl(359deg 60% 75%);
 }
 
 .explore-title-text {
