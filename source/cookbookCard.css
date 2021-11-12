@@ -89,9 +89,11 @@ article {
     border-radius: 30px;
     margin-left: 4vw;
   }
+
   .edit-remove-container {
     column-gap: 70%;
   }
+  
   #edit {
     padding: 4%;
   }
