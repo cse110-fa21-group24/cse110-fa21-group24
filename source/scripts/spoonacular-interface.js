@@ -7,26 +7,28 @@ require("dotenv").config();
  *            the Spoonacular API at https://spoonacular.com/food-api
  */
 export class SpoonacularInterface {
-  async getRecipes(paramsObj) {
+  async getRecipes(filtersObj) {
     let requestUrl =
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
       process.env.SPOONACULAR_API_KEY +
       "&instructionsRequired=true";
 
-    for (const param in paramsObj) {
-      if (paramsObj.hasOwnProperty(param)) {
-        requestUrl += "&" + param + "=" + paramsObj[param];
+    for (const filter in filtersObj) {
+      if (filtersObj.hasOwnProperty(filter)) {
+        requestUrl += "&" + filter + "=" + filtersObj[filter];
       }
     }
 
     return this.makeRequest(requestUrl);
   }
 
-  async getRandomRecipes() {
+  async getRandomRecipes(numResults) {
     let requestUrl =
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
       process.env.SPOONACULAR_API_KEY +
-      "&instructionsRequired=true&sort=random";
+      "&instructionsRequired=true&sort=random" +
+      "&number=" +
+      numResults;
 
     return this.makeRequest(requestUrl);
   }
