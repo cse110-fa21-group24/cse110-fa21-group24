@@ -1,8 +1,0 @@
-{
-  "liveServer.settings.port": 5501,
-
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
-}
