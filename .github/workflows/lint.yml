@@ -25,12 +25,12 @@ jobs:
       - name: Install HTMLHint
         run: npm install --save-dev htmlhint
       - name: Run HTMLHint on all HTML files
-        run: npx htmlhint --config ./.htmlhintrc "**/*.html"
+        run: npx htmlhint --config ./.htmlhintrc "./source/**/*.html"
 
       - name: Install Stylelint
         run: npm install --save-dev stylelint stylelint-config-standard
       - name: Run Stylelint on all CSS files
-        run: npx stylelint --config ./.stylelintrc --allow-empty-input "**/*.css"
+        run: npx stylelint --config ./.stylelintrc --allow-empty-input "./source/**/*.css"
 
       - name: Install JSHint
         run: npm install --save-dev jshint
