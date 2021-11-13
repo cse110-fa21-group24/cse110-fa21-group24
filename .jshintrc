@@ -3,7 +3,7 @@
   "curly": true,
   "eqeqeq": true,
   "forin": true,
-  "futurehostile": true,
+  "futurehostile": false,
   "latedef": true,
   "leanswitch": true,
   "nonbsp": true,
@@ -12,8 +12,8 @@
   "shadow": false,
   "singleGroups": true,
   "strict": true,
-  "trailingcomma": true,
-  "undef": true,
+  "trailingcomma": false,
+  "undef": false,
   "unused": true,
   "varstmt": true
 }
