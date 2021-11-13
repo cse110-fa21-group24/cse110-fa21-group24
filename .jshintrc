@@ -1,0 +1,20 @@
+{
+  "bitwise": false,
+  "curly": true,
+  "eqeqeq": true,
+  "esversion": 9,
+  "forin": true,
+  "futurehostile": false,
+  "latedef": true,
+  "leanswitch": true,
+  "nonbsp": true,
+  "nonew": true,
+  "noreturnawait": false,
+  "shadow": false,
+  "singleGroups": true,
+  "strict": true,
+  "trailingcomma": false,
+  "undef": false,
+  "unused": true,
+  "varstmt": true
+}
