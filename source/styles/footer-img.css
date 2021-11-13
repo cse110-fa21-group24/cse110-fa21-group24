@@ -1,0 +1,14 @@
+@media (orientation: landscape) {
+  #footer-img {
+    width: 100vw;
+    max-height: 5vh;
+    position: fixed;
+    bottom: 0;
+  }
+}
+
+@media (orientation: portrait) {
+  #footer-img {
+    display: none;
+  }
+}

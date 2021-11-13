@@ -5,7 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Impasta Rosta</title>
+
+    <!-- Custom Components-->
+    <script src="/source/components/navbar.js" type="module"></script>
+    <script src="/source/components/footer-img.js" type="module"></script>
+
+    <!-- Main Stylesheet and Scripts -->
+    <link rel="stylesheet" href="/source/styles/index.css" />
+    <script src="/source/scripts/app.js" type="module"></script>
+    <script src="/source/scripts/router.js" type="module"></script>
   </head>
 
-  <body></body>
+  <body>
+    <!-- Templates -->
+    <template id="navbar-template">
+      <nav id="navbar">
+        <section id="navbar-section-left" class="navbar-section">
+          <button id="web-app-title">Impasta Rosta</button>
+        </section>
+        <section id="navbar-section-right" class="navbar-section">
+          <button class="navbar-tab">Home</button>
+          <p class="navbar-tab-divider">•</p>
+          <button class="navbar-tab">Explore</button>
+          <p class="navbar-tab-divider">•</p>
+          <button class="navbar-tab">My Cookbooks</button>
+        </section>
+      </nav>
+    </template>
+
+    <template id="footer-img-template">
+      <img id="footer-img" src="/source/images/wave.png" />
+    </template>
+  </body>
 </html>
