@@ -19,12 +19,24 @@ function createFooterImg() {
 }
 
 /**
+ * Creates the explore page and adds it to the document
+ * @function
+ */
+function createExplorePage() {
+  "use strict";
+  const explorePage = document.createElement("explore-page");
+  console.log(explorePage);
+  document.querySelector("body").append(explorePage);
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function
  */
 async function init() {
   "use strict";
   createNavbar();
+  createExplorePage();
   createFooterImg();
 }
 
