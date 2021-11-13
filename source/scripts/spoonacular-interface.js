@@ -17,7 +17,18 @@ export class SpoonacularInterface {
       }
     }
 
-    return this.makeRequest(requestUrl);
+    let responseData = await this.makeRequest(requestUrl);
+    let recipes = {};
+
+    for (let i = 0; i < responseData.results.length; ++i) {
+      recipes[i] = {
+        id: responseData.results[i].id,
+        title: responseData.results[i].title,
+        image: responseData.results[i].image,
+      };
+    }
+
+    return recipes;
   }
 
   async getRandomRecipes(numResults) {
@@ -28,7 +39,18 @@ export class SpoonacularInterface {
       "&number=" +
       numResults;
 
-    return this.makeRequest(requestUrl);
+    let responseData = await this.makeRequest(requestUrl);
+    let recipes = {};
+
+    for (let i = 0; i < responseData.results.length; ++i) {
+      recipes[i] = {
+        id: responseData.results[i].id,
+        title: responseData.results[i].title,
+        image: responseData.results[i].image,
+      };
+    }
+
+    return recipes;
   }
 
   async getRecipeInfo(id) {
@@ -38,12 +60,34 @@ export class SpoonacularInterface {
       "/information?apiKey=" +
       SPOONACULAR_API_KEY;
 
-    return this.makeRequest(requestUrl);
+    let recipe = await this.makeRequest(requestUrl);
+    let ingredients = [];
+
+    for (let i = 0; i < recipe.extendedIngredients.length; ++i) {
+      ingredients.push(recipe.extendedIngredients[i].original);
+    }
+
+    let instructions = [];
+
+    for (let i = 0; i < recipe.analyzedInstructions[0].steps.length; ++i) {
+      instructions.push(recipe.analyzedInstructions[0].steps[i].step);
+    }
+
+    return {
+      title: recipe.title,
+      author: recipe.creditsText,
+      cuisines: recipe.cuisines,
+      readyInMinutes: recipe.readyInMinutes,
+      image: recipe.image,
+      description: recipe.summary,
+      ingredients: ingredients,
+      instructions: instructions,
+    };
   }
 
   async makeRequest(requestUrl) {
-    const response = await fetch(requestUrl);
-    const data = await response.json();
+    let response = await fetch(requestUrl);
+    let data = await response.json();
     return data;
   }
 }
