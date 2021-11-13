@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impasta Rosta - Explore</title>
+
+    <!-- Navbar Custom Element -->
+    <!-- <script src="/source/scripts/Navbar.js" type="module"></script> -->
+
+    <!-- Main Stylesheet & Scripts -->
+    <link rel="stylesheet" href="/source/styles/home-page.css" />
+    <script src="/source/scripts/home-page.js" type="module"></script>
+  </head>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap"
+    rel="stylesheet"
+  />
+
+  <body>
+    <!-- Note: JS File inserts navbar between this comment and comment below -->
+
+    <!-- Main contains filter section with recipe cards -->
+    <main>
+      <!-- Search Box -->
+      <section class="search-section">
+        <div class="search-box">
+          <p class="search-title">Search for a Recipe</p>
+            <input type ="text" placeholder= "Search Recipes" />
+        </div>
+      </section>
+
+      <!-- Image Box -->
+      <section class ="image-section">
+        <img class ="pasta" src= "/source/images/Pasta.jpg" alt= "Pasta"/>
+      </section>
+
+      <!-- Display with search bar, food options -->
+      <section class="display-section">
+        <p>Featured Recipes</p>
+        <section class="recipe-cards-section"></section>
+
+        <!-- Explore button -->
+        <button class="explore-button">Explore</button>
+      </section>
+    </main>
+  </body>
+</html>

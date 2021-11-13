@@ -1,0 +1,92 @@
+body {
+  /*font-family: 'Tangerine', serif;*/
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: 4px 4px 4px #aaa;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.search-box {
+  background-color: #e78686;
+  text-align: center;
+  align-self: center;
+  height: 25vh;
+  width: 80vw;
+  box-sizing: border-box;
+  box-shadow: 0 8px 8px rgba(0 0 0 / 80%);
+}
+
+.search-title {
+  font-size: 7vh;
+  margin: 5px;
+}
+
+.image-section {
+  text-align: center;
+  height: 50px;
+}
+
+.pasta {
+  align-self: center;
+}
+
+.image-section {
+  justify-content: center;
+  height: 60vh;
+  margin-top: 6vh;
+}
+
+img {
+  width: min(75vw, 800px);
+  height: min(40vw, 500px);
+}
+
+.display-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 5vh;
+  align-items: center;
+  text-align: center; /*Title, search for text*/
+}
+
+.explore-button {
+  /*Details taken from Figma*/
+  background-color: #ba181b;
+  color: #ffffff;
+  font-size: 18px;
+  border: 1px solid #ba181b;
+  border-radius: 16px;
+  box-sizing: border-box;
+  height: 48px;
+  width: 146px;
+}
+
+/* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp*/
+input {
+  align-self: center;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  box-shadow: 0 4px 4px rgba(0 0 0 / 25%);
+  border-radius: 10px;
+  font-size: 17px;
+  margin: 10px;
+  height: 36px;
+  width: 70%;
+  text-align: center;
+  background-image: url("/source/images/magnifyingglass.png");
+  background-repeat: no-repeat;
+  background-position: 30px;
+}
