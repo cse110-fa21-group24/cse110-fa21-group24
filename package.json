@@ -4,7 +4,8 @@
   "description": "A website application that provides everything you need to effectively store and edit recipes.",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "create-docs": "jsdoc source -r -d docs"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "htmlhint": "^0.16.1",
     "jest": "^27.3.1",
+    "jsdoc": "^3.6.7",
     "jshint": "^2.13.1",
     "prettier": "2.4.1",
     "stylelint": "^14.0.1",
