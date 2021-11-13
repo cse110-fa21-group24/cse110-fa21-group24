@@ -25,10 +25,13 @@ export class Router {
       return;
     }
 
-    this.currentPage.classList.toggle("hidden");
-    if (page.classList.contains("hidden")) {
+    let pageElement = document.querySelector(page);
+    let currentElement = document.querySelector(this.currentPage);
+
+    currentElement.classList.toggle("hidden");
+    if (pageElement.classList.contains("hidden")) {
       this.currentPage = page;
-      page.classList.toggle("hidden");
+      pageElement.classList.toggle("hidden");
     }
   }
 }

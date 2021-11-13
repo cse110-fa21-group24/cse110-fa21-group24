@@ -1,5 +1,7 @@
 import { Router } from "./router.js";
 
+const router = new Router("footer-img"); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
+
 /**
  * Creates a navbar custom element and adds it to the document
  * @function
@@ -36,7 +38,7 @@ function createExplorePage() {
  * Attaches "click" event listeners to the buttons on the navbar
  * that navigate to the correct page when clicked.
  */
-function connectNavbarButtons(router) {
+function connectNavbarButtons() {
   "use strict";
   let navbar = document.querySelector("custom-navbar");
   let shadow = navbar.shadowRoot;
@@ -44,19 +46,19 @@ function connectNavbarButtons(router) {
   for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].textContent === "Home") {
       buttons[i].addEventListener("click", () => {
-        router.navigate(document.querySelector("footer-img")); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
+        router.navigate("footer-img"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
       });
     }
 
     if (buttons[i].textContent === "Explore") {
       buttons[i].addEventListener("click", () => {
-        router.navigate(document.querySelector("explore-page"));
+        router.navigate("explore-page");
       });
     }
 
     if (buttons[i].textContent === "My Cookbooks") {
       buttons[i].addEventListener("click", () => {
-        //TODO: router.navigate(document.querySelector("PUT YOUR COOKBOOK UI ELEMENT NAME HERE"));
+        //TODO: router.navigate("PUT YOUR COOKBOOK UI ELEMENT NAME HERE");
       });
     }
   }
@@ -71,11 +73,7 @@ async function init() {
   createNavbar();
   createExplorePage();
   createFooterImg();
-
-  //Create the router after all pages have been initialized!!!
-  const router = new Router(document.querySelector("footer-img")); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
-
-  connectNavbarButtons(router);
+  connectNavbarButtons();
 }
 
 window.addEventListener("DOMContentLoaded", init);
