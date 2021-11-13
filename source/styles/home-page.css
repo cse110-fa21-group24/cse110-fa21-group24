@@ -1,6 +1,6 @@
 body {
-  /*font-family: 'Tangerine', serif;*/
-  font-family: "Inter", sans-serif;
+  /* font-family: 'Tangerine', serif; */
+  font-family: Inter, sans-serif;
   font-weight: bold;
   font-size: 20px;
   text-shadow: 4px 4px 4px #aaa;
@@ -32,10 +32,9 @@ main {
   margin: 5px;
 }
 
-
 .image-section {
-  position:relative;
-  top:50px;
+  position: relative;
+  top: 50px;
   text-align: center;
   height: 50px;
 }
@@ -48,25 +47,25 @@ img {
 .featured-recipes {
   font-size: 5vw;
   position: relative;
-  top:20px;
+  top: 20px;
   text-align: center;
 }
 
 .explore-button {
-  /*Details taken from Figma*/
+  /* Details taken from Figma */
   background-color: #ba181b;
-  color: #ffffff;
+  color: #fff;
   font-size: 18px;
   border: 1px solid #ba181b;
   border-radius: 16px;
   box-sizing: border-box;
   height: 48px;
   width: 146px;
-  position:relative;
-  top:60px;
+  position: relative;
+  top: 60px;
 }
 
-/* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp*/
+/* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp */
 input {
   align-self: center;
   border: 1px solid #000;
