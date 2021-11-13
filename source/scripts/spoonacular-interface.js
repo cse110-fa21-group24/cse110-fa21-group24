@@ -1,6 +1,4 @@
-/* jshint ignore:start */
-require("dotenv").config();
-/* jshint ignore:end */
+const SPOONACULAR_API_KEY = "83c84ad2b0e4486f93cfbe9658d21c66";
 
 /**
  * @classdesc An interface for fetching recipes and recipe information using
@@ -10,7 +8,7 @@ export class SpoonacularInterface {
   async getRecipes(filtersObj) {
     let requestUrl =
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
-      process.env.SPOONACULAR_API_KEY +
+      SPOONACULAR_API_KEY +
       "&instructionsRequired=true";
 
     for (const filter in filtersObj) {
@@ -25,7 +23,7 @@ export class SpoonacularInterface {
   async getRandomRecipes(numResults) {
     let requestUrl =
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
-      process.env.SPOONACULAR_API_KEY +
+      SPOONACULAR_API_KEY +
       "&instructionsRequired=true&sort=random" +
       "&number=" +
       numResults;
@@ -38,7 +36,7 @@ export class SpoonacularInterface {
       "https://api.spoonacular.com/recipes/" +
       id +
       "/information?apiKey=" +
-      process.env.SPOONACULAR_API_KEY;
+      SPOONACULAR_API_KEY;
 
     return this.makeRequest(requestUrl);
   }

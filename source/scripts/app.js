@@ -1,3 +1,7 @@
+import { SpoonacularInterface } from "./spoonacular-interface.js";
+
+const spoonacular = new SpoonacularInterface();
+
 /**
  * Creates a navbar custom element and adds it to the document
  * @function
@@ -26,6 +30,13 @@ async function init() {
   "use strict";
   createNavbar();
   createFooterImg();
+
+  let filters = {
+    cuisine: "italian",
+    number: 2,
+  };
+  let responseData = await spoonacular.getRecipes(filters);
+  console.log(responseData);
 }
 
 window.addEventListener("DOMContentLoaded", init);
