@@ -3,25 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="style-delete.css" />
-    <title>Notification Delete Popup</title>
+    <link rel="stylesheet" href="style-select-cookbook.css" />
+    <title>Notification Select Cookbook Popup</title>
   </head>
   <body>
-    <h1>Notification Delete Popup</h1>
+    <h1>Notification Select Cookbook Popup</h1>
     <p>
-      The button displayed below will be seen when the user deletes a recipe
-      from their cookbook.
+      The button displayed below will be the button that will be seen to add a
+      recipe to a cookbook.
     </p>
 
-    <button class="addButton" id="addButton">Remove</button>
+    <button class="addButton" id="addButton">Add</button>
 
     <!--Notification Popup Contents-->
     <div class="notification" id="notification">
       <button class="close" id="close">X</button>
       <div class="contents" id="contents">
-        <p>Recipe Removed!</p>
-        <button class="secondaryButton">Return To Cookbook</button>
+        <p>Select Cookbook</p>
+        <div class="dropdown">
+          <select name="cookbooks" id="cookbooks">
+            <option value="none">Cookbook Name</option>
+            <option value="cookbook1">Cookbook 1</option>
+            <option value="cookbook2">Cookbook 2</option>
+            <option value="cookbook3">Cookbook 3</option>
+            <option value="cookbook4">Cookbook 4</option>
+            <option value="cookbook5">Cookbook 5</option>
+          </select>
+        </div>
       </div>
+      <button class="secondaryButton">Add</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
