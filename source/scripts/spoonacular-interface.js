@@ -5,6 +5,14 @@ const SPOONACULAR_API_KEY = "83c84ad2b0e4486f93cfbe9658d21c66";
  *            the Spoonacular API at https://spoonacular.com/food-api
  */
 export class SpoonacularInterface {
+  /**
+   * Retrieves the ID, title, and image of several recipes
+   * @param {object} filtersObj An object containing queries where keys
+   *                            represent the query and key values represent
+   *                            the query value
+   * @returns An object containing multiple smaller objects which contain an ID
+   *          title, and image for each retrieved recipe
+   */
   async getRecipes(filtersObj) {
     let requestUrl =
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
@@ -31,6 +39,12 @@ export class SpoonacularInterface {
     return recipes;
   }
 
+  /**
+   * Retrieves the ID, title, and image of multiple random recipes
+   * @param {number} numResults The number of recipes to retrieve
+   * @returns An object containing multiple smaller objects which contain an ID
+   *          title, and image for each retrieved recipe
+   */
   async getRandomRecipes(numResults) {
     let requestUrl =
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
@@ -53,6 +67,11 @@ export class SpoonacularInterface {
     return recipes;
   }
 
+  /**
+   * Retrieves detailed information about a recipe
+   * @param {number} id The ID of the recipe to parse information from
+   * @returns An object containing several properties of the recipe
+   */
   async getRecipeInfo(id) {
     let requestUrl =
       "https://api.spoonacular.com/recipes/" +
@@ -85,6 +104,11 @@ export class SpoonacularInterface {
     };
   }
 
+  /**
+   * An internal function that makes API calls
+   * @param {string} requestUrl The url to fetch from
+   * @returns The data parsed from the response
+   */
   async makeRequest(requestUrl) {
     let response = await fetch(requestUrl);
     let data = await response.json();
