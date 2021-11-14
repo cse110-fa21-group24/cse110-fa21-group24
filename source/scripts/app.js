@@ -19,12 +19,24 @@ function createFooterImg() {
 }
 
 /**
+ * Creates a wave custom element and adds it to the document
+ * @function
+ */
+function createCreateCookbook() {
+  "use strict";
+  const createCookbook = document.createElement("create-cookbook");
+  createCookbook.classList.toggle("hidden");
+  document.querySelector("body").append(createCookbook);
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function
  */
 async function init() {
   "use strict";
   createNavbar();
+  createCreateCookbook();
   createFooterImg();
 }
 
