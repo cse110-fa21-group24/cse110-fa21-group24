@@ -26,6 +26,29 @@ function createFooterImg() {
  * Creates a recipe form element and adds it to the document
  * @function
  */
+function createCookbook() {
+  "use strict";
+  const cookbook = document.createElement("cook-book");
+  cookbook.classList.toggle("hidden");
+  document.querySelector("body").append(cookbook);
+}
+
+/**
+ * Creates a recipe form element and adds it to the document
+ * @function
+ */
+function createCookbookCard() {
+  "use strict";
+  const cards = document
+    .querySelector("cook-book")
+    .shadowRoot.getElementById("cards");
+  for (let i = 0; i < 4; i++) {
+    const cookbookCard = document.createElement("cookbook-card");
+    cookbookCard.classList.toggle("hidden");
+    cards.append(cookbookCard);
+  }
+}
+
 function createRecipeForm() {
   "use strict";
   const recipeForm = document.createElement("recipe-form");
@@ -102,7 +125,13 @@ async function init() {
   createCreateCookbook();
   createExplorePage();
   createFooterImg();
+  createRecipeForm();
+  createCreateCookbook();
+  createExplorePage();
+  createFooterImg();
   connectNavbarButtons();
+  createCookbook();
+  createCookbookCard();
 }
 
 window.addEventListener("DOMContentLoaded", init);

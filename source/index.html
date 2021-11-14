@@ -9,6 +9,8 @@
     <!-- Custom Components-->
     <script src="/source/components/navbar.js" type="module"></script>
     <script src="/source/components/footer-img.js" type="module"></script>
+    <script src="/source/components/cook-book.js" type="module"></script>
+    <script src="/source/components/cookbook-card.js" type="module"></script>
     <script src="/source/components/recipe-form.js" type="module"></script>
     <script src="/source/components/create-cookbook.js" type="module"></script>
     <script src="components/explore-page.js" type="module"></script>
@@ -34,6 +36,52 @@
           <button class="navbar-tab">My Cookbooks</button>
         </section>
       </nav>
+    </template>
+
+    <template id="cook-book-template">
+      <nav id="cookbook">
+        <div class="title-container">
+          <h1 class="title">My Cookbooks</h1>
+        </div>
+        <div class="cookbook-card-container" id="cards"></div>
+        <div class="add-button">
+          <button></button>
+          <span id="button-name">Create New Cookbook</span>
+        </div>
+      </nav>
+    </template>
+
+    <template id="cookbook-card-template">
+      <article>
+        <div class="edit-remove-container">
+          <button id="edit">
+            <input
+              type="image"
+              src="images/icons8-edit-24.png"
+              name="edit-image"
+            />
+          </button>
+          <button id="remove">
+            <input
+              type="image"
+              src="images/icons8-remove-24.png"
+              name="remove-image"
+            />
+          </button>
+        </div>
+        <div class="title-container">
+          <p class="title">Title</p>
+        </div>
+
+        <p class="description">Description</p>
+        <p class="detailed-description">
+          This is my first cookbook! Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit...
+        </p>
+        <div class="open-button-container">
+          <button id="open">Open</button>
+        </div>
+      </article>
     </template>
 
     <template id="recipe-form-template">
@@ -83,6 +131,7 @@
         </div>
       </body>
     </template>
+
     <template id="create-cookbook-template">
       <div>
         <!-- title -->
