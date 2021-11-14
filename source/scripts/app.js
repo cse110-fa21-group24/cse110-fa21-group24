@@ -19,12 +19,24 @@ function createFooterImg() {
 }
 
 /**
+ * Creates a recipe form element and adds it to the document
+ * @function
+ */
+function createRecipeForm() {
+  "use strict";
+  const recipeForm = document.createElement("recipe-form");
+  // recipeForm.classList.toggle("hidden");
+  document.querySelector("body").append(recipeForm);
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function
  */
 async function init() {
   "use strict";
   createNavbar();
+  createRecipeForm();
   createFooterImg();
 }
 
