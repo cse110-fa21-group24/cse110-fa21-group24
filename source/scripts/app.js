@@ -80,6 +80,18 @@ function createExplorePage() {
 }
 
 /**
+ * Creates the recipe page and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
+function createRecipePage() {
+  "use strict";
+  const recipePage = document.createElement("recipe-page");
+  recipePage.classList.toggle("hidden");
+  document.querySelector("body").append(recipePage);
+}
+
+/**
  * Attaches "click" event listeners to the buttons on the navbar
  * that navigate to the correct page when clicked.
  */
@@ -122,6 +134,7 @@ async function init() {
   "use strict";
   createNavbar();
   createRecipeForm();
+  createRecipePage();
   createCreateCookbook();
   createExplorePage();
   createFooterImg();

@@ -13,7 +13,8 @@
     <script src="/source/components/cookbook-card.js" type="module"></script>
     <script src="/source/components/recipe-form.js" type="module"></script>
     <script src="/source/components/create-cookbook.js" type="module"></script>
-    <script src="components/explore-page.js" type="module"></script>
+    <script src="/source/components/explore-page.js" type="module"></script>
+    <script src="/source/components/recipe-page.js" type="module"></script>
 
     <!-- Main Stylesheet and Scripts -->
     <link rel="stylesheet" href="/source/styles/index.css" />
@@ -210,6 +211,64 @@
           <button type="button" class="load-button">Load More</button>
         </section>
       </main>
+    </template>
+
+    <template id="recipe-page-template">
+      <div id="recipe-container">
+        <!-- Recipe Header -->
+        <div id="recipe-header">
+          <h1 id="recipe-name">Recipe Name</h1>
+          <p id="recipe-author">Recipe by: Author</p>
+        </div>
+
+        <!-- Recipe Subheader -->
+        <div id="recipe-subheader">
+          <div id="recipe-tags">
+            <p class="recipe-tag-info">Cuisine: Italian</p>
+            <p class="recipe-tag-info">Ready In: x min</p>
+          </div>
+          <div id="recipe-action">
+            <button id="recipe-action-button" type="button">
+              <div id="recipe-action-image-outline">
+                <div id="recipe-action-image-content"></div>
+              </div>
+              <p id="recipe-action-text">Add to cookbook</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Recipe Image -->
+        <div id="recipe-image-container">
+          <img id="recipe-image" src="pasta.jpg" alt="Picture of Recipe" />
+        </div>
+
+        <!-- Recipe Description -->
+        <h2 class="recipe-section-header">Description</h2>
+        <p id="recipe-description">Description</p>
+
+        <hr class="recipe-horizontal-rule" />
+
+        <!-- Recipe Ingredients -->
+        <h2 class="recipe-section-header">Ingredients</h2>
+        <div id="recipe-ingredients-container">
+          <section id="recipe-ingredients-section-left">
+            <li class="ingredient-item">Lorem</li>
+          </section>
+          <section id="recipe-ingredients-section-right">
+            <li class="ingredient-item">Sit</li>
+          </section>
+        </div>
+
+        <hr class="recipe-horizontal-rule" />
+
+        <!-- Recipe Instructions -->
+        <h2 class="recipe-section-header">Instructions</h2>
+        <ol id="instructions-list">
+          <li class="instruction-item">Lorem</li>
+        </ol>
+
+        <hr class="recipe-horizontal-rule" />
+      </div>
     </template>
 
     <template id="footer-img-template">
