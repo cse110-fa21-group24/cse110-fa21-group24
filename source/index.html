@@ -9,6 +9,10 @@
     <!-- Custom Components-->
     <script src="/source/components/navbar.js" type="module"></script>
     <script src="/source/components/footer-img.js" type="module"></script>
+    <script src="/source/components/cook-book.js" type="module"></script>
+    <script src="/source/components/cookbook-card.js" type="module"></script>
+    <script src="/source/components/recipe-form.js" type="module"></script>
+    <script src="/source/components/create-cookbook.js" type="module"></script>
     <script src="components/explore-page.js" type="module"></script>
 
     <!-- Main Stylesheet and Scripts -->
@@ -32,6 +36,131 @@
           <button class="navbar-tab">My Cookbooks</button>
         </section>
       </nav>
+    </template>
+
+    <template id="cook-book-template">
+      <nav id="cookbook">
+        <div class="title-container">
+          <h1 class="title">My Cookbooks</h1>
+        </div>
+        <div class="cookbook-card-container" id="cards"></div>
+        <div class="add-button">
+          <button></button>
+          <span id="button-name">Create New Cookbook</span>
+        </div>
+      </nav>
+    </template>
+
+    <template id="cookbook-card-template">
+      <article>
+        <div class="edit-remove-container">
+          <button id="edit">
+            <input
+              type="image"
+              src="images/icons8-edit-24.png"
+              name="edit-image"
+            />
+          </button>
+          <button id="remove">
+            <input
+              type="image"
+              src="images/icons8-remove-24.png"
+              name="remove-image"
+            />
+          </button>
+        </div>
+        <div class="title-container">
+          <p class="title">Title</p>
+        </div>
+
+        <p class="description">Description</p>
+        <p class="detailed-description">
+          This is my first cookbook! Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit...
+        </p>
+        <div class="open-button-container">
+          <button id="open">Open</button>
+        </div>
+      </article>
+    </template>
+
+    <template id="recipe-form-template">
+      <body>
+        <div class="edit-recipe">Edit Recipe</div>
+        <div class="title">Title:</div>
+        <div class="title-box">
+          <input />
+        </div>
+        <div class="description">Description:</div>
+        <div class="description-box">
+          <input />
+        </div>
+        <div class="ingredients">Ingredients:</div>
+        <div class="ingredients-box">
+          <input />
+        </div>
+        <img
+          class="recycle-bin-ingredients"
+          src="/source/images/recycle-bin-4@2x.png"
+        />
+
+        <div class="add-ingredient-button">
+          <div class="add-ingredient-text valign-text-middle">
+            + Add Ingredient
+          </div>
+        </div>
+
+        <div class="instructions">Instructions: 1.</div>
+        <div class="instructions-box">
+          <input />
+        </div>
+
+        <img
+          class="recycle-bin-instructions"
+          src="/source/images/recycle-bin-4@2x.png"
+        />
+
+        <div class="add-instruction-button">
+          <div class="add-instruction-text valign-text-middle">
+            + Add Instruction
+          </div>
+        </div>
+
+        <div class="save-button">
+          <div class="save-text valign-text-middle">Save changes</div>
+        </div>
+      </body>
+    </template>
+
+    <template id="create-cookbook-template">
+      <div>
+        <!-- title -->
+        <div class="title-container">
+          <h1 class="title">Create Cookbook</h1>
+        </div>
+
+        <!-- title/description input -->
+        <div class="input-container">
+          <div>
+            <label>Title: </label>
+            <input placeholder="Title" />
+          </div>
+          <div>
+            <label>Description: </label>
+            <input placeholder="Description" />
+          </div>
+        </div>
+
+        <!-- cancel button -->
+        <div id="cancel-button-container">
+          <button id="cancel-button">Cancel</button>
+        </div>
+
+        <!-- save button-->
+        <div class="save-button">
+          <button>Create Cookbook</button>
+        </div>
+      </div>
     </template>
 
     <template id="explore-page-template">
