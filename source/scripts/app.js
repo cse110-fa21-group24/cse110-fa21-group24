@@ -40,10 +40,15 @@ function createExplorePage() {
  */
 function connectNavbarButtons() {
   "use strict";
+
+  //Get references to buttons in shadowRoot
   let navbar = document.querySelector("custom-navbar");
   let shadow = navbar.shadowRoot;
   let buttons = shadow.querySelectorAll("button.navbar-tab");
+
+  //Loop through buttons and establish click listeners on each button
   for (let i = 0; i < buttons.length; i++) {
+    //Use if statements to check for name for easy style changes in the future
     if (buttons[i].textContent === "Home") {
       buttons[i].addEventListener("click", () => {
         router.navigate("footer-img"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
@@ -52,7 +57,7 @@ function connectNavbarButtons() {
 
     if (buttons[i].textContent === "Explore") {
       buttons[i].addEventListener("click", () => {
-        router.navigate("explore-page");
+        router.navigate("explore-page"); // Navigate to explore page
       });
     }
 
