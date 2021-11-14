@@ -19,6 +19,17 @@ function createFooterImg() {
 }
 
 /**
+ * Creates a recipe form element and adds it to the document
+ * @function
+ */
+function createCookbook() {
+  "use strict";
+  const cookbook = document.createElement("cook-book");
+  cookbook.classList.toggle("hidden");
+  document.querySelector("body").append(cookbook);
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function
  */
@@ -26,6 +37,7 @@ async function init() {
   "use strict";
   createNavbar();
   createFooterImg();
+  createCookbook();
 }
 
 window.addEventListener("DOMContentLoaded", init);
