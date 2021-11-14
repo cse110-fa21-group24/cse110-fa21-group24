@@ -1,6 +1,7 @@
 /**
- * @classdesc A navbar custom element which contains Home, Explore, and My
- *            Cookbooks navigation buttons
+ * @classdesc A component for the explore page where users can view
+ *            random recipes or recipes they search for.
+ *
  */
 class ExplorePage extends HTMLElement {
   constructor() {
