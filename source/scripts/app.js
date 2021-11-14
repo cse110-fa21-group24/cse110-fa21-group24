@@ -30,6 +30,22 @@ function createCookbook() {
 }
 
 /**
+ * Creates a recipe form element and adds it to the document
+ * @function
+ */
+function createCookbookCard() {
+  "use strict";
+  const cards = document
+    .querySelector("cook-book")
+    .shadowRoot.getElementById("cards");
+  for (let i = 0; i < 4; i++) {
+    const cookbookCard = document.createElement("cookbook-card");
+    cookbookCard.classList.toggle("hidden");
+    cards.append(cookbookCard);
+  }
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function
  */
@@ -38,6 +54,7 @@ async function init() {
   createNavbar();
   createFooterImg();
   createCookbook();
+  createCookbookCard();
 }
 
 window.addEventListener("DOMContentLoaded", init);
