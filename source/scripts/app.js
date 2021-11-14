@@ -23,6 +23,17 @@ function createFooterImg() {
 }
 
 /**
+ * Creates a form for creating a new cookbook and adds it to the document
+ * @function
+ */
+function createCreateCookbook() {
+  "use strict";
+  const createCookbook = document.createElement("create-cookbook");
+  createCookbook.classList.toggle("hidden");
+  document.querySelector("body").append(createCookbook);
+}
+
+/**
  * Creates the explore page and adds it to the document. This
  * page starts off hidden.
  * @function
@@ -76,6 +87,7 @@ function connectNavbarButtons() {
 async function init() {
   "use strict";
   createNavbar();
+  createCreateCookbook();
   createExplorePage();
   createFooterImg();
   connectNavbarButtons();
