@@ -17,6 +17,12 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Install Babel-Jest
+        run: npm install --save-dev babel-jest
+
+      - name: Install Babel preset
+        run: npm install @babel/preset-env --save-dev
+
       - name: Install Jest
         run: npm install --save-dev jest
       - name: Run all JavaScript test files
