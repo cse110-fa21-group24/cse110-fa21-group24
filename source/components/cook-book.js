@@ -31,7 +31,7 @@ class cookbook extends HTMLElement {
       font-weight: 800;
     }
     
-    .recipe-container {
+    .cookbook-card-container {
       height: auto;
       display: flex;
       flex-wrap: wrap;
@@ -39,7 +39,7 @@ class cookbook extends HTMLElement {
       align-items: center;
     }
     
-    .recipe-cards {
+    .cookbook-cards {
       display: flex;
       background-color: #e5383b;
     }
@@ -102,7 +102,7 @@ class cookbook extends HTMLElement {
         line-height: 104px;
       }
     
-      .recipe-container {
+      .cookbook-card-container {
         column-gap: 2vw;
         width: 100%;
         flex-direction: row;
@@ -111,7 +111,7 @@ class cookbook extends HTMLElement {
         
       }
     
-      .recipe-cards {
+      .cookbook-cards {
         width: 285px;
         height: 339px;
         border-radius: 10%;
@@ -163,7 +163,7 @@ class cookbook extends HTMLElement {
         line-height: 20vw;
       }
     
-      .recipe-container {
+      .cookbook-card-container {
         width: 100%;
         flex-direction: column;
         row-gap: 4vw;
@@ -171,7 +171,7 @@ class cookbook extends HTMLElement {
         margin-bottom: 2vw;
       }
     
-      .recipe-cards {
+      .cookbook-cards {
         width: 90%;
         height: 300px;
         border-radius: 30px;
@@ -217,9 +217,9 @@ class cookbook extends HTMLElement {
     title.setAttribute("class", "title");
     title.textContent = "My Cookbooks";
     titleSection.appendChild(title);
-    const recipesection = document.createElement("div");
-    recipesection.setAttribute("class", "recipe-container");
-    recipesection.id = "recipes";
+    const cardsection = document.createElement("div");
+    cardsection.setAttribute("class", "cookbook-card-container");
+    cardsection.id = "cards";
     const addButton = document.createElement("div");
     addButton.setAttribute("class", "add-button");
     const button = document.createElement("button");
@@ -230,7 +230,7 @@ class cookbook extends HTMLElement {
     addButton.appendChild(buttonName);
 
     cookbook.appendChild(titleSection);
-    cookbook.appendChild(recipesection);
+    cookbook.appendChild(cardsection);
     cookbook.appendChild(addButton);
 
     this.shadowRoot.append(styleElem, cookbook);
