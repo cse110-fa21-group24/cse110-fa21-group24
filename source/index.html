@@ -15,6 +15,10 @@
     <script src="/source/components/create-cookbook.js" type="module"></script>
     <script src="/source/components/explore-page.js" type="module"></script>
     <script src="/source/components/recipe-page.js" type="module"></script>
+    <script
+      src="/source/components/notification-recipe-added.js"
+      type="module"
+    ></script>
 
     <!-- Main Stylesheet and Scripts -->
     <link rel="stylesheet" href="/source/styles/index.css" />
@@ -272,6 +276,17 @@
         </ol>
 
         <hr class="recipe-horizontal-rule" />
+      </div>
+    </template>
+
+    <template id="notification-recipe-added-template">
+      <div class="notification" id="notification">
+        <button class="close" id="close">X</button>
+        <div class="contents" id="contents">
+          <i class="fa fa-check"></i>
+          <p>Recipe Added!</p>
+          <button class="secondary-button">Return To Recipes</button>
+        </div>
       </div>
     </template>
 

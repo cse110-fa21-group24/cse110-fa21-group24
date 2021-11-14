@@ -92,6 +92,18 @@ function createRecipePage() {
 }
 
 /**
+ * Creates the recipe added notification and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
+function createNotificationRecipeAdded() {
+  "use strict";
+  const notification = document.createElement("notification-recipe-added");
+  notification.classList.toggle("hidden");
+  document.querySelector("body").append(notification);
+}
+
+/**
  * Attaches "click" event listeners to the buttons on the navbar
  * that navigate to the correct page when clicked.
  */
@@ -141,6 +153,7 @@ async function init() {
   connectNavbarButtons();
   createCookbook();
   createCookbookCard();
+  createNotificationRecipeAdded();
 }
 
 window.addEventListener("DOMContentLoaded", init);
