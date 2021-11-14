@@ -9,6 +9,7 @@
     <!-- Custom Components-->
     <script src="/source/components/navbar.js" type="module"></script>
     <script src="/source/components/footer-img.js" type="module"></script>
+    <script src="/source/components/create-cookbook.js" type="module"></script>
     <script src="components/explore-page.js" type="module"></script>
 
     <!-- Main Stylesheet and Scripts -->
@@ -32,6 +33,37 @@
           <button class="navbar-tab">My Cookbooks</button>
         </section>
       </nav>
+    </template>
+
+    <template id="create-cookbook-template">
+      <div>
+        <!-- title -->
+        <div class="title-container">
+          <h1 class="title">Create Cookbook</h1>
+        </div>
+
+        <!-- title/description input -->
+        <div class="input-container">
+          <div>
+            <label>Title: </label>
+            <input placeholder="Title" />
+          </div>
+          <div>
+            <label>Description: </label>
+            <input placeholder="Description" />
+          </div>
+        </div>
+
+        <!-- cancel button -->
+        <div id="cancel-button-container">
+          <button id="cancel-button">Cancel</button>
+        </div>
+
+        <!-- save button-->
+        <div class="save-button">
+          <button>Create Cookbook</button>
+        </div>
+      </div>
     </template>
 
     <template id="explore-page-template">
