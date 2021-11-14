@@ -1,3 +1,7 @@
+import { Router } from "./router.js";
+
+const router = new Router("create-cookbook"); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
+
 /**
  * Creates a navbar custom element and adds it to the document
  * @function
@@ -109,6 +113,7 @@ function connectNavbarButtons() {
     }
   }
 }
+
 /**
  * Runs initial setup functions when the page first loads
  * @function
@@ -116,6 +121,9 @@ function connectNavbarButtons() {
 async function init() {
   "use strict";
   createNavbar();
+  createRecipeForm();
+  createCreateCookbook();
+  createExplorePage();
   createFooterImg();
   createRecipeForm();
   createCreateCookbook();
