@@ -125,10 +125,6 @@ async function init() {
   createCreateCookbook();
   createExplorePage();
   createFooterImg();
-  createRecipeForm();
-  createCreateCookbook();
-  createExplorePage();
-  createFooterImg();
   connectNavbarButtons();
   createCookbook();
   createCookbookCard();
