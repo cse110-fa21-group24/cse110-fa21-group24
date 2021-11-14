@@ -92,6 +92,42 @@ function createRecipePage() {
 }
 
 /**
+ * Creates the recipe added notification and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
+function createNotificationRecipeAdded() {
+  "use strict";
+  const notification = document.createElement("notification-recipe-added");
+  notification.classList.toggle("hidden");
+  document.querySelector("body").append(notification);
+}
+
+/**
+ * Creates the recipe deleted notification and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
+function createNotificationRecipeDeleted() {
+  "use strict";
+  const notification = document.createElement("notification-recipe-deleted");
+  notification.classList.toggle("hidden");
+  document.querySelector("body").append(notification);
+}
+
+/**
+ * Creates the select cookbook notification and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
+function createNotificationSelectCookbook() {
+  "use strict";
+  const notification = document.createElement("notification-select-cookbook");
+  notification.classList.toggle("hidden");
+  document.querySelector("body").append(notification);
+}
+
+/**
  * Attaches "click" event listeners to the buttons on the navbar
  * that navigate to the correct page when clicked.
  */
@@ -141,6 +177,9 @@ async function init() {
   connectNavbarButtons();
   createCookbook();
   createCookbookCard();
+  createNotificationRecipeAdded();
+  createNotificationRecipeDeleted();
+  createNotificationSelectCookbook();
 }
 
 window.addEventListener("DOMContentLoaded", init);
