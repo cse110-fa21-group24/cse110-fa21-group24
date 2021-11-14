@@ -9,6 +9,7 @@
     <!-- Custom Components-->
     <script src="/source/components/navbar.js" type="module"></script>
     <script src="/source/components/footer-img.js" type="module"></script>
+    <script src="/source/components/recipe-form.js" type="module"></script>
     <script src="/source/components/create-cookbook.js" type="module"></script>
     <script src="components/explore-page.js" type="module"></script>
 
@@ -35,6 +36,53 @@
       </nav>
     </template>
 
+    <template id="recipe-form-template">
+      <body>
+        <div class="edit-recipe">Edit Recipe</div>
+        <div class="title">Title:</div>
+        <div class="title-box">
+          <input />
+        </div>
+        <div class="description">Description:</div>
+        <div class="description-box">
+          <input />
+        </div>
+        <div class="ingredients">Ingredients:</div>
+        <div class="ingredients-box">
+          <input />
+        </div>
+        <img
+          class="recycle-bin-ingredients"
+          src="/source/images/recycle-bin-4@2x.png"
+        />
+
+        <div class="add-ingredient-button">
+          <div class="add-ingredient-text valign-text-middle">
+            + Add Ingredient
+          </div>
+        </div>
+
+        <div class="instructions">Instructions: 1.</div>
+        <div class="instructions-box">
+          <input />
+        </div>
+
+        <img
+          class="recycle-bin-instructions"
+          src="/source/images/recycle-bin-4@2x.png"
+        />
+
+        <div class="add-instruction-button">
+          <div class="add-instruction-text valign-text-middle">
+            + Add Instruction
+          </div>
+        </div>
+
+        <div class="save-button">
+          <div class="save-text valign-text-middle">Save changes</div>
+        </div>
+      </body>
+    </template>
     <template id="create-cookbook-template">
       <div>
         <!-- title -->

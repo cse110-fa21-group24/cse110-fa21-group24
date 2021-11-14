@@ -1,6 +1,6 @@
 import { Router } from "./router.js";
 
-const router = new Router("footer-img"); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
+const router = new Router("create-cookbook"); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
 
 /**
  * Creates a navbar custom element and adds it to the document
@@ -23,13 +23,24 @@ function createFooterImg() {
 }
 
 /**
+ * Creates a recipe form element and adds it to the document
+ * @function
+ */
+function createRecipeForm() {
+  "use strict";
+  const recipeForm = document.createElement("recipe-form");
+  recipeForm.classList.toggle("hidden");
+  document.querySelector("body").append(recipeForm);
+}
+
+/**
  * Creates a form for creating a new cookbook and adds it to the document
  * @function
  */
 function createCreateCookbook() {
   "use strict";
   const createCookbook = document.createElement("create-cookbook");
-  createCookbook.classList.toggle("hidden");
+  // createCookbook.classList.toggle("hidden"); //TODO: UNCOMMENT WHEN HOME WIRED IN
   document.querySelector("body").append(createCookbook);
 }
 
@@ -62,7 +73,7 @@ function connectNavbarButtons() {
     //Use if statements to check for name for easy style changes in the future
     if (buttons[i].textContent === "Home") {
       buttons[i].addEventListener("click", () => {
-        router.navigate("footer-img"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
+        router.navigate("create-cookbook"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
       });
     }
 
@@ -87,6 +98,7 @@ function connectNavbarButtons() {
 async function init() {
   "use strict";
   createNavbar();
+  createRecipeForm();
   createCreateCookbook();
   createExplorePage();
   createFooterImg();
