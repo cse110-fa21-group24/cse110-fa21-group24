@@ -1,47 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="style-delete.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="style-delete.css" />
     <title>Notification Delete Popup</title>
-</head>
-<body>
-    <h1>Notification Delete Popup</h1> 
-    <p>The button displayed below will be seen when the user deletes a recipe from their cookbook.</p>
+  </head>
+  <body>
+    <h1>Notification Delete Popup</h1>
+    <p>
+      The button displayed below will be seen when the user deletes a recipe
+      from their cookbook.
+    </p>
 
     <button class="addButton" id="addButton">Remove</button>
 
     <!--Used to give a dark background when notification comes up-->
-    <div class="overlay" id="overlay" style="display: none;"></div>
+    <div class="overlay" id="overlay" style="display: none"></div>
     <!--Notification Popup Contents-->
     <div class="notification" id="notification">
-        <button class="close" id="close">X</button>
-        <div class="contents" id="contents">
-            <p>Recipe Removed!</p>
-            <button class="secondaryButton">Return To Cookbook</button>
-        </div>
+      <button class="close" id="close">X</button>
+      <div class="contents" id="contents">
+        <p>Recipe Removed!</p>
+        <button class="secondaryButton">Return To Cookbook</button>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script>
-        $(document).ready(function(){
-            $('.addButton').click(function(){
-                $('.notification').css({
-                    "opacity":"1", "pointer-events":"auto"
-                });
-            });
-            $('.secondaryButton').click(function(){
-                $('.notification').css({
-                    "opacity":"0", "pointer-events":"none"
-                });
-            });
-            $('.close').click(function(){
-                $('.notification').css({
-                    "opacity":"0", "pointer-events":"none"
-                });
-            });
+      $(document).ready(function () {
+        $(".addButton").click(function () {
+          $(".notification").css({
+            opacity: "1",
+            "pointer-events": "auto",
+          });
         });
+        $(".secondaryButton").click(function () {
+          $(".notification").css({
+            opacity: "0",
+            "pointer-events": "none",
+          });
+        });
+        $(".close").click(function () {
+          $(".notification").css({
+            opacity: "0",
+            "pointer-events": "none",
+          });
+        });
+      });
     </script>
-</body>
+  </body>
 </html>
