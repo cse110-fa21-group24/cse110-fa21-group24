@@ -116,6 +116,18 @@ function createNotificationRecipeDeleted() {
 }
 
 /**
+ * Creates the select cookbook notification and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
+function createNotificationSelectCookbook() {
+  "use strict";
+  const notification = document.createElement("notification-select-cookbook");
+  notification.classList.toggle("hidden");
+  document.querySelector("body").append(notification);
+}
+
+/**
  * Attaches "click" event listeners to the buttons on the navbar
  * that navigate to the correct page when clicked.
  */
@@ -167,6 +179,7 @@ async function init() {
   createCookbookCard();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();
+  createNotificationSelectCookbook();
 }
 
 window.addEventListener("DOMContentLoaded", init);

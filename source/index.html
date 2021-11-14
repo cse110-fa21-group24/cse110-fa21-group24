@@ -23,6 +23,10 @@
       src="/source/components/notification-recipe-deleted.js"
       type="module"
     ></script>
+    <script
+      src="/source/components/notification-select-cookbook.js"
+      type="module"
+    ></script>
 
     <!-- Main Stylesheet and Scripts -->
     <link rel="stylesheet" href="/source/styles/index.css" />
@@ -301,6 +305,26 @@
           <p>Recipe Removed!</p>
           <button class="secondary-button">Return To Cookbook</button>
         </div>
+      </div>
+    </template>
+
+    <template id="notification-select-cookbook-template">
+      <div class="notification" id="notification">
+        <button class="close" id="close">X</button>
+        <div class="contents" id="contents">
+          <p>Select Cookbook</p>
+          <div class="dropdown">
+            <select name="cookbooks" id="cookbooks">
+              <option value="none">Cookbook Name</option>
+              <option value="cookbook1">Cookbook 1</option>
+              <option value="cookbook2">Cookbook 2</option>
+              <option value="cookbook3">Cookbook 3</option>
+              <option value="cookbook4">Cookbook 4</option>
+              <option value="cookbook5">Cookbook 5</option>
+            </select>
+          </div>
+        </div>
+        <button class="secondary-button">Add</button>
       </div>
     </template>
 
