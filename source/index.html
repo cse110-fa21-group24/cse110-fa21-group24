@@ -10,6 +10,7 @@
     <script src="/source/components/navbar.js" type="module"></script>
     <script src="/source/components/footer-img.js" type="module"></script>
     <script src="/source/components/create-cookbook.js" type="module"></script>
+    <script src="components/explore-page.js" type="module"></script>
 
     <!-- Main Stylesheet and Scripts -->
     <link rel="stylesheet" href="/source/styles/index.css" />
@@ -66,6 +67,55 @@
           </div>
         </main>
       </body>
+    </template>
+
+    <template id="explore-page-template">
+      <!-- Main contains filter section with recipe cards -->
+      <main>
+        <!-- Filter by display -->
+        <section class="filter-section">
+          <p class="filter-by-text">Filter by:</p>
+
+          <!-- Each filter category goes here -->
+          <p class="filter-choice">Cuisine</p>
+          <form class="filter-cuisine-choices">
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="breakfast"
+                name="breakfast"
+                value="breakfast"
+              />
+              <label for="breakfast">Breakfast</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="lunch" name="lunch" value="lunch" />
+              <label for="lunch">Lunch</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="dinner" name="dinner" value="dinner" />
+              <label for="dinner">Dinner</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="brunch" name="brunch" value="brunch" />
+              <label for="brunch">Brunch</label>
+            </div>
+          </form>
+        </section>
+
+        <!-- Display with search bar, food options -->
+        <section class="display-section">
+          <input type="text" placeholder="Search Recipes" />
+
+          <p class="explore-title-text">Explore Recipes</p>
+          <section class="recipe-cards-section">
+            <p class="no-results-text">No results found</p>
+          </section>
+
+          <!-- Load button -->
+          <button type="button" class="load-button">Load More</button>
+        </section>
+      </main>
     </template>
 
     <template id="footer-img-template">
