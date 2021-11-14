@@ -1,19 +1,19 @@
 .notification {
   position: absolute;
   left: 50%;
-  transform: translatex(-50%);
+  transform: translateX(-50%);
   overflow: hidden;
   text-align: center;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0 0 0 / 20%);
   width: 300px;
   z-index: 999;
   font-weight: bold;
   font-family: Helvetica, sans-serif;
 
   /* Used for the popup */
-  opacity: 0;
+  opacity: 0%;
   pointer-events: none;
   transition: all 0.3s ease-in-out;
 }
@@ -35,15 +35,7 @@
   background: #a11d1f;
 }
 
-.notification i {
-  font-size: 60px;
-  color: #27ae60;
-  background-color: #bee5ce;
-  border-radius: 50%;
-  padding: 20px;
-}
-
-.secondaryButton {
+.secondary-button {
   background-color: #ba181b;
   color: #fff;
   border: transparent;
@@ -51,7 +43,7 @@
   border-radius: 5px;
 }
 
-.secondaryButton:hover {
+.secondary-button:hover {
   transition: 0.5s;
   background: #a11d1f;
 }
