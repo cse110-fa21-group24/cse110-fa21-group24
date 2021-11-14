@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impasta Rosta</title>
+
+    <!-- Custom Components-->
+    <script src="/source/components/navbar.js" type="module"></script>
+    <script src="/source/components/footer-img.js" type="module"></script>
+    <script src="/source/components/create-cookbook.js" type="module"></script>
+    <script src="components/explore-page.js" type="module"></script>
+
+    <!-- Main Stylesheet and Scripts -->
+    <link rel="stylesheet" href="/source/styles/index.css" />
+    <script src="/source/scripts/app.js" type="module"></script>
+    <script src="/source/scripts/router.js" type="module"></script>
+  </head>
+
+  <body>
+    <!-- Templates -->
+    <template id="navbar-template">
+      <nav id="navbar">
+        <section id="navbar-section-left" class="navbar-section">
+          <button id="web-app-title">Impasta Rosta</button>
+        </section>
+        <section id="navbar-section-right" class="navbar-section">
+          <button class="navbar-tab">Home</button>
+          <p class="navbar-tab-divider">•</p>
+          <button class="navbar-tab">Explore</button>
+          <p class="navbar-tab-divider">•</p>
+          <button class="navbar-tab">My Cookbooks</button>
+        </section>
+      </nav>
+    </template>
+
+    <template id="create-cookbook-template">
+      <div>
+        <!-- title -->
+        <div class="title-container">
+          <h1 class="title">Create Cookbook</h1>
+        </div>
+
+        <!-- title/description input -->
+        <div class="input-container">
+          <div>
+            <label>Title: </label>
+            <input placeholder="Title" />
+          </div>
+          <div>
+            <label>Description: </label>
+            <input placeholder="Description" />
+          </div>
+        </div>
+
+        <!-- cancel button -->
+        <div id="cancel-button-container">
+          <button id="cancel-button">Cancel</button>
+        </div>
+
+        <!-- save button-->
+        <div class="save-button">
+          <button>Create Cookbook</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="explore-page-template">
+      <!-- Main contains filter section with recipe cards -->
+      <main>
+        <!-- Filter by display -->
+        <section class="filter-section">
+          <p class="filter-by-text">Filter by:</p>
+
+          <!-- Each filter category goes here -->
+          <p class="filter-choice">Cuisine</p>
+          <form class="filter-cuisine-choices">
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="breakfast"
+                name="breakfast"
+                value="breakfast"
+              />
+              <label for="breakfast">Breakfast</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="lunch" name="lunch" value="lunch" />
+              <label for="lunch">Lunch</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="dinner" name="dinner" value="dinner" />
+              <label for="dinner">Dinner</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="brunch" name="brunch" value="brunch" />
+              <label for="brunch">Brunch</label>
+            </div>
+          </form>
+        </section>
+
+        <!-- Display with search bar, food options -->
+        <section class="display-section">
+          <input type="text" placeholder="Search Recipes" />
+
+          <p class="explore-title-text">Explore Recipes</p>
+          <section class="recipe-cards-section">
+            <p class="no-results-text">No results found</p>
+          </section>
+
+          <!-- Load button -->
+          <button type="button" class="load-button">Load More</button>
+        </section>
+      </main>
+    </template>
+
+    <template id="footer-img-template">
+      <img id="footer-img" src="/source/images/wave.png" />
+    </template>
+  </body>
+</html>
