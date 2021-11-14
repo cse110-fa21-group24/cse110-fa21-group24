@@ -19,6 +19,10 @@
       src="/source/components/notification-recipe-added.js"
       type="module"
     ></script>
+    <script
+      src="/source/components/notification-recipe-deleted.js"
+      type="module"
+    ></script>
 
     <!-- Main Stylesheet and Scripts -->
     <link rel="stylesheet" href="/source/styles/index.css" />
@@ -280,12 +284,22 @@
     </template>
 
     <template id="notification-recipe-added-template">
-      <div class="notification" id="notification">
-        <button class="close" id="close">X</button>
-        <div class="contents" id="contents">
+      <div class="notification">
+        <button class="close">X</button>
+        <div class="contents">
           <i class="fa fa-check"></i>
           <p>Recipe Added!</p>
           <button class="secondary-button">Return To Recipes</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="notification-recipe-deleted-template">
+      <div class="notification">
+        <button class="close">X</button>
+        <div class="contents">
+          <p>Recipe Removed!</p>
+          <button class="secondary-button">Return To Cookbook</button>
         </div>
       </div>
     </template>

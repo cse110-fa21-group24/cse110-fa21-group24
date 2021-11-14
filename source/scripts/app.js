@@ -104,6 +104,18 @@ function createNotificationRecipeAdded() {
 }
 
 /**
+ * Creates the recipe deleted notification and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
+function createNotificationRecipeDeleted() {
+  "use strict";
+  const notification = document.createElement("notification-recipe-deleted");
+  notification.classList.toggle("hidden");
+  document.querySelector("body").append(notification);
+}
+
+/**
  * Attaches "click" event listeners to the buttons on the navbar
  * that navigate to the correct page when clicked.
  */
@@ -154,6 +166,7 @@ async function init() {
   createCookbook();
   createCookbookCard();
   createNotificationRecipeAdded();
+  createNotificationRecipeDeleted();
 }
 
 window.addEventListener("DOMContentLoaded", init);
