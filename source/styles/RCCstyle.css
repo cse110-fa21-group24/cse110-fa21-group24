@@ -57,7 +57,7 @@ body {
   letter-spacing: -1px;
 }
 
-#description {
+.description {
   justify-content: space-between;
   margin: 0 1rem 1rem;
   font-size: 13px;
@@ -104,7 +104,7 @@ body {
   stroke-opacity: 0.25;
 }
 
-#recipe-action {
+.recipe-action {
   flex: 1;
   display: flex;
   flex-flow: row wrap;
@@ -133,7 +133,7 @@ body {
   filter: brightness(100%);
 }
 
-#recipe-action-image-outline {
+.recipe-action-image-outline {
   width: 5.5vh;
   height: 5.5vh;
   border-style: solid;
@@ -142,7 +142,7 @@ body {
   border-color: #e5383b;
 }
 
-#recipe-action-image-content {
+.recipe-action-image-content {
   width: 5.5vh;
   height: 5.5vh;
   position: relative;
@@ -152,7 +152,7 @@ body {
   align-items: center;
 }
 
-#recipe-action-image-content::before {
+.recipe-action-image-content::before {
   content: "";
   position: absolute;
   background: #e5383b;
@@ -160,7 +160,7 @@ body {
   height: 3.5vh;
 }
 
-#recipe-action-image-content::after {
+.recipe-action-image-content::after {
   content: "";
   position: absolute;
   background: #e5383b;
