@@ -1,7 +1,7 @@
 /**
- * @classdesc A component in which users can create their own cookbooks.
+ * @classdesc A component in which users can create their own cookbooks
  */
-class createCookbook extends HTMLElement {
+class CreateCookbook extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -19,4 +19,4 @@ class createCookbook extends HTMLElement {
   }
 }
 
-customElements.define("create-cookbook", createCookbook);
+customElements.define("create-cookbook", CreateCookbook);

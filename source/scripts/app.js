@@ -19,7 +19,7 @@ function createFooterImg() {
 }
 
 /**
- * Creates a wave custom element and adds it to the document
+ * Creates a form for creating a new cookbook and adds it to the document
  * @function
  */
 function createCreateCookbook() {
