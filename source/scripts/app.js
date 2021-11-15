@@ -7,7 +7,7 @@ const router = new Router("home-page");
  * @function createCookbook
  */
 function createCookbook() {
-  "use strict";
+    "use strict";
   const cookbook = document.createElement("cook-book");
   cookbook.classList.toggle("hidden");
   document.querySelector("body").append(cookbook);
