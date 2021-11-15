@@ -57,36 +57,38 @@
     </template>
 
     <template id="cookbook-card-template">
-      <article>
-        <div class="edit-remove-container">
-          <button id="edit">
-            <input
-              type="image"
-              src="images/icons8-edit-24.png"
-              name="edit-image"
-            />
-          </button>
-          <button id="remove">
-            <input
-              type="image"
-              src="images/icons8-remove-24.png"
-              name="remove-image"
-            />
-          </button>
-        </div>
-        <div class="title-container">
-          <p class="title">Title</p>
-        </div>
+      <div id="cookbook-card-top-level">
+        <article>
+          <div class="edit-remove-container">
+            <button id="edit">
+              <input
+                type="image"
+                src="images/icons8-edit-24.png"
+                name="edit-image"
+              />
+            </button>
+            <button id="remove">
+              <input
+                type="image"
+                src="images/icons8-remove-24.png"
+                name="remove-image"
+              />
+            </button>
+          </div>
+          <div class="title-container">
+            <p class="title">Title</p>
+          </div>
 
-        <p class="description">Description</p>
-        <p class="detailed-description">
-          This is my first cookbook! Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit...
-        </p>
-        <div class="open-button-container">
-          <button id="open">Open</button>
-        </div>
-      </article>
+          <p class="description">Description</p>
+          <p class="detailed-description">
+            This is my first cookbook! Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit...
+          </p>
+          <div class="open-button-container">
+            <button id="open">Open</button>
+          </div>
+        </article>
+      </div>
     </template>
 
     <template id="create-cookbook-template">
@@ -198,7 +200,7 @@
     <template id="navbar-template">
       <nav id="navbar">
         <section id="navbar-section-left" class="navbar-section">
-          <button id="web-app-title">Impasta Rosta</button>
+          <p id="web-app-title">Impasta Rosta</p>
         </section>
         <section id="navbar-section-right" class="navbar-section">
           <button class="navbar-tab">Home</button>
