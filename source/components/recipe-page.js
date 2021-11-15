@@ -11,7 +11,9 @@ class RecipePage extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/recipe-page.css";
 
-    const recipePage = document.getElementById("recipe-page-template").content;
+    const recipePage = document
+      .getElementById("recipe-page-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(recipePage);

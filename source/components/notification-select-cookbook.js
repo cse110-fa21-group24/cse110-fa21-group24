@@ -12,9 +12,9 @@ class NotificationSelectCookbook extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/notification-select-cookbook.css";
 
-    const notification = document.getElementById(
-      "notification-select-cookbook-template"
-    ).content;
+    const notification = document
+      .getElementById("notification-select-cookbook-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(notification);

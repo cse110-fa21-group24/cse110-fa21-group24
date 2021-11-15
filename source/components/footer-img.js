@@ -11,7 +11,9 @@ class FooterImg extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/footer-img.css";
 
-    const footerImg = document.getElementById("footer-img-template").content;
+    const footerImg = document
+      .getElementById("footer-img-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(footerImg);

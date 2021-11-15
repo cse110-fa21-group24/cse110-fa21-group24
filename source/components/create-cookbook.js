@@ -10,9 +10,9 @@ class CreateCookbook extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/create-cookbook.css";
 
-    const createCookbook = document.getElementById(
-      "create-cookbook-template"
-    ).content;
+    const createCookbook = document
+      .getElementById("create-cookbook-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(createCookbook);

@@ -10,7 +10,9 @@ class cookbookCard extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/cookbook-card.css";
 
-    const navbar = document.getElementById("cookbook-card-template").content;
+    const navbar = document
+      .getElementById("cookbook-card-template")
+      .cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(navbar);

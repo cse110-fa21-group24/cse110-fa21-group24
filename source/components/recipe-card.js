@@ -12,7 +12,9 @@ class RecipeCard extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/RCCstyle.css";
 
-    const recipeCard = document.getElementById("recipe-card-template").content;
+    const recipeCard = document
+      .getElementById("recipe-card-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(recipeCard);

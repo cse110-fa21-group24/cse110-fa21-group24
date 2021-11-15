@@ -10,7 +10,9 @@ class cookbook extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/cook-book.css";
 
-    const navbar = document.getElementById("cook-book-template").content;
+    const navbar = document
+      .getElementById("cook-book-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(navbar);
