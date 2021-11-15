@@ -22,8 +22,8 @@
   font-family: Helvetica, sans-serif;
 }
 
-.hidden {
-  display: none;
+.make-invisible {
+  visibility: hidden;
 }
 
 #explore-top-level {

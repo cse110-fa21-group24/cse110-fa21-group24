@@ -7,6 +7,17 @@ const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 
 /**
+ * Creates a recipe card element
+ * @returns A recipe card element
+ */
+function createRecipeCard() {
+  "use strict";
+  const recipeCard = document.createElement("recipe-card");
+  recipeCard.classList.add("make-invisible");
+  return recipeCard;
+}
+
+/**
  * Creates a cookbook element and adds it to the document
  * @function createCookbook
  */
@@ -53,6 +64,15 @@ function createExplorePage() {
   "use strict";
   const explorePage = document.createElement("explore-page");
   explorePage.classList.toggle("hidden");
+  const recipeCardsSection = explorePage.shadowRoot.getElementById(
+    "recipe-cards-section"
+  );
+
+  for (let i = 0; i < EXPLORE_PAGE_NUM_RESULTS; ++i) {
+    const recipeCard = createRecipeCard();
+    recipeCardsSection.append(recipeCard);
+  }
+
   document.querySelector("body").append(explorePage);
 }
 
@@ -117,16 +137,6 @@ function createNotificationSelectCookbook() {
   const notification = document.createElement("notification-select-cookbook");
   notification.classList.toggle("hidden");
   document.querySelector("body").append(notification);
-}
-
-function createRecipeCard(recipeObj) {
-  "use strict";
-  const recipeCard = document.createElement("recipe-card");
-  const shadow = recipeCard.shadowRoot;
-  shadow.getElementById("recipe-id").textContent = recipeObj.id;
-  shadow.getElementById("recipe-card-title").textContent = recipeObj.title;
-  shadow.getElementById("recipe-card-image").src = recipeObj.image;
-  return recipeCard;
 }
 
 /**
@@ -197,6 +207,8 @@ function connectNavbarButtons() {
   }
 }
 
+// TODO implement this function once we start working on the search bar
+// functionality
 // function toggleExplorePageType() {
 //   "use strict";
 //   let shadow = document.querySelector("explore-page").shadowRoot;
@@ -207,10 +219,15 @@ function connectNavbarButtons() {
 //   if (topLevel.classList.contains("type-explore")) {
 //     loadButton.textContent = "Explore More";
 //   } else {
-//     loadButton.textContent = "Load More";
+//     loadButton.textContent = "Explore Recipes";
 //   }
 // }
 
+/**
+ * Populates new recipes in the Explore page by retrieving new recipes from
+ * Spoonacular
+ * @function populateExplorePage
+ */
 async function populateExplorePage(/* TODO: filtersObj */) {
   "use strict";
   let shadow = document.querySelector("explore-page").shadowRoot;
@@ -218,12 +235,15 @@ async function populateExplorePage(/* TODO: filtersObj */) {
 
   if (topLevel.classList.contains("type-explore")) {
     let recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
-    shadow.getElementById("no-results-text").classList.add("hidden");
-    let recipeCardsSection = shadow.getElementById("recipe-cards-section");
+    shadow.getElementById("no-results-text").classList.add("make-invisible");
+    let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
     for (let i = 0; i < recipes.length; ++i) {
-      let recipeCard = createRecipeCard(recipes[i]);
-      recipeCardsSection.append(recipeCard);
+      recipeCards[i].classList.remove("make-invisible");
+      let shadow = recipeCards[i].shadowRoot;
+      shadow.getElementById("recipe-id").textContent = recipes[i].id;
+      shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+      shadow.getElementById("recipe-card-image").src = recipes[i].image;
     }
   } else {
     // TODO: implement getting recipes with spoonacular.getRecipes(filterObj)
@@ -231,22 +251,23 @@ async function populateExplorePage(/* TODO: filtersObj */) {
   }
 }
 
-function bindExploreMore() {
+/**
+ * Allows new recipes to be populated in the Explore when pressing the Explore
+ * More or Explore Recipes buttons in the Explore page
+ * @function bindExploreLoadButton
+ */
+function bindExploreLoadButton() {
   "use strict";
   let shadow = document.querySelector("explore-page").shadowRoot;
   let topLevel = shadow.getElementById("explore-top-level");
-  let recipeCardsSection = shadow.getElementById("recipe-cards-section");
   let loadButton = shadow.getElementById("load-button");
 
   loadButton.addEventListener("click", async () => {
     if (topLevel.classList.contains("type-explore")) {
-      while (recipeCardsSection.firstChild) {
-        recipeCardsSection.removeChild(recipeCardsSection.lastChild);
-      }
-
       await populateExplorePage();
     } else {
-      // TODO: implement use case for clicking Load More when in search mode
+      // TODO: implement use case for clicking Explore Recipes when in search
+      // mode
     }
   });
 }
@@ -262,7 +283,7 @@ async function init() {
 
   createExplorePage();
   populateExplorePage();
-  bindExploreMore();
+  bindExploreLoadButton();
 
   createCookbook();
   createFooterImg();
