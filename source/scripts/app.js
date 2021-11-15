@@ -1,6 +1,6 @@
 import { Router } from "./router.js";
 
-const router = new Router("create-cookbook"); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
+const router = new Router("single-cookbook"); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
 
 /**
  * Creates a navbar custom element and adds it to the document
@@ -63,7 +63,7 @@ function createRecipeForm() {
 function createCreateCookbook() {
   "use strict";
   const createCookbook = document.createElement("create-cookbook");
-  // createCookbook.classList.toggle("hidden"); //TODO: UNCOMMENT WHEN HOME WIRED IN
+  createCookbook.classList.toggle("hidden");
   document.querySelector("body").append(createCookbook);
 }
 
@@ -99,7 +99,7 @@ function createRecipePage() {
 function createSingleCookbook() {
   "use strict";
   const singleCookbook = document.createElement("single-cookbook");
-  singleCookbook.classList.toggle("hidden");
+  //singleCookbook.classList.toggle("hidden"); //TODO: hide when wired in home
   document.querySelector("body").append(singleCookbook);
 }
 
@@ -156,7 +156,7 @@ function connectNavbarButtons() {
     //Use if statements to check for name for easy style changes in the future
     if (buttons[i].textContent === "Home") {
       buttons[i].addEventListener("click", () => {
-        router.navigate("create-cookbook"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
+        router.navigate("single-cookbook"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
       });
     }
 
