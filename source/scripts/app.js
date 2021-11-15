@@ -184,6 +184,46 @@ function connectNavbarButtons() {
 }
 
 /**
+ * Navigate to explore page if "Explore" button is clicked
+ */
+ function exploreButton() {
+  "use strict";
+
+  //Get references to explore button on homepge
+  let home = document.querySelector("home-page");
+  let shadow = home.shadowRoot;
+  let explore = shadow.querySelector("button.explore-button");
+  //console.log(explore);
+
+  explore.addEventListener("click", () => {
+    router.navigate("explore-page");
+  });
+}
+
+/**
+ * Navigate to explore page if "Explore" button is clicked
+ */
+ function searchFunction() {
+  "use strict";
+
+  //Get references to search bar on homepge
+  let home = document.querySelector("home-page");
+  let shadow = home.shadowRoot;
+  let input = shadow.getElementById("recipeSearch");
+
+  input.addEventListener("keyup", (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        // store search string and navigate to explore page
+        let searchQuery = e.target.value;
+        router.navigate("explore-page");
+
+        // more here once explore page setup
+    }
+  });
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function
  */
@@ -205,6 +245,9 @@ async function init() {
   createSingleCookbook();
 
   connectNavbarButtons();
+  exploreButton();
+  searchFunction();
+
 }
 
 window.addEventListener("DOMContentLoaded", init);
