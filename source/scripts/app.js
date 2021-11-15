@@ -1,6 +1,10 @@
 import { Router } from "./router.js";
+// TODO import { SpoonacularInterface } from "./spoonacular-interface.js";
+
+// TODO const EXPLORE_PAGE_NUM_RESULTS = 6;
 
 const router = new Router("home-page");
+// TODO const spoonacular = new SpoonacularInterface();
 
 /**
  * Creates a cookbook element and adds it to the document
@@ -115,6 +119,16 @@ function createNotificationSelectCookbook() {
   document.querySelector("body").append(notification);
 }
 
+function createRecipeCard(recipeObj) {
+  "use strict";
+  const recipeCard = document.createElement("recipe-card");
+  const shadow = recipeCard.shadowRoot;
+  shadow.getElementById("recipe-id").textContent = recipeObj.id;
+  shadow.getElementById("recipe-card-title").textContent = recipeObj.title;
+  shadow.getElementById("recipe-card-image").src = recipeObj.image;
+  return recipeCard;
+}
+
 /**
  * Creates the form for editing a recipe and adds it to the document
  * @function createRecipeForm
@@ -183,6 +197,95 @@ function connectNavbarButtons() {
   }
 }
 
+// function toggleExplorePageType() {
+//   "use strict";
+//   let shadow = document.querySelector("explore-page").shadowRoot;
+//   let topLevel = shadow.getElementById("explore-top-level");
+//   let loadButton = shadow.getElementById("load-button");
+//   topLevel.classList.toggle("type-explore");
+
+//   if (topLevel.classList.contains("type-explore")) {
+//     loadButton.textContent = "Explore More";
+//   } else {
+//     loadButton.textContent = "Load More";
+//   }
+// }
+
+async function populateExplorePage(/* TODO: filtersObj */) {
+  "use strict";
+  let shadow = document.querySelector("explore-page").shadowRoot;
+  let topLevel = shadow.getElementById("explore-top-level");
+
+  if (topLevel.classList.contains("type-explore")) {
+    let recipes = [
+      {
+        id: 0,
+        title: "recipe0",
+        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
+      },
+      {
+        id: 1,
+        title: "recipe1",
+        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
+      },
+      {
+        id: 2,
+        title: "recipe2",
+        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
+      },
+      {
+        id: 3,
+        title: "recipe3",
+        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
+      },
+      {
+        id: 4,
+        title: "recipe4",
+        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
+      },
+      {
+        id: 5,
+        title: "recipe5",
+        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
+      },
+    ];
+    // TODO uncomment below to use actual Spoonacular API, beware of daily API call limit
+    // let recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
+
+    shadow.getElementById("no-results-text").classList.add("hidden");
+    let recipeCardsSection = shadow.getElementById("recipe-cards-section");
+
+    for (let i = 0; i < recipes.length; ++i) {
+      await sleep(1000);
+      let recipeCard = createRecipeCard(recipes[i]);
+      recipeCardsSection.append(recipeCard);
+    }
+  } else {
+    // TODO: implement getting recipes with spoonacular.getRecipes(filterObj)
+    // when using search bar in explore page
+  }
+}
+
+function bindExploreMore() {
+  "use strict";
+  let shadow = document.querySelector("explore-page").shadowRoot;
+  let topLevel = shadow.getElementById("explore-top-level");
+  let recipeCardsSection = shadow.getElementById("recipe-cards-section");
+  let loadButton = shadow.getElementById("load-button");
+
+  loadButton.addEventListener("click", async () => {
+    if (topLevel.classList.contains("type-explore")) {
+      while (recipeCardsSection.firstChild) {
+        recipeCardsSection.removeChild(recipeCardsSection.lastChild);
+      }
+
+      await populateExplorePage();
+    } else {
+      // TODO: implement use case for clicking Load More when in search mode
+    }
+  });
+}
+
 /**
  * Runs initial setup functions when the page first loads
  * @function
@@ -191,7 +294,11 @@ async function init() {
   "use strict";
   createNavbar();
   createHomePage();
+
   createExplorePage();
+  populateExplorePage();
+  bindExploreMore();
+
   createCookbook();
   createFooterImg();
 

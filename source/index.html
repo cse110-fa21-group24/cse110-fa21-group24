@@ -123,10 +123,10 @@
 
     <template id="explore-page-template">
       <!-- Main contains filter section with recipe cards -->
-      <main>
+      <main id="explore-top-level" class="type-explore">
         <!-- Filter by display -->
-        <section class="filter-section">
-          <p class="filter-by-text">Filter by:</p>
+        <section id="filter-section">
+          <p id="filter-by-text">Filter By:</p>
 
           <!-- Each filter category goes here -->
           <p class="filter-choice">Cuisine</p>
@@ -156,16 +156,12 @@
         </section>
 
         <!-- Display with search bar, food options -->
-        <section class="display-section">
-          <input type="text" placeholder="Search Recipes" />
-
-          <p class="explore-title-text">Explore Recipes</p>
-          <section class="recipe-cards-section">
-            <p class="no-results-text">No results found</p>
-          </section>
-
-          <!-- Load button -->
-          <button type="button" class="load-button">Load More</button>
+        <section id="display-section">
+          <input id="search-bar" type="text" placeholder="Search Recipes" />
+          <p id="explore-title-text">Explore Recipes</p>
+          <p id="no-results-text">No Results Found</p>
+          <section id="recipe-cards-section"></section>
+          <button id="load-button" type="button">Explore More</button>
         </section>
       </main>
     </template>
@@ -282,26 +278,22 @@
 
     <template id="recipe-card-template">
       <div id="recipe-card-top-level">
-        <div class="recipe-card">
-          <figure>
-            <img src="source/images/pasta.jpg" alt="Card image" />
-          </figure>
-          <h1>Delicious Pasta Recipe</h1>
-          <p class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-            sodales diam at tellus pellentesque aliquet. Donec placerat nunc sed
-            tortor posuere, a posuere lorem facilisis. Fusce non consectetir
-            nibh, at aliquet lectus.
-          </p>
-
-          <div class="card-meta">
-            <button class="recipe-action-button" type="button">
-              <p class="recipe-info">Learn More</p>
+        <div id="recipe-id">Add recipe ID here</div>
+        <div id="recipe-card">
+          <img
+            id="recipe-card-image"
+            src="source/images/pasta.jpg"
+            alt="Card image"
+          />
+          <p id="recipe-card-title">Add recipe title here</p>
+          <div id="recipe-buttons-container">
+            <button id="recipe-info-button" type="button">
+              <p id="recipe-info">Learn More</p>
             </button>
-            <div class="recipe-action">
-              <button class="recipe-action-button" type="button">
-                <div class="recipe-action-image-outline">
-                  <div class="recipe-action-image-content"></div>
+            <div id="recipe-card-action">
+              <button id="recipe-card-action-button" type="button">
+                <div id="recipe-card-action-image-outline">
+                  <div id="recipe-card-action-image-content"></div>
                 </div>
               </button>
             </div>

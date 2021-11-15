@@ -26,14 +26,14 @@ export class SpoonacularInterface {
     }
 
     let responseData = await this.makeRequest(requestUrl);
-    let recipes = {};
+    let recipes = [];
 
     for (let i = 0; i < responseData.results.length; ++i) {
-      recipes[i] = {
+      recipes.push({
         id: responseData.results[i].id,
         title: responseData.results[i].title,
         image: responseData.results[i].image,
-      };
+      });
     }
 
     return recipes;
@@ -54,14 +54,14 @@ export class SpoonacularInterface {
       numResults;
 
     let responseData = await this.makeRequest(requestUrl);
-    let recipes = {};
+    let recipes = [];
 
     for (let i = 0; i < responseData.results.length; ++i) {
-      recipes[i] = {
+      recipes.push({
         id: responseData.results[i].id,
         title: responseData.results[i].title,
         image: responseData.results[i].image,
-      };
+      });
     }
 
     return recipes;
