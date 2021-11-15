@@ -3,11 +3,14 @@
   font-style: normal;
 }
 
-article {
+#cookbook-card-top-level {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+}
+
+article {
   width: 285px;
   height: 340px;
   background-color: #f5f3f4;
