@@ -35,6 +35,16 @@ function createExplorePage() {
 }
 
 /**
+ * Creates a navbar custom element and adds it to the document
+ * @function
+ */
+ function loadHomePage() {
+  "use strict";
+  const homepage = document.createElement("home-page");
+  document.querySelector("body").append(homepage);
+}
+
+/**
  * Attaches "click" event listeners to the buttons on the navbar
  * that navigate to the correct page when clicked.
  */
@@ -51,7 +61,7 @@ function connectNavbarButtons() {
     //Use if statements to check for name for easy style changes in the future
     if (buttons[i].textContent === "Home") {
       buttons[i].addEventListener("click", () => {
-        router.navigate("footer-img"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
+        router.navigate("home-page"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
       });
     }
 
@@ -76,6 +86,7 @@ function connectNavbarButtons() {
 async function init() {
   "use strict";
   createNavbar();
+  loadHomePage();
   createExplorePage();
   createFooterImg();
   connectNavbarButtons();

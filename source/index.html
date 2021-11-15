@@ -10,6 +10,7 @@
     <script src="/source/components/navbar.js" type="module"></script>
     <script src="/source/components/footer-img.js" type="module"></script>
     <script src="components/explore-page.js" type="module"></script>
+    <script src="components/home-page.js" type="module"></script>
 
     <!-- Main Stylesheet and Scripts -->
     <link rel="stylesheet" href="/source/styles/index.css" />
@@ -32,6 +33,28 @@
           <button class="navbar-tab">My Cookbooks</button>
         </section>
       </nav>
+    </template>
+
+    <template id="home-page-template">
+      <main>
+        <!-- Search Box -->
+        <section class="search-section">
+          <div class="search-box">
+            <p class="search-title">Search for a Recipe</p>
+            <input type="text" placeholder="Search Recipes" />
+          </div>
+        </section>
+  
+        <!-- Image Box -->
+        <section class="image-section">
+          <img src="/source/images/home-pasta.jpg" alt="Pasta" />
+          <div class="featured-recipes">Featured Recipes</div>
+          <!-- Explore button -->
+          <button class="explore-button">Explore</button>
+        </section>
+  
+        <div class="explore"></div>
+      </main>
     </template>
 
     <template id="explore-page-template">
