@@ -61,7 +61,7 @@ img {
   width: 146px;
   position: relative;
   top: 60px;
-  z-index: 1000;
+  z-index: 10001;
 }
 
 /* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp */
