@@ -7,7 +7,7 @@ const router = new Router("home-page");
  * @function createCookbook
  */
 function createCookbook() {
-    "use strict";
+  "use strict";
   const cookbook = document.createElement("cook-book");
   cookbook.classList.toggle("hidden");
   document.querySelector("body").append(cookbook);
@@ -186,7 +186,7 @@ function connectNavbarButtons() {
 /**
  * Navigate to explore page if "Explore" button is clicked
  */
- function exploreButton() {
+function exploreButton() {
   "use strict";
 
   //Get references to explore button on homepge
@@ -203,7 +203,7 @@ function connectNavbarButtons() {
 /**
  * Navigate to explore page if "Explore" button is clicked
  */
- function searchFunction() {
+function searchFunction() {
   "use strict";
 
   //Get references to search bar on homepge
@@ -212,7 +212,7 @@ function connectNavbarButtons() {
   let input = shadow.getElementById("recipeSearch");
 
   input.addEventListener("keyup", (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       // store search string and navigate to explore page
       let searchQuery = e.target.value;
@@ -247,7 +247,6 @@ async function init() {
   connectNavbarButtons();
   exploreButton();
   searchFunction();
-
 }
 
 window.addEventListener("DOMContentLoaded", init);
