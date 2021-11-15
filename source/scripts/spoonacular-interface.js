@@ -1,5 +1,49 @@
 const SPOONACULAR_API_KEY = "83c84ad2b0e4486f93cfbe9658d21c66";
-const SPOONACULAR_ENABLED = false;
+const MOCK_RECIPES_ARRAY = [
+  {
+    id: 0,
+    title: "title-0",
+    image: "/source/images/pasta.jpg",
+  },
+  {
+    id: 1,
+    title: "title-1",
+    image: "/source/images/pasta.jpg",
+  },
+  {
+    id: 2,
+    title: "title-2",
+    image: "/source/images/pasta.jpg",
+  },
+  {
+    id: 3,
+    title: "title-3",
+    image: "/source/images/pasta.jpg",
+  },
+  {
+    id: 4,
+    title: "title-4",
+    image: "/source/images/pasta.jpg",
+  },
+  {
+    id: 5,
+    title: "title-5",
+    image: "/source/images/pasta.jpg",
+  },
+];
+const MOCK_RECIPE_INFO = {
+  title: "title",
+  author: "author",
+  cuisines: ["cuisine-0", "cuisine-1"],
+  readyInMinutes: 10,
+  image: "/source/images/pasta.jpg",
+  description: "description",
+  ingredients: ["ingredient-0", "ingredient-1"],
+  instructions: ["instruction-0", "instruction-1"],
+};
+
+// Change this variable to true to make real API calls to Spoonacular
+let SPOONACULAR_ENABLED = false;
 
 /**
  * @classdesc An interface for fetching recipes and recipe information using
@@ -11,12 +55,12 @@ export class SpoonacularInterface {
    * @param {object} filtersObj An object containing queries where keys
    *                            represent the query and key values represent
    *                            the query value
-   * @returns An object containing multiple smaller objects which contain an ID
+   * @returns An array containing multiple smaller objects which contain an ID
    *          title, and image for each retrieved recipe
    */
   async getRecipes(filtersObj) {
     if (!SPOONACULAR_ENABLED) {
-      return;
+      return MOCK_RECIPES_ARRAY;
     }
 
     let requestUrl =
@@ -47,12 +91,12 @@ export class SpoonacularInterface {
   /**
    * Retrieves the ID, title, and image of multiple random recipes
    * @param {number} numResults The number of recipes to retrieve
-   * @returns An object containing multiple smaller objects which contain an ID
+   * @returns An array containing multiple smaller objects which contain an ID
    *          title, and image for each retrieved recipe
    */
   async getRandomRecipes(numResults) {
     if (!SPOONACULAR_ENABLED) {
-      return;
+      return MOCK_RECIPES_ARRAY;
     }
 
     let requestUrl =
@@ -83,7 +127,7 @@ export class SpoonacularInterface {
    */
   async getRecipeInfo(id) {
     if (!SPOONACULAR_ENABLED) {
-      return;
+      return MOCK_RECIPE_INFO;
     }
 
     let requestUrl =

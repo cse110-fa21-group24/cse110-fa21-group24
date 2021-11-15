@@ -1,10 +1,10 @@
 import { Router } from "./router.js";
-// TODO import { SpoonacularInterface } from "./spoonacular-interface.js";
+import { SpoonacularInterface } from "./spoonacular-interface.js";
 
-// TODO const EXPLORE_PAGE_NUM_RESULTS = 6;
+const EXPLORE_PAGE_NUM_RESULTS = 6;
 
 const router = new Router("home-page");
-// TODO const spoonacular = new SpoonacularInterface();
+const spoonacular = new SpoonacularInterface();
 
 /**
  * Creates a cookbook element and adds it to the document
@@ -217,46 +217,11 @@ async function populateExplorePage(/* TODO: filtersObj */) {
   let topLevel = shadow.getElementById("explore-top-level");
 
   if (topLevel.classList.contains("type-explore")) {
-    let recipes = [
-      {
-        id: 0,
-        title: "recipe0",
-        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
-      },
-      {
-        id: 1,
-        title: "recipe1",
-        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
-      },
-      {
-        id: 2,
-        title: "recipe2",
-        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
-      },
-      {
-        id: 3,
-        title: "recipe3",
-        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
-      },
-      {
-        id: 4,
-        title: "recipe4",
-        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
-      },
-      {
-        id: 5,
-        title: "recipe5",
-        image: "https://spoonacular.com/recipeImages/716429-312x231.jpg",
-      },
-    ];
-    // TODO uncomment below to use actual Spoonacular API, beware of daily API call limit
-    // let recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
-
+    let recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
     shadow.getElementById("no-results-text").classList.add("hidden");
     let recipeCardsSection = shadow.getElementById("recipe-cards-section");
 
     for (let i = 0; i < recipes.length; ++i) {
-      await sleep(1000);
       let recipeCard = createRecipeCard(recipes[i]);
       recipeCardsSection.append(recipeCard);
     }
