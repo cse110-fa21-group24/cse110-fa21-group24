@@ -145,6 +145,7 @@ export class SpoonacularInterface {
     }
 
     return {
+      id: id,
       title: recipe.title,
       author: recipe.creditsText,
       cuisines: recipe.cuisines,
