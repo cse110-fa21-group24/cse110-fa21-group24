@@ -275,7 +275,7 @@ function bindExploreLoadButton() {
 /**
  * Navigate to explore page if "Explore" button is clicked
  */
-function exploreButton() {
+function homeExploreButton() {
   "use strict";
 
   //Get references to explore button on homepge
@@ -291,7 +291,7 @@ function exploreButton() {
 /**
  * Navigate to explore page if "Explore" button is clicked
  */
-function searchFunction() {
+function homeSearchFunction() {
   "use strict";
 
   //Get references to search bar on homepge
@@ -330,17 +330,15 @@ function connectCreateNewCookbook() {
 
 /**
  * Runs initial setup functions when the page first loads
- * @function
+ * @function init
  */
 async function init() {
   "use strict";
+
+  // Create different pages
   createNavbar();
   createHomePage();
-
   createExplorePage();
-  populateExplorePage();
-  bindExploreLoadButton();
-
   createCookbook();
   createFooterImg();
 
@@ -353,9 +351,15 @@ async function init() {
   createRecipePage();
   createSingleCookbook();
 
+  // Add functionality to our pages
   connectNavbarButtons();
-  exploreButton();
-  searchFunction();
+
+  homeSearchFunction();
+  homeExploreButton();
+
+  populateExplorePage();
+  bindExploreLoadButton();
+
   connectCreateNewCookbook();
 }
 
