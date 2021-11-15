@@ -15,8 +15,8 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
-  position:relative;
-  top:100px;
+  position: relative;
+  top: 100px;
 }
 
 .search-box {

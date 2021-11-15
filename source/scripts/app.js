@@ -83,17 +83,17 @@ function createExplorePage() {
  * Creates a navbar custom element and adds it to the document
  * @function
  */
- function loadHomePage() {
+function loadHomePage() {
   "use strict";
   const homepage = document.createElement("home-page");
   document.querySelector("body").append(homepage);
- }
- 
- /** 
-  * Creates the recipe page and adds it to the document. This
-  * page starts off hidden.
-  * @function
-  */
+}
+
+/**
+ * Creates the recipe page and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
 function createRecipePage() {
   "use strict";
   const recipePage = document.createElement("recipe-page");
