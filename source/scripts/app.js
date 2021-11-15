@@ -273,6 +273,45 @@ function bindExploreLoadButton() {
 }
 
 /**
+ * Navigate to explore page if "Explore" button is clicked
+ */
+function exploreButton() {
+  "use strict";
+
+  //Get references to explore button on homepge
+  let home = document.querySelector("home-page");
+  let shadow = home.shadowRoot;
+  let explore = shadow.querySelector("button.explore-button");
+
+  explore.addEventListener("click", () => {
+    router.navigate("explore-page");
+  });
+}
+
+/**
+ * Navigate to explore page if "Explore" button is clicked
+ */
+function searchFunction() {
+  "use strict";
+
+  //Get references to search bar on homepge
+  let home = document.querySelector("home-page");
+  let shadow = home.shadowRoot;
+  let input = shadow.getElementById("recipeSearch");
+
+  input.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      // store search string and navigate to explore page
+      // let searchQuery = e.target.value;
+      router.navigate("explore-page");
+
+      // TODO more here once explore page setup
+    }
+  });
+}
+
+/**
  * Attaches "click" event listeners to the Create New Cookbook
  * button on My Cookbook page which will navigate to Create Cookbook page.
  */
@@ -315,6 +354,8 @@ async function init() {
   createSingleCookbook();
 
   connectNavbarButtons();
+  exploreButton();
+  searchFunction();
   connectCreateNewCookbook();
 }
 
