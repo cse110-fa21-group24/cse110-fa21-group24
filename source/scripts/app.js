@@ -80,6 +80,16 @@ function createExplorePage() {
 }
 
 /**
+ * Creates a navbar custom element and adds it to the document
+ * @function
+ */
+function loadHomePage() {
+  "use strict";
+  const homepage = document.createElement("home-page");
+  document.querySelector("body").append(homepage);
+}
+
+/**
  * Creates the recipe page and adds it to the document. This
  * page starts off hidden.
  * @function
@@ -144,7 +154,7 @@ function connectNavbarButtons() {
     //Use if statements to check for name for easy style changes in the future
     if (buttons[i].textContent === "Home") {
       buttons[i].addEventListener("click", () => {
-        router.navigate("create-cookbook"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
+        router.navigate("home-page"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
       });
     }
 
@@ -169,6 +179,7 @@ function connectNavbarButtons() {
 async function init() {
   "use strict";
   createNavbar();
+  loadHomePage();
   createRecipeForm();
   createRecipePage();
   createCreateCookbook();
