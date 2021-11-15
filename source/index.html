@@ -9,8 +9,29 @@
     <!-- Custom Components-->
     <script src="/source/components/navbar.js" type="module"></script>
     <script src="/source/components/footer-img.js" type="module"></script>
+<<<<<<< HEAD
     <script src="components/explore-page.js" type="module"></script>
     <script src="components/home-page.js" type="module"></script>
+=======
+    <script src="/source/components/cook-book.js" type="module"></script>
+    <script src="/source/components/cookbook-card.js" type="module"></script>
+    <script src="/source/components/recipe-form.js" type="module"></script>
+    <script src="/source/components/create-cookbook.js" type="module"></script>
+    <script src="/source/components/explore-page.js" type="module"></script>
+    <script src="/source/components/recipe-page.js" type="module"></script>
+    <script
+      src="/source/components/notification-recipe-added.js"
+      type="module"
+    ></script>
+    <script
+      src="/source/components/notification-recipe-deleted.js"
+      type="module"
+    ></script>
+    <script
+      src="/source/components/notification-select-cookbook.js"
+      type="module"
+    ></script>
+>>>>>>> main
 
     <!-- Main Stylesheet and Scripts -->
     <link rel="stylesheet" href="/source/styles/index.css" />
@@ -35,6 +56,7 @@
       </nav>
     </template>
 
+<<<<<<< HEAD
     <template id="home-page-template">
       <main>
         <!-- Search Box -->
@@ -55,6 +77,131 @@
   
         <div class="explore"></div>
       </main>
+=======
+    <template id="cook-book-template">
+      <nav id="cookbook">
+        <div class="title-container">
+          <h1 class="title">My Cookbooks</h1>
+        </div>
+        <div class="cookbook-card-container" id="cards"></div>
+        <div class="add-button">
+          <button></button>
+          <span id="button-name">Create New Cookbook</span>
+        </div>
+      </nav>
+    </template>
+
+    <template id="cookbook-card-template">
+      <article>
+        <div class="edit-remove-container">
+          <button id="edit">
+            <input
+              type="image"
+              src="images/icons8-edit-24.png"
+              name="edit-image"
+            />
+          </button>
+          <button id="remove">
+            <input
+              type="image"
+              src="images/icons8-remove-24.png"
+              name="remove-image"
+            />
+          </button>
+        </div>
+        <div class="title-container">
+          <p class="title">Title</p>
+        </div>
+
+        <p class="description">Description</p>
+        <p class="detailed-description">
+          This is my first cookbook! Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit...
+        </p>
+        <div class="open-button-container">
+          <button id="open">Open</button>
+        </div>
+      </article>
+    </template>
+
+    <template id="recipe-form-template">
+      <body>
+        <div class="edit-recipe">Edit Recipe</div>
+        <div class="title">Title:</div>
+        <div class="title-box">
+          <input />
+        </div>
+        <div class="description">Description:</div>
+        <div class="description-box">
+          <input />
+        </div>
+        <div class="ingredients">Ingredients:</div>
+        <div class="ingredients-box">
+          <input />
+        </div>
+        <img
+          class="recycle-bin-ingredients"
+          src="/source/images/recycle-bin-4@2x.png"
+        />
+
+        <div class="add-ingredient-button">
+          <div class="add-ingredient-text valign-text-middle">
+            + Add Ingredient
+          </div>
+        </div>
+
+        <div class="instructions">Instructions: 1.</div>
+        <div class="instructions-box">
+          <input />
+        </div>
+
+        <img
+          class="recycle-bin-instructions"
+          src="/source/images/recycle-bin-4@2x.png"
+        />
+
+        <div class="add-instruction-button">
+          <div class="add-instruction-text valign-text-middle">
+            + Add Instruction
+          </div>
+        </div>
+
+        <div class="save-button">
+          <div class="save-text valign-text-middle">Save changes</div>
+        </div>
+      </body>
+    </template>
+
+    <template id="create-cookbook-template">
+      <div>
+        <!-- title -->
+        <div class="title-container">
+          <h1 class="title">Create Cookbook</h1>
+        </div>
+
+        <!-- title/description input -->
+        <div class="input-container">
+          <div>
+            <label>Title: </label>
+            <input placeholder="Title" />
+          </div>
+          <div>
+            <label>Description: </label>
+            <input placeholder="Description" />
+          </div>
+        </div>
+
+        <!-- cancel button -->
+        <div id="cancel-button-container">
+          <button id="cancel-button">Cancel</button>
+        </div>
+
+        <!-- save button-->
+        <div class="save-button">
+          <button>Create Cookbook</button>
+        </div>
+      </div>
+>>>>>>> main
     </template>
 
     <template id="explore-page-template">
@@ -104,6 +251,166 @@
           <button type="button" class="load-button">Load More</button>
         </section>
       </main>
+    </template>
+
+    <template id="recipe-card-template">
+      <body>
+        <div class="recipe-card">
+          <figure>
+            <img src="source/images/pasta.jpg" alt="Card image" />
+          </figure>
+          <h1>Delicious Pasta Recipe</h1>
+          <p class="description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+            sodales diam at tellus pellentesque aliquet. Donec placerat nunc sed
+            tortor posuere, a posuere lorem facilisis. Fusce non consectetir
+            nibh, at aliquet lectus.
+          </p>
+
+          <div class="card-meta">
+            <button class="recipe-action-button" type="button">
+              <p class="recipe-info">Learn More</p>
+            </button>
+            <div class="recipe-action">
+              <button class="recipe-action-button" type="button">
+                <div class="recipe-action-image-outline">
+                  <div class="recipe-action-image-content"></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </body>
+    </template>
+
+    <template id="recipe-card-delete-template">
+      <body>
+        <div class="recipe-card">
+          <figure>
+            <img src="source/images/pasta.jpg" alt="Card image" />
+          </figure>
+          <h1>Delicious Pasta Recipe</h1>
+          <p class="description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+            sodales diam at tellus pellentesque aliquet. Donec placerat nunc sed
+            tortor posuere, a posuere lorem facilisis. Fusce non consectetir
+            nibh, at aliquet lectus.
+          </p>
+
+          <div class="card-meta">
+            <button class="recipe-action-button" type="button">
+              <p class="recipe-info">Learn More</p>
+            </button>
+            <div class="recipe-action">
+              <button class="recipe-delete-button" type="button">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </body>
+    </template>
+    <template id="recipe-page-template">
+      <div id="recipe-container">
+        <!-- Recipe Header -->
+        <div id="recipe-header">
+          <h1 id="recipe-name">Recipe Name</h1>
+          <p id="recipe-author">Recipe by: Author</p>
+        </div>
+
+        <!-- Recipe Subheader -->
+        <div id="recipe-subheader">
+          <div id="recipe-tags">
+            <p class="recipe-tag-info">Cuisine: Italian</p>
+            <p class="recipe-tag-info">Ready In: x min</p>
+          </div>
+          <div id="recipe-action">
+            <button id="recipe-action-button" type="button">
+              <div id="recipe-action-image-outline">
+                <div id="recipe-action-image-content"></div>
+              </div>
+              <p id="recipe-action-text">Add to cookbook</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Recipe Image -->
+        <div id="recipe-image-container">
+          <img
+            id="recipe-image"
+            src="/source//images/pasta.jpg"
+            alt="Picture of Recipe"
+          />
+        </div>
+
+        <!-- Recipe Description -->
+        <h2 class="recipe-section-header">Description</h2>
+        <p id="recipe-description">Description</p>
+
+        <hr class="recipe-horizontal-rule" />
+
+        <!-- Recipe Ingredients -->
+        <h2 class="recipe-section-header">Ingredients</h2>
+        <div id="recipe-ingredients-container">
+          <section id="recipe-ingredients-section-left">
+            <li class="ingredient-item">Lorem</li>
+          </section>
+          <section id="recipe-ingredients-section-right">
+            <li class="ingredient-item">Sit</li>
+          </section>
+        </div>
+
+        <hr class="recipe-horizontal-rule" />
+
+        <!-- Recipe Instructions -->
+        <h2 class="recipe-section-header">Instructions</h2>
+        <ol id="instructions-list">
+          <li class="instruction-item">Lorem</li>
+        </ol>
+
+        <hr class="recipe-horizontal-rule" />
+      </div>
+    </template>
+
+    <template id="notification-recipe-added-template">
+      <div class="notification">
+        <button class="close">X</button>
+        <div class="contents">
+          <i class="fa fa-check"></i>
+          <p>Recipe Added!</p>
+          <button class="secondary-button">Return To Recipes</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="notification-recipe-deleted-template">
+      <div class="notification">
+        <button class="close">X</button>
+        <div class="contents">
+          <p>Recipe Removed!</p>
+          <button class="secondary-button">Return To Cookbook</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="notification-select-cookbook-template">
+      <div class="notification" id="notification">
+        <button class="close" id="close">X</button>
+        <div class="contents" id="contents">
+          <p>Select Cookbook</p>
+          <div class="dropdown">
+            <select name="cookbooks" id="cookbooks">
+              <option value="none">Cookbook Name</option>
+              <option value="cookbook1">Cookbook 1</option>
+              <option value="cookbook2">Cookbook 2</option>
+              <option value="cookbook3">Cookbook 3</option>
+              <option value="cookbook4">Cookbook 4</option>
+              <option value="cookbook5">Cookbook 5</option>
+            </select>
+          </div>
+        </div>
+        <button class="secondary-button">Add</button>
+      </div>
     </template>
 
     <template id="footer-img-template">
