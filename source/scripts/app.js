@@ -213,12 +213,12 @@ function connectNavbarButtons() {
 
   input.addEventListener("keyup", (e) => {
     if (e.key === 'Enter') {
-        e.preventDefault();
-        // store search string and navigate to explore page
-        let searchQuery = e.target.value;
-        router.navigate("explore-page");
+      e.preventDefault();
+      // store search string and navigate to explore page
+      let searchQuery = e.target.value;
+      router.navigate("explore-page");
 
-        // more here once explore page setup
+      // more here once explore page setup
     }
   });
 }
