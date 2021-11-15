@@ -16,7 +16,7 @@
 }
 
 /* Presentation styles */
-body {
+#recipe-card-top-level {
   background-color: #f2e4e9;
   display: flex;
   height: 100vh;

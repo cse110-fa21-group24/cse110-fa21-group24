@@ -11,7 +11,9 @@ class HomePage extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/home-page.css";
 
-    const home = document.getElementById("home-page-template").content;
+    const home = document
+      .getElementById("home-page-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(home);

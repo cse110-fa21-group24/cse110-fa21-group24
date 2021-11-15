@@ -1,12 +1,8 @@
-body {
-  /* font-family: 'Tangerine', serif; */
+main {
   font-family: Inter, sans-serif;
   font-weight: bold;
   font-size: 20px;
   text-shadow: 4px 4px 4px #aaa;
-}
-
-main {
   display: flex;
   flex-direction: column;
 }

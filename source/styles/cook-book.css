@@ -3,10 +3,6 @@
   font-style: normal;
 }
 
-body {
-  margin: 0;
-}
-
 .title-container {
   display: flex;
   justify-content: center;

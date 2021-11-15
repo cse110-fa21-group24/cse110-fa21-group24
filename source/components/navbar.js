@@ -11,7 +11,9 @@ class Navbar extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/navbar.css";
 
-    const navbar = document.getElementById("navbar-template").content;
+    const navbar = document
+      .getElementById("navbar-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(navbar);

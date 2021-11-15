@@ -11,9 +11,9 @@ class NotificationRecipeDeleted extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/notification-recipe-deleted.css";
 
-    const notification = document.getElementById(
-      "notification-recipe-deleted-template"
-    ).content;
+    const notification = document
+      .getElementById("notification-recipe-deleted-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(notification);

@@ -11,9 +11,9 @@ class RecipeCardDelete extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/RCCdelstyle.css";
 
-    const recipeCard = document.getElementById(
-      "recipe-card-delete-template"
-    ).content;
+    const recipeCard = document
+      .getElementById("recipe-card-delete-template")
+      .cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(recipeCard);

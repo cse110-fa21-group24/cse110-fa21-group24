@@ -1,30 +1,10 @@
 import { Router } from "./router.js";
 
-const router = new Router("single-cookbook"); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
+const router = new Router("home-page");
 
 /**
- * Creates a navbar custom element and adds it to the document
- * @function
- */
-function createNavbar() {
-  "use strict";
-  const navbar = document.createElement("custom-navbar");
-  document.querySelector("body").append(navbar);
-}
-
-/**
- * Creates a wave custom element and adds it to the document
- * @function
- */
-function createFooterImg() {
-  "use strict";
-  const footerImg = document.createElement("footer-img");
-  document.querySelector("body").append(footerImg);
-}
-
-/**
- * Creates a cook-book element and adds it to the document
- * @function
+ * Creates a cookbook element and adds it to the document
+ * @function createCookbook
  */
 function createCookbook() {
   "use strict";
@@ -34,8 +14,9 @@ function createCookbook() {
 }
 
 /**
- * Populates the cookbooks page with cookbook card elements and adds it to the document
- * @function
+ * Populates the cookbooks page with cookbook card elements and adds it to the
+ * document
+ * @function createCookbookCard
  */
 function createCookbookCard() {
   "use strict";
@@ -49,16 +30,9 @@ function createCookbookCard() {
   }
 }
 
-function createRecipeForm() {
-  "use strict";
-  const recipeForm = document.createElement("recipe-form");
-  recipeForm.classList.toggle("hidden");
-  document.querySelector("body").append(recipeForm);
-}
-
 /**
  * Creates a form for creating a new cookbook and adds it to the document
- * @function
+ * @function createCreateCookbook
  */
 function createCreateCookbook() {
   "use strict";
@@ -68,9 +42,8 @@ function createCreateCookbook() {
 }
 
 /**
- * Creates the explore page and adds it to the document. This
- * page starts off hidden.
- * @function
+ * Creates the explore page and adds it to the document
+ * @function createExplorePage
  */
 function createExplorePage() {
   "use strict";
@@ -80,43 +53,38 @@ function createExplorePage() {
 }
 
 /**
+ * Creates a wave custom element and adds it to the document
+ * @function createFooterImg
+ */
+function createFooterImg() {
+  "use strict";
+  const footerImg = document.createElement("footer-img");
+  document.querySelector("body").append(footerImg);
+}
+
+/**
+ * Creates a home page element and adds it to the document
+ * @function createHomePage
+ */
+function createHomePage() {
+  "use strict";
+  const homePage = document.createElement("home-page");
+  document.querySelector("body").append(homePage);
+}
+
+/**
  * Creates a navbar custom element and adds it to the document
  * @function
  */
-function loadHomePage() {
+function createNavbar() {
   "use strict";
-  const homepage = document.createElement("home-page");
-  document.querySelector("body").append(homepage);
+  const navbar = document.createElement("custom-navbar");
+  document.querySelector("body").append(navbar);
 }
 
 /**
- * Creates the recipe page and adds it to the document. This
- * page starts off hidden.
- * @function
- */
-function createRecipePage() {
-  "use strict";
-  const recipePage = document.createElement("recipe-page");
-  recipePage.classList.toggle("hidden");
-  document.querySelector("body").append(recipePage);
-}
-
-/**
- * Creates the single cookbook page and adds it to the document. This
- * page starts off hidden.
- * @function
- */
-function createSingleCookbook() {
-  "use strict";
-  const singleCookbook = document.createElement("single-cookbook");
-  //singleCookbook.classList.toggle("hidden"); //TODO: hide when wired in home
-  document.querySelector("body").append(singleCookbook);
-}
-
-/**
- * Creates the recipe added notification and adds it to the document. This
- * page starts off hidden.
- * @function
+ * Creates the recipe added notification and adds it to the document
+ * @function createNotificationRecipeAdded
  */
 function createNotificationRecipeAdded() {
   "use strict";
@@ -126,9 +94,8 @@ function createNotificationRecipeAdded() {
 }
 
 /**
- * Creates the recipe deleted notification and adds it to the document. This
- * page starts off hidden.
- * @function
+ * Creates the recipe deleted notification and adds it to the document
+ * @function createNotificationRecipeDeleted
  */
 function createNotificationRecipeDeleted() {
   "use strict";
@@ -138,15 +105,47 @@ function createNotificationRecipeDeleted() {
 }
 
 /**
- * Creates the select cookbook notification and adds it to the document. This
- * page starts off hidden.
- * @function
+ * Creates the select cookbook notification and adds it to the document
+ * @function createNotificationSelectCookbook
  */
 function createNotificationSelectCookbook() {
   "use strict";
   const notification = document.createElement("notification-select-cookbook");
   notification.classList.toggle("hidden");
   document.querySelector("body").append(notification);
+}
+
+/**
+ * Creates the form for editing a recipe and adds it to the document
+ * @function createRecipeForm
+ */
+function createRecipeForm() {
+  "use strict";
+  const recipeForm = document.createElement("recipe-form");
+  recipeForm.classList.toggle("hidden");
+  document.querySelector("body").append(recipeForm);
+}
+
+/**
+ * Creates the recipe page and adds it to the document
+ * @function createRecipePage
+ */
+function createRecipePage() {
+  "use strict";
+  const recipePage = document.createElement("recipe-page");
+  recipePage.classList.toggle("hidden");
+  document.querySelector("body").append(recipePage);
+}
+
+/**
+ * Creates the single cookbook page and adds it to the document
+ * @function createSingleCookbook
+ */
+function createSingleCookbook() {
+  "use strict";
+  const singleCookbook = document.createElement("single-cookbook");
+  singleCookbook.classList.toggle("hidden");
+  document.querySelector("body").append(singleCookbook);
 }
 
 /**
@@ -166,7 +165,7 @@ function connectNavbarButtons() {
     //Use if statements to check for name for easy style changes in the future
     if (buttons[i].textContent === "Home") {
       buttons[i].addEventListener("click", () => {
-        router.navigate("single-cookbook"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
+        router.navigate("home-page");
       });
     }
 
@@ -191,19 +190,21 @@ function connectNavbarButtons() {
 async function init() {
   "use strict";
   createNavbar();
-  loadHomePage();
-  createRecipeForm();
-  createRecipePage();
-  createCreateCookbook();
-  createSingleCookbook();
+  createHomePage();
   createExplorePage();
-  connectNavbarButtons();
   createCookbook();
+  createFooterImg();
+
   createCookbookCard();
+  createCreateCookbook();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();
   createNotificationSelectCookbook();
-  createFooterImg();
+  createRecipeForm();
+  createRecipePage();
+  createSingleCookbook();
+
+  connectNavbarButtons();
 }
 
 window.addEventListener("DOMContentLoaded", init);

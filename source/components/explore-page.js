@@ -12,7 +12,9 @@ class ExplorePage extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/explore-page.css";
 
-    const explore = document.getElementById("explore-page-template").content;
+    const explore = document
+      .getElementById("explore-page-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(explore);

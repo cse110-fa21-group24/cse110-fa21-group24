@@ -12,7 +12,9 @@ class RecipeForm extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/recipe-form.css";
 
-    const recipeForm = document.getElementById("recipe-form-template").content;
+    const recipeForm = document
+      .getElementById("recipe-form-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(recipeForm);

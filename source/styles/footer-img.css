@@ -4,11 +4,13 @@
     max-height: 5vh;
     position: fixed;
     bottom: 0;
+    z-index: 1000;
   }
 }
 
 @media (orientation: portrait) {
   #footer-img {
     display: none;
+    z-index: 1000;
   }
 }

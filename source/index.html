@@ -7,16 +7,13 @@
     <title>Impasta Rosta</title>
 
     <!-- Custom Components-->
-    <script src="/source/components/navbar.js" type="module"></script>
-    <script src="/source/components/footer-img.js" type="module"></script>
-    <script src="components/explore-page.js" type="module"></script>
-    <script src="components/home-page.js" type="module"></script>
     <script src="/source/components/cook-book.js" type="module"></script>
     <script src="/source/components/cookbook-card.js" type="module"></script>
-    <script src="/source/components/recipe-form.js" type="module"></script>
     <script src="/source/components/create-cookbook.js" type="module"></script>
     <script src="/source/components/explore-page.js" type="module"></script>
-    <script src="/source/components/recipe-page.js" type="module"></script>
+    <script src="/source/components/footer-img.js" type="module"></script>
+    <script src="/source/components/home-page.js" type="module"></script>
+    <script src="/source/components/navbar.js" type="module"></script>
     <script
       src="/source/components/notification-recipe-added.js"
       type="module"
@@ -29,6 +26,13 @@
       src="/source/components/notification-select-cookbook.js"
       type="module"
     ></script>
+    <script
+      src="/source/components/recipe-card-delete.js"
+      type="module"
+    ></script>
+    <script src="/source/components/recipe-card.js" type="module"></script>
+    <script src="/source/components/recipe-form.js" type="module"></script>
+    <script src="/source/components/recipe-page.js" type="module"></script>
     <script src="/source/components/single-cookbook.js"></script>
 
     <!-- Main Stylesheet and Scripts -->
@@ -39,43 +43,6 @@
 
   <body>
     <!-- Templates -->
-    <template id="navbar-template">
-      <nav id="navbar">
-        <section id="navbar-section-left" class="navbar-section">
-          <button id="web-app-title">Impasta Rosta</button>
-        </section>
-        <section id="navbar-section-right" class="navbar-section">
-          <button class="navbar-tab">Home</button>
-          <p class="navbar-tab-divider">•</p>
-          <button class="navbar-tab">Explore</button>
-          <p class="navbar-tab-divider">•</p>
-          <button class="navbar-tab">My Cookbooks</button>
-        </section>
-      </nav>
-    </template>
-
-    <template id="home-page-template">
-      <main>
-        <!-- Search Box -->
-        <section class="search-section">
-          <div class="search-box">
-            <p class="search-title">Search for a Recipe</p>
-            <input type="text" placeholder="Search Recipes" />
-          </div>
-        </section>
-
-        <!-- Image Box -->
-        <section class="image-section">
-          <img src="/source/images/home-pasta.jpg" alt="Pasta" />
-          <div class="featured-recipes">Featured Recipes</div>
-          <!-- Explore button -->
-          <button class="explore-button">Explore</button>
-        </section>
-
-        <div class="explore"></div>
-      </main>
-    </template>
-
     <template id="cook-book-template">
       <nav id="cookbook">
         <div class="title-container">
@@ -90,113 +57,38 @@
     </template>
 
     <template id="cookbook-card-template">
-      <article>
-        <div class="edit-remove-container">
-          <button id="edit">
-            <input
-              type="image"
-              src="images/icons8-edit-24.png"
-              name="edit-image"
-            />
-          </button>
-          <button id="remove">
-            <input
-              type="image"
-              src="images/icons8-remove-24.png"
-              name="remove-image"
-            />
-          </button>
-        </div>
-        <div class="title-container">
-          <p class="title">Title</p>
-        </div>
-
-        <p class="description">Description</p>
-        <p class="detailed-description">
-          This is my first cookbook! Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit...
-        </p>
-        <div class="open-button-container">
-          <button id="open">Open</button>
-        </div>
-      </article>
-    </template>
-
-    <template id="single-cookbook-template">
-      <body>
-        <main>
-          <!-- title -->
+      <div id="cookbook-card-top-level">
+        <article>
+          <div class="edit-remove-container">
+            <button id="edit">
+              <input
+                type="image"
+                src="images/icons8-edit-24.png"
+                name="edit-image"
+              />
+            </button>
+            <button id="remove">
+              <input
+                type="image"
+                src="images/icons8-remove-24.png"
+                name="remove-image"
+              />
+            </button>
+          </div>
           <div class="title-container">
-            <h1 class="title">Title of Cookbooks</h1>
+            <p class="title">Title</p>
           </div>
-          <section class="recipes">
-            <h2 class="recipe-header">My Recipes</h2>
-            <div class="recipe-container">
-              <!-- test for adding recipe -->
-              <!-- add recipe cards -->
-              <div class="recipe-cards"></div>
-              <div class="recipe-cards"></div>
-              <div class="recipe-cards"></div>
-              <div class="recipe-cards"></div>
-            </div>
-          </section>
-          <!-- add button -->
-          <section class="button">
-            <div class="add-button">
-              <button></button>
-              <span class="button-name">Add New Recipes</span>
-            </div>
-          </section>
-        </main>
-      </body>
-    </template>
 
-    <template id="recipe-form-template">
-      <body>
-        <div class="edit-recipe">Edit Recipe</div>
-        <div class="title">Title:</div>
-        <div class="title-box">
-          <input />
-        </div>
-        <div class="description">Description:</div>
-        <div class="description-box">
-          <input />
-        </div>
-        <div class="ingredients">Ingredients:</div>
-        <div class="ingredients-box">
-          <input />
-        </div>
-        <img
-          class="recycle-bin-ingredients"
-          src="/source/images/recycle-bin-4@2x.png"
-        />
-
-        <div class="add-ingredient-button">
-          <div class="add-ingredient-text valign-text-middle">
-            + Add Ingredient
+          <p class="description">Description</p>
+          <p class="detailed-description">
+            This is my first cookbook! Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit...
+          </p>
+          <div class="open-button-container">
+            <button id="open">Open</button>
           </div>
-        </div>
-
-        <div class="instructions">Instructions: 1.</div>
-        <div class="instructions-box">
-          <input />
-        </div>
-
-        <img
-          class="recycle-bin-instructions"
-          src="/source/images/recycle-bin-4@2x.png"
-        />
-
-        <div class="add-instruction-button">
-          <div class="add-instruction-text valign-text-middle">
-            + Add Instruction
-          </div>
-        </div>
-
-        <div class="save-button">
-          <div class="save-text valign-text-middle">Save changes</div>
-        </div>
-      </body>
+        </article>
+      </div>
     </template>
 
     <template id="create-cookbook-template">
@@ -279,123 +171,45 @@
       </main>
     </template>
 
-    <template id="recipe-card-template">
-      <body>
-        <div class="recipe-card">
-          <figure>
-            <img src="source/images/pasta.jpg" alt="Card image" />
-          </figure>
-          <h1>Delicious Pasta Recipe</h1>
-          <p class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-            sodales diam at tellus pellentesque aliquet. Donec placerat nunc sed
-            tortor posuere, a posuere lorem facilisis. Fusce non consectetir
-            nibh, at aliquet lectus.
-          </p>
-
-          <div class="card-meta">
-            <button class="recipe-action-button" type="button">
-              <p class="recipe-info">Learn More</p>
-            </button>
-            <div class="recipe-action">
-              <button class="recipe-action-button" type="button">
-                <div class="recipe-action-image-outline">
-                  <div class="recipe-action-image-content"></div>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </body>
+    <template id="footer-img-template">
+      <img id="footer-img" src="/source/images/wave.png" />
     </template>
 
-    <template id="recipe-card-delete-template">
-      <body>
-        <div class="recipe-card">
-          <figure>
-            <img src="source/images/pasta.jpg" alt="Card image" />
-          </figure>
-          <h1>Delicious Pasta Recipe</h1>
-          <p class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-            sodales diam at tellus pellentesque aliquet. Donec placerat nunc sed
-            tortor posuere, a posuere lorem facilisis. Fusce non consectetir
-            nibh, at aliquet lectus.
-          </p>
-
-          <div class="card-meta">
-            <button class="recipe-action-button" type="button">
-              <p class="recipe-info">Learn More</p>
-            </button>
-            <div class="recipe-action">
-              <button class="recipe-delete-button" type="button">
-                <i class="fa fa-trash"></i>
-              </button>
-            </div>
+    <template id="home-page-template">
+      <main>
+        <!-- Search Box -->
+        <section class="search-section">
+          <div class="search-box">
+            <p class="search-title">Search for a Recipe</p>
+            <input type="text" placeholder="Search Recipes" />
           </div>
-        </div>
-      </body>
+        </section>
+
+        <!-- Image Box -->
+        <section class="image-section">
+          <img src="/source/images/home-pasta.jpg" alt="Pasta" />
+          <div class="featured-recipes">Featured Recipes</div>
+          <!-- Explore button -->
+          <button class="explore-button">Explore</button>
+        </section>
+
+        <div class="explore"></div>
+      </main>
     </template>
-    <template id="recipe-page-template">
-      <div id="recipe-container">
-        <!-- Recipe Header -->
-        <div id="recipe-header">
-          <h1 id="recipe-name">Recipe Name</h1>
-          <p id="recipe-author">Recipe by: Author</p>
-        </div>
 
-        <!-- Recipe Subheader -->
-        <div id="recipe-subheader">
-          <div id="recipe-tags">
-            <p class="recipe-tag-info">Cuisine: Italian</p>
-            <p class="recipe-tag-info">Ready In: x min</p>
-          </div>
-          <div id="recipe-action">
-            <button id="recipe-action-button" type="button">
-              <div id="recipe-action-image-outline">
-                <div id="recipe-action-image-content"></div>
-              </div>
-              <p id="recipe-action-text">Add to cookbook</p>
-            </button>
-          </div>
-        </div>
-
-        <!-- Recipe Image -->
-        <div id="recipe-image-container">
-          <img
-            id="recipe-image"
-            src="/source//images/pasta.jpg"
-            alt="Picture of Recipe"
-          />
-        </div>
-
-        <!-- Recipe Description -->
-        <h2 class="recipe-section-header">Description</h2>
-        <p id="recipe-description">Description</p>
-
-        <hr class="recipe-horizontal-rule" />
-
-        <!-- Recipe Ingredients -->
-        <h2 class="recipe-section-header">Ingredients</h2>
-        <div id="recipe-ingredients-container">
-          <section id="recipe-ingredients-section-left">
-            <li class="ingredient-item">Lorem</li>
-          </section>
-          <section id="recipe-ingredients-section-right">
-            <li class="ingredient-item">Sit</li>
-          </section>
-        </div>
-
-        <hr class="recipe-horizontal-rule" />
-
-        <!-- Recipe Instructions -->
-        <h2 class="recipe-section-header">Instructions</h2>
-        <ol id="instructions-list">
-          <li class="instruction-item">Lorem</li>
-        </ol>
-
-        <hr class="recipe-horizontal-rule" />
-      </div>
+    <template id="navbar-template">
+      <nav id="navbar">
+        <section id="navbar-section-left" class="navbar-section">
+          <p id="web-app-title">Impasta Rosta</p>
+        </section>
+        <section id="navbar-section-right" class="navbar-section">
+          <button class="navbar-tab">Home</button>
+          <p class="navbar-tab-divider">•</p>
+          <button class="navbar-tab">Explore</button>
+          <p class="navbar-tab-divider">•</p>
+          <button class="navbar-tab">My Cookbooks</button>
+        </section>
+      </nav>
     </template>
 
     <template id="notification-recipe-added-template">
@@ -439,8 +253,197 @@
       </div>
     </template>
 
-    <template id="footer-img-template">
-      <img id="footer-img" src="/source/images/wave.png" />
+    <template id="recipe-card-delete-template">
+      <div id="recipe-card-delete-top-level">
+        <div class="recipe-card">
+          <figure>
+            <img src="source/images/pasta.jpg" alt="Card image" />
+          </figure>
+          <h1>Delicious Pasta Recipe</h1>
+          <p class="description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+            sodales diam at tellus pellentesque aliquet. Donec placerat nunc sed
+            tortor posuere, a posuere lorem facilisis. Fusce non consectetir
+            nibh, at aliquet lectus.
+          </p>
+
+          <div class="card-meta">
+            <button class="recipe-action-button" type="button">
+              <p class="recipe-info">Learn More</p>
+            </button>
+            <div class="recipe-action">
+              <button class="recipe-delete-button" type="button">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template id="recipe-card-template">
+      <div id="recipe-card-top-level">
+        <div class="recipe-card">
+          <figure>
+            <img src="source/images/pasta.jpg" alt="Card image" />
+          </figure>
+          <h1>Delicious Pasta Recipe</h1>
+          <p class="description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+            sodales diam at tellus pellentesque aliquet. Donec placerat nunc sed
+            tortor posuere, a posuere lorem facilisis. Fusce non consectetir
+            nibh, at aliquet lectus.
+          </p>
+
+          <div class="card-meta">
+            <button class="recipe-action-button" type="button">
+              <p class="recipe-info">Learn More</p>
+            </button>
+            <div class="recipe-action">
+              <button class="recipe-action-button" type="button">
+                <div class="recipe-action-image-outline">
+                  <div class="recipe-action-image-content"></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template id="recipe-form-template">
+      <div class="edit-recipe">Edit Recipe</div>
+      <div class="title">Title:</div>
+      <div class="title-box">
+        <input />
+      </div>
+      <div class="description">Description:</div>
+      <div class="description-box">
+        <input />
+      </div>
+      <div class="ingredients">Ingredients:</div>
+      <div class="ingredients-box">
+        <input />
+      </div>
+      <img
+        class="recycle-bin-ingredients"
+        src="/source/images/recycle-bin-4@2x.png"
+      />
+
+      <div class="add-ingredient-button">
+        <div class="add-ingredient-text valign-text-middle">
+          + Add Ingredient
+        </div>
+      </div>
+
+      <div class="instructions">Instructions: 1.</div>
+      <div class="instructions-box">
+        <input />
+      </div>
+
+      <img
+        class="recycle-bin-instructions"
+        src="/source/images/recycle-bin-4@2x.png"
+      />
+
+      <div class="add-instruction-button">
+        <div class="add-instruction-text valign-text-middle">
+          + Add Instruction
+        </div>
+      </div>
+
+      <div class="save-button">
+        <div class="save-text valign-text-middle">Save changes</div>
+      </div>
+    </template>
+
+    <template id="recipe-page-template">
+      <div id="recipe-container">
+        <!-- Recipe Header -->
+        <div id="recipe-header">
+          <h1 id="recipe-name">Recipe Name</h1>
+          <p id="recipe-author">Recipe by: Author</p>
+        </div>
+
+        <!-- Recipe Subheader -->
+        <div id="recipe-subheader">
+          <div id="recipe-tags">
+            <p class="recipe-tag-info">Cuisine: Italian</p>
+            <p class="recipe-tag-info">Ready In: x min</p>
+          </div>
+          <div id="recipe-action">
+            <button id="recipe-action-button" type="button">
+              <div id="recipe-action-image-outline">
+                <div id="recipe-action-image-content"></div>
+              </div>
+              <p id="recipe-action-text">Add to cookbook</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Recipe Image -->
+        <div id="recipe-image-container">
+          <img
+            id="recipe-image"
+            src="/source/images/pasta.jpg"
+            alt="Picture of Recipe"
+          />
+        </div>
+
+        <!-- Recipe Description -->
+        <h2 class="recipe-section-header">Description</h2>
+        <p id="recipe-description">Description</p>
+
+        <hr class="recipe-horizontal-rule" />
+
+        <!-- Recipe Ingredients -->
+        <h2 class="recipe-section-header">Ingredients</h2>
+        <div id="recipe-ingredients-container">
+          <section id="recipe-ingredients-section-left">
+            <li class="ingredient-item">Lorem</li>
+          </section>
+          <section id="recipe-ingredients-section-right">
+            <li class="ingredient-item">Sit</li>
+          </section>
+        </div>
+
+        <hr class="recipe-horizontal-rule" />
+
+        <!-- Recipe Instructions -->
+        <h2 class="recipe-section-header">Instructions</h2>
+        <ol id="instructions-list">
+          <li class="instruction-item">Lorem</li>
+        </ol>
+
+        <hr class="recipe-horizontal-rule" />
+      </div>
+    </template>
+
+    <template id="single-cookbook-template">
+      <main>
+        <!-- title -->
+        <div class="title-container">
+          <h1 class="title">Title of Cookbooks</h1>
+        </div>
+        <section class="recipes">
+          <h2 class="recipe-header">My Recipes</h2>
+          <div class="recipe-container">
+            <!-- test for adding recipe -->
+            <!-- add recipe cards -->
+            <div class="recipe-cards"></div>
+            <div class="recipe-cards"></div>
+            <div class="recipe-cards"></div>
+            <div class="recipe-cards"></div>
+          </div>
+        </section>
+        <!-- add button -->
+        <section class="button">
+          <div class="add-button">
+            <button></button>
+            <span class="button-name">Add New Recipes</span>
+          </div>
+        </section>
+      </main>
     </template>
   </body>
 </html>

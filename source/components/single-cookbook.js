@@ -12,9 +12,9 @@ class SingleCookbook extends HTMLElement {
     stylesheet.rel = "stylesheet";
     stylesheet.href = "/source/styles/single-cookbook.css";
 
-    const singleCookbook = document.getElementById(
-      "single-cookbook-template"
-    ).content;
+    const singleCookbook = document
+      .getElementById("single-cookbook-template")
+      .content.cloneNode(true);
 
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(singleCookbook);
