@@ -1,45 +1,52 @@
 const SPOONACULAR_API_KEY = "83c84ad2b0e4486f93cfbe9658d21c66";
-const MOCK_RECIPES_ARRAY = [
-  {
-    id: 0,
-    title: "title-0",
-    image: "/source/images/pasta.jpg",
-  },
-  {
-    id: 1,
-    title: "title-1",
-    image: "/source/images/pasta.jpg",
-  },
-  {
-    id: 2,
-    title: "title-2",
-    image: "/source/images/pasta.jpg",
-  },
-  {
-    id: 3,
-    title: "title-3",
-    image: "/source/images/pasta.jpg",
-  },
-  {
-    id: 4,
-    title: "title-4",
-    image: "/source/images/pasta.jpg",
-  },
-  {
-    id: 5,
-    title: "title-5",
-    image: "/source/images/pasta.jpg",
-  },
-];
+const MOCK_RECIPES_ARRAY = {
+  results: [
+    {
+      id: 0,
+      title: "title-0",
+      image: "/source/images/pasta.jpg",
+    },
+    {
+      id: 1,
+      title: "title-1",
+      image: "/source/images/pasta.jpg",
+    },
+    {
+      id: 2,
+      title: "title-2",
+      image: "/source/images/pasta.jpg",
+    },
+    {
+      id: 3,
+      title: "title-3",
+      image: "/source/images/pasta.jpg",
+    },
+    {
+      id: 4,
+      title: "title-4",
+      image: "/source/images/pasta.jpg",
+    },
+    {
+      id: 5,
+      title: "title-5",
+      image: "/source/images/pasta.jpg",
+    },
+  ],
+};
 const MOCK_RECIPE_INFO = {
   title: "title",
-  author: "author",
+  creditsText: "author",
   cuisines: ["cuisine-0", "cuisine-1"],
   readyInMinutes: 10,
   image: "/source/images/pasta.jpg",
-  description: "description",
-  ingredients: ["ingredient-0", "ingredient-1"],
-  instructions: ["instruction-0", "instruction-1"],
+  summary: "description",
+  extendedIngredients: [
+    { original: "ingredient-0" },
+    { original: "ingredient-1" },
+  ],
+  analyzedInstructions: [
+    { steps: [{ step: "instruction-1" }, { step: "instruction-2" }] },
+  ],
 };
 
 // Change this variable to true to make real API calls to Spoonacular
@@ -59,10 +66,6 @@ export class SpoonacularInterface {
    *          title, and image for each retrieved recipe
    */
   async getRecipes(filtersObj) {
-    if (!SPOONACULAR_ENABLED) {
-      return MOCK_RECIPES_ARRAY;
-    }
-
     let requestUrl =
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
       SPOONACULAR_API_KEY +
@@ -95,10 +98,6 @@ export class SpoonacularInterface {
    *          title, and image for each retrieved recipe
    */
   async getRandomRecipes(numResults) {
-    if (!SPOONACULAR_ENABLED) {
-      return MOCK_RECIPES_ARRAY;
-    }
-
     let requestUrl =
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=" +
       SPOONACULAR_API_KEY +
@@ -126,10 +125,6 @@ export class SpoonacularInterface {
    * @returns An object containing several properties of the recipe
    */
   async getRecipeInfo(id) {
-    if (!SPOONACULAR_ENABLED) {
-      return MOCK_RECIPE_INFO;
-    }
-
     let requestUrl =
       "https://api.spoonacular.com/recipes/" +
       id +
@@ -168,9 +163,12 @@ export class SpoonacularInterface {
    */
   async makeRequest(requestUrl) {
     if (!SPOONACULAR_ENABLED) {
-      return;
+      if (requestUrl.includes("complexSearch")) {
+        return MOCK_RECIPES_ARRAY;
+      } else {
+        return MOCK_RECIPE_INFO;
+      }
     }
-
     let response = await fetch(requestUrl);
     let data = await response.json();
     return data;
