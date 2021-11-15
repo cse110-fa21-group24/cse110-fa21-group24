@@ -220,7 +220,10 @@ function searchFunction() {
 
       // more here once explore page setup
     }
+  });
+}
 
+/**
  * Attaches "click" event listeners to the Create New Cookbook
  * button on My Cookbook page which will navigate to Create Cookbook page.
  */
