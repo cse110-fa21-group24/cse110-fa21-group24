@@ -80,6 +80,16 @@ function createExplorePage() {
 }
 
 /**
+ * Creates a navbar custom element and adds it to the document
+ * @function
+ */
+function loadHomePage() {
+  "use strict";
+  const homepage = document.createElement("home-page");
+  document.querySelector("body").append(homepage);
+}
+
+/**
  * Creates the recipe page and adds it to the document. This
  * page starts off hidden.
  * @function
@@ -181,6 +191,7 @@ function connectNavbarButtons() {
 async function init() {
   "use strict";
   createNavbar();
+  loadHomePage();
   createRecipeForm();
   createRecipePage();
   createCreateCookbook();
