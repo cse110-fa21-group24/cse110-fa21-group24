@@ -23,7 +23,7 @@ function createFooterImg() {
 }
 
 /**
- * Creates a recipe form element and adds it to the document
+ * Creates a cook-book element and adds it to the document
  * @function
  */
 function createCookbook() {
@@ -34,7 +34,7 @@ function createCookbook() {
 }
 
 /**
- * Creates a recipe form element and adds it to the document
+ * Populates the cookbooks page with cookbook card elements and adds it to the document
  * @function
  */
 function createCookbookCard() {
@@ -89,6 +89,18 @@ function createRecipePage() {
   const recipePage = document.createElement("recipe-page");
   recipePage.classList.toggle("hidden");
   document.querySelector("body").append(recipePage);
+}
+
+/**
+ * Creates the single cookbook page and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
+function createSingleCookbook() {
+  "use strict";
+  const singleCookbook = document.createElement("single-cookbook");
+  singleCookbook.classList.toggle("hidden");
+  document.querySelector("body").append(singleCookbook);
 }
 
 /**
@@ -156,7 +168,7 @@ function connectNavbarButtons() {
 
     if (buttons[i].textContent === "My Cookbooks") {
       buttons[i].addEventListener("click", () => {
-        //TODO: router.navigate("PUT YOUR COOKBOOK UI ELEMENT NAME HERE");
+        router.navigate("cook-book");
       });
     }
   }
@@ -172,14 +184,15 @@ async function init() {
   createRecipeForm();
   createRecipePage();
   createCreateCookbook();
+  createSingleCookbook();
   createExplorePage();
-  createFooterImg();
   connectNavbarButtons();
   createCookbook();
   createCookbookCard();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();
   createNotificationSelectCookbook();
+  createFooterImg();
 }
 
 window.addEventListener("DOMContentLoaded", init);
