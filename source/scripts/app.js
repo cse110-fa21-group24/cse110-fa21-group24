@@ -193,7 +193,6 @@ function exploreButton() {
   let home = document.querySelector("home-page");
   let shadow = home.shadowRoot;
   let explore = shadow.querySelector("button.explore-button");
-  //console.log(explore);
 
   explore.addEventListener("click", () => {
     router.navigate("explore-page");
@@ -218,7 +217,7 @@ function searchFunction() {
       // let searchQuery = e.target.value;
       router.navigate("explore-page");
 
-      // more here once explore page setup
+      // TODO more here once explore page setup
     }
   });
 }
