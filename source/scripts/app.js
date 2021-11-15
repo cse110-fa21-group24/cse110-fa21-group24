@@ -193,8 +193,7 @@ function connectNavbarButtons() {
   //Get references to createButtons
   let templatePage = document.querySelector("cook-book");
   let shadow = templatePage.shadowRoot;
-  let button = shadow.querySelector("button")
-  console.log(button);
+  let button = shadow.querySelector("button");
   
   button.addEventListener("click", () => {
     router.navigate("create-cookbook");
