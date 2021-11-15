@@ -57,6 +57,7 @@
   border-radius: 1.5vw;
   border-style: solid;
   border-color: #8f8f8f;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
