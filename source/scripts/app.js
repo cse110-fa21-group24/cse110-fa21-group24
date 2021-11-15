@@ -223,6 +223,23 @@ function searchFunction() {
 }
 
 /**
+ * Attaches "click" event listeners to the Create New Cookbook
+ * button on My Cookbook page which will navigate to Create Cookbook page.
+ */
+function connectCreateNewCookbook() {
+  "use strict";
+
+  //Get references to createButtons
+  let templatePage = document.querySelector("cook-book");
+  let shadow = templatePage.shadowRoot;
+  let button = shadow.querySelector("button");
+
+  button.addEventListener("click", () => {
+    router.navigate("create-cookbook");
+  });
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function
  */
@@ -246,6 +263,7 @@ async function init() {
   connectNavbarButtons();
   exploreButton();
   searchFunction();
+  connectCreateNewCookbook();
 }
 
 window.addEventListener("DOMContentLoaded", init);
