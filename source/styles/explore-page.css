@@ -1,53 +1,56 @@
-@media (max-width: 420px) {
-  .filter-section {
+@media (orientation: portrait) {
+  #filter-section {
     display: none;
   }
 
-  .display-section {
+  #display-section {
     width: 100vw;
   }
 }
 
-@media (min-width: 421px) {
-  .display-section {
+@media (orientation: landscape) {
+  #filter-section {
+    width: 20vw;
+  }
+
+  #display-section {
     width: 80vw;
   }
 }
 
-main {
-  font-family: Inter, sans-serif;
-  font-weight: bold;
+* {
+  font-family: Helvetica, sans-serif;
+}
+
+.make-invisible {
+  visibility: hidden;
+}
+
+#explore-top-level {
   display: flex; /* Row alignment */
   margin-top: 5%;
   height: 80vh; /* Relative height */
 }
 
-.filter-section {
-  text-align: center;
+#filter-section {
   background-color: #e7e4e6;
-  border-radius: 20px;
-  width: 20vw;
+  border-radius: 1vw;
+  padding: 2.5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.filter-by-text {
-  font-size: min(30px, 3vw);
+#filter-by-text {
+  font-weight: bold;
+  font-size: 2vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .filter-choice {
   font-size: min(25px, 3vw);
-}
-
-.display-section {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  background-color: hsl(359deg 60% 75%);
-}
-
-.explore-title-text {
-  text-align: center; /* Title, search for text */
-  font-size: min(42px, 5vw);
 }
 
 /* Checkbox related */
@@ -73,38 +76,73 @@ label {
 
 /* END Checkbox Related */
 
-.load-button {
-  /* Details taken from Figma */
-  border: 1px solid #adadad;
-  border-radius: 16px;
-  box-sizing: border-box;
-  height: 5vh;
-  width: 146px;
-  font-family: Inter, sans-serif;
-  font-size: min(18px, 3vw);
-  font-weight: bold;
-}
-
-.load-button:hover {
-  background-color: #c9c7c7;
-}
-
-.load-button:active {
-  background-color: #979393;
+#display-section {
+  border-radius: 1vw;
+  background-color: hsl(359deg 60% 75%);
+  padding: 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp */
-input {
+#search-bar {
   border: 1px solid #000;
   box-sizing: border-box;
   box-shadow: 0 4px 4px rgba(0 0 0 / 25%);
-  border-radius: 10px;
-  font-size: 17px;
-  margin: 10px;
-  height: 36px;
+  border-radius: 0.5vw;
+  font-size: 1em;
+  height: 5%;
   width: 70%;
   text-align: center;
   background-image: url("/source/images/magnifyingglass.png");
   background-repeat: no-repeat;
-  background-position: 30px;
+  background-position: 1vw;
+}
+
+#explore-title-text {
+  height: 10%;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center; /* Title, search for text */
+  margin: 1% 0;
+}
+
+#no-results-text {
+  height: 5%;
+  font-size: 1em;
+  text-align: center;
+  margin: 0;
+}
+
+#recipe-cards-section {
+  width: 100%;
+  height: 70%;
+  margin-bottom: 1%;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 45% 45%;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+#load-button {
+  /* Details taken from Figma */
+  border: 1px solid #adadad;
+  border-radius: 1vw;
+  box-sizing: border-box;
+  height: 7%;
+  width: 15%;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#load-button:hover {
+  filter: brightness(120%);
+}
+
+#load-button:active {
+  filter: brightness(100%);
 }

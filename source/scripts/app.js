@@ -1,6 +1,21 @@
 import { Router } from "./router.js";
+import { SpoonacularInterface } from "./spoonacular-interface.js";
+
+const EXPLORE_PAGE_NUM_RESULTS = 6;
 
 const router = new Router("home-page");
+const spoonacular = new SpoonacularInterface();
+
+/**
+ * Creates a recipe card element
+ * @returns A recipe card element
+ */
+function createRecipeCard() {
+  "use strict";
+  const recipeCard = document.createElement("recipe-card");
+  recipeCard.classList.add("make-invisible");
+  return recipeCard;
+}
 
 /**
  * Creates a cookbook element and adds it to the document
@@ -49,6 +64,15 @@ function createExplorePage() {
   "use strict";
   const explorePage = document.createElement("explore-page");
   explorePage.classList.toggle("hidden");
+  const recipeCardsSection = explorePage.shadowRoot.getElementById(
+    "recipe-cards-section"
+  );
+
+  for (let i = 0; i < EXPLORE_PAGE_NUM_RESULTS; ++i) {
+    const recipeCard = createRecipeCard();
+    recipeCardsSection.append(recipeCard);
+  }
+
   document.querySelector("body").append(explorePage);
 }
 
@@ -183,6 +207,71 @@ function connectNavbarButtons() {
   }
 }
 
+// TODO implement this function once we start working on the search bar
+// functionality
+// function toggleExplorePageType() {
+//   "use strict";
+//   let shadow = document.querySelector("explore-page").shadowRoot;
+//   let topLevel = shadow.getElementById("explore-top-level");
+//   let loadButton = shadow.getElementById("load-button");
+//   topLevel.classList.toggle("type-explore");
+
+//   if (topLevel.classList.contains("type-explore")) {
+//     loadButton.textContent = "Explore More";
+//   } else {
+//     loadButton.textContent = "Explore Recipes";
+//   }
+// }
+
+/**
+ * Populates new recipes in the Explore page by retrieving new recipes from
+ * Spoonacular
+ * @function populateExplorePage
+ */
+async function populateExplorePage(/* TODO: filtersObj */) {
+  "use strict";
+  let shadow = document.querySelector("explore-page").shadowRoot;
+  let topLevel = shadow.getElementById("explore-top-level");
+
+  if (topLevel.classList.contains("type-explore")) {
+    let recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
+    shadow.getElementById("no-results-text").classList.add("make-invisible");
+    let recipeCards = shadow.getElementById("recipe-cards-section").children;
+
+    for (let i = 0; i < recipes.length; ++i) {
+      recipeCards[i].classList.remove("make-invisible");
+      let shadow = recipeCards[i].shadowRoot;
+      shadow.getElementById("recipe-id").textContent = recipes[i].id;
+      shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+      shadow.getElementById("recipe-card-image").src = recipes[i].image;
+    }
+  } else {
+    // TODO: implement getting recipes with spoonacular.getRecipes(filterObj)
+    // when using search bar in explore page
+  }
+}
+
+/**
+ * Allows new recipes to be populated in the Explore when pressing the Explore
+ * More or Explore Recipes buttons in the Explore page
+ * @function bindExploreLoadButton
+ */
+function bindExploreLoadButton() {
+  "use strict";
+  let shadow = document.querySelector("explore-page").shadowRoot;
+  let topLevel = shadow.getElementById("explore-top-level");
+  let loadButton = shadow.getElementById("load-button");
+
+  loadButton.addEventListener("click", async () => {
+    if (topLevel.classList.contains("type-explore")) {
+      await populateExplorePage();
+    } else {
+      // TODO: implement use case for clicking Explore Recipes when in search
+      // mode
+    }
+  });
+}
+
 /**
  * Navigate to explore page if "Explore" button is clicked
  */
@@ -247,7 +336,11 @@ async function init() {
   "use strict";
   createNavbar();
   createHomePage();
+
   createExplorePage();
+  populateExplorePage();
+  bindExploreLoadButton();
+
   createCookbook();
   createFooterImg();
 

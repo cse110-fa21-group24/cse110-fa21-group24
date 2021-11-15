@@ -10,7 +10,7 @@ class RecipeCard extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/RCCstyle.css";
+    stylesheet.href = "/source/styles/recipe-card.css";
 
     const recipeCard = document
       .getElementById("recipe-card-template")
