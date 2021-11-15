@@ -11,3 +11,5 @@ If any of the checks fail or the pull request does not have two approving review
 If at any time new changes are pushed to the pull request, GitHub Actions will re-run all the linting, testing, and up to date with `main` checks.
 
 We currently have JSDoc configured in our repo, but we do not have a pipeline to automate creating and adding the docs to `main` yet. Currently, we can run JSDoc locally to generate docs, then push the docs and the changes to a pull request.
+
+We also have plans to create a workflow that builds our product in our `main` branch and then deploy the product to a website hosting service such as Heroku.
