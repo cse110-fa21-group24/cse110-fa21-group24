@@ -215,7 +215,7 @@ function searchFunction() {
     if (e.key === "Enter") {
       e.preventDefault();
       // store search string and navigate to explore page
-      let searchQuery = e.target.value;
+      // let searchQuery = e.target.value;
       router.navigate("explore-page");
 
       // more here once explore page setup
