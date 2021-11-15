@@ -41,7 +41,7 @@ h2 {
   background-color: #e5383b;
 }
 
-#button-name {
+.button-name {
   font-weight: bold;
   padding: 20px;
   line-height: 32px;
@@ -119,7 +119,7 @@ button::after {
     padding: 16px;
   }
 
-  #button-name {
+  .button-name {
     font-size: 18px;
   }
 
@@ -179,7 +179,7 @@ button::after {
     padding: 20px;
   }
 
-  #button-name {
+  .button-name {
     font-size: 30px;
   }
 

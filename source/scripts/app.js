@@ -1,6 +1,6 @@
 import { Router } from "./router.js";
 
-const router = new Router("create-cookbook"); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
+const router = new Router("single-cookbook"); //TODO: CHANGE TO HOME ELEMENT WHEN ADDED IN!!!
 
 /**
  * Creates a navbar custom element and adds it to the document
@@ -23,7 +23,7 @@ function createFooterImg() {
 }
 
 /**
- * Creates a recipe form element and adds it to the document
+ * Creates a cook-book element and adds it to the document
  * @function
  */
 function createCookbook() {
@@ -34,7 +34,7 @@ function createCookbook() {
 }
 
 /**
- * Creates a recipe form element and adds it to the document
+ * Populates the cookbooks page with cookbook card elements and adds it to the document
  * @function
  */
 function createCookbookCard() {
@@ -63,7 +63,7 @@ function createRecipeForm() {
 function createCreateCookbook() {
   "use strict";
   const createCookbook = document.createElement("create-cookbook");
-  // createCookbook.classList.toggle("hidden"); //TODO: UNCOMMENT WHEN HOME WIRED IN
+  createCookbook.classList.toggle("hidden");
   document.querySelector("body").append(createCookbook);
 }
 
@@ -99,6 +99,18 @@ function createRecipePage() {
   const recipePage = document.createElement("recipe-page");
   recipePage.classList.toggle("hidden");
   document.querySelector("body").append(recipePage);
+}
+
+/**
+ * Creates the single cookbook page and adds it to the document. This
+ * page starts off hidden.
+ * @function
+ */
+function createSingleCookbook() {
+  "use strict";
+  const singleCookbook = document.createElement("single-cookbook");
+  //singleCookbook.classList.toggle("hidden"); //TODO: hide when wired in home
+  document.querySelector("body").append(singleCookbook);
 }
 
 /**
@@ -154,7 +166,7 @@ function connectNavbarButtons() {
     //Use if statements to check for name for easy style changes in the future
     if (buttons[i].textContent === "Home") {
       buttons[i].addEventListener("click", () => {
-        router.navigate("home-page"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
+        router.navigate("single-cookbook"); //TODO: CHANGE THIS TO HOME ELEMENT WHEN ADDED!!!
       });
     }
 
@@ -166,7 +178,7 @@ function connectNavbarButtons() {
 
     if (buttons[i].textContent === "My Cookbooks") {
       buttons[i].addEventListener("click", () => {
-        //TODO: router.navigate("PUT YOUR COOKBOOK UI ELEMENT NAME HERE");
+        router.navigate("cook-book");
       });
     }
   }
@@ -183,14 +195,15 @@ async function init() {
   createRecipeForm();
   createRecipePage();
   createCreateCookbook();
+  createSingleCookbook();
   createExplorePage();
-  createFooterImg();
   connectNavbarButtons();
   createCookbook();
   createCookbookCard();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();
   createNotificationSelectCookbook();
+  createFooterImg();
 }
 
 window.addEventListener("DOMContentLoaded", init);
