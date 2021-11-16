@@ -62,7 +62,7 @@
             <button id="edit">
               <input
                 type="image"
-                src="images/icons8-edit-24.png"
+                src="/source/images/pencil.png"
                 name="edit-image"
               />
             </button>
@@ -350,24 +350,33 @@
 
     <template id="recipe-page-template">
       <div id="recipe-container">
+        <!-- Recipe ID -->
+        <div id="recipe-page-id">Add recipe ID here</div>
+
         <!-- Recipe Header -->
         <div id="recipe-header">
-          <h1 id="recipe-name">Recipe Name</h1>
+          <h1 id="recipe-title">Recipe Title</h1>
           <p id="recipe-author">Recipe by: Author</p>
         </div>
 
         <!-- Recipe Subheader -->
         <div id="recipe-subheader">
           <div id="recipe-tags">
-            <p class="recipe-tag-info">Cuisine: Italian</p>
-            <p class="recipe-tag-info">Ready In: x min</p>
+            <p id="recipe-cuisine" class="recipe-tag-info">Cuisine: Italian</p>
+            <p id="recipe-ready-in" class="recipe-tag-info">Ready In: x min</p>
           </div>
           <div id="recipe-action">
             <button id="recipe-action-button" type="button">
               <div id="recipe-action-image-outline">
-                <div id="recipe-action-image-content"></div>
+                <div id="recipe-action-image-plus">+</div>
+                <img
+                  id="recipe-action-image-pencil"
+                  class="hide-recipe-part"
+                  src="/source/images/pencil_red.png"
+                  alt="Red pencil"
+                />
               </div>
-              <p id="recipe-action-text">Add to cookbook</p>
+              <p id="recipe-action-text">Add to Cookbook</p>
             </button>
           </div>
         </div>
@@ -384,7 +393,6 @@
         <!-- Recipe Description -->
         <h2 class="recipe-section-header">Description</h2>
         <p id="recipe-description">Description</p>
-
         <hr class="recipe-horizontal-rule" />
 
         <!-- Recipe Ingredients -->
@@ -397,7 +405,6 @@
             <li class="ingredient-item">Sit</li>
           </section>
         </div>
-
         <hr class="recipe-horizontal-rule" />
 
         <!-- Recipe Instructions -->
@@ -405,7 +412,6 @@
         <ol id="instructions-list">
           <li class="instruction-item">Lorem</li>
         </ol>
-
         <hr class="recipe-horizontal-rule" />
       </div>
     </template>
