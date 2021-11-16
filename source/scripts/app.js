@@ -2,7 +2,7 @@ import { Router } from "./router.js";
 import { SpoonacularInterface } from "./spoonacular-interface.js";
 
 const EXPLORE_PAGE_NUM_RESULTS = 6;
-
+const HOME_PAGE_NUM_RESULTS = 4;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 
@@ -28,22 +28,22 @@ function createCookbook() {
   document.querySelector("body").append(cookbook);
 }
 
-/**
- * Populates the cookbooks page with cookbook card elements and adds it to the
- * document
- * @function createCookbookCard
- */
-function createCookbookCard() {
-  "use strict";
-  const cards = document
-    .querySelector("cook-book")
-    .shadowRoot.getElementById("cards");
-  for (let i = 0; i < 4; i++) {
-    const cookbookCard = document.createElement("cookbook-card");
-    cookbookCard.classList.toggle("hidden");
-    cards.append(cookbookCard);
-  }
-}
+// /**
+//  * Populates the cookbooks page with cookbook card elements and adds it to the
+//  * document
+//  * @function createCookbookCard
+//  */
+// function createCookbookCard() {
+//   "use strict";
+//   const cards = document
+//     .querySelector("cook-book")
+//     .shadowRoot.getElementById("cards");
+//   for (let i = 0; i < 4; i++) {
+//     const cookbookCard = document.createElement("cookbook-card");
+//     cookbookCard.classList.toggle("hidden");
+//     cards.append(cookbookCard);
+//   }
+// }
 
 /**
  * Creates a form for creating a new cookbook and adds it to the document
@@ -251,6 +251,8 @@ async function populateExplorePage(/* TODO: filtersObj */) {
   }
 }
 
+
+
 /**
  * Allows new recipes to be populated in the Explore when pressing the Explore
  * More or Explore Recipes buttons in the Explore page
@@ -312,6 +314,33 @@ function searchFunction() {
 }
 
 /**
+ * Populates new recipes in the home page by retrieving new recipes from
+ * Spoonacular
+ * @function populateHomePage
+ */
+async function populateHomePage() {
+    "use strict";
+    let shadow = document.querySelector("home-page").shadowRoot;
+    const explore = shadow.getElementById("explore");
+    
+    for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
+        const recipeCard = document.createElement("recipe-card");
+        explore.append(recipeCard);
+    }
+
+    let recipes = await spoonacular.getRandomRecipes(HOME_PAGE_NUM_RESULTS);
+    let recipeCards = explore.children;
+
+    for (let i = 0; i < recipes.length; ++i) {
+        let shadow = recipeCards[i].shadowRoot;
+        shadow.getElementById("recipe-id").textContent = recipes[i].id;
+        shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+        shadow.getElementById("recipe-card-image").src = recipes[i].image;
+    }
+}
+
+
+/**
  * Attaches "click" event listeners to the Create New Cookbook
  * button on My Cookbook page which will navigate to Create Cookbook page.
  */
@@ -340,11 +369,12 @@ async function init() {
   createExplorePage();
   populateExplorePage();
   bindExploreLoadButton();
+  populateHomePage();
 
   createCookbook();
   createFooterImg();
 
-  createCookbookCard();
+//   createCookbookCard();
   createCreateCookbook();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();
