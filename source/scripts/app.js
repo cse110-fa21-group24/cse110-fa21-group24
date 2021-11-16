@@ -471,10 +471,6 @@ async function init() {
 
   homeSearchFunction();
   homeExploreButton();
-
-  populateExplorePage();
-  bindExploreLoadButton();
-
   connectCreateNewCookbook();
 
   // TODO remove the below lines when we actually start using
