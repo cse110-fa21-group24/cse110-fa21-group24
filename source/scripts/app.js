@@ -28,23 +28,6 @@ function createCookbook() {
   document.querySelector("body").append(cookbook);
 }
 
-// /**
-//  * Populates the cookbooks page with cookbook card elements and adds it to the
-//  * document
-//  * @function createCookbookCard
-//  */
-// function createCookbookCard() {
-//   "use strict";
-//   const cards = document
-//     .querySelector("cook-book")
-//     .shadowRoot.getElementById("cards");
-//   for (let i = 0; i < 4; i++) {
-//     const cookbookCard = document.createElement("cookbook-card");
-//     cookbookCard.classList.toggle("hidden");
-//     cards.append(cookbookCard);
-//   }
-// }
-
 /**
  * Creates a form for creating a new cookbook and adds it to the document
  * @function createCreateCookbook
@@ -251,8 +234,6 @@ async function populateExplorePage(/* TODO: filtersObj */) {
   }
 }
 
-
-
 /**
  * Allows new recipes to be populated in the Explore when pressing the Explore
  * More or Explore Recipes buttons in the Explore page
@@ -319,26 +300,26 @@ function searchFunction() {
  * @function populateHomePage
  */
 async function populateHomePage() {
-    "use strict";
-    let shadow = document.querySelector("home-page").shadowRoot;
-    const explore = shadow.getElementById("explore");
-    
-    for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
-        const recipeCard = document.createElement("recipe-card");
-        explore.append(recipeCard);
-    }
+  "use strict";
+  let shadow = document.querySelector("home-page").shadowRoot;
+  const explore = shadow.getElementById("explore");
 
-    let recipes = await spoonacular.getRandomRecipes(HOME_PAGE_NUM_RESULTS);
-    let recipeCards = explore.children;
+  for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
+    const recipeCard = document.createElement("recipe-card");
+    explore.append(recipeCard);
+  }
 
-    for (let i = 0; i < recipes.length; ++i) {
-        let shadow = recipeCards[i].shadowRoot;
-        shadow.getElementById("recipe-id").textContent = recipes[i].id;
-        shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
-        shadow.getElementById("recipe-card-image").src = recipes[i].image;
-    }
+  let recipes = await spoonacular.getRandomRecipes(HOME_PAGE_NUM_RESULTS);
+  let recipeCards = explore.children;
+
+  for (let i = 0; i < recipes.length; ++i) {
+    recipeCards[i].classList.remove("make-invisible");
+    let shadow = recipeCards[i].shadowRoot;
+    shadow.getElementById("recipe-id").textContent = recipes[i].id;
+    shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+    shadow.getElementById("recipe-card-image").src = recipes[i].image;
+  }
 }
-
 
 /**
  * Attaches "click" event listeners to the Create New Cookbook
@@ -374,7 +355,7 @@ async function init() {
   createCookbook();
   createFooterImg();
 
-//   createCookbookCard();
+  //   createCookbookCard();
   createCreateCookbook();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();

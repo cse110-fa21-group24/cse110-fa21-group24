@@ -12,7 +12,6 @@ main {
   display: flex;
   justify-content: center;
   position: relative;
-  /* top: 100px; */
 }
 
 .search-box {
@@ -31,7 +30,7 @@ main {
 
 .image-section {
   position: relative;
-  top:10vw;
+  top: 10vw;
   text-align: center;
   height: 50px;
 }
@@ -40,7 +39,6 @@ img {
   width: min(75vw, 800px);
   height: min(40vw, 500px);
   box-shadow: 0 1vw 1vw rosybrown;
-  
 }
 
 .featured-recipes {
@@ -52,70 +50,71 @@ img {
 }
 
 @media (orientation: landscape) {
-    .search-title {
-        font-size: 5vw;
-    }
-    .search-section{
-        top:6vw;
-    }
-    .search-box{
-        height: 25vh;
-        width: 80vw;
-    }
-    #explore{
-        height: 20vw;
-        width: 90%;
-        display: grid;
-        grid-template-columns: 22% 22% 22% 22%;
-        justify-content: space-between;
-        align-content: stretch;
-        padding-left: 5%;
-        padding-right: 5%;
-    }
-    .explore-button {
-        top:4vw;
-        font-size: 2vw;
-        height: 4vw;
-        width: 20vw;
-    }
+  .search-title {
+    font-size: 5vw;
+  }
+
+  .search-section {
+    top: 6vw;
+  }
+
+  .search-box {
+    height: 25vh;
+    width: 80vw;
+  }
+
+  #explore {
+    height: 20vw;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 22% 22% 22% 22%;
+    justify-content: space-between;
+    align-content: stretch;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .explore-button {
+    top: 4vw;
+    font-size: 2vw;
+    height: 4vw;
+    width: 20vw;
+  }
 }
 
 @media (orientation: portrait) {
-    .search-title {
-        font-size: 8vw;
-    }
-    .search-section{
-        top:2vw;
-    }
-    .search-box{
-        height: 30vw;
-        width: 90%;
-    }
+  .search-title {
+    font-size: 8vw;
+  }
 
-    #explore{
-        height: 100vw;
-        width: 90%;
-        display: grid;
-        grid-template-columns: 40% 40%;
-        grid-template-rows: 40% 40%;
-        justify-content:  space-around;
-        align-content: space-evenly;
-        align-items: stretch;
-        padding-left: 5%;
-        padding-right: 5%;
-    }
+  .search-section {
+    top: 2vw;
+  }
 
-    .explore-button {
-        top:0;
-        font-size: 4vw;
-        height: 6vw;
-        width: 25vw;
-    }
-}
+  .search-box {
+    height: 30vw;
+    width: 90%;
+  }
 
-.explore-button:hover{
-    filter: brightness(80%);
-    cursor: pointer;
+  #explore {
+    height: 100vw;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-template-rows: 40% 40%;
+    justify-content: space-around;
+    align-content: space-evenly;
+    align-items: stretch;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .explore-button {
+    top: 0;
+    font-size: 4vw;
+    height: 6vw;
+    width: 25vw;
+  }
 }
 
 .explore-button {
@@ -127,6 +126,11 @@ img {
   box-sizing: border-box;
   position: relative;
   margin-bottom: 10vw;
+}
+
+.explore-button:hover {
+  filter: brightness(80%);
+  cursor: pointer;
 }
 
 /* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp */
