@@ -313,7 +313,6 @@ async function populateHomePage() {
   let recipeCards = explore.children;
 
   for (let i = 0; i < recipes.length; ++i) {
-    recipeCards[i].classList.remove("make-invisible");
     let shadow = recipeCards[i].shadowRoot;
     shadow.getElementById("recipe-id").textContent = recipes[i].id;
     shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
