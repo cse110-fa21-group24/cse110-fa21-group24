@@ -54,14 +54,29 @@ function createExplorePage() {
     //Get references to search bar on explore
     let shadow = explorePage.shadowRoot;
     let input = shadow.getElementById("search-bar");
+    let vegan = shadow.getElementById("vegan");
+    let glutenFree = shadow.getElementById("gluten-free");
+    let vegetarian = shadow.getElementById("vegetarian");
     input.addEventListener("keyup", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
-        if (input.value !== "") {
+        if (input.value !== "" || vegan.checked || glutenFree.checked || vegetarian.checked) {
           if (shadow.getElementById("explore-top-level").classList.contains("type-explore")) {
             toggleExplorePageType();
           }
-          populateExplorePage({"query" : input.value});
+          let queryObj = {};
+          queryObj["query"] = input.value;
+          queryObj["diet"] = "";
+          if (vegan.checked) {
+            queryObj["diet"] += "vegan ";
+          }
+          if (glutenFree.checked) {
+            queryObj["diet"] += "gluten free ";
+          }
+          if (vegetarian.checked) {
+            queryObj["diet"] += "vegetarian ";
+          }
+          populateExplorePage(queryObj);
         } else {
           if (!shadow.getElementById("explore-top-level").classList.contains("type-explore")) {
             toggleExplorePageType();
@@ -274,12 +289,36 @@ function bindExploreLoadButton() {
   let topLevel = shadow.getElementById("explore-top-level");
   let loadButton = shadow.getElementById("load-button");
 
+  let vegan = shadow.getElementById("vegan");
+  let glutenFree = shadow.getElementById("gluten-free");
+  let vegetarian = shadow.getElementById("vegetarian");
+  let input = shadow.getElementById("search-bar");
+
   loadButton.addEventListener("click", async () => {
-    if (topLevel.classList.contains("type-explore")) {
+    if (topLevel.classList.contains("type-explore") && input.value === "") {
       await populateExplorePage();
     } else {
-      // TODO: implement use case for clicking Explore Recipes when in search
-      // mode
+      if (input.value === "" && !vegan.checked && !glutenFree.checked && !vegetarian.checked) {
+        topLevel.classList.toggle("type-explore");
+        await populateExplorePage();
+      } else {
+        if (topLevel.classList.contains("type-explore")){
+          topLevel.classList.toggle("type-explore");
+        }
+        let queryObj = {};
+        queryObj["query"] = input.value;
+        queryObj["diet"] = "";
+          if (vegan.checked) {
+            queryObj["diet"] += "vegan ";
+          }
+          if (glutenFree.checked) {
+            queryObj["diet"] += "gluten free ";
+          }
+          if (vegetarian.checked) {
+            queryObj["diet"] += "vegetarian ";
+          }
+        await populateExplorePage(queryObj);
+      }
     }
   });
 }
