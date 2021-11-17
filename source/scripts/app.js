@@ -440,6 +440,27 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
 }
 
 /**
+ * After clicking on "learn more" user is redirected to recipe form with all relevant info
+ * and an option to add to the cookbook (but NOT edit)
+ */
+function learnMore() {
+  "use strict";
+
+  //Get references to learn more button
+  let shadow = document.querySelector("home-page").shadowRoot;
+  let explore = shadow.getElementById("explore");
+  let recipeCards = explore.children;
+
+  for (let i = 0; i < recipeCards.length; i++) {
+    let button = recipeCards[i].shadowRoot.getElementById("recipe-info-button");
+
+    button.addEventListener("click", () => {
+      router.navigate("recipe-form");
+    });
+  }
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function init
  */
@@ -471,6 +492,7 @@ async function init() {
 
   homeSearchFunction();
   homeExploreButton();
+  learnMore();
   connectCreateNewCookbook();
 
   // TODO remove the below lines when we actually start using
