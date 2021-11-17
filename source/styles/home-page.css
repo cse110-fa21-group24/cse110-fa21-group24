@@ -12,27 +12,25 @@ main {
   display: flex;
   justify-content: center;
   position: relative;
-  top: 100px;
 }
 
 .search-box {
   background-color: #e78686;
   text-align: center;
   align-self: center;
-  height: 25vh;
-  width: 80vw;
   box-sizing: border-box;
   box-shadow: 0 8px 8px rgba(0 0 0 / 80%);
+  border-radius: 20px;
 }
 
 .search-title {
-  font-size: 7vh;
+  font-size: 8vw;
   margin: 5px;
 }
 
 .image-section {
   position: relative;
-  top: 130px;
+  top: 10vw;
   text-align: center;
   height: 50px;
 }
@@ -40,6 +38,7 @@ main {
 img {
   width: min(75vw, 800px);
   height: min(40vw, 500px);
+  box-shadow: 0 1vw 1vw rosybrown;
 }
 
 .featured-recipes {
@@ -47,21 +46,91 @@ img {
   position: relative;
   top: 20px;
   text-align: center;
+  padding-bottom: 5vw;
+}
+
+@media (orientation: landscape) {
+  .search-title {
+    font-size: 5vw;
+  }
+
+  .search-section {
+    top: 6vw;
+  }
+
+  .search-box {
+    height: 25vh;
+    width: 80vw;
+  }
+
+  #explore {
+    height: 20vw;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 22% 22% 22% 22%;
+    justify-content: space-between;
+    align-content: stretch;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .explore-button {
+    top: 4vw;
+    font-size: 2vw;
+    height: 4vw;
+    width: 20vw;
+  }
+}
+
+@media (orientation: portrait) {
+  .search-title {
+    font-size: 8vw;
+  }
+
+  .search-section {
+    top: 2vw;
+  }
+
+  .search-box {
+    height: 30vw;
+    width: 90%;
+  }
+
+  #explore {
+    height: 100vw;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-template-rows: 40% 40%;
+    justify-content: space-around;
+    align-content: space-evenly;
+    align-items: stretch;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .explore-button {
+    top: 0;
+    font-size: 4vw;
+    height: 6vw;
+    width: 25vw;
+  }
 }
 
 .explore-button {
   /* Details taken from Figma */
   background-color: #ba181b;
   color: #fff;
-  font-size: 18px;
   border: 1px solid #ba181b;
   border-radius: 16px;
   box-sizing: border-box;
-  height: 48px;
-  width: 146px;
   position: relative;
-  top: 60px;
   margin-bottom: 10vw;
+}
+
+.explore-button:hover {
+  filter: brightness(80%);
+  cursor: pointer;
 }
 
 /* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp */
