@@ -301,7 +301,12 @@ function bindExploreLoadButton() {
   let input = shadow.getElementById("search-bar");
 
   loadButton.addEventListener("click", async () => {
-    if (topLevel.classList.contains("type-explore") && input.value === "") {
+    if (topLevel.classList.contains("type-explore") &&
+      input.value === "" &&
+      !vegan.checked &&
+      !glutenFree.checked &&
+      !vegetarian.checked
+    ) {
       await populateExplorePage();
     } else {
       if (
