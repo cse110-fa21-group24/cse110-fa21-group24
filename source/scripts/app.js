@@ -131,7 +131,7 @@ function createExplorePage() {
         if (vegetarian.checked) {
           queryObj.diet += "vegetarian ";
         }
-        populateExplorePage(queryObj);
+        await populateExplorePage(queryObj);
       } else {
         if (
           !shadow
