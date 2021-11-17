@@ -45,29 +45,21 @@ async function populateExplorePage(filtersObj) {
   let shadow = document.querySelector("explore-page").shadowRoot;
   let topLevel = shadow.getElementById("explore-top-level");
 
+  let recipes = {};
   if (topLevel.classList.contains("type-explore")) {
-    let recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
-    shadow.getElementById("no-results-text").classList.add("make-invisible");
-    let recipeCards = shadow.getElementById("recipe-cards-section").children;
-
-    for (let i = 0; i < recipes.length; ++i) {
-      recipeCards[i].classList.remove("make-invisible");
-      let shadow = recipeCards[i].shadowRoot;
-      shadow.getElementById("recipe-id").textContent = recipes[i].id;
-      shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
-      shadow.getElementById("recipe-card-image").src = recipes[i].image;
-    }
+    recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
   } else {
-    let recipes = await spoonacular.getRecipes(filtersObj);
-    let recipeCards = shadow.getElementById("recipe-cards-section").children;
+    recipes = await spoonacular.getRecipes(filtersObj);
+  }
+  shadow.getElementById("no-results-text").classList.add("make-invisible");
+  let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
-    for (let i = 0; i < recipes.length; i++) {
-      let cardShadow = recipeCards[i].shadowRoot;
-      cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
-      cardShadow.getElementById("recipe-card-title").textContent =
-        recipes[i].title;
-      cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
-    }
+  for (let i = 0; i < recipes.length; ++i) {
+    recipeCards[i].classList.remove("make-invisible");
+    let cardShadow = recipeCards[i].shadowRoot;
+    cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
+    cardShadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+    cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
   }
 }
 
