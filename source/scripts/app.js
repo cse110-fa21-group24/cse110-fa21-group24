@@ -315,7 +315,7 @@ function bindExploreLoadButton() {
         !glutenFree.checked &&
         !vegetarian.checked
       ) {
-        topLevel.classList.toggle("type-explore");
+        toggleExplorePageType();
         await populateExplorePage();
       } else {
         if (topLevel.classList.contains("type-explore")) {
