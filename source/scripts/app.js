@@ -103,7 +103,7 @@ function createExplorePage() {
   let vegan = shadow.getElementById("vegan");
   let glutenFree = shadow.getElementById("gluten-free");
   let vegetarian = shadow.getElementById("vegetarian");
-  input.addEventListener("keyup", (e) => {
+  input.addEventListener("keyup", async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       if (
