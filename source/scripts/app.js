@@ -18,6 +18,52 @@ function createRecipeCard() {
 }
 
 /**
+ * This function toggles whether the explore page will display recipes based on a filter or
+ * by random.
+ */
+function toggleExplorePageType() {
+  "use strict";
+  let shadow = document.querySelector("explore-page").shadowRoot;
+  let topLevel = shadow.getElementById("explore-top-level");
+  let loadButton = shadow.getElementById("load-button");
+  topLevel.classList.toggle("type-explore");
+
+  if (topLevel.classList.contains("type-explore")) {
+    loadButton.textContent = "Explore More";
+  } else {
+    loadButton.textContent = "Explore Recipes";
+  }
+}
+
+/**
+ * Populates new recipes in the Explore page by retrieving new recipes from
+ * Spoonacular
+ * @function populateExplorePage
+ */
+async function populateExplorePage(filtersObj) {
+  "use strict";
+  let shadow = document.querySelector("explore-page").shadowRoot;
+  let topLevel = shadow.getElementById("explore-top-level");
+
+  let recipes = {};
+  if (topLevel.classList.contains("type-explore")) {
+    recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
+  } else {
+    recipes = await spoonacular.getRecipes(filtersObj);
+  }
+  shadow.getElementById("no-results-text").classList.add("make-invisible");
+  let recipeCards = shadow.getElementById("recipe-cards-section").children;
+
+  for (let i = 0; i < recipes.length; ++i) {
+    recipeCards[i].classList.remove("make-invisible");
+    let cardShadow = recipeCards[i].shadowRoot;
+    cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
+    cardShadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+    cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
+  }
+}
+
+/**
  * Creates a cookbook element and adds it to the document
  * @function createCookbook
  */
@@ -51,40 +97,53 @@ function createExplorePage() {
     "recipe-cards-section"
   );
 
-    //Get references to search bar on explore
-    let shadow = explorePage.shadowRoot;
-    let input = shadow.getElementById("search-bar");
-    let vegan = shadow.getElementById("vegan");
-    let glutenFree = shadow.getElementById("gluten-free");
-    let vegetarian = shadow.getElementById("vegetarian");
-    input.addEventListener("keyup", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        if (input.value !== "" || vegan.checked || glutenFree.checked || vegetarian.checked) {
-          if (shadow.getElementById("explore-top-level").classList.contains("type-explore")) {
-            toggleExplorePageType();
-          }
-          let queryObj = {};
-          queryObj["query"] = input.value;
-          queryObj["diet"] = "";
-          if (vegan.checked) {
-            queryObj["diet"] += "vegan ";
-          }
-          if (glutenFree.checked) {
-            queryObj["diet"] += "gluten free ";
-          }
-          if (vegetarian.checked) {
-            queryObj["diet"] += "vegetarian ";
-          }
-          populateExplorePage(queryObj);
-        } else {
-          if (!shadow.getElementById("explore-top-level").classList.contains("type-explore")) {
-            toggleExplorePageType();
-          }
-          populateExplorePage();
+  //Get references to search bar on explore
+  let shadow = explorePage.shadowRoot;
+  let input = shadow.getElementById("search-bar");
+  let vegan = shadow.getElementById("vegan");
+  let glutenFree = shadow.getElementById("gluten-free");
+  let vegetarian = shadow.getElementById("vegetarian");
+  input.addEventListener("keyup", async (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (
+        input.value !== "" ||
+        vegan.checked ||
+        glutenFree.checked ||
+        vegetarian.checked
+      ) {
+        if (
+          shadow
+            .getElementById("explore-top-level")
+            .classList.contains("type-explore")
+        ) {
+          toggleExplorePageType();
         }
+        let queryObj = {};
+        queryObj.query = input.value;
+        queryObj.diet = "";
+        if (vegan.checked) {
+          queryObj.diet += "vegan ";
+        }
+        if (glutenFree.checked) {
+          queryObj.diet += "gluten free ";
+        }
+        if (vegetarian.checked) {
+          queryObj.diet += "vegetarian ";
+        }
+        await populateExplorePage(queryObj);
+      } else {
+        if (
+          !shadow
+            .getElementById("explore-top-level")
+            .classList.contains("type-explore")
+        ) {
+          toggleExplorePageType();
+        }
+        await populateExplorePage();
       }
-    })
+    }
+  });
 
   for (let i = 0; i < EXPLORE_PAGE_NUM_RESULTS; ++i) {
     const recipeCard = createRecipeCard();
@@ -226,59 +285,6 @@ function connectNavbarButtons() {
 }
 
 /**
- * This function toggles whether the explore page will display recipes based on a filter or
- * by random.
- */
-function toggleExplorePageType() {
-  "use strict";
-  let shadow = document.querySelector("explore-page").shadowRoot;
-  let topLevel = shadow.getElementById("explore-top-level");
-  let loadButton = shadow.getElementById("load-button");
-  topLevel.classList.toggle("type-explore");
-
-  if (topLevel.classList.contains("type-explore")) {
-    loadButton.textContent = "Explore More";
-  } else {
-    loadButton.textContent = "Explore Recipes";
-  }
-}
-
-/**
- * Populates new recipes in the Explore page by retrieving new recipes from
- * Spoonacular
- * @function populateExplorePage
- */
-async function populateExplorePage(filtersObj) {
-  "use strict";
-  let shadow = document.querySelector("explore-page").shadowRoot;
-  let topLevel = shadow.getElementById("explore-top-level");
-
-  if (topLevel.classList.contains("type-explore")) {
-    let recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
-    shadow.getElementById("no-results-text").classList.add("make-invisible");
-    let recipeCards = shadow.getElementById("recipe-cards-section").children;
-
-    for (let i = 0; i < recipes.length; ++i) {
-      recipeCards[i].classList.remove("make-invisible");
-      let shadow = recipeCards[i].shadowRoot;
-      shadow.getElementById("recipe-id").textContent = recipes[i].id;
-      shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
-      shadow.getElementById("recipe-card-image").src = recipes[i].image;
-    }
-  } else {
-    let recipes = await spoonacular.getRecipes(filtersObj);
-    let recipeCards = shadow.getElementById("recipe-cards-section").children;
-
-    for (let i = 0; i < recipes.length; i++) {
-      let cardShadow = recipeCards[i].shadowRoot;
-      cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
-      cardShadow.getElementById("recipe-card-title").textContent = recipes[i].title;
-      cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
-    }
-  }
-}
-
-/**
  * Allows new recipes to be populated in the Explore when pressing the Explore
  * More or Explore Recipes buttons in the Explore page
  * @function bindExploreLoadButton
@@ -295,28 +301,38 @@ function bindExploreLoadButton() {
   let input = shadow.getElementById("search-bar");
 
   loadButton.addEventListener("click", async () => {
-    if (topLevel.classList.contains("type-explore") && input.value === "") {
+    if (topLevel.classList.contains("type-explore") &&
+      input.value === "" &&
+      !vegan.checked &&
+      !glutenFree.checked &&
+      !vegetarian.checked
+    ) {
       await populateExplorePage();
     } else {
-      if (input.value === "" && !vegan.checked && !glutenFree.checked && !vegetarian.checked) {
-        topLevel.classList.toggle("type-explore");
+      if (
+        input.value === "" &&
+        !vegan.checked &&
+        !glutenFree.checked &&
+        !vegetarian.checked
+      ) {
+        toggleExplorePageType();
         await populateExplorePage();
       } else {
-        if (topLevel.classList.contains("type-explore")){
-          topLevel.classList.toggle("type-explore");
+        if (topLevel.classList.contains("type-explore")) {
+          toggleExplorePageType();
         }
         let queryObj = {};
-        queryObj["query"] = input.value;
-        queryObj["diet"] = "";
-          if (vegan.checked) {
-            queryObj["diet"] += "vegan ";
-          }
-          if (glutenFree.checked) {
-            queryObj["diet"] += "gluten free ";
-          }
-          if (vegetarian.checked) {
-            queryObj["diet"] += "vegetarian ";
-          }
+        queryObj.query = input.value;
+        queryObj.diet = "";
+        if (vegan.checked) {
+          queryObj.diet += "vegan ";
+        }
+        if (glutenFree.checked) {
+          queryObj.diet += "gluten free ";
+        }
+        if (vegetarian.checked) {
+          queryObj.diet += "vegetarian ";
+        }
         await populateExplorePage(queryObj);
       }
     }
