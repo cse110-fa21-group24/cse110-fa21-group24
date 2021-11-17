@@ -97,7 +97,17 @@ function createExplorePage() {
     "recipe-cards-section"
   );
 
+  for (let i = 0; i < EXPLORE_PAGE_NUM_RESULTS; ++i) {
+    const recipeCard = createRecipeCard();
+    recipeCardsSection.append(recipeCard);
+  }
+
+  document.querySelector("body").append(explorePage);
+}
+
+function bindExploreSearchBar() {
   //Get references to search bar on explore
+  let explorePage = document.querySelector("explore-page");
   let shadow = explorePage.shadowRoot;
   let input = shadow.getElementById("search-bar");
   let vegan = shadow.getElementById("vegan");
@@ -143,14 +153,8 @@ function createExplorePage() {
         await populateExplorePage();
       }
     }
+    
   });
-
-  for (let i = 0; i < EXPLORE_PAGE_NUM_RESULTS; ++i) {
-    const recipeCard = createRecipeCard();
-    recipeCardsSection.append(recipeCard);
-  }
-
-  document.querySelector("body").append(explorePage);
 }
 
 /**
@@ -556,6 +560,7 @@ async function init() {
   homeSearchFunction();
   homeExploreButton();
   connectCreateNewCookbook();
+  bindExploreSearchBar();
 
   // TODO remove the below lines when we actually start using
   // populateRecipePage() for a real purpose
