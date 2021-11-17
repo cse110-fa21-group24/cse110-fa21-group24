@@ -74,8 +74,17 @@ function createExplorePage() {
     input.addEventListener("keyup", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
-        toggleExplorePageType();
-        populateExplorePage({"query" : input.value});
+        if (input.value !== "") {
+          if (shadow.getElementById("explore-top-level").classList.contains("type-explore")) {
+            toggleExplorePageType();
+          }
+          populateExplorePage({"query" : input.value});
+        } else {
+          if (!shadow.getElementById("explore-top-level").classList.contains("type-explore")) {
+            toggleExplorePageType();
+          }
+          populateExplorePage();
+        }
       }
     })
 
@@ -218,8 +227,10 @@ function connectNavbarButtons() {
   }
 }
 
-// TODO implement this function once we start working on the search bar
-// functionality
+/**
+ * This function toggles whether the explore page will display recipes based on a filter or
+ * by random.
+ */
 function toggleExplorePageType() {
   "use strict";
   let shadow = document.querySelector("explore-page").shadowRoot;
@@ -257,8 +268,6 @@ async function populateExplorePage(filtersObj) {
       shadow.getElementById("recipe-card-image").src = recipes[i].image;
     }
   } else {
-    // TODO: implement getting recipes with spoonacular.getRecipes(filterObj)
-    // when using search bar in explore page\
     let recipes = await spoonacular.getRecipes(filtersObj);
     let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
