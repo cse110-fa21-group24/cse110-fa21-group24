@@ -221,7 +221,7 @@ async function populateExplorePage(/* TODO: filtersObj */) {
     shadow.getElementById("no-results-text").classList.add("make-invisible");
     let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
-    for (let i = 0; i < recipes.length; ++i) {
+    for (let i = 0; i < EXPLORE_PAGE_NUM_RESULTS; ++i) {
       recipeCards[i].classList.remove("make-invisible");
       let shadow = recipeCards[i].shadowRoot;
       shadow.getElementById("recipe-id").textContent = recipes[i].id;
@@ -312,7 +312,7 @@ async function populateHomePage() {
   let recipes = await spoonacular.getRandomRecipes(HOME_PAGE_NUM_RESULTS);
   let recipeCards = explore.children;
 
-  for (let i = 0; i < recipes.length; ++i) {
+  for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
     let shadow = recipeCards[i].shadowRoot;
     shadow.getElementById("recipe-id").textContent = recipes[i].id;
     shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
