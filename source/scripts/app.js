@@ -2,7 +2,7 @@ import { Router } from "./router.js";
 import { SpoonacularInterface } from "./spoonacular-interface.js";
 
 const EXPLORE_PAGE_NUM_RESULTS = 6;
-
+const HOME_PAGE_NUM_RESULTS = 4;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 
@@ -26,23 +26,6 @@ function createCookbook() {
   const cookbook = document.createElement("cook-book");
   cookbook.classList.toggle("hidden");
   document.querySelector("body").append(cookbook);
-}
-
-/**
- * Populates the cookbooks page with cookbook card elements and adds it to the
- * document
- * @function createCookbookCard
- */
-function createCookbookCard() {
-  "use strict";
-  const cards = document
-    .querySelector("cook-book")
-    .shadowRoot.getElementById("cards");
-  for (let i = 0; i < 4; i++) {
-    const cookbookCard = document.createElement("cookbook-card");
-    cookbookCard.classList.toggle("hidden");
-    cards.append(cookbookCard);
-  }
 }
 
 /**
@@ -304,7 +287,7 @@ function bindExploreLoadButton() {
 /**
  * Navigate to explore page if "Explore" button is clicked
  */
-function exploreButton() {
+function homeExploreButton() {
   "use strict";
 
   //Get references to explore button on homepge
@@ -341,6 +324,32 @@ function homeSearchFunction() {
 }
 
 /**
+ * Populates new recipes in the home page by retrieving new recipes from
+ * Spoonacular
+ * @function populateHomePage
+ */
+async function populateHomePage() {
+  "use strict";
+  let shadow = document.querySelector("home-page").shadowRoot;
+  const explore = shadow.getElementById("explore");
+
+  for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
+    const recipeCard = document.createElement("recipe-card");
+    explore.append(recipeCard);
+  }
+
+  let recipes = await spoonacular.getRandomRecipes(HOME_PAGE_NUM_RESULTS);
+  let recipeCards = explore.children;
+
+  for (let i = 0; i < recipes.length; ++i) {
+    let shadow = recipeCards[i].shadowRoot;
+    shadow.getElementById("recipe-id").textContent = recipes[i].id;
+    shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+    shadow.getElementById("recipe-card-image").src = recipes[i].image;
+  }
+}
+
+/**
  * Attaches "click" event listeners to the Create New Cookbook
  * button on My Cookbook page which will navigate to Create Cookbook page.
  */
@@ -358,22 +367,126 @@ function connectCreateNewCookbook() {
 }
 
 /**
+ * Populate the recipe page with all the necessary recipe information
+ * @function populateRecipePage
+ * @param {object} recipeObj An object containing all the necessary properties
+ *                           that would show up in the recipe page
+ * @param {boolean} fromSpoonacular If fromSpoonacular is true, then the
+ *                                  recipeObj came from Spoonacular, otherwise,
+ *                                  it will be inferred that the recipeObj came
+ *                                  from another source besides Spoonacular
+ */
+function populateRecipePage(recipeObj, fromSpoonacular) {
+  "use strict";
+  let shadow = document.querySelector("recipe-page").shadowRoot;
+
+  if (fromSpoonacular) {
+    shadow.getElementById("recipe-page-id").textContent = recipeObj.id;
+  }
+
+  shadow.getElementById("recipe-title").textContent = recipeObj.title;
+  shadow.getElementById("recipe-author").textContent =
+    "Recipe by: " + recipeObj.author;
+
+  let cuisineTag = shadow.getElementById("recipe-cuisine");
+
+  switch (recipeObj.cuisines.length) {
+    case 0:
+      cuisineTag.classList.add("hide-recipe-part");
+      break;
+    case 1:
+      cuisineTag.textContent = "Cuisine: " + recipeObj.cuisines[0];
+      break;
+    default:
+      cuisineTag.textContent =
+        "Cuisines: " + recipeObj.cuisines[0] + ", " + recipeObj.cuisines[1];
+  }
+
+  if (recipeObj.readyInMinutes === 0) {
+    shadow.getElementById("recipe-ready-in").classList.add("hide-recipe-part");
+  } else {
+    shadow.getElementById("recipe-ready-in").textContent =
+      "Ready In: " + recipeObj.readyInMinutes + " min";
+  }
+
+  let actionPlus = shadow.getElementById("recipe-action-image-plus");
+  let actionPencil = shadow.getElementById("recipe-action-image-pencil");
+  let actionText = shadow.getElementById("recipe-action-text");
+
+  if (fromSpoonacular) {
+    actionPlus.classList.remove("hide-recipe-part");
+    actionPencil.classList.add("hide-recipe-part");
+    actionText.innerText = "Add to Cookbook";
+  } else {
+    actionPlus.classList.add("hide-recipe-part");
+    actionPencil.classList.remove("hide-recipe-part");
+    actionText.innerText = "Edit Recipe";
+  }
+
+  shadow.getElementById("recipe-image").src = recipeObj.image;
+  shadow.getElementById("recipe-description").textContent =
+    recipeObj.description;
+
+  let ingredientsLeft = shadow.getElementById(
+    "recipe-ingredients-section-left"
+  );
+  let ingredientsRight = shadow.getElementById(
+    "recipe-ingredients-section-right"
+  );
+
+  while (ingredientsLeft.firstChild) {
+    ingredientsLeft.removeChild(ingredientsLeft.lastChild);
+  }
+
+  while (ingredientsRight.firstChild) {
+    ingredientsRight.removeChild(ingredientsRight.lastChild);
+  }
+
+  for (let i = 0; i < recipeObj.ingredients.length; ++i) {
+    let ingredient = document.createElement("li");
+    ingredient.classList.add("ingredient-item");
+    ingredient.innerText = recipeObj.ingredients[i];
+
+    if (i % 2 === 0) {
+      ingredientsLeft.append(ingredient);
+    } else {
+      ingredientsRight.append(ingredient);
+    }
+  }
+
+  let instructionsList = shadow.getElementById("instructions-list");
+
+  while (instructionsList.firstChild) {
+    instructionsList.removeChild(instructionsList.lastChild);
+  }
+
+  for (let i = 0; i < recipeObj.instructions.length; ++i) {
+    let instruction = document.createElement("li");
+    instruction.classList.add("instruction-item");
+    instruction.innerText = recipeObj.instructions[i];
+    instructionsList.append(instruction);
+  }
+}
+
+/**
  * Runs initial setup functions when the page first loads
- * @function
+ * @function init
  */
 async function init() {
   "use strict";
+
+  // Create different pages
   createNavbar();
   createHomePage();
-
   createExplorePage();
   populateExplorePage();
   bindExploreLoadButton();
+  populateHomePage();
 
   createCookbook();
   createFooterImg();
 
-  createCookbookCard();
+  //   createCookbookCard();
   createCreateCookbook();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();
@@ -382,10 +495,27 @@ async function init() {
   createRecipePage();
   createSingleCookbook();
 
+  // Add functionality to our pages
   connectNavbarButtons();
-  exploreButton();
+
   homeSearchFunction();
+  homeExploreButton();
   connectCreateNewCookbook();
+
+  // TODO remove the below lines when we actually start using
+  // populateRecipePage() for a real purpose
+  let recipeObj = {
+    title: "title",
+    author: "author",
+    cuisines: ["cuisine-0", "cuisine-1"],
+    readyInMinutes: 10,
+    image: "/source/images/pasta.jpg",
+    description: "description",
+    ingredients: ["ingredient-1", "ingredient-2"],
+    instructions: ["instruction-1", "instruction-2"],
+  };
+  populateRecipePage(recipeObj, true);
+  // TODO
 }
 
 window.addEventListener("DOMContentLoaded", init);
