@@ -319,7 +319,7 @@ function bindExploreLoadButton() {
         await populateExplorePage();
       } else {
         if (topLevel.classList.contains("type-explore")) {
-          topLevel.classList.toggle("type-explore");
+          toggleExplorePageType();
         }
         let queryObj = {};
         queryObj.query = input.value;
