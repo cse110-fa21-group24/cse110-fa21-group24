@@ -140,7 +140,7 @@ function createExplorePage() {
         ) {
           toggleExplorePageType();
         }
-        populateExplorePage();
+        await populateExplorePage();
       }
     }
   });
