@@ -440,6 +440,37 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
 }
 
 /**
+ * Attaches "click" event listener to the Edit Recipe/Add to Cookbook
+ * button on the recipe page, which will either open the recipe edit form,
+ * or the cookbook select pop up
+ * @function connectRecipeAction
+ */
+function connectRecipeAction() {
+  "use strict";
+
+  // get references to button and text
+  let templatePage = document.querySelector("recipe-page");
+  let shadow = templatePage.shadowRoot;
+  let button = shadow.getElementById("recipe-action-button");
+  let text = shadow.getElementById("recipe-action-text");
+  
+  button.addEventListener("click", (e) => {
+    // get text string
+    let string = text.textContent;
+
+    // open edit page or cookbook selector, respectively
+    if (string == "Edit Recipe") {
+      // TODO pass recipe object to edit page
+      router.navigate("recipe-form");
+    } else {
+      // TODO set up notifications
+      let notification = document.querySelector("notification-select-cookbook");
+      notification.classList.toggle("hidden");
+    }
+  });
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function init
  */
@@ -472,6 +503,7 @@ async function init() {
   homeSearchFunction();
   homeExploreButton();
   connectCreateNewCookbook();
+  connectRecipeAction();
 
   // TODO remove the below lines when we actually start using
   // populateRecipePage() for a real purpose
