@@ -105,33 +105,49 @@ function createExplorePage() {
   document.querySelector("body").append(explorePage);
 }
 
+/**
+ * @function bindExploreSearchBar
+ * 
+ * This function binds the search bar in the explore page so
+ * that you can enter queries and get results based on the user input.
+ * 
+ */
 function bindExploreSearchBar() {
   //Get references to search bar on explore
   let explorePage = document.querySelector("explore-page");
   let shadow = explorePage.shadowRoot;
+
+  //Get references to filter checkboxes
   let input = shadow.getElementById("search-bar");
   let vegan = shadow.getElementById("vegan");
   let glutenFree = shadow.getElementById("gluten-free");
   let vegetarian = shadow.getElementById("vegetarian");
+  /**
+   * Can add more above for more hardcoded filters!
+   */
+
+  //Attaches KeyUp bind for the enter key
   input.addEventListener("keyup", async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      if (
+      if ( //If there are queries (checkbox or text)
         input.value !== "" ||
         vegan.checked ||
         glutenFree.checked ||
         vegetarian.checked
       ) {
-        if (
+        if ( //Toggle off explore type
           shadow
             .getElementById("explore-top-level")
             .classList.contains("type-explore")
         ) {
           toggleExplorePageType();
         }
+        //Create query object for parameter to API call
         let queryObj = {};
-        queryObj.query = input.value;
+        queryObj.query = input.value; //Set query value to text
         queryObj.diet = "";
+        //Add checkboxes to diet
         if (vegan.checked) {
           queryObj.diet += "vegan ";
         }
@@ -141,16 +157,16 @@ function bindExploreSearchBar() {
         if (vegetarian.checked) {
           queryObj.diet += "vegetarian ";
         }
-        await populateExplorePage(queryObj);
-      } else {
-        if (
+        await populateExplorePage(queryObj); //API call with queries
+      } else { //Otherwise, if there are no queries,
+        if ( //Toggle the explore type
           !shadow
             .getElementById("explore-top-level")
             .classList.contains("type-explore")
         ) {
           toggleExplorePageType();
         }
-        await populateExplorePage();
+        await populateExplorePage(); //Call API with random recipes
       }
     }
     
@@ -345,6 +361,8 @@ function bindExploreLoadButton() {
 
 /**
  * Navigate to explore page if "Explore" button is clicked
+ * 
+ * @function homeExploreButton
  */
 function homeExploreButton() {
   "use strict";
@@ -361,6 +379,7 @@ function homeExploreButton() {
 
 /**
  * Navigate to explore page if "Explore" button is clicked
+ * 
  */
 function homeSearchFunction() {
   "use strict";
