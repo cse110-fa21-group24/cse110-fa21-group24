@@ -487,10 +487,8 @@ function bindSelectCookbookButtons() {
   addButton.addEventListener("click", async () => {
     let recipePage = document.querySelector("recipe-page");
     let selectedCookbook = shadow.getElementById("cookbooks").value;
-    console.log("click");
 
     if (selectedCookbook !== "" && !recipePage.classList.contains("hidden")) {
-      console.log("saved");
       let recipeId =
         recipePage.shadowRoot.getElementById("recipe-page-id").textContent;
       let recipeObj = await spoonacular.getRecipeInfo(recipeId);
