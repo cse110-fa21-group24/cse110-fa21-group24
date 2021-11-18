@@ -114,6 +114,7 @@ function createExplorePage() {
  *
  */
 function bindExploreSearchBar() {
+  "use strict";
   //Get references to search bar on explore
   let explorePage = document.querySelector("explore-page");
   let shadow = explorePage.shadowRoot;
