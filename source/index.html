@@ -235,16 +235,14 @@
           <p>Select Cookbook</p>
           <div class="dropdown">
             <select name="cookbooks" id="cookbooks">
-              <option value="none">Cookbook Name</option>
+              <option value="" selected="true" disabled="true">
+                - Select a Cookbook -
+              </option>
               <option value="cookbook1">Cookbook 1</option>
-              <option value="cookbook2">Cookbook 2</option>
-              <option value="cookbook3">Cookbook 3</option>
-              <option value="cookbook4">Cookbook 4</option>
-              <option value="cookbook5">Cookbook 5</option>
             </select>
           </div>
         </div>
-        <button class="secondary-button">Add</button>
+        <button class="secondary-button" id="add-button">Add</button>
       </div>
     </template>
 

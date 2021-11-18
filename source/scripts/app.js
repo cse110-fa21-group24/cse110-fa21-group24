@@ -1,10 +1,12 @@
 import { Router } from "./router.js";
 import { SpoonacularInterface } from "./spoonacular-interface.js";
+import { IndexedDbInterface } from "./indexed-db-interface.js";
 
 const EXPLORE_PAGE_NUM_RESULTS = 6;
 const HOME_PAGE_NUM_RESULTS = 4;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
+const indexedDb = new IndexedDbInterface();
 
 /**
  * Creates a recipe card element
@@ -474,11 +476,11 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   if (fromSpoonacular) {
     actionPlus.classList.remove("hide-recipe-part");
     actionPencil.classList.add("hide-recipe-part");
-    actionText.innerText = "Add to Cookbook";
+    actionText.textContent = "Add to Cookbook";
   } else {
     actionPlus.classList.add("hide-recipe-part");
     actionPencil.classList.remove("hide-recipe-part");
-    actionText.innerText = "Edit Recipe";
+    actionText.textContent = "Edit Recipe";
   }
 
   shadow.getElementById("recipe-image").src = recipeObj.image;
@@ -503,7 +505,7 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   for (let i = 0; i < recipeObj.ingredients.length; ++i) {
     let ingredient = document.createElement("li");
     ingredient.classList.add("ingredient-item");
-    ingredient.innerText = recipeObj.ingredients[i];
+    ingredient.textContent = recipeObj.ingredients[i];
 
     if (i % 2 === 0) {
       ingredientsLeft.append(ingredient);
@@ -521,9 +523,72 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   for (let i = 0; i < recipeObj.instructions.length; ++i) {
     let instruction = document.createElement("li");
     instruction.classList.add("instruction-item");
-    instruction.innerText = recipeObj.instructions[i];
+    instruction.textContent = recipeObj.instructions[i];
     instructionsList.append(instruction);
   }
+}
+
+// TODO trigger this function when cookbooks are added, edited, or deleted
+/**
+ * Populates the Select Cookbook notification options with all of the user's
+ * cookbooks
+ * @function populateSelectCookbookOptions
+ */
+async function populateSelectCookbookOptions() {
+  "use strict";
+  let notificationSelectCookbook = document.querySelector(
+    "notification-select-cookbook"
+  );
+  let shadow = notificationSelectCookbook.shadowRoot;
+  let cookbookDropdown = shadow.getElementById("cookbooks");
+
+  while (cookbookDropdown.children[1]) {
+    cookbookDropdown.removeChild(cookbookDropdown.lastChild);
+  }
+
+  let cookbooks = await indexedDb.getAllCookbooks();
+
+  for (let i = 0; i < cookbooks.length; ++i) {
+    let option = document.createElement("option");
+    option.value = cookbooks[i].title;
+    option.textContent = cookbooks[i].title;
+    cookbookDropdown.append(option);
+  }
+}
+
+/**
+ * In the Select Cookbooks popup, this function binds the X button to close
+ * the popup and binds the Add button to save the currently opened recipe to
+ * the selected cookbook
+ * @function bindSelectCookbookButtons
+ */
+function bindSelectCookbookButtons() {
+  "use strict";
+  let notificationSelectCookbook = document.querySelector(
+    "notification-select-cookbook"
+  );
+  let shadow = notificationSelectCookbook.shadowRoot;
+
+  let addButton = shadow.getElementById("add-button");
+
+  addButton.addEventListener("click", async () => {
+    let recipePage = document.querySelector("recipe-page");
+    let selectedCookbook = shadow.getElementById("cookbooks").value;
+
+    if (selectedCookbook !== "" && !recipePage.classList.contains("hidden")) {
+      let recipeId =
+        recipePage.shadowRoot.getElementById("recipe-page-id").textContent;
+      let recipeObj = await spoonacular.getRecipeInfo(recipeId);
+      await indexedDb.addRecipe(selectedCookbook, recipeObj);
+      notificationSelectCookbook.classList.toggle("hidden");
+    }
+  });
+
+  let closeButton = shadow.getElementById("close");
+
+  closeButton.addEventListener("click", () => {
+    notificationSelectCookbook.classList.toggle("hidden");
+  });
 }
 
 /**
@@ -602,7 +667,6 @@ function connectRecipeAction() {
       // TODO pass recipe object to edit page
       router.navigate("recipe-form");
     } else {
-      // TODO set up notifications
       let notification = document.querySelector("notification-select-cookbook");
       notification.classList.toggle("hidden");
     }
@@ -616,7 +680,8 @@ function connectRecipeAction() {
 async function init() {
   "use strict";
 
-  // Create different pages
+  await indexedDb.openDb();
+
   createNavbar();
   createHomePage();
   createExplorePage();
@@ -637,7 +702,6 @@ async function init() {
   createRecipePage();
   createSingleCookbook();
 
-  // Add functionality to our pages
   connectNavbarButtons();
 
   homeSearchFunction();
@@ -646,6 +710,9 @@ async function init() {
 
   bindExploreSearchBar();
   connectRecipeAction();
+
+  populateSelectCookbookOptions();
+  bindSelectCookbookButtons();
 }
 
 window.addEventListener("DOMContentLoaded", init);
