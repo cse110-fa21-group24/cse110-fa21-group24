@@ -469,6 +469,12 @@ async function populateSelectCookbookOptions() {
   }
 }
 
+/**
+ * In the Select Cookbooks popup, this function binds the X button to close
+ * the popup and binds the Add button to save the currently opened recipe to
+ * the selected cookbook
+ * @function bindSelectCookbookButtons
+ */
 function bindSelectCookbookButtons() {
   "use strict";
   let notificationSelectCookbook = document.querySelector(
