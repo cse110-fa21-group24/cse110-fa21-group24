@@ -453,7 +453,7 @@ function connectRecipeAction() {
   let shadow = templatePage.shadowRoot;
   let button = shadow.getElementById("recipe-action-button");
   let text = shadow.getElementById("recipe-action-text");
-  
+
   button.addEventListener("click", (e) => {
     // get text string
     let string = text.textContent;
