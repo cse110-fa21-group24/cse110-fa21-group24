@@ -707,7 +707,6 @@ async function init() {
   homeSearchFunction();
   homeExploreButton();
   connectCreateNewCookbook();
-
   bindExploreSearchBar();
   connectRecipeAction();
 
