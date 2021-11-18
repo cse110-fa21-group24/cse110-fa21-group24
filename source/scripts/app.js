@@ -58,7 +58,8 @@ async function populateExplorePage(filtersObj) {
     recipeCards[i].classList.remove("make-invisible");
     let cardShadow = recipeCards[i].shadowRoot;
     cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
-    cardShadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+    cardShadow.getElementById("recipe-card-title").textContent =
+      recipes[i].title;
     cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
   }
 }
@@ -107,10 +108,10 @@ function createExplorePage() {
 
 /**
  * @function bindExploreSearchBar
- * 
+ *
  * This function binds the search bar in the explore page so
  * that you can enter queries and get results based on the user input.
- * 
+ *
  */
 function bindExploreSearchBar() {
   //Get references to search bar on explore
@@ -130,13 +131,15 @@ function bindExploreSearchBar() {
   input.addEventListener("keyup", async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      if ( //If there are queries (checkbox or text)
+      if (
+        //If there are queries (checkbox or text)
         input.value !== "" ||
         vegan.checked ||
         glutenFree.checked ||
         vegetarian.checked
       ) {
-        if ( //Toggle off explore type
+        if (
+          //Toggle off explore type
           shadow
             .getElementById("explore-top-level")
             .classList.contains("type-explore")
@@ -158,8 +161,10 @@ function bindExploreSearchBar() {
           queryObj.diet += "vegetarian ";
         }
         await populateExplorePage(queryObj); //API call with queries
-      } else { //Otherwise, if there are no queries,
-        if ( //Toggle the explore type
+      } else {
+        //Otherwise, if there are no queries,
+        if (
+          //Toggle the explore type
           !shadow
             .getElementById("explore-top-level")
             .classList.contains("type-explore")
@@ -169,7 +174,6 @@ function bindExploreSearchBar() {
         await populateExplorePage(); //Call API with random recipes
       }
     }
-    
   });
 }
 
@@ -321,7 +325,8 @@ function bindExploreLoadButton() {
   let input = shadow.getElementById("search-bar");
 
   loadButton.addEventListener("click", async () => {
-    if (topLevel.classList.contains("type-explore") &&
+    if (
+      topLevel.classList.contains("type-explore") &&
       input.value === "" &&
       !vegan.checked &&
       !glutenFree.checked &&
@@ -361,7 +366,7 @@ function bindExploreLoadButton() {
 
 /**
  * Navigate to explore page if "Explore" button is clicked
- * 
+ *
  * @function homeExploreButton
  */
 function homeExploreButton() {
@@ -379,7 +384,7 @@ function homeExploreButton() {
 
 /**
  * Navigate to explore page if "Explore" button is clicked
- * 
+ *
  */
 function homeSearchFunction() {
   "use strict";
