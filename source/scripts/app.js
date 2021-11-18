@@ -295,32 +295,6 @@ function homeSearchFunction() {
 }
 
 /**
- * Populates new recipes in the home page by retrieving new recipes from
- * Spoonacular
- * @function populateHomePage
- */
-async function populateHomePage() {
-  "use strict";
-  let shadow = document.querySelector("home-page").shadowRoot;
-  const explore = shadow.getElementById("explore");
-
-  for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
-    const recipeCard = document.createElement("recipe-card");
-    explore.append(recipeCard);
-  }
-
-  let recipes = await spoonacular.getRandomRecipes(HOME_PAGE_NUM_RESULTS);
-  let recipeCards = explore.children;
-
-  for (let i = 0; i < recipes.length; ++i) {
-    let shadow = recipeCards[i].shadowRoot;
-    shadow.getElementById("recipe-id").textContent = recipes[i].id;
-    shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
-    shadow.getElementById("recipe-card-image").src = recipes[i].image;
-  }
-}
-
-/**
  * Attaches "click" event listeners to the Create New Cookbook
  * button on My Cookbook page which will navigate to Create Cookbook page.
  */
@@ -440,22 +414,53 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
 }
 
 /**
- * After clicking on "learn more" user is redirected to recipe form with all relevant info
- * and an option to add to the cookbook (but NOT edit)
+ * Populates new recipes in the home page by retrieving new recipes from
+ * Spoonacular
+ * @function populateHomePage
  */
-function learnMore() {
+async function populateHomePage() {
   "use strict";
-
-  //Get references to learn more button
   let shadow = document.querySelector("home-page").shadowRoot;
-  let explore = shadow.getElementById("explore");
+  const explore = shadow.getElementById("explore");
+
+  for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
+    const recipeCard = document.createElement("recipe-card");
+    explore.append(recipeCard);
+  }
+
+  let recipes = await spoonacular.getRandomRecipes(HOME_PAGE_NUM_RESULTS);
   let recipeCards = explore.children;
 
+  for (let i = 0; i < recipeCards.length; ++i) {
+    let shadow = recipeCards[i].shadowRoot;
+    shadow.getElementById("recipe-id").textContent = recipes[i].id;
+    shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+    shadow.getElementById("recipe-card-image").src = recipes[i].image;
+  }
+
+  /**
+   * After clicking on "learn more" user is redirected to recipe form with all relevant info
+   * and an option to add to the cookbook (but NOT edit)
+   */
+
+  const dummy = {
+    title: "title",
+    author: "author",
+    cuisines: ["cuisine-0", "cuisine-1"],
+    readyInMinutes: 10,
+    image: "/source/images/pasta.jpg",
+    description: "description",
+    ingredients: ["ingredient-1", "ingredient-2"],
+    instructions: ["instruction-1", "instruction-2"],
+  };
+
+  //TODO change dummy to recipes[i] once needed
   for (let i = 0; i < recipeCards.length; i++) {
     let button = recipeCards[i].shadowRoot.getElementById("recipe-info-button");
 
+    button.addEventListener("click", populateRecipePage(dummy, true));
     button.addEventListener("click", () => {
-      router.navigate("recipe-form");
+      router.navigate("recipe-page");
     });
   }
 }
@@ -492,23 +497,7 @@ async function init() {
 
   homeSearchFunction();
   homeExploreButton();
-  learnMore();
   connectCreateNewCookbook();
-
-  // TODO remove the below lines when we actually start using
-  // populateRecipePage() for a real purpose
-  let recipeObj = {
-    title: "title",
-    author: "author",
-    cuisines: ["cuisine-0", "cuisine-1"],
-    readyInMinutes: 10,
-    image: "/source/images/pasta.jpg",
-    description: "description",
-    ingredients: ["ingredient-1", "ingredient-2"],
-    instructions: ["instruction-1", "instruction-2"],
-  };
-  populateRecipePage(recipeObj, true);
-  // TODO
 }
 
 window.addEventListener("DOMContentLoaded", init);
