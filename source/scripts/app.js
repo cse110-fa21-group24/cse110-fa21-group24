@@ -550,31 +550,31 @@ async function populateHomePage() {
     shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
     shadow.getElementById("recipe-card-image").src = recipes[i].image;
   }
+}
 
-  /**
-   * After clicking on "learn more" user is redirected to recipe form with all relevant info
-   * and an option to add to the cookbook (but NOT edit)
-   */
+/**
+ * After clicking on "learn more" user is redirected to recipe form with all relevant info
+ * and an option to add to the cookbook (but NOT edit)
+ * @function bindHomePageLearnMore
+ */
+function bindHomePageLearnMore() {
+  "use strict";
 
-  const dummy = {
-    title: "title",
-    author: "author",
-    cuisines: ["cuisine-0", "cuisine-1"],
-    readyInMinutes: 10,
-    image: "/source/images/pasta.jpg",
-    description: "description",
-    ingredients: ["ingredient-1", "ingredient-2"],
-    instructions: ["instruction-1", "instruction-2"],
+  let shadow = document.querySelector("home-page").shadowRoot;
+  let recipeCards = shadow.getElementById("explore").children;
+
+  let redirectToRecipe = async (event) => {
+    let recipeCardShadow = event.currentTarget.getRootNode();
+    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
+    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
+    populateRecipePage(recipeObj, true);
+    router.navigate("recipe-page");
   };
 
-  //TODO change dummy to recipes[i] once needed
-  for (let i = 0; i < recipeCards.length; i++) {
-    let button = recipeCards[i].shadowRoot.getElementById("recipe-info-button");
-
-    button.addEventListener("click", populateRecipePage(dummy, true));
-    button.addEventListener("click", () => {
-      router.navigate("recipe-page");
-    });
+  for (let i = 0; i < recipeCards.length; ++i) {
+    let cardShadow = recipeCards[i].shadowRoot;
+    let button = cardShadow.getElementById("recipe-info-button");
+    button.addEventListener("click", redirectToRecipe);
   }
 }
 
@@ -623,6 +623,7 @@ async function init() {
   populateExplorePage();
   bindExploreLoadButton();
   populateHomePage();
+  bindHomePageLearnMore();
 
   createCookbook();
   createFooterImg();
