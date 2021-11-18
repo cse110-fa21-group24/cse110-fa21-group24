@@ -454,12 +454,12 @@ function connectRecipeAction() {
   let button = shadow.getElementById("recipe-action-button");
   let text = shadow.getElementById("recipe-action-text");
 
-  button.addEventListener("click", (e) => {
+  button.addEventListener("click", () => {
     // get text string
     let string = text.textContent;
 
     // open edit page or cookbook selector, respectively
-    if (string == "Edit Recipe") {
+    if (string === "Edit Recipe") {
       // TODO pass recipe object to edit page
       router.navigate("recipe-form");
     } else {
