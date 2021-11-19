@@ -607,7 +607,7 @@ function bindCookbookCardButtons(card) {
 }
 
 /**
- * Populates the single cookbook view with the recipe cards of the 
+ * Populates the single cookbook view with the recipe cards of the
  * given cookbook.
  * @function populateSingleCookbook
  * @param {object} cookbook The cookbook object from indexedDb
