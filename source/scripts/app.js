@@ -57,7 +57,6 @@ async function populateExplorePage(filtersObj) {
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
   for (let i = 0; i < recipes.length; ++i) {
-    console.log(recipeCards[i]);
     if (recipeCards[i]) {
       recipeCards[i].classList.remove("make-invisible");
       let cardShadow = recipeCards[i].shadowRoot;
@@ -150,7 +149,7 @@ function bindExploreSearchBar() {
   let glutenFree = shadow.getElementById("gluten-free");
   let vegetarian = shadow.getElementById("vegetarian");
   let italian = shadow.getElementById("italian");
-  let chinese = shadow.getElementById("chinese");
+  let mexican = shadow.getElementById("mexican");
   let american = shadow.getElementById("american");
   let time = shadow.getElementById("cooking-time");
   /**
@@ -168,7 +167,7 @@ function bindExploreSearchBar() {
         glutenFree.checked ||
         vegetarian.checked ||
         italian.checked ||
-        chinese.checked ||
+        mexican.checked ||
         american.checked ||
         time.value != ""
       ) {
@@ -185,7 +184,7 @@ function bindExploreSearchBar() {
         queryObj.query = input.value; //Set query value to text
         queryObj.diet = "";
         queryObj.cuisine = "";
-        queryObj.maxReadyTime = 200;
+        queryObj.maxReadyTime = 240;
         //Add checkboxes to diet
         if (vegan.checked) {
           queryObj.diet += "vegan ";
@@ -199,8 +198,8 @@ function bindExploreSearchBar() {
         if (italian.checked) {
           queryObj.cuisine += "Italian ";
         }
-        if (chinese.checked) {
-          queryObj.cuisine += "Chinese ";
+        if (mexican.checked) {
+          queryObj.cuisine += "Mexican ";
         }
         if (american.checked) {
           queryObj.cuisine += "American ";
@@ -374,7 +373,7 @@ function bindExploreLoadButton() {
   let vegetarian = shadow.getElementById("vegetarian");
   let input = shadow.getElementById("search-bar");
   let italian = shadow.getElementById("italian");
-  let chinese = shadow.getElementById("chinese");
+  let mexican = shadow.getElementById("mexican");
   let american = shadow.getElementById("american");
   let time = shadow.getElementById("cooking-time");
 
@@ -386,7 +385,7 @@ function bindExploreLoadButton() {
       !glutenFree.checked &&
       !vegetarian.checked &&
       !italian.checked &&
-      !chinese.checked &&
+      !mexican.checked &&
       !american.checked &&
       time.value === ""
     ) {
@@ -398,7 +397,7 @@ function bindExploreLoadButton() {
         !glutenFree.checked &&
         !vegetarian.checked &&
         !italian.checked &&
-        !chinese.checked &&
+        !mexican.checked &&
         !american.checked &&
         time.value === ""
       ) {
@@ -412,7 +411,7 @@ function bindExploreLoadButton() {
         queryObj.query = input.value;
         queryObj.diet = "";
         queryObj.cuisine = "";
-        queryObj.maxReadyTime = 200;
+        queryObj.maxReadyTime = 240;
         if (vegan.checked) {
           queryObj.diet += "vegan ";
         }
@@ -425,8 +424,8 @@ function bindExploreLoadButton() {
         if (italian.checked) {
           queryObj.cuisine += "Italian ";
         }
-        if (chinese.checked) {
-          queryObj.cuisine += "Chinese ";
+        if (mexican.checked) {
+          queryObj.cuisine += "Mexican ";
         }
         if (american.checked) {
           queryObj.cuisine += "American ";
