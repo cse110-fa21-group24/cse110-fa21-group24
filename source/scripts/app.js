@@ -752,7 +752,7 @@ function saveChangesEditCookbook() {
   let saveButton = shadow.querySelector("div").children[3]
     .getElementsByTagName("button")[0];
 
-  saveButton.addEventListener("click", () => {
+  saveButton.addEventListener("click", async () => {
     // Get the Title and the Description
     let templatePage = document.querySelector("edit-cookbook");
     let shadow = templatePage.shadowRoot;
@@ -767,7 +767,7 @@ function saveChangesEditCookbook() {
       alert("Plese enter a valid Title and/or Description");
     }
     else {
-      indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
+      await indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
     }
   });
 }
