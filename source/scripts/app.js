@@ -575,9 +575,41 @@ async function populateCookbooksPage() {
   for (const cookbook of cookbooks) {
     let card = document.createElement("cookbook-card");
     card.cookbook = cookbook;
+    bindCookbookCardButtons(card);
 
     cardContainer.appendChild(card);
   }
+}
+
+/**
+ * Attaches event listeners to the buttons within a given cookbook card
+ * @function bindCookbookCardButtons
+ * @param {object} card The cookbook card element
+ */
+function bindCookbookCardButtons(card) {
+  "use strict";
+
+  // get references to the buttons in the card
+  let shadow = card.shadowRoot;
+  let editButton = shadow.getElementById("edit");
+  let removeButton = shadow.getElementById("remove");
+  let openButton = shadow.getElementById("open");
+
+  editButton.addEventListener("click", () => {
+    // TODO set up cookbook editing
+    router.navigate("create-cookbook");
+  });
+
+  removeButton.addEventListener("click", async () => {
+    // delete cookbook, then repopulate page
+    await indexedDb.deleteCookbook(card.cookbook.title);
+    populateCookbooksPage();
+  });
+
+  openButton.addEventListener("click", () => {
+    // TODO set up cookbook page
+    router.navigate("single-cookbook");
+  });
 }
 
 // TODO trigger this function when cookbooks are added, edited, or deleted
