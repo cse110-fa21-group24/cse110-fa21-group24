@@ -839,7 +839,7 @@ async function init() {
 
   populateSelectCookbookOptions();
   bindSelectCookbookButtons();
- 
+
   populateCookbooksPage();
 }
 
