@@ -785,18 +785,30 @@ function buttonsEditCookbook() {
       (description == null || description == ""))  {
       router.navigate("cook-book");
     }
+    // Only update description
+    else if((title == null || title == "") && 
+    (description != null || description != "")){
+     // Place into storage
+     await indexedDb.editCookbook(COOKBOOK_TO_EDIT, COOKBOOK_TO_EDIT, description);
+
+     // Update the cookbooks
+     populateCookbooksPage();
+
+     // Set the textbox fields to original format
+     mainDiv.children[0].getElementsByTagName("input")[0].value = null;
+     mainDiv.children[1].getElementsByTagName("input")[0].value = null;
+
+     // Go back to cookbook page
+     router.navigate("cook-book");
+    }
     else {
-      // Place into storage
       await indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
 
-      // Update the cookbooks
       populateCookbooksPage();
 
-      // Set the textbox fields to original format
       mainDiv.children[0].getElementsByTagName("input")[0].value = null;
       mainDiv.children[1].getElementsByTagName("input")[0].value = null;
 
-      // Go back to cookbook page
       router.navigate("cook-book");
     }
 
