@@ -45,7 +45,6 @@ class RecipeCardDelete extends HTMLElement {
   get recipe() {
     return this.recipeObj;
   }
-
 }
 
 customElements.define("recipe-card-delete", RecipeCardDelete);

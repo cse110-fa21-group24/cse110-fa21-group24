@@ -606,6 +606,12 @@ function bindCookbookCardButtons(card) {
   });
 }
 
+/**
+ * Populates the single cookbook view with the recipe cards of the 
+ * given cookbook.
+ * @function populateSingleCookbook
+ * @param {object} cookbook The cookbook object from indexedDb
+ */
 async function populateSingleCookbook(cookbook) {
   "use strict";
 
@@ -634,6 +640,15 @@ async function populateSingleCookbook(cookbook) {
   }
 }
 
+// TODO avoid using so many params
+/**
+ * Attaches event listeners to the buttons within a recipe card in the single cookbook view
+ * @function bindCookbookRecipeCardButtons
+ * @param {object} card The recipe card element
+ * @param {object} recipe The recipe object
+ * @param {object} recipeKey The key of the recipe object within the cookbook
+ * @param {object} cookbook The cookbook object
+ */
 function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
   "use strict";
 
