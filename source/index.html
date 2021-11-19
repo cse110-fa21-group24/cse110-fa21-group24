@@ -134,7 +134,7 @@
 
           <!-- Each filter category goes here -->
           <p class="filter-choice">Diet</p>
-          <form class="filter-cuisine-choices">
+          <form class="filter-diet-choices">
             <div class="checkbox-container">
               <input
                 type="checkbox"
@@ -158,8 +158,51 @@
               <label for="gluten-free">Gluten Free</label>
             </div>
           </form>
-        </section>
 
+          <p class="filter-choice">Cuisine</p>
+          <form class="filter-cuisine-choices">
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="italian"
+                name="italian"
+                value="italian"
+              />
+              <label for="italian">Italian</label>
+            </div>
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="chinese"
+                name="chinese"
+                value="chinese"
+              />
+              <label for="chinese">Chinese</label>
+            </div>
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="american"
+                name="american"
+                value="american"
+              />
+              <label for="american">American</label>
+            </div>
+          </form>
+          <p class="filter-cooking-time">Maximum Cooking Time</p>
+          <form class="filter-cooking-time">
+            <div class="form-container">
+              <input
+                type="number"
+                id="cooking-time"
+                name="cooking-time"
+                value="cooking-time"
+                min = 1
+              /><br />
+              <label for="cooking-time">min</label>
+            </div>
+          </form>
+        </section>
         <!-- Display with search bar, food options -->
         <section id="display-section">
           <input id="search-bar" type="text" placeholder="Search Recipes" />
