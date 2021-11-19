@@ -4,6 +4,7 @@ import { IndexedDbInterface } from "./indexed-db-interface.js";
 
 const EXPLORE_PAGE_NUM_RESULTS = 6;
 const HOME_PAGE_NUM_RESULTS = 4;
+const COOKBOOK_TO_EDIT;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
@@ -622,12 +623,15 @@ function bindCookbookCardButtons(card) {
 
   // get references to the buttons in the card
   let shadow = card.shadowRoot;
+  let title = shadow.querySelector(".title");
   let editButton = shadow.getElementById("edit");
   let removeButton = shadow.getElementById("remove");
   let openButton = shadow.getElementById("open");
 
   editButton.addEventListener("click", () => {
     // TODO set up cookbook editing
+    // Updates the CURRENT_COOKBOOK_TITLE
+    COOKBOOK_TO_EDIT = title;
     router.navigate("create-cookbook");
   });
 
@@ -739,14 +743,14 @@ function connectRecipeAction() {
 /**
  * Adds an event listener to the "Save Changes" button in the "Edit Cookbook"
  * page.
- * TODO: Find a way to get the oldtitle of the cookbook
- * @param {*} oldTitle 
+ * @param {String} oldTitle 
  */
 function saveChangesEditCookbook() {
   // Get the "Save Changes" button
   let templatePage = document.querySelector("edit-cookbook");
   let shadow = templatePage.shadowRoot;
-  let saveButton = shadow.querySelector("div").children[3].getElementsByTagName("button")[0];
+  let saveButton = shadow.querySelector("div").children[3]
+    .getElementsByTagName("button")[0];
 
   saveButton.addEventListener("click", () => {
     // Get the Title and the Description
@@ -755,18 +759,15 @@ function saveChangesEditCookbook() {
     let mainDiv = shadow.querySelector("div.input-container");
 
     // Gets the div by index (first div = 0, second div = 1)
-    let title = mainDiv.children[0];
-    let description = mainDiv.children[1];
+    let title = mainDiv.children[0].getElementsByTagName("input")[0].value;
+    let description = mainDiv.children[1].getElementsByTagName("input")[0].value;
 
-    let titleInput = title.getElementsByTagName("input")[0].value;
-    let descriptionInput = description.getElementsByTagName("input")[0].value;
-
-    if (titleInput == null || titleInput == ""
-      || descriptionInput == null || descriptionInput == "") {
+    if (title == null || title == ""
+      || description == null || description == "") {
       alert("Plese enter a valid Title and/or Description");
     }
     else {
-      indexedDb.editCookbook(oldTitle, titleInput, descriptionInput);
+      indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
     }
   });
 }
