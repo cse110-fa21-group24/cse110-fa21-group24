@@ -554,6 +554,32 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   }
 }
 
+/**
+ * Populate the my cookbooks page with cookbook cards
+ * @function populateCookbooksPage
+ */
+async function populateCookbooksPage() {
+  "use strict";
+
+  // get reference to cookbook page and the card section
+  let shadow = document.querySelector("cook-book").shadowRoot;
+  let cardContainer = shadow.getElementById("cards");
+
+  // clear any existing cards
+  cardContainer.innerHTML = "";
+
+  // get cookbooks from db
+  let cookbooks = await indexedDb.getAllCookbooks();
+
+  // add each cookbook to the page as a new card
+  for (const cookbook of cookbooks) {
+    let card = document.createElement("cookbook-card");
+    card.cookbook = cookbook;
+
+    cardContainer.appendChild(card);
+  }
+}
+
 // TODO trigger this function when cookbooks are added, edited, or deleted
 /**
  * Populates the Select Cookbook notification options with all of the user's
@@ -699,6 +725,9 @@ async function init() {
     instructions: ["instruction-1", "instruction-2"],
   };
   populateRecipePage(recipeObj, true);
+
+  // indexedDb.createCookbook("Example Title", "This is an example description!");
+  populateCookbooksPage();
   // TODO
 }
 
