@@ -574,6 +574,64 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   }
 }
 
+/**
+ * Populate the my cookbooks page with cookbook cards
+ * @function populateCookbooksPage
+ */
+async function populateCookbooksPage() {
+  "use strict";
+
+  // get reference to cookbook page and the card section
+  let shadow = document.querySelector("cook-book").shadowRoot;
+  let cardContainer = shadow.getElementById("cards");
+
+  // clear any existing cards
+  cardContainer.innerHTML = "";
+
+  // get cookbooks from db
+  let cookbooks = await indexedDb.getAllCookbooks();
+
+  // add each cookbook to the page as a new card
+  for (const cookbook of cookbooks) {
+    let card = document.createElement("cookbook-card");
+    card.cookbook = cookbook;
+    bindCookbookCardButtons(card);
+
+    cardContainer.appendChild(card);
+  }
+}
+
+/**
+ * Attaches event listeners to the buttons within a given cookbook card
+ * @function bindCookbookCardButtons
+ * @param {object} card The cookbook card element
+ */
+function bindCookbookCardButtons(card) {
+  "use strict";
+
+  // get references to the buttons in the card
+  let shadow = card.shadowRoot;
+  let editButton = shadow.getElementById("edit");
+  let removeButton = shadow.getElementById("remove");
+  let openButton = shadow.getElementById("open");
+
+  editButton.addEventListener("click", () => {
+    // TODO set up cookbook editing
+    router.navigate("create-cookbook");
+  });
+
+  removeButton.addEventListener("click", async () => {
+    // delete cookbook, then repopulate page
+    await indexedDb.deleteCookbook(card.cookbook.title);
+    populateCookbooksPage();
+  });
+
+  openButton.addEventListener("click", () => {
+    // TODO set up cookbook page
+    router.navigate("single-cookbook");
+  });
+}
+
 // TODO trigger this function when cookbooks are added, edited, or deleted
 /**
  * Populates the Select Cookbook notification options with all of the user's
@@ -720,6 +778,8 @@ async function init() {
     instructions: ["instruction-1", "instruction-2"],
   };
   populateRecipePage(recipeObj, true);
+
+  populateCookbooksPage();
   // TODO
 }
 
