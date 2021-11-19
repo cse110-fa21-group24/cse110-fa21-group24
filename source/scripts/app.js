@@ -607,8 +607,56 @@ function bindCookbookCardButtons(card) {
   });
 
   openButton.addEventListener("click", () => {
-    // TODO set up cookbook page
     router.navigate("single-cookbook");
+    populateSingleCookbook(card.cookbook);
+  });
+}
+
+async function populateSingleCookbook(cookbook) {
+  "use strict";
+
+  // get reference to single cookbook page & elements
+  let shadow = document.querySelector("single-cookbook").shadowRoot;
+  let title = shadow.querySelector(".title");
+  let cardContainer = shadow.querySelector(".recipe-container");
+
+  title.textContent = cookbook.title;
+
+  // clear all cards that were previously added
+  cardContainer.innerHTML = "";
+
+  let recipes = await indexedDb.getAllRecipes(cookbook.title);
+  for (const key in recipes) {
+    if (recipes.hasOwnProperty(key)) {
+      // TODO consolidate with regular recipe card
+      // set up card
+      const recipe = recipes[key];
+      let card = document.createElement("recipe-card-delete");
+      card.recipe = recipe;
+      bindCookbookRecipeCardButtons(card, recipe, key, cookbook);
+
+      cardContainer.appendChild(card);
+    }
+  }
+}
+
+function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
+  "use strict";
+
+  // get button references
+  let shadow = card.shadowRoot;
+  let openButton = shadow.querySelector(".recipe-action-button");
+  let deleteButton = shadow.querySelector(".recipe-delete-button");
+
+  openButton.addEventListener("click", () => {
+    router.navigate("recipe-page");
+    populateRecipePage(recipe, false);
+  });
+
+  deleteButton.addEventListener("click", async () => {
+    // delete, then repopulate to clear it
+    await indexedDb.deleteRecipe(cookbook.title, recipeKey);
+    populateSingleCookbook(cookbook);
   });
 }
 
@@ -758,7 +806,6 @@ async function init() {
   };
   populateRecipePage(recipeObj, true);
 
-  // indexedDb.createCookbook("Example Title", "This is an example description!");
   populateCookbooksPage();
   // TODO
 }
