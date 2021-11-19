@@ -40,6 +40,17 @@ function createCreateCookbook() {
 }
 
 /**
+ * Creates a form for editing a cookbook and adds it to the document
+ * @function createEditCookbook
+ */
+ function createEditCookbook() {
+  "use strict";
+  const editCookbook = document.createElement("edit-cookbook");
+  editCookbook.classList.toggle("hidden");
+  document.querySelector("body").append(editCookbook);
+}
+
+/**
  * Creates the explore page and adds it to the document
  * @function createExplorePage
  */
@@ -470,6 +481,29 @@ function connectRecipeAction() {
   });
 }
 
+
+/**
+ * Get the edited title and description and update the original cookbook.
+ * @param {String} oldTitle The title of the original cookbook before edit.
+ * @function editCookbook
+ */
+function editCookbook(oldTitle) {
+  // Get the Title and the Description
+  let templatePage = document.querySelector("edit-cookbook");
+  let shadow = templatePage.shadowRoot;
+  let mainDiv = shadow.querySelector("div.input-container");
+
+  // Gets the div by index (first div = 0, second div = 1)
+  let title = mainDiv.children[0];
+  let description = mainDiv.children[1];
+
+  let titleInput = title.getElementsByTagName("input").value;
+  let descriptionInput = description.getElementsByTagName("input").value;
+
+  // TODO: Call the indexDB object's editCookbook()
+  // indexDB.editCookbook(oldTitle, titleInput, descriptionInput);
+}
+
 /**
  * Runs initial setup functions when the page first loads
  * @function init
@@ -490,6 +524,7 @@ async function init() {
 
   //   createCookbookCard();
   createCreateCookbook();
+  createEditCookbook();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();
   createNotificationSelectCookbook();
@@ -504,6 +539,9 @@ async function init() {
   homeExploreButton();
   connectCreateNewCookbook();
   connectRecipeAction();
+
+  // TODO: Edit this function to include indexDB
+  editCookbook();
 
   // TODO remove the below lines when we actually start using
   // populateRecipePage() for a real purpose
