@@ -28,6 +28,18 @@ function createCookbook() {
   document.querySelector("body").append(cookbook);
 }
 
+function addEventListenerForCookBook(){
+  let shadow = document.querySelector("create-cookbook").shadowRoot;
+  let buttonHandler = shadow.getElementById("save-button");
+  buttonHandler.addEventListener("click", function(){
+    let title = shadow.getElementById("Title-Input").value;
+    let description = shadow.getElementById("Description-Input").value;
+    console.log(title);
+    console.log(description);
+    createCookbook(title, description);
+  });
+}
+
 /**
  * Creates a form for creating a new cookbook and adds it to the document
  * @function createCreateCookbook
@@ -453,6 +465,7 @@ async function init() {
   populateExplorePage();
   bindExploreLoadButton();
   populateHomePage();
+  
 
   createCookbook();
   createFooterImg();
@@ -465,6 +478,7 @@ async function init() {
   createRecipeForm();
   createRecipePage();
   createSingleCookbook();
+  addEventListenerForCookBook();
 
   // Add functionality to our pages
   connectNavbarButtons();
