@@ -623,7 +623,7 @@ function bindCookbookCardButtons(card) {
 
   // get references to the buttons in the card
   let shadow = card.shadowRoot;
-  let title = shadow.querySelector(".title");
+  let title = shadow.querySelector(".title").innerHTML;
   let editButton = shadow.getElementById("edit");
   let removeButton = shadow.getElementById("remove");
   let openButton = shadow.getElementById("open");
@@ -632,7 +632,7 @@ function bindCookbookCardButtons(card) {
     // TODO set up cookbook editing
     // Updates the CURRENT_COOKBOOK_TITLE
     COOKBOOK_TO_EDIT = title;
-    router.navigate("create-cookbook");
+    router.navigate("edit-cookbook");
   });
 
   removeButton.addEventListener("click", async () => {
@@ -745,11 +745,14 @@ function connectRecipeAction() {
  * page.
  * @param {String} oldTitle 
  */
-function saveChangesEditCookbook() {
+function buttonsEditCookbook() {
   // Get the "Save Changes" button
   let templatePage = document.querySelector("edit-cookbook");
   let shadow = templatePage.shadowRoot;
   let saveButton = shadow.querySelector("div").children[3]
+    .getElementsByTagName("button")[0];
+
+  let cancelButton = shadow.querySelector("div").children[2]
     .getElementsByTagName("button")[0];
 
   saveButton.addEventListener("click", async () => {
@@ -767,8 +770,23 @@ function saveChangesEditCookbook() {
       alert("Plese enter a valid Title and/or Description");
     }
     else {
+      // Place into storage
       await indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
+
+      // Update the cookbooks
+      await populateSelectCookbookOptions();
+
+      // Set the textbox fields to original format
+      mainDiv.children[0].getElementsByTagName("input")[0].value = null;
+      mainDiv.children[1].getElementsByTagName("input")[0].value = null;
+
+      // Go back to cookbook page
+      router.navigate("cook-book");
     }
+
+    cancelButton.addEventListener("click", () => {
+      router.navigate("cook-book");
+    });
   });
 }
 
@@ -809,7 +827,7 @@ async function init() {
   connectCreateNewCookbook();
   bindExploreSearchBar();
   connectRecipeAction();
-  saveChangesEditCookbook();
+  buttonsEditCookbook();
 
   populateSelectCookbookOptions();
   bindSelectCookbookButtons();
