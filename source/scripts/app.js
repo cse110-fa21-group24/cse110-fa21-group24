@@ -752,6 +752,25 @@ function connectRecipeAction() {
 }
 
 /**
+ * When the user clicks Add New Recipe when viewing a cookbook, the user
+ * should be redirected to the Explore page.
+ * @function addRecipe
+ */
+function addRecipe() {
+  "use strict";
+
+  // get references to button
+  let cookbook = document.querySelector("single-cookbook");
+  let shadow = cookbook.shadowRoot;
+  let button = shadow.getElementById("add-recipe");
+
+  //navigate to explore page
+  button.addEventListener("click", () => {
+    router.navigate("explore-page");
+  });
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function init
  */
@@ -780,6 +799,7 @@ async function init() {
   createRecipePage();
   createSingleCookbook();
   bindCreateCookbookSave();
+  addRecipe();
 
   connectNavbarButtons();
 
