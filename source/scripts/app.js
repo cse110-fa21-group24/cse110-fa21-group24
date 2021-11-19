@@ -57,12 +57,15 @@ async function populateExplorePage(filtersObj) {
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
   for (let i = 0; i < recipes.length; ++i) {
-    recipeCards[i].classList.remove("make-invisible");
-    let cardShadow = recipeCards[i].shadowRoot;
-    cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
-    cardShadow.getElementById("recipe-card-title").textContent =
-      recipes[i].title;
-    cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
+    console.log(recipeCards[i]);
+    if (recipeCards[i]) {
+      recipeCards[i].classList.remove("make-invisible");
+      let cardShadow = recipeCards[i].shadowRoot;
+      cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
+      cardShadow.getElementById("recipe-card-title").textContent =
+        recipes[i].title;
+      cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
+    }
   }
 }
 
