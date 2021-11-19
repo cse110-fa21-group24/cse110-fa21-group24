@@ -86,17 +86,31 @@ function createCookbook() {
 function bindCreateCookbookSave() {
   "use strict";
   let shadow = document.querySelector("create-cookbook").shadowRoot;
-  let buttonHandler = shadow.getElementById("save-button");
-  buttonHandler.addEventListener("click", async () => {
+  let saveButton = shadow.getElementById("save-button");
+  let cancelButton = shadow.getElementById("cancel-button-container");
+
+  saveButton.addEventListener("click", async () => {
     let title = shadow.getElementById("title-input").value;
 
     if (title !== "") {
       let description = shadow.getElementById("description-input").value;
       await indexedDb.createCookbook(title, description);
-      await populateCookbooksPage();
+      populateCookbooksPage();
+
+      // Reset the page to original values
+      shadow.getElementById("title-input").value = null;
+      shadow.getElementById("description-input").value = null;
+
       router.navigate("cook-book");
     }
   });
+
+  cancelButton.addEventListener("click", () => {
+    shadow.getElementById("title-input").value = null;
+    shadow.getElementById("description-input").value = null;
+
+    router.navigate("cook-book");
+  })
 }
 
 /**
@@ -766,16 +780,17 @@ function buttonsEditCookbook() {
     let title = mainDiv.children[0].getElementsByTagName("input")[0].value;
     let description = mainDiv.children[1].getElementsByTagName("input")[0].value;
 
-    if (title == null || title == ""
-      || description == null || description == "") {
-      alert("Plese enter a valid Title and/or Description");
+    // Nothing to update
+    if ((title == null || title == "") && 
+      (description == null || description == ""))  {
+      router.navigate("cook-book");
     }
     else {
       // Place into storage
       await indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
 
       // Update the cookbooks
-      await populateCookbooksPage();
+      populateCookbooksPage();
 
       // Set the textbox fields to original format
       mainDiv.children[0].getElementsByTagName("input")[0].value = null;
@@ -786,6 +801,9 @@ function buttonsEditCookbook() {
     }
 
     cancelButton.addEventListener("click", () => {
+      mainDiv.children[0].getElementsByTagName("input")[0].value = null;
+      mainDiv.children[1].getElementsByTagName("input")[0].value = null;
+
       router.navigate("cook-book");
     });
   });
