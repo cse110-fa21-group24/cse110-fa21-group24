@@ -93,6 +93,7 @@ function bindCreateCookbookSave() {
     if (title !== "") {
       let description = shadow.getElementById("description-input").value;
       await indexedDb.createCookbook(title, description);
+      await populateCookbooksPage();
       router.navigate("cook-book");
     }
   });
@@ -774,7 +775,7 @@ function buttonsEditCookbook() {
       await indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
 
       // Update the cookbooks
-      await populateSelectCookbookOptions();
+      await populateCookbooksPage();
 
       // Set the textbox fields to original format
       mainDiv.children[0].getElementsByTagName("input")[0].value = null;
