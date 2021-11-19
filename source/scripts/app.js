@@ -45,7 +45,7 @@ function createCreateCookbook() {
  * Creates a form for editing a cookbook and adds it to the document
  * @function createEditCookbook
  */
- function createEditCookbook() {
+function createEditCookbook() {
   "use strict";
   const editCookbook = document.createElement("edit-cookbook");
   editCookbook.classList.toggle("hidden");
@@ -489,7 +489,7 @@ function connectRecipeAction() {
  * TODO: Find a way to get the oldtitle of the cookbook
  * @param {*} oldTitle 
  */
-function saveChangesEditCookbook(){
+function saveChangesEditCookbook() {
   // Get the "Save Changes" button
   let templatePage = document.querySelector("edit-cookbook");
   let shadow = templatePage.shadowRoot;
@@ -508,11 +508,11 @@ function saveChangesEditCookbook(){
     let titleInput = title.getElementsByTagName("input")[0].value;
     let descriptionInput = description.getElementsByTagName("input")[0].value;
 
-    if(titleInput == null || titleInput == "" 
-      || descriptionInput == null || descriptionInput == ""){
-        alert("Plese enter a valid Title and/or Description");
-      }
-    else{
+    if (titleInput == null || titleInput == ""
+      || descriptionInput == null || descriptionInput == "") {
+      alert("Plese enter a valid Title and/or Description");
+    }
+    else {
       indexedDb.editCookbook(oldTitle, titleInput, descriptionInput);
     }
   });
