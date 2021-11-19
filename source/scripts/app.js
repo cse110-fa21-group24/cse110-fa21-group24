@@ -1,10 +1,12 @@
 import { Router } from "./router.js";
 import { SpoonacularInterface } from "./spoonacular-interface.js";
+import { IndexedDbInterface } from "./indexed-db-interface.js";
 
 const EXPLORE_PAGE_NUM_RESULTS = 6;
 const HOME_PAGE_NUM_RESULTS = 4;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
+const indexedDb = new IndexedDbInterface();
 
 /**
  * Creates a recipe card element
@@ -481,27 +483,39 @@ function connectRecipeAction() {
   });
 }
 
-
 /**
- * Get the edited title and description and update the original cookbook.
- * @param {String} oldTitle The title of the original cookbook before edit.
- * @function editCookbook
+ * Adds an event listener to the "Save Changes" button in the "Edit Cookbook"
+ * page.
+ * TODO: Find a way to get the oldtitle of the cookbook
+ * @param {*} oldTitle 
  */
-function editCookbook(oldTitle) {
-  // Get the Title and the Description
+function saveChangesEditCookbook(){
+  // Get the "Save Changes" button
   let templatePage = document.querySelector("edit-cookbook");
   let shadow = templatePage.shadowRoot;
-  let mainDiv = shadow.querySelector("div.input-container");
+  let saveButton = shadow.querySelector("div").children[3].getElementsByTagName("button")[0];
 
-  // Gets the div by index (first div = 0, second div = 1)
-  let title = mainDiv.children[0];
-  let description = mainDiv.children[1];
+  saveButton.addEventListener("click", () => {
+    // Get the Title and the Description
+    let templatePage = document.querySelector("edit-cookbook");
+    let shadow = templatePage.shadowRoot;
+    let mainDiv = shadow.querySelector("div.input-container");
 
-  let titleInput = title.getElementsByTagName("input").value;
-  let descriptionInput = description.getElementsByTagName("input").value;
+    // Gets the div by index (first div = 0, second div = 1)
+    let title = mainDiv.children[0];
+    let description = mainDiv.children[1];
 
-  // TODO: Call the indexDB object's editCookbook()
-  // indexDB.editCookbook(oldTitle, titleInput, descriptionInput);
+    let titleInput = title.getElementsByTagName("input")[0].value;
+    let descriptionInput = description.getElementsByTagName("input")[0].value;
+
+    if(titleInput == null || titleInput == "" 
+      || descriptionInput == null || descriptionInput == ""){
+        alert("Plese enter a valid Title and/or Description");
+      }
+    else{
+      indexedDb.editCookbook(oldTitle, titleInput, descriptionInput);
+    }
+  });
 }
 
 /**
@@ -539,9 +553,7 @@ async function init() {
   homeExploreButton();
   connectCreateNewCookbook();
   connectRecipeAction();
-
-  // TODO: Edit this function to include indexDB
-  editCookbook();
+  saveChangesEditCookbook();
 
   // TODO remove the below lines when we actually start using
   // populateRecipePage() for a real purpose
