@@ -78,6 +78,26 @@ function createCookbook() {
 }
 
 /**
+ * Binds the Create Cookbook button in the Create Cookbook form to save
+ * cookbooks to local storage
+ * @function bindCreateCookbookSave
+ */
+function bindCreateCookbookSave() {
+  "use strict";
+  let shadow = document.querySelector("create-cookbook").shadowRoot;
+  let buttonHandler = shadow.getElementById("save-button");
+  buttonHandler.addEventListener("click", async () => {
+    let title = shadow.getElementById("title-input").value;
+
+    if (title !== "") {
+      let description = shadow.getElementById("description-input").value;
+      await indexedDb.createCookbook(title, description);
+      router.navigate("cook-book");
+    }
+  });
+}
+
+/**
  * Creates a form for creating a new cookbook and adds it to the document
  * @function createCreateCookbook
  */
@@ -410,32 +430,6 @@ function homeSearchFunction() {
 }
 
 /**
- * Populates new recipes in the home page by retrieving new recipes from
- * Spoonacular
- * @function populateHomePage
- */
-async function populateHomePage() {
-  "use strict";
-  let shadow = document.querySelector("home-page").shadowRoot;
-  const explore = shadow.getElementById("explore");
-
-  for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
-    const recipeCard = document.createElement("recipe-card");
-    explore.append(recipeCard);
-  }
-
-  let recipes = await spoonacular.getRandomRecipes(HOME_PAGE_NUM_RESULTS);
-  let recipeCards = explore.children;
-
-  for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
-    let shadow = recipeCards[i].shadowRoot;
-    shadow.getElementById("recipe-id").textContent = recipes[i].id;
-    shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
-    shadow.getElementById("recipe-card-image").src = recipes[i].image;
-  }
-}
-
-/**
  * Attaches "click" event listeners to the Create New Cookbook
  * button on My Cookbook page which will navigate to Create Cookbook page.
  */
@@ -724,6 +718,58 @@ function bindSelectCookbookButtons() {
 }
 
 /**
+ * Populates new recipes in the home page by retrieving new recipes from
+ * Spoonacular
+ * @function populateHomePage
+ */
+async function populateHomePage() {
+  "use strict";
+  let shadow = document.querySelector("home-page").shadowRoot;
+  const explore = shadow.getElementById("explore");
+
+  for (let i = 0; i < HOME_PAGE_NUM_RESULTS; ++i) {
+    const recipeCard = document.createElement("recipe-card");
+    explore.append(recipeCard);
+  }
+
+  let recipes = await spoonacular.getRandomRecipes(HOME_PAGE_NUM_RESULTS);
+  let recipeCards = explore.children;
+
+  for (let i = 0; i < recipeCards.length; ++i) {
+    let shadow = recipeCards[i].shadowRoot;
+    shadow.getElementById("recipe-id").textContent = recipes[i].id;
+    shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
+    shadow.getElementById("recipe-card-image").src = recipes[i].image;
+  }
+}
+
+/**
+ * After clicking on "learn more" user is redirected to recipe form with all relevant info
+ * and an option to add to the cookbook (but NOT edit)
+ * @function bindHomePageLearnMore
+ */
+function bindHomePageLearnMore() {
+  "use strict";
+
+  let shadow = document.querySelector("home-page").shadowRoot;
+  let recipeCards = shadow.getElementById("explore").children;
+
+  let redirectToRecipe = async (event) => {
+    let recipeCardShadow = event.currentTarget.getRootNode();
+    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
+    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
+    populateRecipePage(recipeObj, true);
+    router.navigate("recipe-page");
+  };
+
+  for (let i = 0; i < recipeCards.length; ++i) {
+    let cardShadow = recipeCards[i].shadowRoot;
+    let button = cardShadow.getElementById("recipe-info-button");
+    button.addEventListener("click", redirectToRecipe);
+  }
+}
+
+/**
  * Attaches "click" event listener to the Edit Recipe/Add to Cookbook
  * button on the recipe page, which will either open the recipe edit form,
  * or the cookbook select pop up
@@ -768,6 +814,7 @@ async function init() {
   populateExplorePage();
   bindExploreLoadButton();
   populateHomePage();
+  bindHomePageLearnMore();
 
   createCookbook();
   createFooterImg();
@@ -780,6 +827,7 @@ async function init() {
   createRecipeForm();
   createRecipePage();
   createSingleCookbook();
+  bindCreateCookbookSave();
 
   connectNavbarButtons();
 
@@ -791,23 +839,8 @@ async function init() {
 
   populateSelectCookbookOptions();
   bindSelectCookbookButtons();
-
-  // TODO remove the below lines when we actually start using
-  // populateRecipePage() for a real purpose
-  let recipeObj = {
-    title: "title",
-    author: "author",
-    cuisines: ["cuisine-0", "cuisine-1"],
-    readyInMinutes: 10,
-    image: "/source/images/pasta.jpg",
-    description: "description",
-    ingredients: ["ingredient-1", "ingredient-2"],
-    instructions: ["instruction-1", "instruction-2"],
-  };
-  populateRecipePage(recipeObj, true);
-
+ 
   populateCookbooksPage();
-  // TODO
 }
 
 window.addEventListener("DOMContentLoaded", init);
