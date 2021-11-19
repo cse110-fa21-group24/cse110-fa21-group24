@@ -758,7 +758,6 @@ async function init() {
   };
   populateRecipePage(recipeObj, true);
 
-  // indexedDb.createCookbook("Example Title", "This is an example description!");
   populateCookbooksPage();
   // TODO
 }
