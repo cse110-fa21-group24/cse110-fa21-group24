@@ -77,15 +77,23 @@ function createCookbook() {
   document.querySelector("body").append(cookbook);
 }
 
-function addEventListenerForCookBook(){
+/**
+ * Binds the Create Cookbook button in the Create Cookbook form to save
+ * cookbooks to local storage
+ * @function bindCreateCookbookSave
+ */
+function bindCreateCookbookSave() {
+  "use strict";
   let shadow = document.querySelector("create-cookbook").shadowRoot;
   let buttonHandler = shadow.getElementById("save-button");
-  buttonHandler.addEventListener("click", function(){
-    let title = shadow.getElementById("Title-Input").value;
-    let description = shadow.getElementById("Description-Input").value;
-    console.log(title);
-    console.log(description);
-    createCookbook(title, description);
+  buttonHandler.addEventListener("click", async () => {
+    let title = shadow.getElementById("title-input").value;
+
+    if (title !== "") {
+      let description = shadow.getElementById("description-input").value;
+      await indexedDb.createCookbook(title, description);
+      router.navigate("cook-book");
+    }
   });
 }
 
@@ -674,7 +682,6 @@ async function init() {
   populateExplorePage();
   bindExploreLoadButton();
   populateHomePage();
-  
 
   createCookbook();
   createFooterImg();
@@ -687,7 +694,7 @@ async function init() {
   createRecipeForm();
   createRecipePage();
   createSingleCookbook();
-  addEventListenerForCookBook();
+  bindCreateCookbookSave();
 
   connectNavbarButtons();
 
