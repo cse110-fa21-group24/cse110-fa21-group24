@@ -110,7 +110,7 @@ function bindCreateCookbookSave() {
     shadow.getElementById("description-input").value = null;
 
     router.navigate("cook-book");
-  })
+  });
 }
 
 /**
@@ -758,17 +758,20 @@ function connectRecipeAction() {
 /**
  * Adds an event listener to the "Save Changes" button in the "Edit Cookbook"
  * page.
- * @param {String} oldTitle 
+ * @param {String} oldTitle
  */
 function buttonsEditCookbook() {
   // Get the "Save Changes" button
+  "use strict";
   let templatePage = document.querySelector("edit-cookbook");
   let shadow = templatePage.shadowRoot;
-  let saveButton = shadow.querySelector("div").children[3]
-    .getElementsByTagName("button")[0];
+  let saveButton = shadow
+    .querySelector("div")
+    .children[3].getElementsByTagName("button")[0];
 
-  let cancelButton = shadow.querySelector("div").children[2]
-    .getElementsByTagName("button")[0];
+  let cancelButton = shadow
+    .querySelector("div")
+    .children[2].getElementsByTagName("button")[0];
 
   saveButton.addEventListener("click", async () => {
     // Get the Title and the Description
@@ -778,30 +781,38 @@ function buttonsEditCookbook() {
 
     // Gets the div by index (first div = 0, second div = 1)
     let title = mainDiv.children[0].getElementsByTagName("input")[0].value;
-    let description = mainDiv.children[1].getElementsByTagName("input")[0].value;
+    let description =
+      mainDiv.children[1].getElementsByTagName("input")[0].value;
 
     // Nothing to update
-    if ((title == null || title == "") && 
-      (description == null || description == ""))  {
+    if (
+      (title === null || title === "") &&
+      (description === null || description === "")
+    ) {
       router.navigate("cook-book");
     }
     // Only update description
-    else if((title == null || title == "") && 
-    (description != null || description != "")){
-     // Place into storage
-     await indexedDb.editCookbook(COOKBOOK_TO_EDIT, COOKBOOK_TO_EDIT, description);
+    else if (
+      (title === null || title === "") &&
+      (description !== null || description !== "")
+    ) {
+      // Place into storage
+      await indexedDb.editCookbook(
+        COOKBOOK_TO_EDIT,
+        COOKBOOK_TO_EDIT,
+        description
+      );
 
-     // Update the cookbooks
-     populateCookbooksPage();
+      // Update the cookbooks
+      populateCookbooksPage();
 
-     // Set the textbox fields to original format
-     mainDiv.children[0].getElementsByTagName("input")[0].value = null;
-     mainDiv.children[1].getElementsByTagName("input")[0].value = null;
+      // Set the textbox fields to original format
+      mainDiv.children[0].getElementsByTagName("input")[0].value = null;
+      mainDiv.children[1].getElementsByTagName("input")[0].value = null;
 
-     // Go back to cookbook page
-     router.navigate("cook-book");
-    }
-    else {
+      // Go back to cookbook page
+      router.navigate("cook-book");
+    } else {
       await indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
 
       populateCookbooksPage();
