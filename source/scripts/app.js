@@ -4,6 +4,8 @@ import { IndexedDbInterface } from "./indexed-db-interface.js";
 
 const EXPLORE_PAGE_NUM_RESULTS = 6;
 const HOME_PAGE_NUM_RESULTS = 4;
+const NO_INPUT = "";
+let COOKBOOK_TO_EDIT = null;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
@@ -85,15 +87,30 @@ function createCookbook() {
 function bindCreateCookbookSave() {
   "use strict";
   let shadow = document.querySelector("create-cookbook").shadowRoot;
-  let buttonHandler = shadow.getElementById("save-button");
-  buttonHandler.addEventListener("click", async () => {
+  let saveButton = shadow.getElementById("save-button");
+  let cancelButton = shadow.getElementById("cancel-button-container");
+
+  saveButton.addEventListener("click", async () => {
     let title = shadow.getElementById("title-input").value;
 
-    if (title !== "") {
+    if (title !== NO_INPUT) {
       let description = shadow.getElementById("description-input").value;
       await indexedDb.createCookbook(title, description);
+      await populateCookbooksPage();
+
+      // Reset the page to original values
+      shadow.getElementById("title-input").value = NO_INPUT;
+      shadow.getElementById("description-input").value = NO_INPUT;
+
       router.navigate("cook-book");
     }
+  });
+
+  cancelButton.addEventListener("click", () => {
+    shadow.getElementById("title-input").value = NO_INPUT;
+    shadow.getElementById("description-input").value = NO_INPUT;
+
+    router.navigate("cook-book");
   });
 }
 
@@ -106,6 +123,17 @@ function createCreateCookbook() {
   const createCookbook = document.createElement("create-cookbook");
   createCookbook.classList.toggle("hidden");
   document.querySelector("body").append(createCookbook);
+}
+
+/**
+ * Creates a form for editing a cookbook and adds it to the document
+ * @function createEditCookbook
+ */
+function createEditCookbook() {
+  "use strict";
+  const editCookbook = document.createElement("edit-cookbook");
+  editCookbook.classList.toggle("hidden");
+  document.querySelector("body").append(editCookbook);
 }
 
 /**
@@ -585,13 +613,15 @@ function bindCookbookCardButtons(card) {
 
   // get references to the buttons in the card
   let shadow = card.shadowRoot;
+  let title = shadow.querySelector(".title").innerHTML;
   let editButton = shadow.getElementById("edit");
   let removeButton = shadow.getElementById("remove");
   let openButton = shadow.getElementById("open");
 
   editButton.addEventListener("click", () => {
-    // TODO set up cookbook editing
-    router.navigate("create-cookbook");
+    // Updates the COOKBOOK_TO_EDIT
+    COOKBOOK_TO_EDIT = title;
+    router.navigate("edit-cookbook");
   });
 
   removeButton.addEventListener("click", async () => {
@@ -815,6 +845,78 @@ function connectRecipeAction() {
 }
 
 /**
+ * Adds an event listener to the "Save Changes" button in the "Edit Cookbook"
+ * page.
+ * @function buttonsEditCookbook
+ */
+function buttonsEditCookbook() {
+  // Get the "Save Changes" button
+  "use strict";
+  let templatePage = document.querySelector("edit-cookbook");
+  let shadow = templatePage.shadowRoot;
+  let saveButton = shadow
+    .querySelector("div")
+    .children[3].getElementsByTagName("button")[0];
+
+  let cancelButton = shadow
+    .querySelector("div")
+    .children[2].getElementsByTagName("button")[0];
+
+  saveButton.addEventListener("click", async () => {
+    // Get the Title and the Description
+    let templatePage = document.querySelector("edit-cookbook");
+    let shadow = templatePage.shadowRoot;
+    let mainDiv = shadow.querySelector("div.input-container");
+
+    // Gets the div by index (first div = 0, second div = 1)
+    let title = mainDiv.children[0].getElementsByTagName("input")[0].value;
+    let description =
+      mainDiv.children[1].getElementsByTagName("input")[0].value;
+
+    // Nothing to update
+    if (title === NO_INPUT && description === NO_INPUT) {
+      router.navigate("cook-book");
+    }
+    // Only update description
+    else if (title === NO_INPUT && description !== NO_INPUT) {
+      // Place into storage
+      await indexedDb.editCookbook(
+        COOKBOOK_TO_EDIT,
+        COOKBOOK_TO_EDIT,
+        description
+      );
+
+      // Update the cookbooks
+      await populateCookbooksPage();
+
+      // Set the textbox fields to original format
+      mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
+      mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
+
+      // Go back to cookbook page
+      router.navigate("cook-book");
+    } else {
+      await indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
+
+      await populateCookbooksPage();
+
+      mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
+      mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
+
+      router.navigate("cook-book");
+    }
+  });
+
+  cancelButton.addEventListener("click", () => {
+    let mainDiv = shadow.querySelector("div.input-container");
+    mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
+    mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
+
+    router.navigate("cook-book");
+  });
+}
+
+/**
  * When the user clicks Add New Recipe when viewing a cookbook, the user
  * should be redirected to the Explore page.
  * @function addRecipe
@@ -855,6 +957,7 @@ async function init() {
 
   //   createCookbookCard();
   createCreateCookbook();
+  createEditCookbook();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();
   createNotificationSelectCookbook();
@@ -871,6 +974,7 @@ async function init() {
   connectCreateNewCookbook();
   bindExploreSearchBar();
   connectRecipeAction();
+  buttonsEditCookbook();
 
   populateSelectCookbookOptions();
   bindSelectCookbookButtons();
