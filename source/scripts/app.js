@@ -4,6 +4,7 @@ import { IndexedDbInterface } from "./indexed-db-interface.js";
 
 const EXPLORE_PAGE_NUM_RESULTS = 6;
 const HOME_PAGE_NUM_RESULTS = 4;
+const NO_INPUT = "";
 let COOKBOOK_TO_EDIT = null;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
@@ -92,22 +93,22 @@ function bindCreateCookbookSave() {
   saveButton.addEventListener("click", async () => {
     let title = shadow.getElementById("title-input").value;
 
-    if (title !== "") {
+    if (title !== NO_INPUT) {
       let description = shadow.getElementById("description-input").value;
       await indexedDb.createCookbook(title, description);
-      populateCookbooksPage();
+      await populateCookbooksPage();
 
       // Reset the page to original values
-      shadow.getElementById("title-input").value = null;
-      shadow.getElementById("description-input").value = null;
+      shadow.getElementById("title-input").value = NO_INPUT
+      shadow.getElementById("description-input").value = NO_INPUT
 
       router.navigate("cook-book");
     }
   });
 
   cancelButton.addEventListener("click", () => {
-    shadow.getElementById("title-input").value = null;
-    shadow.getElementById("description-input").value = null;
+    shadow.getElementById("title-input").value = NO_INPUT;
+    shadow.getElementById("description-input").value = NO_INPUT;
 
     router.navigate("cook-book");
   });
@@ -618,8 +619,7 @@ function bindCookbookCardButtons(card) {
   let openButton = shadow.getElementById("open");
 
   editButton.addEventListener("click", () => {
-    // TODO set up cookbook editing
-    // Updates the CURRENT_COOKBOOK_TITLE
+    // Updates the COOKBOOK_TO_EDIT
     COOKBOOK_TO_EDIT = title;
     router.navigate("edit-cookbook");
   });
@@ -784,7 +784,7 @@ function connectRecipeAction() {
 /**
  * Adds an event listener to the "Save Changes" button in the "Edit Cookbook"
  * page.
- * @param {String} oldTitle
+ * @function buttonsEditCookbook
  */
 function buttonsEditCookbook() {
   // Get the "Save Changes" button
@@ -811,17 +811,11 @@ function buttonsEditCookbook() {
       mainDiv.children[1].getElementsByTagName("input")[0].value;
 
     // Nothing to update
-    if (
-      (title === null || title === "") &&
-      (description === null || description === "")
-    ) {
+    if (title === NO_INPUT && description === NO_INPUT) {
       router.navigate("cook-book");
     }
     // Only update description
-    else if (
-      (title === null || title === "") &&
-      (description !== null || description !== "")
-    ) {
+    else if (title === NO_INPUT && description !== NO_INPUT) {
       // Place into storage
       await indexedDb.editCookbook(
         COOKBOOK_TO_EDIT,
@@ -830,28 +824,28 @@ function buttonsEditCookbook() {
       );
 
       // Update the cookbooks
-      populateCookbooksPage();
+      await populateCookbooksPage();
 
       // Set the textbox fields to original format
-      mainDiv.children[0].getElementsByTagName("input")[0].value = null;
-      mainDiv.children[1].getElementsByTagName("input")[0].value = null;
+      mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
+      mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
 
       // Go back to cookbook page
       router.navigate("cook-book");
     } else {
       await indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
 
-      populateCookbooksPage();
+      await populateCookbooksPage();
 
-      mainDiv.children[0].getElementsByTagName("input")[0].value = null;
-      mainDiv.children[1].getElementsByTagName("input")[0].value = null;
+      mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
+      mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
 
       router.navigate("cook-book");
     }
 
     cancelButton.addEventListener("click", () => {
-      mainDiv.children[0].getElementsByTagName("input")[0].value = null;
-      mainDiv.children[1].getElementsByTagName("input")[0].value = null;
+      mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
+      mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
 
       router.navigate("cook-book");
     });
