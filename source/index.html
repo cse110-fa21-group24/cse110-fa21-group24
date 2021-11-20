@@ -101,11 +101,15 @@
         <div class="input-container">
           <div>
             <label>Title: </label>
-            <input placeholder="Title" />
+            <input type="text" placeholder="Title" id="title-input" />
           </div>
           <div>
             <label>Description: </label>
-            <input placeholder="Description" />
+            <input
+              type="text"
+              placeholder="Description"
+              id="description-input"
+            />
           </div>
         </div>
 
@@ -115,7 +119,7 @@
         </div>
 
         <!-- save button-->
-        <div class="save-button">
+        <div id="save-button">
           <button>Create Cookbook</button>
         </div>
       </div>
@@ -423,18 +427,13 @@
         <section class="recipes">
           <h2 class="recipe-header">My Recipes</h2>
           <div class="recipe-container">
-            <!-- test for adding recipe -->
             <!-- add recipe cards -->
-            <div class="recipe-cards"></div>
-            <div class="recipe-cards"></div>
-            <div class="recipe-cards"></div>
-            <div class="recipe-cards"></div>
           </div>
         </section>
         <!-- add button -->
         <section class="button">
           <div class="add-button">
-            <button></button>
+            <button id="add-recipe"></button>
             <span class="button-name">Add New Recipes</span>
           </div>
         </section>

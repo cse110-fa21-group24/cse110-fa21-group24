@@ -67,7 +67,7 @@
   }
 }
 
-.save-button {
+#save-button {
   display: flex;
   width: 100%;
   margin: 0 auto;
@@ -76,7 +76,7 @@
   align-items: center;
 }
 
-.save-button button {
+#save-button button {
   background-color: #ba181b;
   border: none;
   border-radius: 20px;

@@ -5,7 +5,7 @@
   "esversion": 9,
   "forin": true,
   "futurehostile": false,
-  "latedef": true,
+  "latedef": "nofunc",
   "leanswitch": true,
   "nonbsp": true,
   "nonew": true,
