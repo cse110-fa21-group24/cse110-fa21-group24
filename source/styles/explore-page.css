@@ -96,7 +96,7 @@ label {
   height: 5%;
   width: 70%;
   text-align: center;
-  background-image: url("images/magnifyingglass.png");
+  background-image: url("../images/magnifyingglass.png");
   background-repeat: no-repeat;
   background-position: 1vw;
 }
