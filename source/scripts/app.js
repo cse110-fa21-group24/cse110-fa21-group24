@@ -842,13 +842,14 @@ function buttonsEditCookbook() {
 
       router.navigate("cook-book");
     }
+  });
 
-    cancelButton.addEventListener("click", () => {
-      mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
-      mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
+  cancelButton.addEventListener("click", () => {
+    let mainDiv = shadow.querySelector("div.input-container");
+    mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
+    mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
 
-      router.navigate("cook-book");
-    });
+    router.navigate("cook-book");
   });
 }
 
