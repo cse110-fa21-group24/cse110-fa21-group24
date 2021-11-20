@@ -10,6 +10,7 @@
     <script src="/source/components/cook-book.js" type="module"></script>
     <script src="/source/components/cookbook-card.js" type="module"></script>
     <script src="/source/components/create-cookbook.js" type="module"></script>
+    <script src="/source/components/edit-cookbook.js" type="module"></script>
     <script src="/source/components/explore-page.js" type="module"></script>
     <script src="/source/components/footer-img.js" type="module"></script>
     <script src="/source/components/home-page.js" type="module"></script>
@@ -121,6 +122,37 @@
         <!-- save button-->
         <div id="save-button">
           <button>Create Cookbook</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="edit-cookbook-template">
+      <div>
+        <!-- title -->
+        <div class="title-container">
+          <h1 class="title">Edit Cookbook</h1>
+        </div>
+
+        <!-- title/description input -->
+        <div class="input-container">
+          <div>
+            <label>Title: </label>
+            <input type="text" placeholder="Title" />
+          </div>
+          <div>
+            <label>Description: </label>
+            <input type="text" placeholder="Description" />
+          </div>
+        </div>
+
+        <!-- cancel button -->
+        <div id="cancel-button-container2">
+          <button id="cancel-button2">Cancel</button>
+        </div>
+
+        <!-- save button-->
+        <div class="save-button">
+          <button>Save Changes</button>
         </div>
       </div>
     </template>
