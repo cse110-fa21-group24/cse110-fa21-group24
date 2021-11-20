@@ -8,7 +8,7 @@ class cookbook extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/cook-book.css";
+    stylesheet.href = "styles/cook-book.css";
 
     const navbar = document
       .getElementById("cook-book-template")

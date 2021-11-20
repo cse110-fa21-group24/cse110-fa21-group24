@@ -9,7 +9,7 @@ class Navbar extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/navbar.css";
+    stylesheet.href = "styles/navbar.css";
 
     const navbar = document
       .getElementById("navbar-template")
