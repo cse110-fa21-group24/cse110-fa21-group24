@@ -630,9 +630,72 @@ function bindCookbookCardButtons(card) {
     populateCookbooksPage();
   });
 
-  openButton.addEventListener("click", () => {
-    // TODO set up cookbook page
+  openButton.addEventListener("click", async () => {
+    await populateSingleCookbook(card.cookbook);
     router.navigate("single-cookbook");
+  });
+}
+
+/**
+ * Populates the single cookbook view with the recipe cards of the
+ * given cookbook.
+ * @function populateSingleCookbook
+ * @param {object} cookbook The cookbook object from indexedDb
+ */
+async function populateSingleCookbook(cookbook) {
+  "use strict";
+
+  // get reference to single cookbook page & elements
+  let shadow = document.querySelector("single-cookbook").shadowRoot;
+  let title = shadow.querySelector(".title");
+  let cardContainer = shadow.querySelector(".recipe-container");
+
+  title.textContent = cookbook.title;
+
+  // clear all cards that were previously added
+  cardContainer.innerHTML = "";
+
+  let recipes = await indexedDb.getAllRecipes(cookbook.title);
+  for (const key in recipes) {
+    if (recipes.hasOwnProperty(key)) {
+      // TODO consolidate with regular recipe card
+      // set up card
+      const recipe = recipes[key];
+      let card = document.createElement("recipe-card-delete");
+      card.recipe = recipe;
+      bindCookbookRecipeCardButtons(card, recipe, key, cookbook);
+
+      cardContainer.appendChild(card);
+    }
+  }
+}
+
+// TODO avoid using so many params
+/**
+ * Attaches event listeners to the buttons within a recipe card in the single cookbook view
+ * @function bindCookbookRecipeCardButtons
+ * @param {object} card The recipe card element
+ * @param {object} recipe The recipe object
+ * @param {object} recipeKey The key of the recipe object within the cookbook
+ * @param {object} cookbook The cookbook object
+ */
+function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
+  "use strict";
+
+  // get button references
+  let shadow = card.shadowRoot;
+  let openButton = shadow.querySelector(".recipe-action-button");
+  let deleteButton = shadow.querySelector(".recipe-delete-button");
+
+  openButton.addEventListener("click", () => {
+    populateRecipePage(recipe, false);
+    router.navigate("recipe-page");
+  });
+
+  deleteButton.addEventListener("click", async () => {
+    // delete, then repopulate to clear it
+    await indexedDb.deleteRecipe(cookbook.title, recipeKey);
+    populateSingleCookbook(cookbook);
   });
 }
 
@@ -915,6 +978,7 @@ async function init() {
 
   populateSelectCookbookOptions();
   bindSelectCookbookButtons();
+
   populateCookbooksPage();
 }
 
