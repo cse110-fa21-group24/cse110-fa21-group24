@@ -99,8 +99,8 @@ function bindCreateCookbookSave() {
       await populateCookbooksPage();
 
       // Reset the page to original values
-      shadow.getElementById("title-input").value = NO_INPUT
-      shadow.getElementById("description-input").value = NO_INPUT
+      shadow.getElementById("title-input").value = NO_INPUT;
+      shadow.getElementById("description-input").value = NO_INPUT;
 
       router.navigate("cook-book");
     }
