@@ -815,6 +815,32 @@ function bindHomePageLearnMore() {
 }
 
 /**
+ * After clicking on "learn more" user is redirected to recipe form with all relevant info
+ * and an option to add to the cookbook (but NOT edit)
+ * @function bindExplorePageLearnMore
+ */
+function bindExplorePageLearnMore() {
+  "use strict";
+
+  let shadow = document.querySelector("explore-page").shadowRoot;
+  let recipeCards = shadow.getElementById("recipe-cards-section").children;
+
+  let redirectToRecipe = async (event) => {
+    let recipeCardShadow = event.currentTarget.getRootNode();
+    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
+    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
+    populateRecipePage(recipeObj, true);
+    router.navigate("recipe-page");
+  };
+
+  for (let i = 0; i < recipeCards.length; ++i) {
+    let cardShadow = recipeCards[i].shadowRoot;
+    let button = cardShadow.getElementById("recipe-info-button");
+    button.addEventListener("click", redirectToRecipe);
+  }
+}
+
+/**
  * Attaches "click" event listener to the Edit Recipe/Add to Cookbook
  * button on the recipe page, which will either open the recipe edit form,
  * or the cookbook select pop up
@@ -951,6 +977,7 @@ async function init() {
   bindExploreLoadButton();
   populateHomePage();
   bindHomePageLearnMore();
+  bindExplorePageLearnMore();
 
   createCookbook();
   createFooterImg();
