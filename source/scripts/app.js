@@ -648,7 +648,7 @@ function bindHomePageLearnMore() {
  * and an option to add to the cookbook (but NOT edit)
  * @function bindExplorePageLearnMore
  */
- function bindExplorePageLearnMore() {
+function bindExplorePageLearnMore() {
   "use strict";
 
   let shadow = document.querySelector("explore-page").shadowRoot;
