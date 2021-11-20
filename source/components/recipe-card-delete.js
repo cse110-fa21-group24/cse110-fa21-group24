@@ -32,7 +32,7 @@ class RecipeCardDelete extends HTMLElement {
     titleText.textContent = recipeObj.title;
 
     let descriptionText = recipeCard.querySelector(".description");
-    descriptionText.textContent = recipeObj.description;
+    descriptionText.innerHTML = recipeObj.description;
 
     let image = recipeCard.querySelector("img");
     image.src = recipeObj.image;

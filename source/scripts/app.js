@@ -600,9 +600,9 @@ function bindCookbookCardButtons(card) {
     populateCookbooksPage();
   });
 
-  openButton.addEventListener("click", () => {
+  openButton.addEventListener("click", async () => {
+    await populateSingleCookbook(card.cookbook);
     router.navigate("single-cookbook");
-    populateSingleCookbook(card.cookbook);
   });
 }
 
@@ -658,8 +658,8 @@ function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
   let deleteButton = shadow.querySelector(".recipe-delete-button");
 
   openButton.addEventListener("click", () => {
-    router.navigate("recipe-page");
     populateRecipePage(recipe, false);
+    router.navigate("recipe-page");
   });
 
   deleteButton.addEventListener("click", async () => {
