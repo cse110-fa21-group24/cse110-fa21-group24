@@ -8,7 +8,7 @@ class EditCookbook extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/edit-cookbook.css";
+    stylesheet.href = "styles/edit-cookbook.css";
 
     const editCookbook = document
       .getElementById("edit-cookbook-template")

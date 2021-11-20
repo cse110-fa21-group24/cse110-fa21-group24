@@ -9,7 +9,7 @@ class NotificationRecipeDeleted extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/notification-recipe-deleted.css";
+    stylesheet.href = "styles/notification-recipe-deleted.css";
 
     const notification = document
       .getElementById("notification-recipe-deleted-template")

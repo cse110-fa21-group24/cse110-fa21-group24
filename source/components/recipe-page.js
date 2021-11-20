@@ -9,7 +9,7 @@ class RecipePage extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/recipe-page.css";
+    stylesheet.href = "styles/recipe-page.css";
 
     const recipePage = document
       .getElementById("recipe-page-template")
