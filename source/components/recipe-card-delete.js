@@ -18,7 +18,7 @@ class RecipeCardDelete extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/recipe-card-delete.css";
+    stylesheet.href = "styles/recipe-card-delete.css";
 
     const recipeCard = document
       .getElementById("recipe-card-delete-template")

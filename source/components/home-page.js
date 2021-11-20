@@ -9,7 +9,7 @@ class HomePage extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/home-page.css";
+    stylesheet.href = "styles/home-page.css";
 
     const home = document
       .getElementById("home-page-template")

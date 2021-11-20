@@ -10,7 +10,7 @@ class NotificationSelectCookbook extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/notification-select-cookbook.css";
+    stylesheet.href = "styles/notification-select-cookbook.css";
 
     const notification = document
       .getElementById("notification-select-cookbook-template")
