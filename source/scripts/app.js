@@ -78,6 +78,26 @@ function createCookbook() {
 }
 
 /**
+ * Binds the Create Cookbook button in the Create Cookbook form to save
+ * cookbooks to local storage
+ * @function bindCreateCookbookSave
+ */
+function bindCreateCookbookSave() {
+  "use strict";
+  let shadow = document.querySelector("create-cookbook").shadowRoot;
+  let buttonHandler = shadow.getElementById("save-button");
+  buttonHandler.addEventListener("click", async () => {
+    let title = shadow.getElementById("title-input").value;
+
+    if (title !== "") {
+      let description = shadow.getElementById("description-input").value;
+      await indexedDb.createCookbook(title, description);
+      router.navigate("cook-book");
+    }
+  });
+}
+
+/**
  * Creates a form for creating a new cookbook and adds it to the document
  * @function createCreateCookbook
  */
@@ -528,6 +548,127 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   }
 }
 
+/**
+ * Populate the my cookbooks page with cookbook cards
+ * @function populateCookbooksPage
+ */
+async function populateCookbooksPage() {
+  "use strict";
+
+  // get reference to cookbook page and the card section
+  let shadow = document.querySelector("cook-book").shadowRoot;
+  let cardContainer = shadow.getElementById("cards");
+
+  // clear any existing cards
+  cardContainer.innerHTML = "";
+
+  // get cookbooks from db
+  let cookbooks = await indexedDb.getAllCookbooks();
+
+  // add each cookbook to the page as a new card
+  for (const cookbook of cookbooks) {
+    let card = document.createElement("cookbook-card");
+    card.cookbook = cookbook;
+    bindCookbookCardButtons(card);
+
+    cardContainer.appendChild(card);
+  }
+}
+
+/**
+ * Attaches event listeners to the buttons within a given cookbook card
+ * @function bindCookbookCardButtons
+ * @param {object} card The cookbook card element
+ */
+function bindCookbookCardButtons(card) {
+  "use strict";
+
+  // get references to the buttons in the card
+  let shadow = card.shadowRoot;
+  let editButton = shadow.getElementById("edit");
+  let removeButton = shadow.getElementById("remove");
+  let openButton = shadow.getElementById("open");
+
+  editButton.addEventListener("click", () => {
+    // TODO set up cookbook editing
+    router.navigate("create-cookbook");
+  });
+
+  removeButton.addEventListener("click", async () => {
+    // delete cookbook, then repopulate page
+    await indexedDb.deleteCookbook(card.cookbook.title);
+    populateCookbooksPage();
+  });
+
+  openButton.addEventListener("click", async () => {
+    await populateSingleCookbook(card.cookbook);
+    router.navigate("single-cookbook");
+  });
+}
+
+/**
+ * Populates the single cookbook view with the recipe cards of the
+ * given cookbook.
+ * @function populateSingleCookbook
+ * @param {object} cookbook The cookbook object from indexedDb
+ */
+async function populateSingleCookbook(cookbook) {
+  "use strict";
+
+  // get reference to single cookbook page & elements
+  let shadow = document.querySelector("single-cookbook").shadowRoot;
+  let title = shadow.querySelector(".title");
+  let cardContainer = shadow.querySelector(".recipe-container");
+
+  title.textContent = cookbook.title;
+
+  // clear all cards that were previously added
+  cardContainer.innerHTML = "";
+
+  let recipes = await indexedDb.getAllRecipes(cookbook.title);
+  for (const key in recipes) {
+    if (recipes.hasOwnProperty(key)) {
+      // TODO consolidate with regular recipe card
+      // set up card
+      const recipe = recipes[key];
+      let card = document.createElement("recipe-card-delete");
+      card.recipe = recipe;
+      bindCookbookRecipeCardButtons(card, recipe, key, cookbook);
+
+      cardContainer.appendChild(card);
+    }
+  }
+}
+
+// TODO avoid using so many params
+/**
+ * Attaches event listeners to the buttons within a recipe card in the single cookbook view
+ * @function bindCookbookRecipeCardButtons
+ * @param {object} card The recipe card element
+ * @param {object} recipe The recipe object
+ * @param {object} recipeKey The key of the recipe object within the cookbook
+ * @param {object} cookbook The cookbook object
+ */
+function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
+  "use strict";
+
+  // get button references
+  let shadow = card.shadowRoot;
+  let openButton = shadow.querySelector(".recipe-action-button");
+  let deleteButton = shadow.querySelector(".recipe-delete-button");
+
+  openButton.addEventListener("click", () => {
+    populateRecipePage(recipe, false);
+    router.navigate("recipe-page");
+  });
+
+  deleteButton.addEventListener("click", async () => {
+    // delete, then repopulate to clear it
+    await indexedDb.deleteRecipe(cookbook.title, recipeKey);
+    populateSingleCookbook(cookbook);
+  });
+}
+
 // TODO trigger this function when cookbooks are added, edited, or deleted
 /**
  * Populates the Select Cookbook notification options with all of the user's
@@ -700,6 +841,25 @@ function connectRecipeAction() {
 }
 
 /**
+ * When the user clicks Add New Recipe when viewing a cookbook, the user
+ * should be redirected to the Explore page.
+ * @function addRecipe
+ */
+function addRecipe() {
+  "use strict";
+
+  // get references to button
+  let cookbook = document.querySelector("single-cookbook");
+  let shadow = cookbook.shadowRoot;
+  let button = shadow.getElementById("add-recipe");
+
+  //navigate to explore page
+  button.addEventListener("click", () => {
+    router.navigate("explore-page");
+  });
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function init
  */
@@ -728,6 +888,8 @@ async function init() {
   createRecipeForm();
   createRecipePage();
   createSingleCookbook();
+  bindCreateCookbookSave();
+  addRecipe();
 
   connectNavbarButtons();
 
@@ -739,6 +901,8 @@ async function init() {
 
   populateSelectCookbookOptions();
   bindSelectCookbookButtons();
+
+  populateCookbooksPage();
 }
 
 window.addEventListener("DOMContentLoaded", init);
