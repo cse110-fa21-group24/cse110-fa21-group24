@@ -83,12 +83,12 @@ article {
 }
 
 @media (orientation: portrait) {
-  article {
+  /* article {
     width: 90%;
     height: 300px;
     border-radius: 30px;
     margin-left: 6vw;
-  }
+  } */
 
   .edit-remove-container {
     column-gap: 70%;

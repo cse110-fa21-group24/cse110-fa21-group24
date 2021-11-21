@@ -10,7 +10,7 @@ class RecipeForm extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/recipe-form.css";
+    stylesheet.href = "styles/recipe-form.css";
 
     const recipeForm = document
       .getElementById("recipe-form-template")
