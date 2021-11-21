@@ -51,14 +51,15 @@
 
 .filter-choice {
   font-size: min(25px, 3vw);
+  margin: 0;
 }
 
 /* Checkbox related */
 
 .checkbox-container {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-direction: row;
 }
 
 input[type="checkbox"] {
@@ -66,15 +67,34 @@ input[type="checkbox"] {
   align-self: center;
   height: min(30px, 4vh);
   box-shadow: none;
+  cursor: pointer;
 }
 
 label {
   align-self: center;
   margin-left: 3vw;
   font-size: min(18px, 2vw);
+  cursor: pointer;
 }
 
 /* END Checkbox Related */
+.form-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+input[type="number"] {
+  width: min(50px, 20vw);
+  align-self: center;
+  height: min(30px, 4vh);
+  box-shadow: none;
+}
+
+p.filter-cooking-time {
+  font-size: min(20px, 3vw);
+  margin: 0;
+}
 
 #display-section {
   border-radius: 1vw;
