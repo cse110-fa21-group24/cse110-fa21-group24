@@ -5,6 +5,7 @@ import { IndexedDbInterface } from "./indexed-db-interface.js";
 const EXPLORE_PAGE_NUM_RESULTS = 6;
 const HOME_PAGE_NUM_RESULTS = 4;
 const NO_INPUT = "";
+const DEFAULT_READY_TIME = 240;
 let COOKBOOK_TO_EDIT = null;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
@@ -190,14 +191,14 @@ function bindExploreSearchBar() {
       e.preventDefault();
       if (
         //If there are queries (checkbox or text)
-        input.value !== "" ||
+        input.value !== NO_INPUT ||
         vegan.checked ||
         glutenFree.checked ||
         vegetarian.checked ||
         italian.checked ||
         mexican.checked ||
         american.checked ||
-        time.value !== ""
+        time.value !== NO_INPUT
       ) {
         if (
           //Toggle off explore type
@@ -210,9 +211,9 @@ function bindExploreSearchBar() {
         //Create query object for parameter to API call
         let queryObj = {};
         queryObj.query = input.value; //Set query value to text
-        queryObj.diet = "";
-        queryObj.cuisine = "";
-        queryObj.maxReadyTime = 240;
+        queryObj.diet = NO_INPUT;
+        queryObj.cuisine = NO_INPUT;
+        queryObj.maxReadyTime = DEFAULT_READY_TIME;
         //Add checkboxes to diet
         if (vegan.checked) {
           queryObj.diet += "vegan ";
@@ -232,8 +233,7 @@ function bindExploreSearchBar() {
         if (american.checked) {
           queryObj.cuisine += "American ";
         }
-        console.log(queryObj);
-        if (time.value !== "") {
+        if (time.value !== NO_INPUT) {
           queryObj.maxReadyTime = parseInt(time.value);
         }
 
@@ -408,26 +408,26 @@ function bindExploreLoadButton() {
   loadButton.addEventListener("click", async () => {
     if (
       topLevel.classList.contains("type-explore") &&
-      input.value === "" &&
+      input.value === NO_INPUT &&
       !vegan.checked &&
       !glutenFree.checked &&
       !vegetarian.checked &&
       !italian.checked &&
       !mexican.checked &&
       !american.checked &&
-      time.value === ""
+      time.value === NO_INPUT
     ) {
       await populateExplorePage();
     } else {
       if (
-        input.value === "" &&
+        input.value === NO_INPUT &&
         !vegan.checked &&
         !glutenFree.checked &&
         !vegetarian.checked &&
         !italian.checked &&
         !mexican.checked &&
         !american.checked &&
-        time.value === ""
+        time.value === NO_INPUT
       ) {
         toggleExplorePageType();
         await populateExplorePage();
@@ -437,9 +437,9 @@ function bindExploreLoadButton() {
         }
         let queryObj = {};
         queryObj.query = input.value;
-        queryObj.diet = "";
-        queryObj.cuisine = "";
-        queryObj.maxReadyTime = 240;
+        queryObj.diet = NO_INPUT;
+        queryObj.cuisine = NO_INPUT;
+        queryObj.maxReadyTime = DEFAULT_READY_TIME;
         if (vegan.checked) {
           queryObj.diet += "vegan ";
         }
@@ -459,7 +459,7 @@ function bindExploreLoadButton() {
           queryObj.cuisine += "American ";
         }
         console.log(queryObj);
-        if (time.value !== "") {
+        if (time.value !== NO_INPUT) {
           queryObj.maxReadyTime = parseInt(time.value);
         }
         await populateExplorePage(queryObj);
