@@ -7,37 +7,35 @@
     <title>Impasta Rosta</title>
 
     <!-- Custom Components-->
-    <script src="/source/components/cook-book.js" type="module"></script>
-    <script src="/source/components/cookbook-card.js" type="module"></script>
-    <script src="/source/components/create-cookbook.js" type="module"></script>
-    <script src="/source/components/explore-page.js" type="module"></script>
-    <script src="/source/components/footer-img.js" type="module"></script>
-    <script src="/source/components/home-page.js" type="module"></script>
-    <script src="/source/components/navbar.js" type="module"></script>
+    <script src="components/cook-book.js" type="module"></script>
+    <script src="components/cookbook-card.js" type="module"></script>
+    <script src="components/create-cookbook.js" type="module"></script>
+    <script src="components/edit-cookbook.js" type="module"></script>
+    <script src="components/explore-page.js" type="module"></script>
+    <script src="components/footer-img.js" type="module"></script>
+    <script src="components/home-page.js" type="module"></script>
+    <script src="components/navbar.js" type="module"></script>
     <script
-      src="/source/components/notification-recipe-added.js"
+      src="components/notification-recipe-added.js"
       type="module"
     ></script>
     <script
-      src="/source/components/notification-recipe-deleted.js"
+      src="components/notification-recipe-deleted.js"
       type="module"
     ></script>
     <script
-      src="/source/components/notification-select-cookbook.js"
+      src="components/notification-select-cookbook.js"
       type="module"
     ></script>
-    <script
-      src="/source/components/recipe-card-delete.js"
-      type="module"
-    ></script>
-    <script src="/source/components/recipe-card.js" type="module"></script>
-    <script src="/source/components/recipe-form.js" type="module"></script>
-    <script src="/source/components/recipe-page.js" type="module"></script>
-    <script src="/source/components/single-cookbook.js"></script>
+    <script src="components/recipe-card-delete.js" type="module"></script>
+    <script src="components/recipe-card.js" type="module"></script>
+    <script src="components/recipe-form.js" type="module"></script>
+    <script src="components/recipe-page.js" type="module"></script>
+    <script src="components/single-cookbook.js"></script>
 
     <!-- Main Stylesheet and Scripts -->
-    <link rel="stylesheet" href="/source/styles/index.css" />
-    <script src="/source/scripts/app.js" type="module"></script>
+    <link rel="stylesheet" href="styles/index.css" />
+    <script src="scripts/app.js" type="module"></script>
   </head>
 
   <body>
@@ -60,11 +58,7 @@
         <article>
           <div class="edit-remove-container">
             <button id="edit">
-              <input
-                type="image"
-                src="/source/images/pencil.png"
-                name="edit-image"
-              />
+              <input type="image" src="images/pencil.png" name="edit-image" />
             </button>
             <button id="remove">
               <input
@@ -121,6 +115,37 @@
         <!-- save button-->
         <div id="save-button">
           <button>Create Cookbook</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="edit-cookbook-template">
+      <div>
+        <!-- title -->
+        <div class="title-container">
+          <h1 class="title">Edit Cookbook</h1>
+        </div>
+
+        <!-- title/description input -->
+        <div class="input-container">
+          <div>
+            <label>Title: </label>
+            <input type="text" placeholder="Title" />
+          </div>
+          <div>
+            <label>Description: </label>
+            <input type="text" placeholder="Description" />
+          </div>
+        </div>
+
+        <!-- cancel button -->
+        <div id="cancel-button-container2">
+          <button id="cancel-button2">Cancel</button>
+        </div>
+
+        <!-- save button-->
+        <div class="save-button">
+          <button>Save Changes</button>
         </div>
       </div>
     </template>
@@ -215,7 +240,7 @@
     </template>
 
     <template id="footer-img-template">
-      <img id="footer-img" src="/source/images/wave.png" />
+      <img id="footer-img" src="images/wave.png" />
     </template>
 
     <template id="home-page-template">
@@ -230,7 +255,7 @@
 
         <!-- Image Box -->
         <section class="image-section">
-          <img src="/source/images/home-pasta.jpg" alt="Pasta" />
+          <img src="images/home-pasta.jpg" alt="Pasta" />
           <div class="featured-recipes">Featured Recipes</div>
           <section id="explore"></section>
           <!-- Explore button -->
@@ -325,11 +350,7 @@
       <div id="recipe-card-top-level">
         <div id="recipe-id">Add recipe ID here</div>
         <div id="recipe-card">
-          <img
-            id="recipe-card-image"
-            src="/source/images/pasta.jpg"
-            alt="Card image"
-          />
+          <img id="recipe-card-image" src="images/pasta.jpg" alt="Card image" />
           <p id="recipe-card-title">Add recipe title here</p>
           <div id="recipe-buttons-container">
             <button id="recipe-info-button" type="button">
@@ -361,10 +382,7 @@
       <div class="ingredients-box">
         <input />
       </div>
-      <img
-        class="recycle-bin-ingredients"
-        src="/source/images/recycle-bin-4@2x.png"
-      />
+      <img class="recycle-bin-ingredients" src="images/recycle-bin-4@2x.png" />
 
       <div class="add-ingredient-button">
         <div class="add-ingredient-text valign-text-middle">
@@ -377,10 +395,7 @@
         <input />
       </div>
 
-      <img
-        class="recycle-bin-instructions"
-        src="/source/images/recycle-bin-4@2x.png"
-      />
+      <img class="recycle-bin-instructions" src="images/recycle-bin-4@2x.png" />
 
       <div class="add-instruction-button">
         <div class="add-instruction-text valign-text-middle">
@@ -417,7 +432,7 @@
                 <img
                   id="recipe-action-image-pencil"
                   class="hide-recipe-part"
-                  src="/source/images/pencil_red.png"
+                  src="images/pencil_red.png"
                   alt="Red pencil"
                 />
               </div>
@@ -430,7 +445,7 @@
         <div id="recipe-image-container">
           <img
             id="recipe-image"
-            src="/source/images/pasta.jpg"
+            src="images/pasta.jpg"
             alt="Picture of Recipe"
           />
         </div>
@@ -470,18 +485,13 @@
         <section class="recipes">
           <h2 class="recipe-header">My Recipes</h2>
           <div class="recipe-container">
-            <!-- test for adding recipe -->
             <!-- add recipe cards -->
-            <div class="recipe-cards"></div>
-            <div class="recipe-cards"></div>
-            <div class="recipe-cards"></div>
-            <div class="recipe-cards"></div>
           </div>
         </section>
         <!-- add button -->
         <section class="button">
           <div class="add-button">
-            <button></button>
+            <button id="add-recipe"></button>
             <span class="button-name">Add New Recipes</span>
           </div>
         </section>

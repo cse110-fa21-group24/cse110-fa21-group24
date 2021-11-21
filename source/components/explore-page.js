@@ -10,7 +10,7 @@ class ExplorePage extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/explore-page.css";
+    stylesheet.href = "styles/explore-page.css";
 
     const explore = document
       .getElementById("explore-page-template")
