@@ -89,7 +89,7 @@ input[type="number"] {
   height: min(30px, 4vh);
   box-shadow: none;
 }
-p.filter-cooking-time{
+p.filter-cooking-time {
   font-size: min(20px, 3vw);
   margin: 0;
 }
