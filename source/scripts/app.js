@@ -197,7 +197,7 @@ function bindExploreSearchBar() {
         italian.checked ||
         mexican.checked ||
         american.checked ||
-        time.value != ""
+        time.value !== ""
       ) {
         if (
           //Toggle off explore type
@@ -233,7 +233,7 @@ function bindExploreSearchBar() {
           queryObj.cuisine += "American ";
         }
         console.log(queryObj);
-        if (time.value != "") {
+        if (time.value !== "") {
           queryObj.maxReadyTime = parseInt(time.value);
         }
 
@@ -459,7 +459,7 @@ function bindExploreLoadButton() {
           queryObj.cuisine += "American ";
         }
         console.log(queryObj);
-        if (time.value != "") {
+        if (time.value !== "") {
           queryObj.maxReadyTime = parseInt(time.value);
         }
         await populateExplorePage(queryObj);
