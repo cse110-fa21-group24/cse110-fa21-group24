@@ -650,6 +650,14 @@ async function populateCookbooksPage() {
   for (const cookbook of cookbooks) {
     let card = document.createElement("cookbook-card");
     card.cookbook = cookbook;
+
+    let shadow = card.shadowRoot;
+    let title = shadow.querySelector(".title").innerHTML;
+    if (title === "My cookbook") {
+      let button = shadow.getElementById("remove");
+      button.remove();
+    }
+
     bindCookbookCardButtons(card);
 
     cardContainer.appendChild(card);
@@ -677,15 +685,14 @@ function bindCookbookCardButtons(card) {
     router.navigate("edit-cookbook");
   });
 
-  removeButton.addEventListener("click", async () => {
-    // delete cookbook, then repopulate page
-    if (title !== "My cookbook") {
+  //Check if remove button is null in default cookbook case
+  if (removeButton) {
+    removeButton.addEventListener("click", async () => {
+      // delete cookbook, then repopulate page
       await indexedDb.deleteCookbook(card.cookbook.title);
       populateCookbooksPage();
-    } else {
-      alert("You can't delete your default cookbook!");
-    }
-  });
+    });
+  }
 
   openButton.addEventListener("click", async () => {
     await populateSingleCookbook(card.cookbook);
