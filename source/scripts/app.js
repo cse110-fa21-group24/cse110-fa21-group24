@@ -1032,8 +1032,14 @@ function addRecipe() {
 }
 
 async function initializeDefaultCookbook() {
-  await indexedDb.createCookbook("My cookbook", "Your default cookbook!");
-  await populateCookbooksPage();
+  try {
+    await indexedDb.createCookbook("My cookbook", "Your default cookbook!");
+    await populateCookbooksPage().then(() => {});
+  } catch (err) {
+    console.log(
+      "Default attempted to be created again. Probably just a page reload."
+    );
+  }
 }
 
 /**
