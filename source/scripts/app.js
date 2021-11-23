@@ -1032,6 +1032,8 @@ function addRecipe() {
 }
 
 async function initializeDefaultCookbook() {
+  "use strict";
+
   try {
     await indexedDb.createCookbook("My cookbook", "Your default cookbook!");
     await populateCookbooksPage().then(() => {});
