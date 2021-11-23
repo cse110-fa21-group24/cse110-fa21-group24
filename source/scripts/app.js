@@ -679,8 +679,12 @@ function bindCookbookCardButtons(card) {
 
   removeButton.addEventListener("click", async () => {
     // delete cookbook, then repopulate page
-    await indexedDb.deleteCookbook(card.cookbook.title);
-    populateCookbooksPage();
+    if (title !== "My cookbook") {
+      await indexedDb.deleteCookbook(card.cookbook.title);
+      populateCookbooksPage();
+    } else {
+      alert("You can't delete your default cookbook!");
+    }
   });
 
   openButton.addEventListener("click", async () => {
@@ -804,6 +808,12 @@ function bindSelectCookbookButtons() {
         recipePage.shadowRoot.getElementById("recipe-page-id").textContent;
       let recipeObj = await spoonacular.getRecipeInfo(recipeId);
       await indexedDb.addRecipe(selectedCookbook, recipeObj);
+
+      //If the selected cookbook wasn't the default,
+      if (selectedCookbook !== "My cookbook") {
+        //Add the recipe to the default cookbook also
+        await indexedDb.addRecipe("My cookbook", recipeObj);
+      }
       notificationSelectCookbook.classList.toggle("hidden");
     }
   });
@@ -1014,6 +1024,11 @@ function addRecipe() {
   });
 }
 
+async function initializeDefaultCookbook() {
+  await indexedDb.createCookbook("My cookbook", "Your default cookbook!");
+  await populateCookbooksPage();
+}
+
 /**
  * Runs initial setup functions when the page first loads
  * @function init
@@ -1060,6 +1075,8 @@ async function init() {
   bindSelectCookbookButtons();
 
   populateCookbooksPage();
+
+  initializeDefaultCookbook();
 }
 
 window.addEventListener("DOMContentLoaded", init);
