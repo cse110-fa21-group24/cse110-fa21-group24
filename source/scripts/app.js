@@ -7,6 +7,8 @@ const HOME_PAGE_NUM_RESULTS = 4;
 const NO_INPUT = "";
 const DEFAULT_READY_TIME = 240;
 let COOKBOOK_TO_EDIT = null;
+const DEFAULT_COOKBOOK_NAME = "My cookbook";
+
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
@@ -653,7 +655,7 @@ async function populateCookbooksPage() {
 
     let shadow = card.shadowRoot;
     let title = shadow.querySelector(".title").innerHTML;
-    if (title === "My cookbook") {
+    if (title === DEFAULT_COOKBOOK_NAME) {
       let button = shadow.getElementById("remove");
       button.remove();
     }
@@ -817,9 +819,9 @@ function bindSelectCookbookButtons() {
       await indexedDb.addRecipe(selectedCookbook, recipeObj);
 
       //If the selected cookbook wasn't the default,
-      if (selectedCookbook !== "My cookbook") {
+      if (selectedCookbook !== DEFAULT_COOKBOOK_NAME) {
         //Add the recipe to the default cookbook also
-        await indexedDb.addRecipe("My cookbook", recipeObj);
+        await indexedDb.addRecipe(DEFAULT_COOKBOOK_NAME, recipeObj);
       }
       notificationSelectCookbook.classList.toggle("hidden");
     }
@@ -1035,7 +1037,10 @@ async function initializeDefaultCookbook() {
   "use strict";
 
   try {
-    await indexedDb.createCookbook("My cookbook", "Your default cookbook!");
+    await indexedDb.createCookbook(
+      DEFAULT_COOKBOOK_NAME,
+      "Your default cookbook!"
+    );
     await populateCookbooksPage().then(() => {});
   } catch (err) {
     console.log(
