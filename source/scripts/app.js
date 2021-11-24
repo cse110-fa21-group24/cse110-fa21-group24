@@ -662,7 +662,7 @@ async function populateCookbooksPage() {
     }
 
     bindCookbookCardButtons(card);
-    
+
     if (title === DEFAULT_COOKBOOK_NAME) {
       cardContainer.prepend(card);
     } else {
@@ -817,7 +817,7 @@ function bindSelectCookbookButtons() {
     let recipePage = document.querySelector("recipe-page");
     let selectedCookbook = shadow.getElementById("cookbooks").value;
 
-    if (selectedCookbook !== "" && !recipePage.classList.contains("hidden")) {
+    if (!recipePage.classList.contains("hidden")) {
       let recipeId =
         recipePage.shadowRoot.getElementById("recipe-page-id").textContent;
       let recipeObj = await spoonacular.getRecipeInfo(recipeId);
