@@ -513,7 +513,14 @@ function homeSearchFunction() {
       let shadow = explore.shadowRoot;
       let bar = shadow.getElementById("search-bar");
       bar.value = searchQuery.query;
-      populateExplorePage(searchQuery);
+
+      if(searchQuery.query.length){
+        populateExplorePage(searchQuery);
+      }
+      else{
+        populateExplorePage();
+      }
+
     }
   });
 }
