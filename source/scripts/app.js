@@ -502,7 +502,6 @@ function homeSearchFunction() {
     if (e.key === "Enter") {
       e.preventDefault();
       // store search string and navigate to explore page
-      // let searchQuery = e.target.value;
       let searchQuery = e.target.value;
 
       //clear search and route to explore
