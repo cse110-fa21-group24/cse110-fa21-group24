@@ -37,6 +37,8 @@ export class Router {
       this.currentPage = page;
       //Toggle hidden on page
       pageElement.classList.toggle("hidden");
+      //Scroll to top of page
+      document.querySelector("html").scrollTop = 0;
     }
   }
 }
