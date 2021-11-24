@@ -649,8 +649,6 @@ async function populateCookbooksPage() {
   let cookbooks = await indexedDb.getAllCookbooks();
 
   // add each cookbook to the page as a new card
-  let defaultCookbook = null;
-
   for (let i = 0; i < cookbooks.length; i++) {
     let card = document.createElement("cookbook-card");
     card.cookbook = cookbooks[i];
