@@ -502,18 +502,17 @@ function homeSearchFunction() {
     if (e.key === "Enter") {
       e.preventDefault();
       // store search string and navigate to explore page
-      let searchQuery = e.target.value;
+      let searchQuery = { query: e.target.value };
 
       //clear search and route to explore
       e.target.value = "";
       router.navigate("explore-page");
 
-      // TODO more here once explore page setup
       //display results of search
       let explore = document.querySelector("explore-page");
       let shadow = explore.shadowRoot;
       let bar = shadow.getElementById("search-bar");
-      bar.value = searchQuery;
+      bar.value = searchQuery.query;
       populateExplorePage(searchQuery);
     }
   });
