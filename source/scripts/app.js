@@ -785,7 +785,7 @@ async function populateSelectCookbookOptions() {
 
   let cookbooks = await indexedDb.getAllCookbooks();
 
-  for (let i = 0; i < cookbooks.length; ++i) {
+  for (let i = 1; i < cookbooks.length; ++i) {
     let option = document.createElement("option");
     option.value = cookbooks[i].title;
     option.textContent = cookbooks[i].title;
