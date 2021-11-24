@@ -511,12 +511,18 @@ function homeSearchFunction() {
       //display results of search
       let explore = document.querySelector("explore-page");
       let shadow = explore.shadowRoot;
+      let topLevel = shadow.getElementById("explore-top-level");
       let bar = shadow.getElementById("search-bar");
       bar.value = searchQuery.query;
-
       if (searchQuery.query.length) {
+        if (topLevel.classList.contains("type-explore")) {
+          toggleExplorePageType();
+        }
         populateExplorePage(searchQuery);
       } else {
+        if (!topLevel.classList.contains("type-explore")) {
+          toggleExplorePageType();
+        }
         populateExplorePage();
       }
     }
