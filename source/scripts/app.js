@@ -4,9 +4,6 @@ import { IndexedDbInterface } from "./indexed-db-interface.js";
 
 const EXPLORE_PAGE_NUM_RESULTS = 6;
 const HOME_PAGE_NUM_RESULTS = 4;
-const NO_INPUT = "";
-const DEFAULT_READY_TIME = 240;
-let COOKBOOK_TO_EDIT = null;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
@@ -60,14 +57,12 @@ async function populateExplorePage(filtersObj) {
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
   for (let i = 0; i < recipes.length; ++i) {
-    if (recipeCards[i]) {
-      recipeCards[i].classList.remove("make-invisible");
-      let cardShadow = recipeCards[i].shadowRoot;
-      cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
-      cardShadow.getElementById("recipe-card-title").textContent =
-        recipes[i].title;
-      cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
-    }
+    recipeCards[i].classList.remove("make-invisible");
+    let cardShadow = recipeCards[i].shadowRoot;
+    cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
+    cardShadow.getElementById("recipe-card-title").textContent =
+      recipes[i].title;
+    cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
   }
 }
 
@@ -90,30 +85,15 @@ function createCookbook() {
 function bindCreateCookbookSave() {
   "use strict";
   let shadow = document.querySelector("create-cookbook").shadowRoot;
-  let saveButton = shadow.getElementById("save-button");
-  let cancelButton = shadow.getElementById("cancel-button-container");
-
-  saveButton.addEventListener("click", async () => {
+  let buttonHandler = shadow.getElementById("save-button");
+  buttonHandler.addEventListener("click", async () => {
     let title = shadow.getElementById("title-input").value;
 
-    if (title !== NO_INPUT) {
+    if (title !== "") {
       let description = shadow.getElementById("description-input").value;
       await indexedDb.createCookbook(title, description);
-      await populateCookbooksPage();
-
-      // Reset the page to original values
-      shadow.getElementById("title-input").value = NO_INPUT;
-      shadow.getElementById("description-input").value = NO_INPUT;
-
       router.navigate("cook-book");
     }
-  });
-
-  cancelButton.addEventListener("click", () => {
-    shadow.getElementById("title-input").value = NO_INPUT;
-    shadow.getElementById("description-input").value = NO_INPUT;
-
-    router.navigate("cook-book");
   });
 }
 
@@ -126,17 +106,6 @@ function createCreateCookbook() {
   const createCookbook = document.createElement("create-cookbook");
   createCookbook.classList.toggle("hidden");
   document.querySelector("body").append(createCookbook);
-}
-
-/**
- * Creates a form for editing a cookbook and adds it to the document
- * @function createEditCookbook
- */
-function createEditCookbook() {
-  "use strict";
-  const editCookbook = document.createElement("edit-cookbook");
-  editCookbook.classList.toggle("hidden");
-  document.querySelector("body").append(editCookbook);
 }
 
 /**
@@ -177,10 +146,6 @@ function bindExploreSearchBar() {
   let vegan = shadow.getElementById("vegan");
   let glutenFree = shadow.getElementById("gluten-free");
   let vegetarian = shadow.getElementById("vegetarian");
-  let italian = shadow.getElementById("italian");
-  let mexican = shadow.getElementById("mexican");
-  let american = shadow.getElementById("american");
-  let time = shadow.getElementById("cooking-time");
   /**
    * Can add more above for more hardcoded filters!
    */
@@ -191,14 +156,10 @@ function bindExploreSearchBar() {
       e.preventDefault();
       if (
         //If there are queries (checkbox or text)
-        input.value !== NO_INPUT ||
+        input.value !== "" ||
         vegan.checked ||
         glutenFree.checked ||
-        vegetarian.checked ||
-        italian.checked ||
-        mexican.checked ||
-        american.checked ||
-        time.value !== NO_INPUT
+        vegetarian.checked
       ) {
         if (
           //Toggle off explore type
@@ -211,9 +172,7 @@ function bindExploreSearchBar() {
         //Create query object for parameter to API call
         let queryObj = {};
         queryObj.query = input.value; //Set query value to text
-        queryObj.diet = NO_INPUT;
-        queryObj.cuisine = NO_INPUT;
-        queryObj.maxReadyTime = DEFAULT_READY_TIME;
+        queryObj.diet = "";
         //Add checkboxes to diet
         if (vegan.checked) {
           queryObj.diet += "vegan ";
@@ -224,19 +183,6 @@ function bindExploreSearchBar() {
         if (vegetarian.checked) {
           queryObj.diet += "vegetarian ";
         }
-        if (italian.checked) {
-          queryObj.cuisine += "Italian ";
-        }
-        if (mexican.checked) {
-          queryObj.cuisine += "Mexican ";
-        }
-        if (american.checked) {
-          queryObj.cuisine += "American ";
-        }
-        if (time.value !== NO_INPUT) {
-          queryObj.maxReadyTime = parseInt(time.value);
-        }
-
         await populateExplorePage(queryObj); //API call with queries
       } else {
         //Otherwise, if there are no queries,
@@ -400,34 +346,22 @@ function bindExploreLoadButton() {
   let glutenFree = shadow.getElementById("gluten-free");
   let vegetarian = shadow.getElementById("vegetarian");
   let input = shadow.getElementById("search-bar");
-  let italian = shadow.getElementById("italian");
-  let mexican = shadow.getElementById("mexican");
-  let american = shadow.getElementById("american");
-  let time = shadow.getElementById("cooking-time");
 
   loadButton.addEventListener("click", async () => {
     if (
       topLevel.classList.contains("type-explore") &&
-      input.value === NO_INPUT &&
+      input.value === "" &&
       !vegan.checked &&
       !glutenFree.checked &&
-      !vegetarian.checked &&
-      !italian.checked &&
-      !mexican.checked &&
-      !american.checked &&
-      time.value === NO_INPUT
+      !vegetarian.checked
     ) {
       await populateExplorePage();
     } else {
       if (
-        input.value === NO_INPUT &&
+        input.value === "" &&
         !vegan.checked &&
         !glutenFree.checked &&
-        !vegetarian.checked &&
-        !italian.checked &&
-        !mexican.checked &&
-        !american.checked &&
-        time.value === NO_INPUT
+        !vegetarian.checked
       ) {
         toggleExplorePageType();
         await populateExplorePage();
@@ -437,9 +371,7 @@ function bindExploreLoadButton() {
         }
         let queryObj = {};
         queryObj.query = input.value;
-        queryObj.diet = NO_INPUT;
-        queryObj.cuisine = NO_INPUT;
-        queryObj.maxReadyTime = DEFAULT_READY_TIME;
+        queryObj.diet = "";
         if (vegan.checked) {
           queryObj.diet += "vegan ";
         }
@@ -448,19 +380,6 @@ function bindExploreLoadButton() {
         }
         if (vegetarian.checked) {
           queryObj.diet += "vegetarian ";
-        }
-        if (italian.checked) {
-          queryObj.cuisine += "Italian ";
-        }
-        if (mexican.checked) {
-          queryObj.cuisine += "Mexican ";
-        }
-        if (american.checked) {
-          queryObj.cuisine += "American ";
-        }
-        console.log(queryObj);
-        if (time.value !== NO_INPUT) {
-          queryObj.maxReadyTime = parseInt(time.value);
         }
         await populateExplorePage(queryObj);
       }
@@ -502,10 +421,18 @@ function homeSearchFunction() {
     if (e.key === "Enter") {
       e.preventDefault();
       // store search string and navigate to explore page
-      // let searchQuery = e.target.value;
+      let searchQuery = e.target.value;
+
+      //clear search and route to explore
+      e.target.value = "";
       router.navigate("explore-page");
 
-      // TODO more here once explore page setup
+      //display results of search
+      let explore = document.querySelector("explore-page");
+      let shadow = explore.shadowRoot;
+      let bar = shadow.getElementById("search-bar");
+      bar.value = searchQuery;
+      populateExplorePage(searchQuery);
     }
   });
 }
@@ -666,15 +593,13 @@ function bindCookbookCardButtons(card) {
 
   // get references to the buttons in the card
   let shadow = card.shadowRoot;
-  let title = shadow.querySelector(".title").innerHTML;
   let editButton = shadow.getElementById("edit");
   let removeButton = shadow.getElementById("remove");
   let openButton = shadow.getElementById("open");
 
   editButton.addEventListener("click", () => {
-    // Updates the COOKBOOK_TO_EDIT
-    COOKBOOK_TO_EDIT = title;
-    router.navigate("edit-cookbook");
+    // TODO set up cookbook editing
+    router.navigate("create-cookbook");
   });
 
   removeButton.addEventListener("click", async () => {
@@ -683,72 +608,9 @@ function bindCookbookCardButtons(card) {
     populateCookbooksPage();
   });
 
-  openButton.addEventListener("click", async () => {
-    await populateSingleCookbook(card.cookbook);
-    router.navigate("single-cookbook");
-  });
-}
-
-/**
- * Populates the single cookbook view with the recipe cards of the
- * given cookbook.
- * @function populateSingleCookbook
- * @param {object} cookbook The cookbook object from indexedDb
- */
-async function populateSingleCookbook(cookbook) {
-  "use strict";
-
-  // get reference to single cookbook page & elements
-  let shadow = document.querySelector("single-cookbook").shadowRoot;
-  let title = shadow.querySelector(".title");
-  let cardContainer = shadow.querySelector(".recipe-container");
-
-  title.textContent = cookbook.title;
-
-  // clear all cards that were previously added
-  cardContainer.innerHTML = "";
-
-  let recipes = await indexedDb.getAllRecipes(cookbook.title);
-  for (const key in recipes) {
-    if (recipes.hasOwnProperty(key)) {
-      // TODO consolidate with regular recipe card
-      // set up card
-      const recipe = recipes[key];
-      let card = document.createElement("recipe-card-delete");
-      card.recipe = recipe;
-      bindCookbookRecipeCardButtons(card, recipe, key, cookbook);
-
-      cardContainer.appendChild(card);
-    }
-  }
-}
-
-// TODO avoid using so many params
-/**
- * Attaches event listeners to the buttons within a recipe card in the single cookbook view
- * @function bindCookbookRecipeCardButtons
- * @param {object} card The recipe card element
- * @param {object} recipe The recipe object
- * @param {object} recipeKey The key of the recipe object within the cookbook
- * @param {object} cookbook The cookbook object
- */
-function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
-  "use strict";
-
-  // get button references
-  let shadow = card.shadowRoot;
-  let openButton = shadow.querySelector(".recipe-action-button");
-  let deleteButton = shadow.querySelector(".recipe-delete-button");
-
   openButton.addEventListener("click", () => {
-    populateRecipePage(recipe, false);
-    router.navigate("recipe-page");
-  });
-
-  deleteButton.addEventListener("click", async () => {
-    // delete, then repopulate to clear it
-    await indexedDb.deleteRecipe(cookbook.title, recipeKey);
-    populateSingleCookbook(cookbook);
+    // TODO set up cookbook page
+    router.navigate("single-cookbook");
   });
 }
 
@@ -868,32 +730,6 @@ function bindHomePageLearnMore() {
 }
 
 /**
- * After clicking on "learn more" user is redirected to recipe form with all relevant info
- * and an option to add to the cookbook (but NOT edit)
- * @function bindExplorePageLearnMore
- */
-function bindExplorePageLearnMore() {
-  "use strict";
-
-  let shadow = document.querySelector("explore-page").shadowRoot;
-  let recipeCards = shadow.getElementById("recipe-cards-section").children;
-
-  let redirectToRecipe = async (event) => {
-    let recipeCardShadow = event.currentTarget.getRootNode();
-    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
-    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
-    populateRecipePage(recipeObj, true);
-    router.navigate("recipe-page");
-  };
-
-  for (let i = 0; i < recipeCards.length; ++i) {
-    let cardShadow = recipeCards[i].shadowRoot;
-    let button = cardShadow.getElementById("recipe-info-button");
-    button.addEventListener("click", redirectToRecipe);
-  }
-}
-
-/**
  * Attaches "click" event listener to the Edit Recipe/Add to Cookbook
  * button on the recipe page, which will either open the recipe edit form,
  * or the cookbook select pop up
@@ -924,97 +760,6 @@ function connectRecipeAction() {
 }
 
 /**
- * Adds an event listener to the "Save Changes" button in the "Edit Cookbook"
- * page.
- * @function buttonsEditCookbook
- */
-function buttonsEditCookbook() {
-  // Get the "Save Changes" button
-  "use strict";
-  let templatePage = document.querySelector("edit-cookbook");
-  let shadow = templatePage.shadowRoot;
-  let saveButton = shadow
-    .querySelector("div")
-    .children[3].getElementsByTagName("button")[0];
-
-  let cancelButton = shadow
-    .querySelector("div")
-    .children[2].getElementsByTagName("button")[0];
-
-  saveButton.addEventListener("click", async () => {
-    // Get the Title and the Description
-    let templatePage = document.querySelector("edit-cookbook");
-    let shadow = templatePage.shadowRoot;
-    let mainDiv = shadow.querySelector("div.input-container");
-
-    // Gets the div by index (first div = 0, second div = 1)
-    let title = mainDiv.children[0].getElementsByTagName("input")[0].value;
-    let description =
-      mainDiv.children[1].getElementsByTagName("input")[0].value;
-
-    // Nothing to update
-    if (title === NO_INPUT && description === NO_INPUT) {
-      router.navigate("cook-book");
-    }
-    // Only update description
-    else if (title === NO_INPUT && description !== NO_INPUT) {
-      // Place into storage
-      await indexedDb.editCookbook(
-        COOKBOOK_TO_EDIT,
-        COOKBOOK_TO_EDIT,
-        description
-      );
-
-      // Update the cookbooks
-      await populateCookbooksPage();
-
-      // Set the textbox fields to original format
-      mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
-      mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
-
-      // Go back to cookbook page
-      router.navigate("cook-book");
-    } else {
-      await indexedDb.editCookbook(COOKBOOK_TO_EDIT, title, description);
-
-      await populateCookbooksPage();
-
-      mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
-      mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
-
-      router.navigate("cook-book");
-    }
-  });
-
-  cancelButton.addEventListener("click", () => {
-    let mainDiv = shadow.querySelector("div.input-container");
-    mainDiv.children[0].getElementsByTagName("input")[0].value = NO_INPUT;
-    mainDiv.children[1].getElementsByTagName("input")[0].value = NO_INPUT;
-
-    router.navigate("cook-book");
-  });
-}
-
-/**
- * When the user clicks Add New Recipe when viewing a cookbook, the user
- * should be redirected to the Explore page.
- * @function addRecipe
- */
-function addRecipe() {
-  "use strict";
-
-  // get references to button
-  let cookbook = document.querySelector("single-cookbook");
-  let shadow = cookbook.shadowRoot;
-  let button = shadow.getElementById("add-recipe");
-
-  //navigate to explore page
-  button.addEventListener("click", () => {
-    router.navigate("explore-page");
-  });
-}
-
-/**
  * Runs initial setup functions when the page first loads
  * @function init
  */
@@ -1030,14 +775,12 @@ async function init() {
   bindExploreLoadButton();
   populateHomePage();
   bindHomePageLearnMore();
-  bindExplorePageLearnMore();
 
   createCookbook();
   createFooterImg();
 
   //   createCookbookCard();
   createCreateCookbook();
-  createEditCookbook();
   createNotificationRecipeAdded();
   createNotificationRecipeDeleted();
   createNotificationSelectCookbook();
@@ -1045,7 +788,6 @@ async function init() {
   createRecipePage();
   createSingleCookbook();
   bindCreateCookbookSave();
-  addRecipe();
 
   connectNavbarButtons();
 
@@ -1054,11 +796,9 @@ async function init() {
   connectCreateNewCookbook();
   bindExploreSearchBar();
   connectRecipeAction();
-  buttonsEditCookbook();
 
   populateSelectCookbookOptions();
   bindSelectCookbookButtons();
-
   populateCookbooksPage();
 }
 
