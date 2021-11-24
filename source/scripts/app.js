@@ -649,21 +649,27 @@ async function populateCookbooksPage() {
   let cookbooks = await indexedDb.getAllCookbooks();
 
   // add each cookbook to the page as a new card
-  for (const cookbook of cookbooks) {
+  let defaultCookbook = null;
+
+  for (let i = 0; i < cookbooks.length; i++) {
     let card = document.createElement("cookbook-card");
-    card.cookbook = cookbook;
+    card.cookbook = cookbooks[i];
 
     let shadow = card.shadowRoot;
     let title = shadow.querySelector(".title").innerHTML;
+
     if (title === DEFAULT_COOKBOOK_NAME) {
       let button = shadow.getElementById("remove");
       button.remove();
+      defaultCookbook = card;
+      continue;
     }
 
     bindCookbookCardButtons(card);
 
     cardContainer.appendChild(card);
   }
+  cardContainer.prepend(defaultCookbook);
 }
 
 /**
@@ -785,7 +791,7 @@ async function populateSelectCookbookOptions() {
 
   let cookbooks = await indexedDb.getAllCookbooks();
 
-  for (let i = 1; i < cookbooks.length; ++i) {
+  for (let i = 0; i < cookbooks.length; ++i) {
     let option = document.createElement("option");
     option.value = cookbooks[i].title;
     option.textContent = cookbooks[i].title;
