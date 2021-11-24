@@ -17,7 +17,7 @@ class cookbookCard extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/cookbook-card.css";
+    stylesheet.href = "styles/cookbook-card.css";
 
     const card = document
       .getElementById("cookbook-card-template")

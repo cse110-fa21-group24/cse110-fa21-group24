@@ -8,7 +8,7 @@ class CreateCookbook extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/create-cookbook.css";
+    stylesheet.href = "styles/create-cookbook.css";
 
     const createCookbook = document
       .getElementById("create-cookbook-template")

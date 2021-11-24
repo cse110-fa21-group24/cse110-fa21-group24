@@ -9,7 +9,7 @@ class NotificationRecipeAdded extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/notification-recipe-added.css";
+    stylesheet.href = "styles/notification-recipe-added.css";
 
     const notification = document
       .getElementById("notification-recipe-added-template")
