@@ -514,13 +514,11 @@ function homeSearchFunction() {
       let bar = shadow.getElementById("search-bar");
       bar.value = searchQuery.query;
 
-      if(searchQuery.query.length){
+      if (searchQuery.query.length) {
         populateExplorePage(searchQuery);
-      }
-      else{
+      } else {
         populateExplorePage();
       }
-
     }
   });
 }
