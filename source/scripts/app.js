@@ -661,15 +661,16 @@ async function populateCookbooksPage() {
     if (title === DEFAULT_COOKBOOK_NAME) {
       let button = shadow.getElementById("remove");
       button.remove();
-      defaultCookbook = card;
-      continue;
     }
 
     bindCookbookCardButtons(card);
-
-    cardContainer.appendChild(card);
+    
+    if (title === DEFAULT_COOKBOOK_NAME) {
+      cardContainer.prepend(card);
+    } else {
+      cardContainer.appendChild(card);
+    }
   }
-  cardContainer.prepend(defaultCookbook);
 }
 
 /**
