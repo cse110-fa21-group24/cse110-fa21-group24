@@ -585,8 +585,7 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   }
 
   shadow.getElementById("recipe-image").src = recipeObj.image;
-  shadow.getElementById("recipe-description").innerHTML =
-    recipeObj.description;
+  shadow.getElementById("recipe-description").innerHTML = recipeObj.description;
 
   let ingredientsLeft = shadow.getElementById(
     "recipe-ingredients-section-left"
