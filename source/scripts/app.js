@@ -843,7 +843,6 @@ function bindSelectCookbookButtons() {
         recipePage.shadowRoot.getElementById("recipe-page-id").textContent;
       addedRecipe = await spoonacular.getRecipeInfo(recipeId);
       await indexedDb.addRecipe(selectedCookbook, addedRecipe);
-
     } else {
       addedRecipe = await spoonacular.getRecipeInfo(globalRecipeId);
       await indexedDb.addRecipe(selectedCookbook, addedRecipe);
