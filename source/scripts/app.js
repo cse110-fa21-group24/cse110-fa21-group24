@@ -693,8 +693,8 @@ async function populateCookbooksPage() {
 /**
  * Helper Method for bindCookbookCardButtons
  * @function fillEditCookbook
- * @param title of cookbook
- * @param description of cookbook
+ * @param {string} title of cookbook
+ * @param {string} description of cookbook
  */
  function fillEditCookbook(title, description) {
   "use strict";
