@@ -13,6 +13,8 @@ const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
 
+let globalRecipeId = "";
+
 /**
  * Creates a recipe card element
  * @returns A recipe card element
@@ -808,7 +810,7 @@ async function populateSelectCookbookOptions() {
 
   let cookbooks = await indexedDb.getAllCookbooks();
 
-  for (let i = 0; i < cookbooks.length; ++i) {
+  for (let i = 1; i < cookbooks.length; ++i) {
     let option = document.createElement("option");
     option.value = cookbooks[i].title;
     option.textContent = cookbooks[i].title;
@@ -830,6 +832,7 @@ function bindSelectCookbookButtons() {
   let shadow = notificationSelectCookbook.shadowRoot;
 
   let addButton = shadow.getElementById("add-button");
+  let addedRecipe = null;
 
   addButton.addEventListener("click", async () => {
     let recipePage = document.querySelector("recipe-page");
@@ -838,16 +841,19 @@ function bindSelectCookbookButtons() {
     if (!recipePage.classList.contains("hidden")) {
       let recipeId =
         recipePage.shadowRoot.getElementById("recipe-page-id").textContent;
-      let recipeObj = await spoonacular.getRecipeInfo(recipeId);
-      await indexedDb.addRecipe(selectedCookbook, recipeObj);
+      addedRecipe = await spoonacular.getRecipeInfo(recipeId);
+      await indexedDb.addRecipe(selectedCookbook, addedRecipe);
 
-      //If the selected cookbook wasn't the default,
-      if (selectedCookbook !== DEFAULT_COOKBOOK_NAME) {
-        //Add the recipe to the default cookbook also
-        await indexedDb.addRecipe(DEFAULT_COOKBOOK_NAME, recipeObj);
-      }
-      notificationSelectCookbook.classList.toggle("hidden");
+    } else {
+      addedRecipe = await spoonacular.getRecipeInfo(globalRecipeId);
+      await indexedDb.addRecipe(selectedCookbook, addedRecipe);
     }
+    //If the selected cookbook wasn't the default,
+    if (selectedCookbook !== DEFAULT_COOKBOOK_NAME) {
+      //Add the recipe to the default cookbook also
+      await indexedDb.addRecipe(DEFAULT_COOKBOOK_NAME, addedRecipe);
+    }
+    notificationSelectCookbook.classList.toggle("hidden");
   });
 
   let closeButton = shadow.getElementById("close");
@@ -906,6 +912,16 @@ function bindHomePageLearnMore() {
     let cardShadow = recipeCards[i].shadowRoot;
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
+
+    let addButton = cardShadow.getElementById("recipe-card-action-button");
+    addButton.addEventListener("click", () => {
+      let recipeId = cardShadow.getElementById("recipe-id");
+      globalRecipeId = recipeId.textContent;
+      let notificationSelectCookbook = document.querySelector(
+        "notification-select-cookbook"
+      );
+      notificationSelectCookbook.classList.toggle("hidden");
+    });
   }
 }
 
@@ -932,6 +948,16 @@ function bindExplorePageLearnMore() {
     let cardShadow = recipeCards[i].shadowRoot;
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
+
+    let addButton = cardShadow.getElementById("recipe-card-action-button");
+    addButton.addEventListener("click", () => {
+      let recipeId = cardShadow.getElementById("recipe-id");
+      globalRecipeId = recipeId.textContent;
+      let notificationSelectCookbook = document.querySelector(
+        "notification-select-cookbook"
+      );
+      notificationSelectCookbook.classList.toggle("hidden");
+    });
   }
 }
 
