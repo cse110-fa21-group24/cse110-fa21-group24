@@ -696,10 +696,10 @@ async function populateCookbooksPage() {
  * @param title of cookbook
  * @param description of cookbook
  */
- function fillEditCookbook(title,description) {
+ function fillEditCookbook(title, description) {
   "use strict";
 
-  //References to edit cookbook
+  // References to edit cookbook
   let edit = document.querySelector("edit-cookbook");
   let shadow = edit.shadowRoot;
   let titleInput = shadow.getElementById("CBTitle");
