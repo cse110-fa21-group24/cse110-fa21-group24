@@ -1,5 +1,6 @@
 * {
   font-family: Helvetica, sans-serif;
+  text-shadow: none;
 }
 
 #recipe-card-top-level {
@@ -33,9 +34,8 @@
 }
 
 #recipe-card-title {
-  height: 20%;
   margin: 0;
-  font-size: 1em;
+  font-size: 3vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,4 +137,16 @@
   background: #7a7a7a;
   height: 0.2vw;
   width: 1.5vw;
+}
+
+@media (orientation: portrait) {
+  #recipe-card-title {
+    font-size: 3vw;
+  }
+}
+
+@media (orientation: landscape) {
+  #recipe-card-title {
+    font-size: 3vh;
+  }
 }

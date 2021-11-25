@@ -5,3 +5,8 @@ body {
 .hidden {
   display: none;
 }
+
+html {
+  margin: 0;
+  padding: 0;
+}

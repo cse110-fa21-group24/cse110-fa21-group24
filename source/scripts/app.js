@@ -5,7 +5,7 @@ import { IndexedDbInterface } from "./indexed-db-interface.js";
 const EXPLORE_PAGE_NUM_RESULTS = 6;
 const HOME_PAGE_NUM_RESULTS = 4;
 const NO_INPUT = "";
-const DEFAULT_READY_TIME = 240;
+const DEFAULT_READY_TIME = 300;
 let COOKBOOK_TO_EDIT = null;
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
@@ -180,7 +180,9 @@ function bindExploreSearchBar() {
   let italian = shadow.getElementById("italian");
   let mexican = shadow.getElementById("mexican");
   let american = shadow.getElementById("american");
-  let time = shadow.getElementById("cooking-time");
+  let tenMin = shadow.getElementById("ten-min");
+  let twentyMin = shadow.getElementById("twenty-min");
+  let thirtyMin = shadow.getElementById("thirty-min");
   /**
    * Can add more above for more hardcoded filters!
    */
@@ -198,7 +200,9 @@ function bindExploreSearchBar() {
         italian.checked ||
         mexican.checked ||
         american.checked ||
-        time.value !== NO_INPUT
+        tenMin.checked ||
+        twentyMin.checked ||
+        thirtyMin.checked
       ) {
         if (
           //Toggle off explore type
@@ -233,8 +237,14 @@ function bindExploreSearchBar() {
         if (american.checked) {
           queryObj.cuisine += "American ";
         }
-        if (time.value !== NO_INPUT) {
-          queryObj.maxReadyTime = parseInt(time.value);
+        if (tenMin.checked) {
+          queryObj.maxReadyTime = parseInt(tenMin.value);
+        }
+        if (twentyMin.checked) {
+          queryObj.maxReadyTime = parseInt(twentyMin.value);
+        }
+        if (thirtyMin.checked) {
+          queryObj.maxReadyTime = parseInt(thirtyMin.value);
         }
 
         await populateExplorePage(queryObj); //API call with queries
@@ -458,10 +468,16 @@ function bindExploreLoadButton() {
         if (american.checked) {
           queryObj.cuisine += "American ";
         }
-        console.log(queryObj);
-        if (time.value !== NO_INPUT) {
-          queryObj.maxReadyTime = parseInt(time.value);
+        if (tenMin.checked) {
+          queryObj.maxReadyTime = parseInt(tenMin.value);
         }
+        if (twentyMin.checked) {
+          queryObj.maxReadyTime = parseInt(twentyMin.value);
+        }
+        if (thirtyMin.checked) {
+          queryObj.maxReadyTime = parseInt(thirtyMin.value);
+        }
+
         await populateExplorePage(queryObj);
       }
     }

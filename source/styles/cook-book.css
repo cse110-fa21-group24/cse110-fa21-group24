@@ -33,7 +33,7 @@
 
 #button-name {
   font-weight: bold;
-  padding: 5vw;
+  padding-left: 4vw;
   line-height: 2em;
 }
 
@@ -79,14 +79,13 @@ button::after {
   /* for desktop */
   .title-container {
     width: 100%;
-    max-width: 1100px;
-    padding: 2vw;
+    padding-top: 2vw;
   }
 
   .title {
     font-weight: 800;
-    font-size: 45px;
-    line-height: 104px;
+    font-size: 6vh;
+    line-height: 12vh;
   }
 
   .cookbook-card-container {

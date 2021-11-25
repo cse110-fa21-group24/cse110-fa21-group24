@@ -5,8 +5,8 @@
 
 h2 {
   display: flex;
-  padding: 20px;
-  font-size: 35px;
+  padding-left: 2vw;
+  font-size: 4vh;
 }
 
 .title-container {
@@ -85,23 +85,23 @@ button::after {
   /* for desktop */
   .title-container {
     width: 100%;
-    max-width: 1100px;
-    padding: 16px;
+    padding-bottom: 0;
+    margin: 0;
   }
 
   .title {
     font-weight: 800;
-    font-size: 45px;
-    line-height: 104px;
+    font-size: 6vh;
+    padding-top: 10vh;
+    margin: 0;
   }
 
   .recipe-container {
-    column-gap: 20px;
+    column-gap: 2vw;
     width: 100%;
     flex-direction: row;
-    row-gap: 20px;
-    padding-bottom: 30px;
-    margin-bottom: 50px;
+    row-gap: 2vw;
+    padding-bottom: 1vw;
   }
 
   .recipe-cards {
@@ -112,11 +112,11 @@ button::after {
 
   .add-button {
     max-width: 1100px;
-    padding: 16px;
+    padding: 2vw;
   }
 
   .button-name {
-    font-size: 18px;
+    font-size: 2vw;
   }
 
   button {
@@ -152,16 +152,17 @@ button::after {
   }
 
   .title {
-    font-size: 40px;
-    line-height: 100px;
+    font-size: 8vw;
+    margin: 0;
+    padding-top: 3vw;
   }
 
   .recipe-container {
     width: 100%;
     flex-direction: column;
-    row-gap: 50px;
-    padding-bottom: 50px;
-    margin-bottom: 60px;
+    row-gap: 4vw;
+    padding-bottom: 10vw;
+    margin-bottom: 2vw;
   }
 
   .recipe-cards {
@@ -172,11 +173,11 @@ button::after {
 
   .add-button {
     max-width: 600px;
-    padding: 20px;
+    padding: 2vw;
   }
 
   .button-name {
-    font-size: 30px;
+    font-size: 5vw;
   }
 
   button {
@@ -197,5 +198,11 @@ button::after {
     margin-left: -18px;
     margin-top: -14px;
     border-left: 8px solid #e5383b;
+  }
+
+  h2 {
+    display: flex;
+    padding-left: 3vw;
+    font-size: 5vw;
   }
 }
