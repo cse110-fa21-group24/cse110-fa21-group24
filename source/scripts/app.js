@@ -7,6 +7,8 @@ const HOME_PAGE_NUM_RESULTS = 4;
 const NO_INPUT = "";
 const DEFAULT_READY_TIME = 240;
 let COOKBOOK_TO_EDIT = null;
+const DEFAULT_COOKBOOK_NAME = "My cookbook";
+
 const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
@@ -502,10 +504,29 @@ function homeSearchFunction() {
     if (e.key === "Enter") {
       e.preventDefault();
       // store search string and navigate to explore page
-      // let searchQuery = e.target.value;
+      let searchQuery = { query: e.target.value };
+
+      //clear search and route to explore
+      e.target.value = "";
       router.navigate("explore-page");
 
-      // TODO more here once explore page setup
+      //display results of search
+      let explore = document.querySelector("explore-page");
+      let shadow = explore.shadowRoot;
+      let topLevel = shadow.getElementById("explore-top-level");
+      let bar = shadow.getElementById("search-bar");
+      bar.value = searchQuery.query;
+      if (searchQuery.query.length) {
+        if (topLevel.classList.contains("type-explore")) {
+          toggleExplorePageType();
+        }
+        populateExplorePage(searchQuery);
+      } else {
+        if (!topLevel.classList.contains("type-explore")) {
+          toggleExplorePageType();
+        }
+        populateExplorePage();
+      }
     }
   });
 }
@@ -585,8 +606,7 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   }
 
   shadow.getElementById("recipe-image").src = recipeObj.image;
-  shadow.getElementById("recipe-description").textContent =
-    recipeObj.description;
+  shadow.getElementById("recipe-description").innerHTML = recipeObj.description;
 
   let ingredientsLeft = shadow.getElementById(
     "recipe-ingredients-section-left"
@@ -647,12 +667,25 @@ async function populateCookbooksPage() {
   let cookbooks = await indexedDb.getAllCookbooks();
 
   // add each cookbook to the page as a new card
-  for (const cookbook of cookbooks) {
+  for (let i = 0; i < cookbooks.length; i++) {
     let card = document.createElement("cookbook-card");
-    card.cookbook = cookbook;
+    card.cookbook = cookbooks[i];
+
+    let shadow = card.shadowRoot;
+    let title = shadow.querySelector(".title").innerHTML;
+
+    if (title === DEFAULT_COOKBOOK_NAME) {
+      let button = shadow.getElementById("remove");
+      button.remove();
+    }
+
     bindCookbookCardButtons(card);
 
-    cardContainer.appendChild(card);
+    if (title === DEFAULT_COOKBOOK_NAME) {
+      cardContainer.prepend(card);
+    } else {
+      cardContainer.appendChild(card);
+    }
   }
 }
 
@@ -677,11 +710,14 @@ function bindCookbookCardButtons(card) {
     router.navigate("edit-cookbook");
   });
 
-  removeButton.addEventListener("click", async () => {
-    // delete cookbook, then repopulate page
-    await indexedDb.deleteCookbook(card.cookbook.title);
-    populateCookbooksPage();
-  });
+  //Check if remove button is null in default cookbook case
+  if (removeButton) {
+    removeButton.addEventListener("click", async () => {
+      // delete cookbook, then repopulate page
+      await indexedDb.deleteCookbook(card.cookbook.title);
+      populateCookbooksPage();
+    });
+  }
 
   openButton.addEventListener("click", async () => {
     await populateSingleCookbook(card.cookbook);
@@ -799,11 +835,17 @@ function bindSelectCookbookButtons() {
     let recipePage = document.querySelector("recipe-page");
     let selectedCookbook = shadow.getElementById("cookbooks").value;
 
-    if (selectedCookbook !== "" && !recipePage.classList.contains("hidden")) {
+    if (!recipePage.classList.contains("hidden")) {
       let recipeId =
         recipePage.shadowRoot.getElementById("recipe-page-id").textContent;
       let recipeObj = await spoonacular.getRecipeInfo(recipeId);
       await indexedDb.addRecipe(selectedCookbook, recipeObj);
+
+      //If the selected cookbook wasn't the default,
+      if (selectedCookbook !== DEFAULT_COOKBOOK_NAME) {
+        //Add the recipe to the default cookbook also
+        await indexedDb.addRecipe(DEFAULT_COOKBOOK_NAME, recipeObj);
+      }
       notificationSelectCookbook.classList.toggle("hidden");
     }
   });
@@ -1014,6 +1056,22 @@ function addRecipe() {
   });
 }
 
+async function initializeDefaultCookbook() {
+  "use strict";
+
+  try {
+    await indexedDb.createCookbook(
+      DEFAULT_COOKBOOK_NAME,
+      "Your default cookbook!"
+    );
+    await populateCookbooksPage().then(() => {});
+  } catch (err) {
+    console.log(
+      "Default attempted to be created again. Probably just a page reload."
+    );
+  }
+}
+
 /**
  * Runs initial setup functions when the page first loads
  * @function init
@@ -1060,6 +1118,8 @@ async function init() {
   bindSelectCookbookButtons();
 
   populateCookbooksPage();
+
+  initializeDefaultCookbook();
 }
 
 window.addEventListener("DOMContentLoaded", init);
