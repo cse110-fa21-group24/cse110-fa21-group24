@@ -10,7 +10,7 @@ let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
 
 const router = new Router("home-page");
-const spoonacular = new SpoonacularInterface();
+//const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
 
 /**
