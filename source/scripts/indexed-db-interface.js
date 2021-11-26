@@ -223,32 +223,6 @@ export class IndexedDbInterface {
   }
 
   /**
-   * Get all the description from a cookbook
-   * @param {string} cookbookTitle Title of the cookbook to retrieve all
-   *                               recipes from
-   * @returns A promise which resolves with an object containing all the
-   *          recipes or rejects with an empty object
-   */
-  async getDescription(cookbookTitle) {
-    return new Promise((resolve, reject) => {
-      let cookbookStore = this.db
-        .transaction(OBJ_STORE, "readonly")
-        .objectStore(OBJ_STORE);
-
-      let getRequest = cookbookStore.get(cookbookTitle);
-
-      getRequest.onsuccess = (event) => {
-        let cookbookData = event.target.result;
-        resolve(cookbookData.description);
-      };
-      getRequest.onerror = () => {
-        console.error("Could not get all recipes:", getRequest.error);
-        reject({});
-      };
-    });
-  }
-
-  /**
    * Get all the recipes from a cookbook
    * @param {string} cookbookTitle Title of the cookbook to retrieve all
    *                               recipes from

@@ -708,15 +708,6 @@ function bindCookbookCardButtons(card) {
     // Updates the COOKBOOK_TO_EDIT
     COOKBOOK_TO_EDIT = title;
     router.navigate("edit-cookbook");
-
-    // Fill in the edit cookbook page with values
-    let shadow = document.querySelector("edit-cookbook").shadowRoot;
-    let inputContainer = shadow.querySelector(".input-container");
-    let titleInput = inputContainer.children[0].querySelector("input");
-    titleInput.value = COOKBOOK_TO_EDIT;
-
-    let descriptionInput = inputContainer.children[1].querySelector("input");
-    descriptionInput.value = await indexedDb.getDescription(COOKBOOK_TO_EDIT);
   });
 
   //Check if remove button is null in default cookbook case
@@ -1079,6 +1070,16 @@ async function initializeDefaultCookbook() {
       "Default attempted to be created again. Probably just a page reload."
     );
   }
+}
+
+/**
+ * Adds event listener to the edit button in cookbook cards so that
+ * the recipe-form page has contents filled up properly.
+ * @function
+ */
+async function fillEditForm() {
+  // Get edit button from each cookbook card
+  let cookbooks = await indexedDb.getAllCookbooks();
 }
 
 /**
