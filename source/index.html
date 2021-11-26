@@ -7,38 +7,35 @@
     <title>Impasta Rosta</title>
 
     <!-- Custom Components-->
-    <script src="/source/components/cook-book.js" type="module"></script>
-    <script src="/source/components/cookbook-card.js" type="module"></script>
-    <script src="/source/components/create-cookbook.js" type="module"></script>
-    <script src="/source/components/edit-cookbook.js" type="module"></script>
-    <script src="/source/components/explore-page.js" type="module"></script>
-    <script src="/source/components/footer-img.js" type="module"></script>
-    <script src="/source/components/home-page.js" type="module"></script>
-    <script src="/source/components/navbar.js" type="module"></script>
+    <script src="components/cook-book.js" type="module"></script>
+    <script src="components/cookbook-card.js" type="module"></script>
+    <script src="components/create-cookbook.js" type="module"></script>
+    <script src="components/edit-cookbook.js" type="module"></script>
+    <script src="components/explore-page.js" type="module"></script>
+    <script src="components/footer-img.js" type="module"></script>
+    <script src="components/home-page.js" type="module"></script>
+    <script src="components/navbar.js" type="module"></script>
     <script
-      src="/source/components/notification-recipe-added.js"
+      src="components/notification-recipe-added.js"
       type="module"
     ></script>
     <script
-      src="/source/components/notification-recipe-deleted.js"
+      src="components/notification-recipe-deleted.js"
       type="module"
     ></script>
     <script
-      src="/source/components/notification-select-cookbook.js"
+      src="components/notification-select-cookbook.js"
       type="module"
     ></script>
-    <script
-      src="/source/components/recipe-card-delete.js"
-      type="module"
-    ></script>
-    <script src="/source/components/recipe-card.js" type="module"></script>
-    <script src="/source/components/recipe-form.js" type="module"></script>
-    <script src="/source/components/recipe-page.js" type="module"></script>
-    <script src="/source/components/single-cookbook.js"></script>
+    <script src="components/recipe-card-delete.js" type="module"></script>
+    <script src="components/recipe-card.js" type="module"></script>
+    <script src="components/recipe-form.js" type="module"></script>
+    <script src="components/recipe-page.js" type="module"></script>
+    <script src="components/single-cookbook.js"></script>
 
     <!-- Main Stylesheet and Scripts -->
-    <link rel="stylesheet" href="/source/styles/index.css" />
-    <script src="/source/scripts/app.js" type="module"></script>
+    <link rel="stylesheet" href="styles/index.css" />
+    <script src="scripts/app.js" type="module"></script>
   </head>
 
   <body>
@@ -61,11 +58,7 @@
         <article>
           <div class="edit-remove-container">
             <button id="edit">
-              <input
-                type="image"
-                src="/source/images/pencil.png"
-                name="edit-image"
-              />
+              <input type="image" src="images/pencil.png" name="edit-image" />
             </button>
             <button id="remove">
               <input
@@ -166,7 +159,7 @@
 
           <!-- Each filter category goes here -->
           <p class="filter-choice">Diet</p>
-          <form class="filter-cuisine-choices">
+          <form class="filter-diet-choices">
             <div class="checkbox-container">
               <input
                 type="checkbox"
@@ -190,8 +183,51 @@
               <label for="gluten-free">Gluten Free</label>
             </div>
           </form>
-        </section>
 
+          <p class="filter-choice">Cuisine</p>
+          <form class="filter-cuisine-choices">
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="italian"
+                name="italian"
+                value="italian"
+              />
+              <label for="italian">Italian</label>
+            </div>
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="mexican"
+                name="mexican"
+                value="mexican"
+              />
+              <label for="mexican">Mexican</label>
+            </div>
+            <div class="checkbox-container">
+              <input
+                type="checkbox"
+                id="american"
+                name="american"
+                value="american"
+              />
+              <label for="american">American</label>
+            </div>
+          </form>
+          <p class="filter-cooking-time">Maximum Cooking Time</p>
+          <form class="filter-cooking-time">
+            <div class="form-container">
+              <input
+                type="number"
+                id="cooking-time"
+                name="cooking-time"
+                value="cooking-time"
+                min="1"
+              /><br />
+              <label for="cooking-time">min</label>
+            </div>
+          </form>
+        </section>
         <!-- Display with search bar, food options -->
         <section id="display-section">
           <input id="search-bar" type="text" placeholder="Search Recipes" />
@@ -204,7 +240,7 @@
     </template>
 
     <template id="footer-img-template">
-      <img id="footer-img" src="/source/images/wave.png" />
+      <img id="footer-img" src="images/wave.png" />
     </template>
 
     <template id="home-page-template">
@@ -219,7 +255,7 @@
 
         <!-- Image Box -->
         <section class="image-section">
-          <img src="/source/images/home-pasta.jpg" alt="Pasta" />
+          <img src="images/home-pasta.jpg" alt="Pasta" />
           <div class="featured-recipes">Featured Recipes</div>
           <section id="explore"></section>
           <!-- Explore button -->
@@ -271,9 +307,7 @@
           <p>Select Cookbook</p>
           <div class="dropdown">
             <select name="cookbooks" id="cookbooks">
-              <option value="" selected="true" disabled="true">
-                - Select a Cookbook -
-              </option>
+              <option value="My cookbook" selected="true">My cookbook</option>
               <option value="cookbook1">Cookbook 1</option>
             </select>
           </div>
@@ -314,11 +348,7 @@
       <div id="recipe-card-top-level">
         <div id="recipe-id">Add recipe ID here</div>
         <div id="recipe-card">
-          <img
-            id="recipe-card-image"
-            src="/source/images/pasta.jpg"
-            alt="Card image"
-          />
+          <img id="recipe-card-image" src="images/pasta.jpg" alt="Card image" />
           <p id="recipe-card-title">Add recipe title here</p>
           <div id="recipe-buttons-container">
             <button id="recipe-info-button" type="button">
@@ -350,10 +380,7 @@
       <div class="ingredients-box">
         <input />
       </div>
-      <img
-        class="recycle-bin-ingredients"
-        src="/source/images/recycle-bin-4@2x.png"
-      />
+      <img class="recycle-bin-ingredients" src="images/recycle-bin-4@2x.png" />
 
       <div class="add-ingredient-button">
         <div class="add-ingredient-text valign-text-middle">
@@ -366,10 +393,7 @@
         <input />
       </div>
 
-      <img
-        class="recycle-bin-instructions"
-        src="/source/images/recycle-bin-4@2x.png"
-      />
+      <img class="recycle-bin-instructions" src="images/recycle-bin-4@2x.png" />
 
       <div class="add-instruction-button">
         <div class="add-instruction-text valign-text-middle">
@@ -406,7 +430,7 @@
                 <img
                   id="recipe-action-image-pencil"
                   class="hide-recipe-part"
-                  src="/source/images/pencil_red.png"
+                  src="images/pencil_red.png"
                   alt="Red pencil"
                 />
               </div>
@@ -419,7 +443,7 @@
         <div id="recipe-image-container">
           <img
             id="recipe-image"
-            src="/source/images/pasta.jpg"
+            src="images/pasta.jpg"
             alt="Picture of Recipe"
           />
         </div>
@@ -459,12 +483,7 @@
         <section class="recipes">
           <h2 class="recipe-header">My Recipes</h2>
           <div class="recipe-container">
-            <!-- test for adding recipe -->
             <!-- add recipe cards -->
-            <div class="recipe-cards"></div>
-            <div class="recipe-cards"></div>
-            <div class="recipe-cards"></div>
-            <div class="recipe-cards"></div>
           </div>
         </section>
         <!-- add button -->

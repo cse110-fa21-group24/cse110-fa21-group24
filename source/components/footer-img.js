@@ -9,7 +9,7 @@ class FooterImg extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/footer-img.css";
+    stylesheet.href = "styles/footer-img.css";
 
     const footerImg = document
       .getElementById("footer-img-template")

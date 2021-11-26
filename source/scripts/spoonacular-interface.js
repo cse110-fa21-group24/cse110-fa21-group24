@@ -4,32 +4,32 @@ const MOCK_RECIPES_ARRAY = {
     {
       id: 0,
       title: "title-0",
-      image: "/source/images/pasta.jpg",
+      image: "images/pasta.jpg",
     },
     {
       id: 1,
       title: "title-1",
-      image: "/source/images/pasta.jpg",
+      image: "images/pasta.jpg",
     },
     {
       id: 2,
       title: "title-2",
-      image: "/source/images/pasta.jpg",
+      image: "images/pasta.jpg",
     },
     {
       id: 3,
       title: "title-3",
-      image: "/source/images/pasta.jpg",
+      image: "images/pasta.jpg",
     },
     {
       id: 4,
       title: "title-4",
-      image: "/source/images/pasta.jpg",
+      image: "images/pasta.jpg",
     },
     {
       id: 5,
       title: "title-5",
-      image: "/source/images/pasta.jpg",
+      image: "images/pasta.jpg",
     },
   ],
 };
@@ -38,7 +38,7 @@ const MOCK_RECIPE_INFO = {
   creditsText: "author",
   cuisines: ["cuisine-0", "cuisine-1"],
   readyInMinutes: 10,
-  image: "/source/images/pasta.jpg",
+  image: "images/pasta.jpg",
   summary: "description",
   extendedIngredients: [
     { original: "ingredient-0" },
@@ -50,7 +50,7 @@ const MOCK_RECIPE_INFO = {
 };
 
 // Change this variable to true to make real API calls to Spoonacular
-let SPOONACULAR_ENABLED = false;
+let SPOONACULAR_ENABLED = true;
 
 /**
  * @classdesc An interface for fetching recipes and recipe information using

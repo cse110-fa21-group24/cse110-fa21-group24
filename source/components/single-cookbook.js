@@ -10,7 +10,7 @@ class SingleCookbook extends HTMLElement {
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/source/styles/single-cookbook.css";
+    stylesheet.href = "styles/single-cookbook.css";
 
     const singleCookbook = document
       .getElementById("single-cookbook-template")
