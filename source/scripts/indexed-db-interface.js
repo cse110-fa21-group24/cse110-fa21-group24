@@ -223,7 +223,7 @@ export class IndexedDbInterface {
   }
 
   /**
-   * Get all the recipes from a cookbook
+   * Get all the description from a cookbook
    * @param {string} cookbookTitle Title of the cookbook to retrieve all
    *                               recipes from
    * @returns A promise which resolves with an object containing all the
