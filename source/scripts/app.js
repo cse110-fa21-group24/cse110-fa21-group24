@@ -912,6 +912,7 @@ function bindHomePageLearnMore() {
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
 
+    /* jshint ignore:start */
     let addButton = cardShadow.getElementById("recipe-card-action-button");
     addButton.addEventListener("click", () => {
       let recipeId = cardShadow.getElementById("recipe-id");
@@ -921,6 +922,7 @@ function bindHomePageLearnMore() {
       );
       notificationSelectCookbook.classList.toggle("hidden");
     });
+    /* jshint ignore:end */
   }
 }
 
@@ -948,6 +950,7 @@ function bindExplorePageLearnMore() {
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
 
+    /* jshint ignore:start */
     let addButton = cardShadow.getElementById("recipe-card-action-button");
     addButton.addEventListener("click", () => {
       let recipeId = cardShadow.getElementById("recipe-id");
@@ -957,6 +960,7 @@ function bindExplorePageLearnMore() {
       );
       notificationSelectCookbook.classList.toggle("hidden");
     });
+    /* jshint ignore:end */
   }
 }
 
