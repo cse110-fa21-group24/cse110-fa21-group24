@@ -41,16 +41,14 @@
   <body>
     <!-- Templates -->
     <template id="cook-book-template">
-      <nav id="cookbook">
-        <div class="title-container">
-          <h1 class="title">My Cookbooks</h1>
-        </div>
-        <div class="cookbook-card-container" id="cards"></div>
-        <div class="add-button">
-          <button></button>
-          <span id="button-name">Create New Cookbook</span>
-        </div>
-      </nav>
+      <div class="title-container">
+        <h1 class="title">My Cookbooks</h1>
+      </div>
+      <div class="cookbook-card-container" id="cards"></div>
+      <div class="add-button">
+        <button></button>
+        <span id="button-name">Create New Cookbook</span>
+      </div>
     </template>
 
     <template id="cookbook-card-template">
@@ -73,10 +71,7 @@
           </div>
 
           <p class="description">Description</p>
-          <p class="detailed-description">
-            This is my first cookbook! Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit...
-          </p>
+          <p class="detailed-description"></p>
           <div class="open-button-container">
             <button id="open">Open</button>
           </div>
@@ -106,15 +101,13 @@
             />
           </div>
         </div>
-
-        <!-- cancel button -->
-        <div id="cancel-button-container">
-          <button id="cancel-button">Cancel</button>
-        </div>
-
         <!-- save button-->
         <div id="save-button">
           <button>Create Cookbook</button>
+        </div>
+        <!-- cancel button -->
+        <div id="cancel-button-container">
+          <button id="cancel-button">Cancel</button>
         </div>
       </div>
     </template>
@@ -129,23 +122,21 @@
         <!-- title/description input -->
         <div class="input-container">
           <div>
-            <label>Title: </label>
+            <label id="input-title">Title: </label>
             <input id="CBTitle" type="text" placeholder="Title" />
           </div>
           <div>
-            <label>Description: </label>
+            <label id="input-description">Description: </label>
             <input id="CBDescription" type="text" placeholder="Description" />
           </div>
         </div>
-
+        <!-- save button-->
+        <div id="save-edits-button">
+          <button>Save Changes</button>
+        </div>
         <!-- cancel button -->
         <div id="cancel-button-container2">
           <button id="cancel-button2">Cancel</button>
-        </div>
-
-        <!-- save button-->
-        <div class="save-button">
-          <button>Save Changes</button>
         </div>
       </div>
     </template>
@@ -154,79 +145,97 @@
       <!-- Main contains filter section with recipe cards -->
       <main id="explore-top-level" class="type-explore">
         <!-- Filter by display -->
+
         <section id="filter-section">
           <p id="filter-by-text">Filter By:</p>
 
           <!-- Each filter category goes here -->
-          <p class="filter-choice">Diet</p>
-          <form class="filter-diet-choices">
-            <div class="checkbox-container">
-              <input
-                type="checkbox"
-                id="vegetarian"
-                name="vegetarian"
-                value="vegetarian"
-              />
-              <label for="vegetarian">Vegetarian</label>
-            </div>
-            <div class="checkbox-container">
-              <input type="checkbox" id="vegan" name="vegan" value="vegan" />
-              <label for="vegan">Vegan</label>
-            </div>
-            <div class="checkbox-container">
-              <input
-                type="checkbox"
-                id="gluten-free"
-                name="gluten-free"
-                value="gluten free"
-              />
-              <label for="gluten-free">Gluten Free</label>
-            </div>
-          </form>
-
-          <p class="filter-choice">Cuisine</p>
-          <form class="filter-cuisine-choices">
-            <div class="checkbox-container">
-              <input
-                type="checkbox"
-                id="italian"
-                name="italian"
-                value="italian"
-              />
-              <label for="italian">Italian</label>
-            </div>
-            <div class="checkbox-container">
-              <input
-                type="checkbox"
-                id="mexican"
-                name="mexican"
-                value="mexican"
-              />
-              <label for="mexican">Mexican</label>
-            </div>
-            <div class="checkbox-container">
-              <input
-                type="checkbox"
-                id="american"
-                name="american"
-                value="american"
-              />
-              <label for="american">American</label>
-            </div>
-          </form>
-          <p class="filter-cooking-time">Maximum Cooking Time</p>
-          <form class="filter-cooking-time">
-            <div class="form-container">
-              <input
-                type="number"
-                id="cooking-time"
-                name="cooking-time"
-                value="cooking-time"
-                min="1"
-              /><br />
-              <label for="cooking-time">min</label>
-            </div>
-          </form>
+          <div class="filter-container">
+            <p class="filter-choice">Diet</p>
+            <form class="filter-diet-choices">
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="vegetarian"
+                  name="vegetarian"
+                  value="vegetarian"
+                />
+                <label for="vegetarian">Vegetarian</label>
+              </div>
+              <div class="checkbox-container">
+                <input type="checkbox" id="vegan" name="vegan" value="vegan" />
+                <label for="vegan">Vegan</label>
+              </div>
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="gluten-free"
+                  name="gluten-free"
+                  value="gluten free"
+                />
+                <label for="gluten-free">Gluten Free</label>
+              </div>
+            </form>
+          </div>
+          <div class="filter-container">
+            <p class="filter-choice">Cuisine</p>
+            <form class="filter-cuisine-choices">
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="italian"
+                  name="italian"
+                  value="italian"
+                />
+                <label for="italian">Italian</label>
+              </div>
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="mexican"
+                  name="mexican"
+                  value="mexican"
+                />
+                <label for="mexican">Mexican</label>
+              </div>
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="american"
+                  name="american"
+                  value="american"
+                />
+                <label for="american">American</label>
+              </div>
+            </form>
+          </div>
+          <div class="filter-container">
+            <p class="filter-choice">Cooking Time</p>
+            <form class="filter-time-choices">
+              <div class="checkbox-container">
+                <input type="checkbox" id="ten-min" name="ten-min" value="10" />
+                <label for="ten-min">10 Min</label>
+              </div>
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="twenty-min"
+                  name="twenty-min"
+                  value="20"
+                />
+                <label for="twenty-min">20 Min</label>
+              </div>
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="thirty-min"
+                  name="thirty-min"
+                  value="30"
+                />
+                <label for="thirty-min">30 Min</label>
+              </div>
+            </form>
+          </div>
         </section>
         <!-- Display with search bar, food options -->
         <section id="display-section">
@@ -234,7 +243,9 @@
           <p id="explore-title-text">Explore Recipes</p>
           <p id="no-results-text">No Results Found</p>
           <section id="recipe-cards-section"></section>
-          <button id="load-button" type="button">Explore More</button>
+          <div id="load-button-container">
+            <button id="load-button" type="button">Explore More</button>
+          </div>
         </section>
       </main>
     </template>
@@ -249,7 +260,11 @@
         <section class="search-section">
           <div class="search-box">
             <p class="search-title">Search for a Recipe</p>
-            <input type="text" id="recipeSearch" placeholder="Search Recipes" />
+            <input
+              type="text"
+              id="recipe-search"
+              placeholder="Search Recipes"
+            />
           </div>
         </section>
 
@@ -323,12 +338,7 @@
             <img src="source/images/pasta.jpg" alt="Card image" />
           </figure>
           <h1>Delicious Pasta Recipe</h1>
-          <p class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-            sodales diam at tellus pellentesque aliquet. Donec placerat nunc sed
-            tortor posuere, a posuere lorem facilisis. Fusce non consectetir
-            nibh, at aliquet lectus.
-          </p>
+          <p class="description">Lorem ipsum dolor</p>
 
           <div class="card-meta">
             <button class="recipe-action-button" type="button">
@@ -336,7 +346,11 @@
             </button>
             <div class="recipe-action">
               <button class="recipe-delete-button" type="button">
-                <i class="fa fa-trash"></i>
+                <input
+                  type="image"
+                  src="images/icons8-remove-24.png"
+                  name="remove-image"
+                />
               </button>
             </div>
           </div>

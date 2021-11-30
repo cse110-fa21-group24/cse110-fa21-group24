@@ -5,7 +5,7 @@ import { IndexedDbInterface } from "./indexed-db-interface.js";
 const EXPLORE_PAGE_NUM_RESULTS = 6;
 const HOME_PAGE_NUM_RESULTS = 4;
 const NO_INPUT = "";
-const DEFAULT_READY_TIME = 240;
+const DEFAULT_READY_TIME = 300;
 let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
 
@@ -182,7 +182,9 @@ function bindExploreSearchBar() {
   let italian = shadow.getElementById("italian");
   let mexican = shadow.getElementById("mexican");
   let american = shadow.getElementById("american");
-  let time = shadow.getElementById("cooking-time");
+  let tenMin = shadow.getElementById("ten-min");
+  let twentyMin = shadow.getElementById("twenty-min");
+  let thirtyMin = shadow.getElementById("thirty-min");
   /**
    * Can add more above for more hardcoded filters!
    */
@@ -200,7 +202,9 @@ function bindExploreSearchBar() {
         italian.checked ||
         mexican.checked ||
         american.checked ||
-        time.value !== NO_INPUT
+        tenMin.checked ||
+        twentyMin.checked ||
+        thirtyMin.checked
       ) {
         if (
           //Toggle off explore type
@@ -235,8 +239,14 @@ function bindExploreSearchBar() {
         if (american.checked) {
           queryObj.cuisine += "American ";
         }
-        if (time.value !== NO_INPUT) {
-          queryObj.maxReadyTime = parseInt(time.value);
+        if (tenMin.checked) {
+          queryObj.maxReadyTime = parseInt(tenMin.value);
+        }
+        if (twentyMin.checked) {
+          queryObj.maxReadyTime = parseInt(twentyMin.value);
+        }
+        if (thirtyMin.checked) {
+          queryObj.maxReadyTime = parseInt(thirtyMin.value);
         }
 
         await populateExplorePage(queryObj); //API call with queries
@@ -460,10 +470,16 @@ function bindExploreLoadButton() {
         if (american.checked) {
           queryObj.cuisine += "American ";
         }
-        console.log(queryObj);
-        if (time.value !== NO_INPUT) {
-          queryObj.maxReadyTime = parseInt(time.value);
+        if (tenMin.checked) {
+          queryObj.maxReadyTime = parseInt(tenMin.value);
         }
+        if (twentyMin.checked) {
+          queryObj.maxReadyTime = parseInt(twentyMin.value);
+        }
+        if (thirtyMin.checked) {
+          queryObj.maxReadyTime = parseInt(thirtyMin.value);
+        }
+
         await populateExplorePage(queryObj);
       }
     }
@@ -498,7 +514,7 @@ function homeSearchFunction() {
   //Get references to search bar on homepage
   let home = document.querySelector("home-page");
   let shadow = home.shadowRoot;
-  let input = shadow.getElementById("recipeSearch");
+  let input = shadow.getElementById("recipe-search");
 
   input.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
@@ -997,13 +1013,9 @@ function buttonsEditCookbook() {
   "use strict";
   let templatePage = document.querySelector("edit-cookbook");
   let shadow = templatePage.shadowRoot;
-  let saveButton = shadow
-    .querySelector("div")
-    .children[3].getElementsByTagName("button")[0];
+  let saveButton = shadow.getElementById("save-edits-button");
 
-  let cancelButton = shadow
-    .querySelector("div")
-    .children[2].getElementsByTagName("button")[0];
+  let cancelButton = shadow.getElementById("cancel-button-container2");
 
   saveButton.addEventListener("click", async () => {
     // Get the Title and the Description

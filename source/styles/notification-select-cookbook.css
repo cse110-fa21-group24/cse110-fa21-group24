@@ -11,10 +11,9 @@
   border-radius: 5px;
   border-color: #ba181b;
   box-shadow: 0 5px 10px rgba(0 0 0 / 20%);
-  width: 300px;
+  width: min(80vw, 300px);
   z-index: 999;
   font-weight: bold;
-  font-family: Helvetica, sans-serif;
   background-color: #fff;
 
   /* Used for the popup
