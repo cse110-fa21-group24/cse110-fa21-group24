@@ -31,4 +31,4 @@ jobs:
           git config --global user.email "impastarosta@gmail.com"
           git add docs/
           git commit -m "generated documentation"
-          git push origin main
+          git push
