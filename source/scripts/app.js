@@ -13,8 +13,6 @@ const router = new Router("home-page");
 const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
 
-let globalRecipeId = "";
-
 /**
  * Creates a recipe card element
  * @returns A recipe card element
@@ -810,11 +808,13 @@ async function populateSelectCookbookOptions() {
 
   let cookbooks = await indexedDb.getAllCookbooks();
 
-  for (let i = 1; i < cookbooks.length; ++i) {
-    let option = document.createElement("option");
-    option.value = cookbooks[i].title;
-    option.textContent = cookbooks[i].title;
-    cookbookDropdown.append(option);
+  for (let i = 0; i < cookbooks.length; ++i) {
+    if (cookbooks[i].title !== DEFAULT_COOKBOOK_NAME) {
+      let option = document.createElement("option");
+      option.value = cookbooks[i].title;
+      option.textContent = cookbooks[i].title;
+      cookbookDropdown.append(option);
+    }
   }
 }
 
@@ -844,7 +844,9 @@ function bindSelectCookbookButtons() {
       addedRecipe = await spoonacular.getRecipeInfo(recipeId);
       await indexedDb.addRecipe(selectedCookbook, addedRecipe);
     } else {
-      addedRecipe = await spoonacular.getRecipeInfo(globalRecipeId);
+      addedRecipe = await spoonacular.getRecipeInfo(
+        notificationSelectCookbook.recipeObj
+      );
       await indexedDb.addRecipe(selectedCookbook, addedRecipe);
     }
     //If the selected cookbook wasn't the default,
@@ -916,10 +918,10 @@ function bindHomePageLearnMore() {
     let addButton = cardShadow.getElementById("recipe-card-action-button");
     addButton.addEventListener("click", () => {
       let recipeId = cardShadow.getElementById("recipe-id");
-      globalRecipeId = recipeId.textContent;
       let notificationSelectCookbook = document.querySelector(
         "notification-select-cookbook"
       );
+      notificationSelectCookbook.recipe = recipeId.textContent;
       notificationSelectCookbook.classList.toggle("hidden");
     });
     /* jshint ignore:end */
@@ -954,10 +956,10 @@ function bindExplorePageLearnMore() {
     let addButton = cardShadow.getElementById("recipe-card-action-button");
     addButton.addEventListener("click", () => {
       let recipeId = cardShadow.getElementById("recipe-id");
-      globalRecipeId = recipeId.textContent;
       let notificationSelectCookbook = document.querySelector(
         "notification-select-cookbook"
       );
+      notificationSelectCookbook.recipe = recipeId.textContent;
       notificationSelectCookbook.classList.toggle("hidden");
     });
     /* jshint ignore:end */
