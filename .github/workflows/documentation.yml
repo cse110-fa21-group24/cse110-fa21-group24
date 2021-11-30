@@ -32,6 +32,7 @@ jobs:
           git config user.name "Impasta Rosta Documentation"
           git config user.email "impastarosta@gmail.com"
           git pull origin main
+          git checkout documentation
           git add docs/
           git commit -m "generated documentation"
-          git push origin HEAD:main
+          git push origin HEAD:documentation
