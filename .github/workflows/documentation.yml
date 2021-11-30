@@ -15,7 +15,7 @@ jobs:
       - name: Checkout GitHub repository
         uses: actions/checkout@v2
         with:
-          repository: main
+          ref: main
 
       - name: Use Node.js
         uses: actions/setup-node@v2
