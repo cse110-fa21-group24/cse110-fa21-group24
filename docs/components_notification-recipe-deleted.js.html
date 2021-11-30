@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/notification-recipe-deleted.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,41 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/notification-recipe-deleted.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @classdesc A notification that shows up when recipes are deleted
+ *
+ */
+class NotificationRecipeDeleted extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
 
+    const stylesheet = document.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = "styles/notification-recipe-deleted.css";
 
-    <h3> </h3>
+    const notification = document
+      .getElementById("notification-recipe-deleted-template")
+      .content.cloneNode(true);
 
+    this.shadowRoot.append(stylesheet);
+    this.shadowRoot.append(notification);
+  }
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+customElements.define("notification-recipe-deleted", NotificationRecipeDeleted);
+</code></pre>
+        </article>
+    </section>
 
 
 

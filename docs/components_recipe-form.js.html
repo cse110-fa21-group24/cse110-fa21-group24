@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/recipe-form.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,42 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/recipe-form.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @classdesc A template for the recipe form which allows users to edit
+ *            their recipes and their details.
+ *
+ */
+class RecipeForm extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
 
+    const stylesheet = document.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = "styles/recipe-form.css";
 
-    <h3> </h3>
+    const recipeForm = document
+      .getElementById("recipe-form-template")
+      .content.cloneNode(true);
 
+    this.shadowRoot.append(stylesheet);
+    this.shadowRoot.append(recipeForm);
+  }
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+customElements.define("recipe-form", RecipeForm);
+</code></pre>
+        </article>
+    </section>
 
 
 

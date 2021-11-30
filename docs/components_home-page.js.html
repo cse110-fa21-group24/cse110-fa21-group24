@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/home-page.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,41 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/home-page.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @classdesc A component for the home page (default load).
+ *
+ */
+class HomePage extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
 
+    const stylesheet = document.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = "styles/home-page.css";
 
-    <h3> </h3>
+    const home = document
+      .getElementById("home-page-template")
+      .content.cloneNode(true);
 
+    this.shadowRoot.append(stylesheet);
+    this.shadowRoot.append(home);
+  }
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+customElements.define("home-page", HomePage);
+</code></pre>
+        </article>
+    </section>
 
 
 

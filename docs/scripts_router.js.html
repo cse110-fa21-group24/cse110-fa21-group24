@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: scripts/router.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,62 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: scripts/router.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @classdesc A class that handles loading the appropriate screens when
+ *            navigating through the web app
+ */
+export class Router {
+  /**
+   * This constructor stores the current page in order to tell when
+   * and what to hide when navigating.
+   *
+   * @param {Element} currentPage
+   */
+  constructor(currentPage) {
+    this.currentPage = currentPage;
+  }
 
+  /**
+   * This function navigates to another page by toggling the "hidden" name
+   * on the element's classList. If the current page is the one that is being
+   * navigated to, then do nothing.
+   *
+   * @param {Element} page
+   */
+  navigate(page) {
+    //If navigating to same page as current, do nothing
+    if (page === this.currentPage) {
+      return;
+    }
 
-    <h3> </h3>
+    //Get references to elements
+    let pageElement = document.querySelector(page);
+    let currentElement = document.querySelector(this.currentPage);
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    //Hide the current page
+    currentElement.classList.toggle("hidden");
+    if (pageElement.classList.contains("hidden")) {
+      //Set new current page to page
+      this.currentPage = page;
+      //Toggle hidden on page
+      pageElement.classList.toggle("hidden");
+      //Scroll to top of page
+      document.querySelector("html").scrollTop = 0;
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

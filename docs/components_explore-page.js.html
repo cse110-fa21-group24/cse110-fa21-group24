@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/explore-page.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,42 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/explore-page.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @classdesc A component for the explore page where users can view
+ *            random recipes or recipes they search for.
+ *
+ */
+class ExplorePage extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
 
+    const stylesheet = document.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = "styles/explore-page.css";
 
-    <h3> </h3>
+    const explore = document
+      .getElementById("explore-page-template")
+      .content.cloneNode(true);
 
+    this.shadowRoot.append(stylesheet);
+    this.shadowRoot.append(explore);
+  }
+}
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+customElements.define("explore-page", ExplorePage);
+</code></pre>
+        </article>
+    </section>
 
 
 
