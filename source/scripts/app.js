@@ -706,6 +706,25 @@ async function populateCookbooksPage() {
 }
 
 /**
+ * Helper Method for bindCookbookCardButtons
+ * @function fillEditCookbook
+ * @param {string} title of cookbook
+ * @param {string} description of cookbook
+ */
+function fillEditCookbook(title, description) {
+  "use strict";
+
+  // References to edit cookbook
+  let edit = document.querySelector("edit-cookbook");
+  let shadow = edit.shadowRoot;
+  let titleInput = shadow.getElementById("cb-title");
+  let descriptionInput = shadow.getElementById("cb-description");
+
+  titleInput.value = title;
+  descriptionInput.value = description;
+}
+
+/**
  * Attaches event listeners to the buttons within a given cookbook card
  * @function bindCookbookCardButtons
  * @param {object} card The cookbook card element
@@ -724,6 +743,9 @@ function bindCookbookCardButtons(card) {
     // Updates the COOKBOOK_TO_EDIT
     COOKBOOK_TO_EDIT = title;
     router.navigate("edit-cookbook");
+
+    // prefill edit form
+    fillEditCookbook(card.cookbook.title, card.cookbook.description);
   });
 
   //Check if remove button is null in default cookbook case
