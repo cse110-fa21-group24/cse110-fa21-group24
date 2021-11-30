@@ -1,5 +1,4 @@
 main {
-  font-family: Inter, sans-serif;
   font-weight: bold;
   font-size: 20px;
   text-shadow: 4px 4px 4px #aaa;
@@ -46,6 +45,10 @@ img {
     font-size: 5vw;
   }
 
+  #recipe-search {
+    font-size: 1em;
+  }
+
   .search-section {
     top: 6vw;
   }
@@ -85,6 +88,10 @@ img {
 @media (orientation: portrait) {
   .search-title {
     font-size: 8vw;
+  }
+
+  #recipe-search {
+    font-size: 0.5em;
   }
 
   .search-section {

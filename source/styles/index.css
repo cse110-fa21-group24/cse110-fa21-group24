@@ -1,12 +1,17 @@
-body {
-  margin: 0;
+* {
+  font-family: Helvetica, sans-serif;
+  font-style: normal;
 }
 
-.hidden {
-  display: none;
+body {
+  margin: 0;
 }
 
 html {
   margin: 0;
   padding: 0;
+}
+
+.hidden {
+  display: none;
 }

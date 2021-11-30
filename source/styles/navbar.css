@@ -24,7 +24,6 @@
 @media (orientation: landscape) {
   #navbar {
     background: #e5383b;
-    font-family: Helvetica, sans-serif;
     position: fixed;
     top: 0;
     width: 100%;
@@ -73,14 +72,13 @@
 
   .navbar-tab:hover {
     filter: brightness(150%);
-    font-size: 1.5vw;
+    font-size: 1em;
   }
 }
 
 @media (orientation: portrait) {
   #navbar {
     background: #e5383b;
-    font-family: Helvetica, sans-serif;
     bottom: 0;
     width: 100%;
     display: flex;
@@ -124,6 +122,6 @@
 
   .navbar-tab:hover {
     filter: brightness(150%);
-    font-size: 3vh;
+    font-size: 1.1em;
   }
 }

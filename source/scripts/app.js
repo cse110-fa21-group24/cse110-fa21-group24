@@ -514,7 +514,7 @@ function homeSearchFunction() {
   //Get references to search bar on homepage
   let home = document.querySelector("home-page");
   let shadow = home.shadowRoot;
-  let input = shadow.getElementById("recipeSearch");
+  let input = shadow.getElementById("recipe-search");
 
   input.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
@@ -991,13 +991,9 @@ function buttonsEditCookbook() {
   "use strict";
   let templatePage = document.querySelector("edit-cookbook");
   let shadow = templatePage.shadowRoot;
-  let saveButton = shadow
-    .querySelector("div")
-    .children[3].getElementsByTagName("button")[0];
+  let saveButton = shadow.getElementById("save-edits-button");
 
-  let cancelButton = shadow
-    .querySelector("div")
-    .children[2].getElementsByTagName("button")[0];
+  let cancelButton = shadow.getElementById("cancel-button-container2");
 
   saveButton.addEventListener("click", async () => {
     // Get the Title and the Description
