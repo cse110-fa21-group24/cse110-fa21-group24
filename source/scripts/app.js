@@ -717,8 +717,8 @@ function fillEditCookbook(title, description) {
   // References to edit cookbook
   let edit = document.querySelector("edit-cookbook");
   let shadow = edit.shadowRoot;
-  let titleInput = shadow.getElementById("CBTitle");
-  let descriptionInput = shadow.getElementById("CBDescription");
+  let titleInput = shadow.getElementById("cb-title");
+  let descriptionInput = shadow.getElementById("cb-description");
 
   titleInput.value = title;
   descriptionInput.value = description;
@@ -745,7 +745,7 @@ function bindCookbookCardButtons(card) {
     router.navigate("edit-cookbook");
 
     // prefill edit form
-    fillEditCookbook(card.cookbookObj.title, card.cookbookObj.description);
+    fillEditCookbook(card.cookbook.title, card.cookbook.description);
   });
 
   //Check if remove button is null in default cookbook case
