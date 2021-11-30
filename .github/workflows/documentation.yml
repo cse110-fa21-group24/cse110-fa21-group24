@@ -27,8 +27,8 @@ jobs:
 
       - name: Commit new documentation to main
         run: |
-          git config --global user.name "Impasta Rosta Documentation"
-          git config --global user.email "impastarosta@gmail.com"
+          git config user.name "Impasta Rosta Documentation"
+          git config user.email "impastarosta@gmail.com"
           git add docs/
           git commit -m "generated documentation"
-          git push
+          git push origin HEAD:main
