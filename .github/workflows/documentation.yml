@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout GitHub repository
         uses: actions/checkout@v2
+        with:
+          repository: main
 
       - name: Use Node.js
         uses: actions/setup-node@v2
@@ -29,7 +31,6 @@ jobs:
         run: |
           git config user.name "Impasta Rosta Documentation"
           git config user.email "impastarosta@gmail.com"
-          git config pull.ff only
           git pull origin main
           git add docs/
           git commit -m "generated documentation"
