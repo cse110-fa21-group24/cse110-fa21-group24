@@ -624,9 +624,15 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   }
 
   for (let i = 0; i < recipeObj.ingredients.length; ++i) {
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.classList.add("ingredient-checkbox");
+
     let ingredient = document.createElement("li");
     ingredient.classList.add("ingredient-item");
     ingredient.textContent = recipeObj.ingredients[i];
+
+    ingredient.appendChild(checkbox);
 
     if (i % 2 === 0) {
       ingredientsLeft.append(ingredient);

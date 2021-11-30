@@ -161,6 +161,11 @@
     font-size: 1.5vw;
   }
 
+  .ingredient-checkbox {
+    width: 2vw;
+    height: 3vh;
+  }
+
   /* Recipe Instructions */
 
   .instruction-item {
@@ -316,7 +321,7 @@
 
   #recipe-description {
     margin: 0;
-    font-size: 1.3vh;
+    font-size: max(1.3vh, 12px);
     line-height: 2vh;
   }
 
@@ -341,7 +346,13 @@
     margin-top: 0.8vh;
     margin-bottom: 0.8vh;
     list-style-type: square;
-    font-size: 1.3vh;
+    font-size: max(1.3vh, 12px);
+  }
+
+  .ingredient-checkbox {
+    width: max(3vw, 20px);
+    height: max(2vh, 20px);
+    margin-left: 1vw;
   }
 
   /* Recipe Instructions */
@@ -349,7 +360,7 @@
   .instruction-item {
     margin-top: 0.8vh;
     margin-bottom: 0.8vh;
-    font-size: 1.3vh;
+    font-size: max(1.3vh, 12px);
     line-height: 2vh;
   }
 
