@@ -31,4 +31,5 @@ jobs:
           git config user.email "impastarosta@gmail.com"
           git add docs/
           git commit -m "generated documentation"
+          git pull
           git push origin HEAD:main
