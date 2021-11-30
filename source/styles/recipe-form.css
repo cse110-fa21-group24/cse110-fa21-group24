@@ -1,6 +1,5 @@
 .edit-recipe {
   color: #2d3436;
-  font-family: Inter, sans-serif;
   font-size: 45px;
   text-align: center;
   font-weight: 800;
@@ -15,7 +14,6 @@ input {
   height: 60%;
   padding: 10px;
   color: #000;
-  font-family: Inter, sans-serif;
   font-size: 2vw;
   font-style: normal;
   font-weight: 500;
@@ -28,7 +26,6 @@ input {
   top: 135px;
   left: 24%;
   color: #000;
-  font-family: Inter, sans-serif;
   font-size: 2.5vw;
   font-style: normal;
   font-weight: 500;
@@ -63,7 +60,6 @@ input {
   top: 130px;
   left: 16%;
   color: #000;
-  font-family: Inter, sans-serif;
   font-size: 2.5vw;
   font-style: normal;
   font-weight: 500;
@@ -74,7 +70,6 @@ input {
   top: 130px;
   left: 16.2%;
   color: #000;
-  font-family: Inter, sans-serif;
   font-size: 2.5vw;
   font-style: normal;
   font-weight: 500;
@@ -122,7 +117,6 @@ input {
 
 .add-ingredient-text {
   color: #fff;
-  font-family: Inter, sans-serif;
   font-size: 1vw;
   font-weight: 200;
   letter-spacing: 0.25px;
@@ -137,7 +131,6 @@ input {
   top: 110px;
   left: 16%;
   color: #000;
-  font-family: Inter, sans-serif;
   font-size: 2.5vw;
   font-style: normal;
   font-weight: 500;
@@ -180,7 +173,6 @@ input {
 
 .add-instruction-text {
   color: #fff;
-  font-family: Inter, sans-serif;
   font-size: 1vw;
   font-weight: 200;
   letter-spacing: 0.25px;
@@ -205,7 +197,6 @@ input {
 
 .save-text {
   color: #fff;
-  font-family: Inter, sans-serif;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.25px;
