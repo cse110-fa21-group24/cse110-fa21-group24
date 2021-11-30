@@ -9,9 +9,25 @@ const DEFAULT_READY_TIME = 300;
 let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
 
-const router = new Router("home-page");
+const router = new Router("home-page", "home-page");
 const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
+
+/**
+ * Attaches "click" event listeners to the back button on the recipe page
+ * that navigate to the correct page when clicked.
+ */
+function connectRecipeBackButton() {
+  "use strict";
+  //Get references to buttons in shadowRoot
+  let recipePage = document.querySelector("recipe-page");
+  let shadow = recipePage.shadowRoot;
+  let backButton = shadow.getElementById("back-button");
+
+  backButton.addEventListener("click", () => {
+    router.return();
+  });
+}
 
 /**
  * Creates a recipe card element
@@ -1126,8 +1142,6 @@ async function init() {
 
   createCookbook();
   createFooterImg();
-
-  //   createCookbookCard();
   createCreateCookbook();
   createEditCookbook();
   createNotificationRecipeAdded();
@@ -1152,6 +1166,7 @@ async function init() {
   bindSelectCookbookButtons();
 
   populateCookbooksPage();
+  connectRecipeBackButton();
 
   initializeDefaultCookbook();
 }
