@@ -1,8 +1,3 @@
-* {
-  font-family: Helvetica, sans-serif;
-  font-style: normal;
-}
-
 .title-container {
   display: flex;
   justify-content: center;
@@ -16,6 +11,7 @@
 .title {
   display: flex;
   font-weight: 800;
+  margin: 0;
 }
 
 .input-container {
@@ -28,21 +24,10 @@
 }
 
 .input-container div {
-  width: 600px;
-  margin: 5px;
-  font-size: 1vw;
-}
-
-.input-container label {
-  display: inline-block;
-  width: 100px;
-  text-align: right;
-}
-
-.input-container input {
-  width: 450px;
-  height: 30px;
-  padding: 5px;
+  width: 100vw;
+  margin: 0;
+  padding-bottom: 1vh;
+  font-size: 2vw;
 }
 
 #cancel-button-container2 {
@@ -57,17 +42,18 @@
 #cancel-button2 {
   background-color: #fff;
   border: none;
-  font-size: 20px;
+  font-size: 2.5vw;
   color: #ba181b;
 }
 
 @media (hover: hover) {
   button:hover {
     filter: brightness(90%);
+    cursor: pointer;
   }
 }
 
-.save-button {
+#save-edits-button {
   display: flex;
   width: 100%;
   margin: 0 auto;
@@ -76,52 +62,51 @@
   align-items: center;
 }
 
-.save-button button {
+#save-edits-button button {
   background-color: #ba181b;
   border: none;
   border-radius: 20px;
-  height: 75px;
-  width: 200px;
-  font-size: 20px;
   color: white;
 }
 
 @media (orientation: landscape) {
   /* for desktop */
   .title-container {
-    width: 100%;
-    max-width: 1100px;
-    padding: 16px;
+    padding-top: 14vh;
+    padding-bottom: 10vh;
   }
 
   .title {
     font-weight: 800;
-    font-size: 45px;
-    line-height: 104px;
+    font-size: 6vh;
+    line-height: 12vh;
   }
 
-  .recipe-container {
-    column-gap: 20px;
-    width: 100%;
-    flex-direction: row;
-    row-gap: 20px;
-    padding-bottom: 30px;
-    margin-bottom: 50px;
+  #save-edits-button button {
+    height: 8vh;
+    width: 20vw;
+    font-size: 2vw;
   }
 
-  .recipe-cards {
-    width: 285px;
-    height: 339px;
-    border-radius: 10%;
+  .input-container input {
+    width: 50vw;
+    height: 5vh;
+  }
+
+  .input-container label {
+    display: inline-block;
+    width: 30vw;
+    text-align: right;
+  }
+
+  #save-edits-button {
+    padding-top: 8vh;
   }
 
   #cancel-button2 {
-    max-width: 1100px;
-    padding: 16px;
-  }
-
-  button:hover {
-    cursor: pointer;
+    max-width: 20vw;
+    padding: 2vw;
+    font-size: 3vh;
   }
 }
 
@@ -130,29 +115,46 @@
   .title-container {
     width: 100%;
     margin: 0 auto;
+    padding: 6vh;
   }
 
   .title {
-    font-size: 40px;
-    line-height: 100px;
+    font-size: 4vh;
   }
 
-  .recipe-container {
-    width: 100%;
-    flex-direction: column;
-    row-gap: 50px;
-    padding-bottom: 50px;
-    margin-bottom: 60px;
+  .input-container {
+    padding-top: 4vh;
+    padding-left: 20vw;
   }
 
-  .recipe-cards {
-    width: 90%;
-    height: 300px;
-    border-radius: 30px;
+  #save-edits-button button {
+    height: 6vh;
+    width: 30vw;
+    width: 34vw;
+    font-size: 4vw;
+    border-radius: 3vw;
+  }
+
+  .input-container input {
+    width: 80vw;
+    height: 5vh;
+    font-size: 3vh;
+  }
+
+  .input-container label {
+    display: flex;
+    width: 30vw;
+    text-align: right;
+    font-size: 3vh;
+  }
+
+  #save-edits-button {
+    padding-top: 8vh;
   }
 
   #cancel-button2 {
-    max-width: 600px;
-    padding: 20px;
+    max-width: 30vw;
+    padding: 2vh;
+    font-size: 4vw;
   }
 }

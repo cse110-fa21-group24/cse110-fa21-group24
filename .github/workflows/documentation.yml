@@ -1,0 +1,37 @@
+# Generates documentation on all merges into main branch
+name: documentation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  generate-documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install JSDoc
+        run: npm install --save-dev jsdoc
+      - name: Generate documentation with JSDoc
+        run: npm run create-docs
+
+      - name: Commit new documentation to main
+        run: |
+          git config user.name "Impasta Rosta Documentation"
+          git config user.email "impastarosta@gmail.com"
+          git pull origin main
+          git remote update origin --prune
+          git checkout documentation
+          git add docs/
+          git commit -m "generated documentation"
+          git push origin HEAD:documentation

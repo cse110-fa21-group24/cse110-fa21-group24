@@ -1,5 +1,4 @@
 main {
-  font-family: Inter, sans-serif;
   font-weight: bold;
   font-size: 20px;
   text-shadow: 4px 4px 4px #aaa;
@@ -41,17 +40,13 @@ img {
   box-shadow: 0 1vw 1vw rosybrown;
 }
 
-.featured-recipes {
-  font-size: 4vw;
-  position: relative;
-  top: 20px;
-  text-align: center;
-  padding-bottom: 5vw;
-}
-
 @media (orientation: landscape) {
   .search-title {
     font-size: 5vw;
+  }
+
+  #recipe-search {
+    font-size: 1em;
   }
 
   .search-section {
@@ -61,6 +56,14 @@ img {
   .search-box {
     height: 25vh;
     width: 80vw;
+  }
+
+  .featured-recipes {
+    font-size: 4vw;
+    position: relative;
+    top: 20px;
+    text-align: center;
+    padding-bottom: 5vw;
   }
 
   #explore {
@@ -87,13 +90,27 @@ img {
     font-size: 8vw;
   }
 
+  #recipe-search {
+    font-size: 0.5em;
+  }
+
   .search-section {
-    top: 2vw;
+    top: 3vh;
   }
 
   .search-box {
     height: 30vw;
     width: 90%;
+  }
+
+  img {
+    width: 0;
+    height: 0;
+  }
+
+  .featured-recipes {
+    height: 1vh;
+    padding-bottom: 1vh;
   }
 
   #explore {
@@ -112,7 +129,7 @@ img {
   .explore-button {
     top: 0;
     font-size: 4vw;
-    height: 6vw;
+    height: 5vh;
     width: 25vw;
   }
 }
