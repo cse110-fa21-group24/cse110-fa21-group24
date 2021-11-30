@@ -1,4 +1,4 @@
-# Lints all merges into main branch
+# Lints all pull requests into main branch
 name: lint
 
 on:
