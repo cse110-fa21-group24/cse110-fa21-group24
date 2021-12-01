@@ -1,4 +1,4 @@
-# Runs tests on all merges into main branch
+# Runs tests on all pull requests into main branch
 name: test
 
 on:
