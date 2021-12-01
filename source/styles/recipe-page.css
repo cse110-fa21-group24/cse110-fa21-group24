@@ -2,6 +2,12 @@
   display: none;
 }
 
+#recipe-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 #back-button {
   background-color: #e7e7e7;
   border: none;
@@ -15,10 +21,8 @@
   color: #ff5356;
 }
 
-#recipe-header-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+#back-button:hover {
+  filter: brightness(75%);
 }
 
 @media (orientation: landscape) {
@@ -231,14 +235,15 @@
   }
 
   #back-button-container {
-    padding-top: 2vh;
+    padding-top: 1vh;
     padding-right: 5vw;
   }
 
   #back-button {
     height: 3vh;
-    width: 12vw;
+    width: 15vw;
     border-radius: 1vh;
+    font-size: 3vw;
   }
 
   #recipe-author {

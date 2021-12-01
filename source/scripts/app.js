@@ -14,17 +14,27 @@ const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
 
 /**
- * Attaches "click" event listeners to the back button on the recipe page
- * that navigate to the correct page when clicked.
+ * Attaches "click" event listeners to the back button on the recipe page and
+ * the singleCookbook page that navigate to the correct page when clicked.
  */
 function connectRecipeBackButton() {
   "use strict";
   //Get references to buttons in shadowRoot
   let recipePage = document.querySelector("recipe-page");
-  let shadow = recipePage.shadowRoot;
-  let backButton = shadow.getElementById("back-button");
+  let recipeShadow = recipePage.shadowRoot;
+  let backButtonRecipe = recipeShadow.getElementById("back-button");
 
-  backButton.addEventListener("click", () => {
+  let singleCookbookPage = document.querySelector("single-cookbook");
+  let cookBookShadow = singleCookbookPage.shadowRoot;
+  let backButtonCookbook = cookBookShadow.getElementById(
+    "cookbook-back-button"
+  );
+
+  backButtonRecipe.addEventListener("click", () => {
+    router.return();
+  });
+
+  backButtonCookbook.addEventListener("click", () => {
     router.return();
   });
 }
