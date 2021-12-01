@@ -91,6 +91,7 @@
   .input-container input {
     width: 50vw;
     height: 5vh;
+    font-size: 3vh;
   }
 
   .input-container label {
