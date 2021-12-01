@@ -135,6 +135,39 @@ export class IndexedDbInterface {
       } else {
         this.createCookbook(newTitle, description)
           .then(() => {
+            this.getAllRecipes(oldTitle)
+              .then((recipes) => {
+                cookbookStore = this.db
+                  .transaction(OBJ_STORE, "readwrite")
+                  .objectStore(OBJ_STORE);
+                let getRequest = cookbookStore.get(newTitle);
+
+                getRequest.onsuccess = (event) => {
+                  let cookbookData = event.target.result;
+                  cookbookData.recipes = recipes;
+                  let putRequest = cookbookStore.put(cookbookData);
+                  putRequest.onsuccess = () => {
+                    resolve(true);
+                  };
+                  putRequest.onerror = () => {
+                    console.error("Could not edit cookbook:", putRequest.error);
+                    reject(false);
+                  };
+                };
+                getRequest.onerror = () => {
+                  console.error(
+                    "Could not get old cookbook:",
+                    getRequest.error
+                  );
+                  reject(false);
+                };
+              })
+              .catch((error) => {
+                console.error(error);
+                reject(false);
+              });
+          })
+          .then(() => {
             this.deleteCookbook(oldTitle)
               .then(() => {
                 resolve(true);
