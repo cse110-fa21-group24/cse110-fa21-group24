@@ -892,7 +892,7 @@ function bindSelectCookbookButtons() {
       //Add the recipe to the default cookbook also
       await indexedDb.addRecipe(DEFAULT_COOKBOOK_NAME, addedRecipe);
     }
-    notificationSelectCookbook.classList.toggle("hidden");
+    notificationSelectCookbook.classList.add("hidden");
   });
 
   let closeButton = shadow.getElementById("close");
