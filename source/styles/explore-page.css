@@ -2,6 +2,10 @@
   visibility: hidden;
 }
 
+.hidden {
+  display: none;
+}
+
 #explore-top-level {
   display: flex; /* Row alignment */
   margin-top: 5%;
@@ -27,6 +31,18 @@
 .filter-choice {
   font-size: min(25px, 3vw);
   margin: 0;
+}
+
+.plus,
+.minus {
+  width: 20px;
+  height: 20px;
+}
+
+.filter-button {
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 /* Checkbox related */

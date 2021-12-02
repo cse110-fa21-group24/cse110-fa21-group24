@@ -488,6 +488,60 @@ function bindExploreLoadButton() {
 }
 
 /**
+ * @function bindCollapsibleFilters
+ *
+ * Bind the buttons to collapse and expand the filters for the filters on the explore page.
+ */
+function bindCollapsibleFilters() {
+  "use strict";
+
+  let shadow = document.querySelector("explore-page").shadowRoot;
+  let dietButton = shadow.getElementById("diet-button");
+  dietButton.addEventListener("click", () => {
+    let image = dietButton.querySelector("img");
+    if (image.classList.contains("plus")) {
+      image.classList.replace("plus", "minus");
+      image.src = "/source/images/minus.png";
+      shadow.querySelector(".filter-diet-choices").classList.remove("hidden");
+    } else {
+      image.classList.replace("minus", "plus");
+      image.src = "/source/images/plus.png";
+      shadow.querySelector(".filter-diet-choices").classList.add("hidden");
+    }
+  });
+
+  let cuisineButton = shadow.getElementById("cuisine-button");
+  cuisineButton.addEventListener("click", () => {
+    let image = cuisineButton.querySelector("img");
+    if (image.classList.contains("plus")) {
+      image.classList.replace("plus", "minus");
+      image.src = "/source/images/minus.png";
+      shadow
+        .querySelector(".filter-cuisine-choices")
+        .classList.remove("hidden");
+    } else {
+      image.classList.replace("minus", "plus");
+      image.src = "/source/images/plus.png";
+      shadow.querySelector(".filter-cuisine-choices").classList.add("hidden");
+    }
+  });
+
+  let timeButton = shadow.getElementById("time-button");
+  timeButton.addEventListener("click", () => {
+    let image = timeButton.querySelector("img");
+    if (image.classList.contains("plus")) {
+      image.classList.replace("plus", "minus");
+      image.src = "/source/images/minus.png";
+      shadow.querySelector(".filter-time-choices").classList.remove("hidden");
+    } else {
+      image.classList.replace("minus", "plus");
+      image.src = "/source/images/plus.png";
+      shadow.querySelector(".filter-time-choices").classList.add("hidden");
+    }
+  });
+}
+
+/**
  * Navigate to explore page if "Explore" button is clicked
  *
  * @function homeExploreButton
@@ -1158,6 +1212,7 @@ async function init() {
   homeExploreButton();
   connectCreateNewCookbook();
   bindExploreSearchBar();
+  bindCollapsibleFilters();
   connectRecipeAction();
   buttonsEditCookbook();
 
