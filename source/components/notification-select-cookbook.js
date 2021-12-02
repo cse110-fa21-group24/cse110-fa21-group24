@@ -19,6 +19,14 @@ class NotificationSelectCookbook extends HTMLElement {
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(notification);
   }
+
+  set recipe(recipeObj) {
+    this.recipeObj = recipeObj;
+  }
+
+  get recipe() {
+    return this.recipeObj;
+  }
 }
 
 customElements.define(
