@@ -173,6 +173,7 @@ function bindExploreSearchBar() {
   //Get references to search bar on explore
   let explorePage = document.querySelector("explore-page");
   let shadow = explorePage.shadowRoot;
+  let searchButton = shadow.getElementById("physical-search-button");
 
   //Get references to filter checkboxes
   let input = shadow.getElementById("search-bar");
@@ -193,6 +194,11 @@ function bindExploreSearchBar() {
   input.addEventListener("keyup", async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
+      searchButton.click();
+    }
+  });
+
+  searchButton.addEventListener("click", async (e) => {
       if (
         //If there are queries (checkbox or text)
         input.value !== NO_INPUT ||
@@ -262,8 +268,9 @@ function bindExploreSearchBar() {
         }
         await populateExplorePage(); //Call API with random recipes
       }
-    }
+    
   });
+  
 }
 
 /**
