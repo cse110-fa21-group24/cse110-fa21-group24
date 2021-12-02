@@ -875,10 +875,12 @@ async function populateSelectCookbookOptions() {
   let cookbooks = await indexedDb.getAllCookbooks();
 
   for (let i = 0; i &lt; cookbooks.length; ++i) {
-    let option = document.createElement("option");
-    option.value = cookbooks[i].title;
-    option.textContent = cookbooks[i].title;
-    cookbookDropdown.append(option);
+    if (cookbooks[i].title !== DEFAULT_COOKBOOK_NAME) {
+      let option = document.createElement("option");
+      option.value = cookbooks[i].title;
+      option.textContent = cookbooks[i].title;
+      cookbookDropdown.append(option);
+    }
   }
 }
 
@@ -896,6 +898,7 @@ function bindSelectCookbookButtons() {
   let shadow = notificationSelectCookbook.shadowRoot;
 
   let addButton = shadow.getElementById("add-button");
+  let addedRecipe = null;
 
   addButton.addEventListener("click", async () => {
     let recipePage = document.querySelector("recipe-page");
@@ -904,16 +907,20 @@ function bindSelectCookbookButtons() {
     if (!recipePage.classList.contains("hidden")) {
       let recipeId =
         recipePage.shadowRoot.getElementById("recipe-page-id").textContent;
-      let recipeObj = await spoonacular.getRecipeInfo(recipeId);
-      await indexedDb.addRecipe(selectedCookbook, recipeObj);
-
-      //If the selected cookbook wasn't the default,
-      if (selectedCookbook !== DEFAULT_COOKBOOK_NAME) {
-        //Add the recipe to the default cookbook also
-        await indexedDb.addRecipe(DEFAULT_COOKBOOK_NAME, recipeObj);
-      }
-      notificationSelectCookbook.classList.toggle("hidden");
+      addedRecipe = await spoonacular.getRecipeInfo(recipeId);
+      await indexedDb.addRecipe(selectedCookbook, addedRecipe);
+    } else {
+      addedRecipe = await spoonacular.getRecipeInfo(
+        notificationSelectCookbook.recipe
+      );
+      await indexedDb.addRecipe(selectedCookbook, addedRecipe);
     }
+    //If the selected cookbook wasn't the default,
+    if (selectedCookbook !== DEFAULT_COOKBOOK_NAME) {
+      //Add the recipe to the default cookbook also
+      await indexedDb.addRecipe(DEFAULT_COOKBOOK_NAME, addedRecipe);
+    }
+    notificationSelectCookbook.classList.add("hidden");
   });
 
   let closeButton = shadow.getElementById("close");
@@ -950,54 +957,53 @@ async function populateHomePage() {
 }
 
 /**
- * After clicking on "learn more" user is redirected to recipe form with all relevant info
- * and an option to add to the cookbook (but NOT edit)
- * @function bindHomePageLearnMore
+ * Bind event listeners to the buttons of recipe cards on the Home and Explore
+ * pages
+ * @function bindHomeExploreRecipeCards
  */
-function bindHomePageLearnMore() {
+function bindHomeExploreRecipeCards() {
   "use strict";
+
+  let redirectToRecipe = async (event) => {
+    let recipeCardShadow = event.currentTarget.getRootNode();
+    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
+    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
+    populateRecipePage(recipeObj, true);
+    router.navigate("recipe-page");
+  };
+
+  let openCookbookSelection = (event) => {
+    let recipeCardShadow = event.currentTarget.getRootNode();
+    let recipeId = recipeCardShadow.getElementById("recipe-id");
+    let notificationSelectCookbook = document.querySelector(
+      "notification-select-cookbook"
+    );
+    notificationSelectCookbook.recipe = recipeId.textContent;
+    notificationSelectCookbook.classList.toggle("hidden");
+  };
 
   let shadow = document.querySelector("home-page").shadowRoot;
   let recipeCards = shadow.getElementById("explore").children;
 
-  let redirectToRecipe = async (event) => {
-    let recipeCardShadow = event.currentTarget.getRootNode();
-    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
-    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
-    populateRecipePage(recipeObj, true);
-    router.navigate("recipe-page");
-  };
-
   for (let i = 0; i &lt; recipeCards.length; ++i) {
     let cardShadow = recipeCards[i].shadowRoot;
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
+
+    let addButton = cardShadow.getElementById("recipe-card-action-button");
+    addButton.addEventListener("click", openCookbookSelection);
   }
-}
 
-/**
- * After clicking on "learn more" user is redirected to recipe form with all relevant info
- * and an option to add to the cookbook (but NOT edit)
- * @function bindExplorePageLearnMore
- */
-function bindExplorePageLearnMore() {
-  "use strict";
-
-  let shadow = document.querySelector("explore-page").shadowRoot;
-  let recipeCards = shadow.getElementById("recipe-cards-section").children;
-
-  let redirectToRecipe = async (event) => {
-    let recipeCardShadow = event.currentTarget.getRootNode();
-    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
-    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
-    populateRecipePage(recipeObj, true);
-    router.navigate("recipe-page");
-  };
+  shadow = document.querySelector("explore-page").shadowRoot;
+  recipeCards = shadow.getElementById("recipe-cards-section").children;
 
   for (let i = 0; i &lt; recipeCards.length; ++i) {
     let cardShadow = recipeCards[i].shadowRoot;
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
+
+    let addButton = cardShadow.getElementById("recipe-card-action-button");
+    addButton.addEventListener("click", openCookbookSelection);
   }
 }
 
@@ -1150,8 +1156,7 @@ async function init() {
   populateExplorePage();
   bindExploreLoadButton();
   populateHomePage();
-  bindHomePageLearnMore();
-  bindExplorePageLearnMore();
+  bindHomeExploreRecipeCards();
 
   createCookbook();
   createFooterImg();
@@ -1195,16 +1200,16 @@ window.addEventListener("DOMContentLoaded", init);
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="cookbook.html">cookbook</a></li><li><a href="cookbookCard.html">cookbookCard</a></li><li><a href="CreateCookbook.html">CreateCookbook</a></li><li><a href="EditCookbook.html">EditCookbook</a></li><li><a href="ExplorePage.html">ExplorePage</a></li><li><a href="FooterImg.html">FooterImg</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="IndexedDbInterface.html">IndexedDbInterface</a></li><li><a href="Navbar.html">Navbar</a></li><li><a href="NotificationRecipeAdded.html">NotificationRecipeAdded</a></li><li><a href="NotificationRecipeDeleted.html">NotificationRecipeDeleted</a></li><li><a href="NotificationSelectCookbook.html">NotificationSelectCookbook</a></li><li><a href="RecipeCard.html">RecipeCard</a></li><li><a href="RecipeCardDelete.html">RecipeCardDelete</a></li><li><a href="RecipeForm.html">RecipeForm</a></li><li><a href="RecipePage.html">RecipePage</a></li><li><a href="Router.html">Router</a></li><li><a href="SingleCookbook.html">SingleCookbook</a></li><li><a href="SpoonacularInterface.html">SpoonacularInterface</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addRecipe">addRecipe</a></li><li><a href="global.html#bindCookbookCardButtons">bindCookbookCardButtons</a></li><li><a href="global.html#bindCookbookRecipeCardButtons">bindCookbookRecipeCardButtons</a></li><li><a href="global.html#bindCreateCookbookSave">bindCreateCookbookSave</a></li><li><a href="global.html#bindExploreLoadButton">bindExploreLoadButton</a></li><li><a href="global.html#bindExplorePageLearnMore">bindExplorePageLearnMore</a></li><li><a href="global.html#bindExploreSearchBarThisfunctionbindsthesearchbarintheexplorepagesothatyoucanenterqueriesandgetresultsbasedontheuserinput.">bindExploreSearchBar
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="cookbook.html">cookbook</a></li><li><a href="cookbookCard.html">cookbookCard</a></li><li><a href="CreateCookbook.html">CreateCookbook</a></li><li><a href="EditCookbook.html">EditCookbook</a></li><li><a href="ExplorePage.html">ExplorePage</a></li><li><a href="FooterImg.html">FooterImg</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="IndexedDbInterface.html">IndexedDbInterface</a></li><li><a href="Navbar.html">Navbar</a></li><li><a href="NotificationRecipeAdded.html">NotificationRecipeAdded</a></li><li><a href="NotificationRecipeDeleted.html">NotificationRecipeDeleted</a></li><li><a href="NotificationSelectCookbook.html">NotificationSelectCookbook</a></li><li><a href="RecipeCard.html">RecipeCard</a></li><li><a href="RecipeCardDelete.html">RecipeCardDelete</a></li><li><a href="RecipeForm.html">RecipeForm</a></li><li><a href="RecipePage.html">RecipePage</a></li><li><a href="Router.html">Router</a></li><li><a href="SingleCookbook.html">SingleCookbook</a></li><li><a href="SpoonacularInterface.html">SpoonacularInterface</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addRecipe">addRecipe</a></li><li><a href="global.html#bindCookbookCardButtons">bindCookbookCardButtons</a></li><li><a href="global.html#bindCookbookRecipeCardButtons">bindCookbookRecipeCardButtons</a></li><li><a href="global.html#bindCreateCookbookSave">bindCreateCookbookSave</a></li><li><a href="global.html#bindExploreLoadButton">bindExploreLoadButton</a></li><li><a href="global.html#bindExploreSearchBarThisfunctionbindsthesearchbarintheexplorepagesothatyoucanenterqueriesandgetresultsbasedontheuserinput.">bindExploreSearchBar
 
 This function binds the search bar in the explore page so
-that you can enter queries and get results based on the user input.</a></li><li><a href="global.html#bindHomePageLearnMore">bindHomePageLearnMore</a></li><li><a href="global.html#bindSelectCookbookButtons">bindSelectCookbookButtons</a></li><li><a href="global.html#buttonsEditCookbook">buttonsEditCookbook</a></li><li><a href="global.html#connectRecipeAction">connectRecipeAction</a></li><li><a href="global.html#createCookbook">createCookbook</a></li><li><a href="global.html#createCreateCookbook">createCreateCookbook</a></li><li><a href="global.html#createEditCookbook">createEditCookbook</a></li><li><a href="global.html#createExplorePage">createExplorePage</a></li><li><a href="global.html#createFooterImg">createFooterImg</a></li><li><a href="global.html#createHomePage">createHomePage</a></li><li><a href="global.html#createNotificationRecipeAdded">createNotificationRecipeAdded</a></li><li><a href="global.html#createNotificationRecipeDeleted">createNotificationRecipeDeleted</a></li><li><a href="global.html#createNotificationSelectCookbook">createNotificationSelectCookbook</a></li><li><a href="global.html#createRecipeCard">createRecipeCard</a></li><li><a href="global.html#createRecipeForm">createRecipeForm</a></li><li><a href="global.html#createRecipePage">createRecipePage</a></li><li><a href="global.html#createSingleCookbook">createSingleCookbook</a></li><li><a href="global.html#fillEditCookbook">fillEditCookbook</a></li><li><a href="global.html#homeExploreButton">homeExploreButton</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#populateCookbooksPage">populateCookbooksPage</a></li><li><a href="global.html#populateExplorePage">populateExplorePage</a></li><li><a href="global.html#populateHomePage">populateHomePage</a></li><li><a href="global.html#populateRecipePage">populateRecipePage</a></li><li><a href="global.html#populateSelectCookbookOptions">populateSelectCookbookOptions</a></li><li><a href="global.html#populateSingleCookbook">populateSingleCookbook</a></li></ul>
+that you can enter queries and get results based on the user input.</a></li><li><a href="global.html#bindHomeExploreRecipeCards">bindHomeExploreRecipeCards</a></li><li><a href="global.html#bindSelectCookbookButtons">bindSelectCookbookButtons</a></li><li><a href="global.html#buttonsEditCookbook">buttonsEditCookbook</a></li><li><a href="global.html#connectRecipeAction">connectRecipeAction</a></li><li><a href="global.html#createCookbook">createCookbook</a></li><li><a href="global.html#createCreateCookbook">createCreateCookbook</a></li><li><a href="global.html#createEditCookbook">createEditCookbook</a></li><li><a href="global.html#createExplorePage">createExplorePage</a></li><li><a href="global.html#createFooterImg">createFooterImg</a></li><li><a href="global.html#createHomePage">createHomePage</a></li><li><a href="global.html#createNotificationRecipeAdded">createNotificationRecipeAdded</a></li><li><a href="global.html#createNotificationRecipeDeleted">createNotificationRecipeDeleted</a></li><li><a href="global.html#createNotificationSelectCookbook">createNotificationSelectCookbook</a></li><li><a href="global.html#createRecipeCard">createRecipeCard</a></li><li><a href="global.html#createRecipeForm">createRecipeForm</a></li><li><a href="global.html#createRecipePage">createRecipePage</a></li><li><a href="global.html#createSingleCookbook">createSingleCookbook</a></li><li><a href="global.html#fillEditCookbook">fillEditCookbook</a></li><li><a href="global.html#homeExploreButton">homeExploreButton</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#populateCookbooksPage">populateCookbooksPage</a></li><li><a href="global.html#populateExplorePage">populateExplorePage</a></li><li><a href="global.html#populateHomePage">populateHomePage</a></li><li><a href="global.html#populateRecipePage">populateRecipePage</a></li><li><a href="global.html#populateSelectCookbookOptions">populateSelectCookbookOptions</a></li><li><a href="global.html#populateSingleCookbook">populateSingleCookbook</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Dec 02 2021 04:10:26 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Dec 02 2021 05:08:36 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
