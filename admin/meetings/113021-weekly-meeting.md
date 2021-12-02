@@ -1,4 +1,4 @@
-### Team 24 | 11-30-2021 | CSE 2217 | 16:00 - 16:25
+### Team 24 | 11-30-2021 | CSE 2217 | 16:00 - 16:50
 ## Weekly TA Meeting
 
 ### Attendance:
