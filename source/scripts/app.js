@@ -883,7 +883,7 @@ function bindSelectCookbookButtons() {
       await indexedDb.addRecipe(selectedCookbook, addedRecipe);
     } else {
       addedRecipe = await spoonacular.getRecipeInfo(
-        notificationSelectCookbook.recipeObj
+        notificationSelectCookbook.recipe
       );
       await indexedDb.addRecipe(selectedCookbook, addedRecipe);
     }
@@ -929,78 +929,53 @@ async function populateHomePage() {
 }
 
 /**
- * After clicking on "learn more" user is redirected to recipe form with all relevant info
- * and an option to add to the cookbook (but NOT edit)
- * @function bindHomePageLearnMore
+ * Bind event listeners to the buttons of recipe cards on the Home and Explore
+ * pages
+ * @function bindHomeExploreRecipeCards
  */
-function bindHomePageLearnMore() {
+function bindHomeExploreRecipeCards() {
   "use strict";
+
+  let redirectToRecipe = async (event) => {
+    let recipeCardShadow = event.currentTarget.getRootNode();
+    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
+    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
+    populateRecipePage(recipeObj, true);
+    router.navigate("recipe-page");
+  };
+
+  let openCookbookSelection = (event) => {
+    let recipeCardShadow = event.currentTarget.getRootNode();
+    let recipeId = recipeCardShadow.getElementById("recipe-id");
+    let notificationSelectCookbook = document.querySelector(
+      "notification-select-cookbook"
+    );
+    notificationSelectCookbook.recipe = recipeId.textContent;
+    notificationSelectCookbook.classList.toggle("hidden");
+  };
 
   let shadow = document.querySelector("home-page").shadowRoot;
   let recipeCards = shadow.getElementById("explore").children;
 
-  let redirectToRecipe = async (event) => {
-    let recipeCardShadow = event.currentTarget.getRootNode();
-    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
-    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
-    populateRecipePage(recipeObj, true);
-    router.navigate("recipe-page");
-  };
-
   for (let i = 0; i < recipeCards.length; ++i) {
     let cardShadow = recipeCards[i].shadowRoot;
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
 
-    /* jshint ignore:start */
     let addButton = cardShadow.getElementById("recipe-card-action-button");
-    addButton.addEventListener("click", () => {
-      let recipeId = cardShadow.getElementById("recipe-id");
-      let notificationSelectCookbook = document.querySelector(
-        "notification-select-cookbook"
-      );
-      notificationSelectCookbook.recipe = recipeId.textContent;
-      notificationSelectCookbook.classList.toggle("hidden");
-    });
-    /* jshint ignore:end */
+    addButton.addEventListener("click", openCookbookSelection);
   }
-}
 
-/**
- * After clicking on "learn more" user is redirected to recipe form with all relevant info
- * and an option to add to the cookbook (but NOT edit)
- * @function bindExplorePageLearnMore
- */
-function bindExplorePageLearnMore() {
-  "use strict";
-
-  let shadow = document.querySelector("explore-page").shadowRoot;
-  let recipeCards = shadow.getElementById("recipe-cards-section").children;
-
-  let redirectToRecipe = async (event) => {
-    let recipeCardShadow = event.currentTarget.getRootNode();
-    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
-    let recipeObj = await spoonacular.getRecipeInfo(recipeId);
-    populateRecipePage(recipeObj, true);
-    router.navigate("recipe-page");
-  };
+  shadow = document.querySelector("explore-page").shadowRoot;
+  recipeCards = shadow.getElementById("recipe-cards-section").children;
 
   for (let i = 0; i < recipeCards.length; ++i) {
     let cardShadow = recipeCards[i].shadowRoot;
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
 
-    /* jshint ignore:start */
     let addButton = cardShadow.getElementById("recipe-card-action-button");
-    addButton.addEventListener("click", () => {
-      let recipeId = cardShadow.getElementById("recipe-id");
-      let notificationSelectCookbook = document.querySelector(
-        "notification-select-cookbook"
-      );
-      notificationSelectCookbook.recipe = recipeId.textContent;
-      notificationSelectCookbook.classList.toggle("hidden");
-    });
-    /* jshint ignore:end */
+    addButton.addEventListener("click", openCookbookSelection);
   }
 }
 
@@ -1153,8 +1128,7 @@ async function init() {
   populateExplorePage();
   bindExploreLoadButton();
   populateHomePage();
-  bindHomePageLearnMore();
-  bindExplorePageLearnMore();
+  bindHomeExploreRecipeCards();
 
   createCookbook();
   createFooterImg();
