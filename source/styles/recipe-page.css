@@ -350,8 +350,8 @@
   }
 
   .ingredient-checkbox {
-    width: max(3vw, 20px);
-    height: max(2vh, 20px);
+    width: max(2.5vw, 14px);
+    height: max(2vh, 14px);
     margin-left: 1vw;
   }
 

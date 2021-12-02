@@ -624,20 +624,23 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
   }
 
   for (let i = 0; i < recipeObj.ingredients.length; ++i) {
-    let checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.classList.add("ingredient-checkbox");
+    let item = document.createElement("div");
+    item.classList.add("ingredient-item");
 
-    let ingredient = document.createElement("li");
-    ingredient.classList.add("ingredient-item");
-    ingredient.textContent = recipeObj.ingredients[i];
+    let ingredientLabel = document.createElement("label");
+    let ingredientCheckbox = document.createElement("input");
+    ingredientCheckbox.type = "checkbox";
+    ingredientCheckbox.classList.add("ingredient-checkbox");
+    ingredientLabel.appendChild(ingredientCheckbox);
+    ingredientLabel.textContent = recipeObj.ingredients[i];
 
-    ingredient.appendChild(checkbox);
+    item.appendChild(ingredientCheckbox);
+    item.appendChild(ingredientLabel);
 
     if (i % 2 === 0) {
-      ingredientsLeft.append(ingredient);
+      ingredientsLeft.append(item);
     } else {
-      ingredientsRight.append(ingredient);
+      ingredientsRight.append(item);
     }
   }
 
