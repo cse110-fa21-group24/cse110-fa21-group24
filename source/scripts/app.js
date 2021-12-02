@@ -1173,8 +1173,7 @@ async function init() {
 
   createCookbook();
   createFooterImg();
-  
-  
+
   createCreateCookbook();
   createEditCookbook();
   createNotificationRecipeAdded();
