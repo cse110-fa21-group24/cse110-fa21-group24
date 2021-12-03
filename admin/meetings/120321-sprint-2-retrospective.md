@@ -4,17 +4,17 @@
 
 ### Attendance:
 
-- [ ] Adan Estrada
-- [ ] Alessandro Todaro
-- [ ] Andrew Lee
-- [ ] Ansav Panda
-- [ ] Edgar Diaz
-- [ ] Gabriel Leong
-- [ ] Grant Duntugan
+- [x] Adan Estrada
+- [x] Alessandro Todaro
+- [x] Andrew Lee
+- [x] Ansav Panda
+- [x] Edgar Diaz
+- [x] Gabriel Leong
+- [x] Grant Duntugan
 - [ ] Hema Thota
-- [ ] Keli Wang
-- [ ] Minh Dinh
-- [ ] Quyen Nguyen
+- [x] Keli Wang
+- [x] Minh Dinh
+- [x] Quyen Nguyen
 
 ### Unresolved Issues
 
@@ -31,6 +31,30 @@ N/A
 
 ### Meeting Notes
 
-- What went well
-- What didnt't go well
-- What should we change or improve
+# What went well
+
+- Top Voted
+  - Minh and his amazing PR reviews
+  - Organization and leads
+  - Project progress over the course of the class
+  - App almost finished and looks good
+  - People picking up issues and getting them done
+
+# What didnt't go well
+
+- Top Voted
+  - Inconveniences with timing of assignments and responsibilities
+  - Prettier
+    - Setting up the linter
+    - Remembering to format
+    - VScode's way of handling linters
+  - Labs were hard to balance with the project
+    - Self-learning took the most time of the lab
+    - Videos for the labs were helpful though
+  - Could use work on documentation
+    - Need more descriptive comments
+    - Need to fix formatting on some docs
+
+# What should we change or improve
+
+- No comments, last sprint

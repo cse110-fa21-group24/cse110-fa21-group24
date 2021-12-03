@@ -4,17 +4,17 @@
 
 ### Attendance:
 
-- [ ] Adan Estrada
-- [ ] Alessandro Todaro
-- [ ] Andrew Lee
-- [ ] Ansav Panda
-- [ ] Edgar Diaz
-- [ ] Gabriel Leong
-- [ ] Grant Duntugan
+- [x] Adan Estrada
+- [x] Alessandro Todaro
+- [x] Andrew Lee
+- [x] Ansav Panda
+- [x] Edgar Diaz
+- [x] Gabriel Leong
+- [x] Grant Duntugan
 - [ ] Hema Thota
-- [ ] Keli Wang
-- [ ] Minh Dinh
-- [ ] Quyen Nguyen
+- [x] Keli Wang
+- [x] Minh Dinh
+- [x] Quyen Nguyen
 
 ### Unresolved Issues
 
@@ -33,4 +33,18 @@ N/A
 
 ### Meeting Notes
 
-- 
+# Issue related
+
+- Main issues to go:
+  - Edit recipe form
+  - Ingredient scaling
+- Everyone is open to help! Feel free to reach out if you don't have anything to do!
+- Can also help on commenting/documentation
+- Need to implement tests (can do unit tests!)
+
+# Upcoming assignments
+
+- Individual Retrospective
+- Team member evals
+- Project Videos (Public, Private)
+- ADR (done!)
