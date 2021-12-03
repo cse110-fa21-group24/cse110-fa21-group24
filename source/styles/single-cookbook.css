@@ -59,6 +59,8 @@ h2 {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  bottom: 3vh;
+  position: sticky;
 }
 
 #add-recipe {
@@ -66,10 +68,15 @@ h2 {
   border-radius: 50%;
   filter: brightness(115%);
   color: transparent;
+  cursor: pointer;
 }
 
-button:hover {
+#add-recipe:hover {
   filter: brightness(90%);
+}
+
+#add-recipe:active {
+  filter: brightness(110%);
 }
 
 #add-recipe::before {
@@ -130,7 +137,6 @@ button:hover {
 
   #cookbook-add-button {
     max-width: 1100px;
-    padding: 2vw;
   }
 
   .button-name {
@@ -155,10 +161,6 @@ button:hover {
     margin-left: -11px;
     margin-top: -8px;
     border-left: 4px solid #e5383b;
-  }
-
-  #add-recipe:hover {
-    cursor: pointer;
   }
 }
 
@@ -203,31 +205,30 @@ button:hover {
 
   #cookbook-add-button {
     max-width: 600px;
-    padding: 2vw;
   }
 
   .button-name {
-    font-size: 5vw;
+    font-size: 3vh;
   }
 
   #add-recipe {
-    width: 60px;
-    height: 60px;
-    border: 8px solid #e5383b;
+    width: 40px;
+    height: 40px;
+    border: 6px solid #e5383b;
   }
 
   #add-recipe::before {
-    width: 30px;
-    margin-left: -15px;
+    width: 20px;
+    margin-left: -10px;
     margin-top: -4px;
-    border-top: 8px solid #e5383b;
+    border-top: 6px solid #e5383b;
   }
 
   #add-recipe::after {
-    height: 30px;
-    margin-left: -18px;
-    margin-top: -14px;
-    border-left: 8px solid #e5383b;
+    height: 20px;
+    margin-left: -13px;
+    margin-top: -10px;
+    border-left: 6px solid #e5383b;
   }
 
   h2 {
