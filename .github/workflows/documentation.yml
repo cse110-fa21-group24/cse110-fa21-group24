@@ -13,6 +13,7 @@ jobs:
       - name: Checkout GitHub repository
         uses: actions/checkout@v2
         with:
+          fetch-depth: 0
           ref: main
 
       - name: Use Node.js
@@ -22,16 +23,18 @@ jobs:
 
       - name: Install JSDoc
         run: npm install --save-dev jsdoc
-      - name: Generate documentation with JSDoc
-        run: npm run create-docs
-
-      - name: Commit new documentation to main
+      - name: Get latest changes from main and perform setup
         run: |
           git config user.name "Impasta Rosta Documentation"
           git config user.email "impastarosta@gmail.com"
           git pull origin main
           git remote update origin --prune
+
+      - name: Generate documentation with JSDoc
+        run: |
           git checkout documentation
+          git merge main
+          npm run create-docs
           git add docs/
           git commit -m "generated documentation"
           git push origin HEAD:documentation
