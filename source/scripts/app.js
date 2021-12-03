@@ -173,7 +173,7 @@ function bindExploreSearchBar() {
   //Get references to search bar on explore
   let explorePage = document.querySelector("explore-page");
   let shadow = explorePage.shadowRoot;
-  let searchButton = shadow.getElementById("physical-search-button");
+  let searchButton = shadow.getElementById("search-button");
 
   //Get references to filter checkboxes
   let input = shadow.getElementById("search-bar");
@@ -191,86 +191,84 @@ function bindExploreSearchBar() {
    */
 
   //Attaches KeyUp bind for the enter key
-  input.addEventListener("keyup", async (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
+  input.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
       searchButton.click();
     }
   });
 
-  searchButton.addEventListener("click", async (e) => {
+  searchButton.addEventListener("click", async () => {
+    if (
+      //If there are queries (checkbox or text)
+      input.value !== NO_INPUT ||
+      vegan.checked ||
+      glutenFree.checked ||
+      vegetarian.checked ||
+      italian.checked ||
+      mexican.checked ||
+      american.checked ||
+      tenMin.checked ||
+      twentyMin.checked ||
+      thirtyMin.checked
+    ) {
       if (
-        //If there are queries (checkbox or text)
-        input.value !== NO_INPUT ||
-        vegan.checked ||
-        glutenFree.checked ||
-        vegetarian.checked ||
-        italian.checked ||
-        mexican.checked ||
-        american.checked ||
-        tenMin.checked ||
-        twentyMin.checked ||
-        thirtyMin.checked
+        //Toggle off explore type
+        shadow
+          .getElementById("explore-top-level")
+          .classList.contains("type-explore")
       ) {
-        if (
-          //Toggle off explore type
-          shadow
-            .getElementById("explore-top-level")
-            .classList.contains("type-explore")
-        ) {
-          toggleExplorePageType();
-        }
-        //Create query object for parameter to API call
-        let queryObj = {};
-        queryObj.query = input.value; //Set query value to text
-        queryObj.diet = NO_INPUT;
-        queryObj.cuisine = NO_INPUT;
-        queryObj.maxReadyTime = DEFAULT_READY_TIME;
-        //Add checkboxes to diet
-        if (vegan.checked) {
-          queryObj.diet += "vegan ";
-        }
-        if (glutenFree.checked) {
-          queryObj.diet += "gluten free ";
-        }
-        if (vegetarian.checked) {
-          queryObj.diet += "vegetarian ";
-        }
-        if (italian.checked) {
-          queryObj.cuisine += "Italian ";
-        }
-        if (mexican.checked) {
-          queryObj.cuisine += "Mexican ";
-        }
-        if (american.checked) {
-          queryObj.cuisine += "American ";
-        }
-        if (tenMin.checked) {
-          queryObj.maxReadyTime = parseInt(tenMin.value);
-        }
-        if (twentyMin.checked) {
-          queryObj.maxReadyTime = parseInt(twentyMin.value);
-        }
-        if (thirtyMin.checked) {
-          queryObj.maxReadyTime = parseInt(thirtyMin.value);
-        }
-
-        await populateExplorePage(queryObj); //API call with queries
-      } else {
-        //Otherwise, if there are no queries,
-        if (
-          //Toggle the explore type
-          !shadow
-            .getElementById("explore-top-level")
-            .classList.contains("type-explore")
-        ) {
-          toggleExplorePageType();
-        }
-        await populateExplorePage(); //Call API with random recipes
+        toggleExplorePageType();
       }
-    
+      //Create query object for parameter to API call
+      let queryObj = {};
+      queryObj.query = input.value; //Set query value to text
+      queryObj.diet = NO_INPUT;
+      queryObj.cuisine = NO_INPUT;
+      queryObj.maxReadyTime = DEFAULT_READY_TIME;
+      //Add checkboxes to diet
+      if (vegan.checked) {
+        queryObj.diet += "vegan ";
+      }
+      if (glutenFree.checked) {
+        queryObj.diet += "gluten free ";
+      }
+      if (vegetarian.checked) {
+        queryObj.diet += "vegetarian ";
+      }
+      if (italian.checked) {
+        queryObj.cuisine += "Italian ";
+      }
+      if (mexican.checked) {
+        queryObj.cuisine += "Mexican ";
+      }
+      if (american.checked) {
+        queryObj.cuisine += "American ";
+      }
+      if (tenMin.checked) {
+        queryObj.maxReadyTime = parseInt(tenMin.value);
+      }
+      if (twentyMin.checked) {
+        queryObj.maxReadyTime = parseInt(twentyMin.value);
+      }
+      if (thirtyMin.checked) {
+        queryObj.maxReadyTime = parseInt(thirtyMin.value);
+      }
+
+      await populateExplorePage(queryObj); //API call with queries
+    } else {
+      //Otherwise, if there are no queries,
+      if (
+        //Toggle the explore type
+        !shadow
+          .getElementById("explore-top-level")
+          .classList.contains("type-explore")
+      ) {
+        toggleExplorePageType();
+      }
+      await populateExplorePage(); //Call API with random recipes
+    }
   });
-  
 }
 
 /**
