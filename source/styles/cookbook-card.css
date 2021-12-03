@@ -83,7 +83,7 @@ article {
 
 @media (orientation: portrait) {
   .edit-remove-container {
-    column-gap: 70%;
+    column-gap: 64%;
   }
 
   #edit {
