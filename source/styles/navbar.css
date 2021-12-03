@@ -79,7 +79,8 @@
 @media (orientation: portrait) {
   #navbar {
     background: #e5383b;
-    bottom: 0;
+    position: sticky;
+    top: 0;
     width: 100%;
     display: flex;
     flex-flow: row nowrap;

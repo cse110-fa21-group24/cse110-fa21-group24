@@ -2,13 +2,34 @@
   display: none;
 }
 
+#recipe-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#back-button {
+  background-color: #ba181b;
+  border: none;
+  text-align: center;
+  font-size: 2.5vw;
+  cursor: pointer;
+  height: 6vh;
+  width: 10vw;
+  border-radius: 4vh;
+  color: white;
+}
+
+#back-button:hover {
+  filter: brightness(75%);
+}
+
 @media (orientation: landscape) {
   #recipe-container {
     padding: 6vw 3vw;
   }
 
   /* Recipe Header */
-
   #recipe-header {
     display: flex;
     flex-flow: column nowrap;
@@ -20,6 +41,13 @@
     font-size: 3vw;
     margin-block-start: 1vh;
     margin-block-end: 1vh;
+  }
+
+  #back-button {
+    height: 8vh;
+    width: 9vw;
+    font-size: 2vw;
+    border-radius: 2vh;
   }
 
   #recipe-author {
@@ -157,6 +185,11 @@
     font-size: 1.5vw;
   }
 
+  .ingredient-checkbox {
+    width: 2vw;
+    height: 3vh;
+  }
+
   /* Recipe Instructions */
 
   .instruction-item {
@@ -203,6 +236,18 @@
     font-size: 3vh;
     margin-block-start: 0.5vh;
     margin-block-end: 0.5vh;
+  }
+
+  #back-button-container {
+    padding-top: 1vh;
+    padding-right: 5vw;
+  }
+
+  #back-button {
+    height: 3vh;
+    width: 15vw;
+    border-radius: 1vh;
+    font-size: 3vw;
   }
 
   #recipe-author {
@@ -312,7 +357,7 @@
 
   #recipe-description {
     margin: 0;
-    font-size: 1.3vh;
+    font-size: max(1.3vh, 12px);
     line-height: 2vh;
   }
 
@@ -337,7 +382,13 @@
     margin-top: 0.8vh;
     margin-bottom: 0.8vh;
     list-style-type: square;
-    font-size: 1.3vh;
+    font-size: max(1.3vh, 12px);
+  }
+
+  .ingredient-checkbox {
+    width: max(2.5vw, 14px);
+    height: max(2vh, 14px);
+    margin-left: 1vw;
   }
 
   /* Recipe Instructions */
@@ -345,7 +396,7 @@
   .instruction-item {
     margin-top: 0.8vh;
     margin-bottom: 0.8vh;
-    font-size: 1.3vh;
+    font-size: max(1.3vh, 12px);
     line-height: 2vh;
   }
 
