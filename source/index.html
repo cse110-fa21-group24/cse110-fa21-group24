@@ -239,7 +239,11 @@
         </section>
         <!-- Display with search bar, food options -->
         <section id="display-section">
-          <input id="search-bar" type="text" placeholder="Search Recipes" />
+          <section id="explore-search-section">
+            <input id="search-bar" type="text" placeholder="Search Recipes" />
+            <!-- Physical Button To Initiate Search-->
+            <button id="search-button">Search</button>
+          </section>
           <p id="explore-title-text">Explore Recipes</p>
           <p id="no-results-text">No Results Found</p>
           <section id="recipe-cards-section"></section>
@@ -424,11 +428,15 @@
       <div id="recipe-container">
         <!-- Recipe ID -->
         <div id="recipe-page-id">Add recipe ID here</div>
-
         <!-- Recipe Header -->
-        <div id="recipe-header">
-          <h1 id="recipe-title">Recipe Title</h1>
-          <p id="recipe-author">Recipe by: Author</p>
+        <div id="recipe-header-container">
+          <div id="recipe-header">
+            <h1 id="recipe-title">Recipe Title</h1>
+            <p id="recipe-author">Recipe by: Author</p>
+          </div>
+          <div id="back-button-container">
+            <button id="back-button">Back</button>
+          </div>
         </div>
 
         <!-- Recipe Subheader -->
@@ -494,19 +502,22 @@
         <div class="title-container">
           <h1 class="title">Title of Cookbooks</h1>
         </div>
-        <section class="recipes">
+        <div id="cookbook-header-contrainer">
           <h2 class="recipe-header">My Recipes</h2>
-          <div class="recipe-container">
-            <!-- add recipe cards -->
+          <div id="cookbook-back-button-container">
+            <button id="cookbook-back-button">Back</button>
           </div>
-        </section>
+        </div>
+
+        <div class="recipe-container">
+          <!-- add recipe cards -->
+        </div>
+
         <!-- add button -->
-        <section class="button">
-          <div class="add-button">
-            <button id="add-recipe"></button>
-            <span class="button-name">Add New Recipes</span>
-          </div>
-        </section>
+        <div id="cookbook-add-button">
+          <button id="add-recipe"></button>
+          <span class="button-name">Add New Recipes</span>
+        </div>
       </main>
     </template>
   </body>

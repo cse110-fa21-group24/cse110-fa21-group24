@@ -14,6 +14,20 @@ h2 {
   box-sizing: border-box;
 }
 
+#cookbook-header-contrainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#cookbook-back-button {
+  background-color: #e5383b;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+}
+
 .title {
   display: flex;
   font-weight: 800;
@@ -38,29 +52,34 @@ h2 {
   line-height: 32px;
 }
 
-.add-button {
+#cookbook-add-button {
   display: flex;
   width: 100%;
   margin: 0 auto;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  bottom: 3vh;
+  position: sticky;
 }
 
-button {
+#add-recipe {
   display: flex;
   border-radius: 50%;
   filter: brightness(115%);
   color: transparent;
+  cursor: pointer;
 }
 
-@media (hover: hover) {
-  button:hover {
-    filter: brightness(90%);
-  }
+#add-recipe:hover {
+  filter: brightness(90%);
 }
 
-button::before {
+#add-recipe:active {
+  filter: brightness(110%);
+}
+
+#add-recipe::before {
   border-radius: 8px;
   content: "";
   position: relative;
@@ -68,7 +87,7 @@ button::before {
   top: 50%;
 }
 
-button::after {
+#add-recipe::after {
   border-radius: 8px;
   content: "";
   position: relative;
@@ -91,6 +110,17 @@ button::after {
     margin: 0;
   }
 
+  #cookbook-back-button-container {
+    padding-right: 3vw;
+  }
+
+  #cookbook-back-button {
+    height: 8vh;
+    width: 9vw;
+    font-size: 2vw;
+    border-radius: 2vh;
+  }
+
   .recipe-container {
     column-gap: 2vw;
     width: 100%;
@@ -105,37 +135,32 @@ button::after {
     border-radius: 10%;
   }
 
-  .add-button {
+  #cookbook-add-button {
     max-width: 1100px;
-    padding: 2vw;
   }
 
   .button-name {
     font-size: 2vw;
   }
 
-  button {
+  #add-recipe {
     width: 44px;
     height: 44px;
     border: 4px solid #e5383b;
   }
 
-  button::before {
+  #add-recipe::before {
     width: 18px;
     margin-left: -9px;
     margin-top: -1px;
     border-top: 4px solid #e5383b;
   }
 
-  button::after {
+  #add-recipe::after {
     height: 18px;
     margin-left: -11px;
     margin-top: -8px;
     border-left: 4px solid #e5383b;
-  }
-
-  button:hover {
-    cursor: pointer;
   }
 }
 
@@ -152,6 +177,18 @@ button::after {
     padding-top: 3vw;
   }
 
+  #cookbook-back-button-container {
+    padding-top: 1.5vh;
+    padding-right: 5vw;
+  }
+
+  #cookbook-back-button {
+    height: 4vh;
+    width: 18vw;
+    font-size: 3.5vw;
+    border-radius: 1vh;
+  }
+
   .recipe-container {
     width: 100%;
     flex-direction: column;
@@ -166,33 +203,32 @@ button::after {
     border-radius: 30px;
   }
 
-  .add-button {
+  #cookbook-add-button {
     max-width: 600px;
-    padding: 2vw;
   }
 
   .button-name {
-    font-size: 5vw;
+    font-size: 3vh;
   }
 
-  button {
-    width: 60px;
-    height: 60px;
-    border: 8px solid #e5383b;
+  #add-recipe {
+    width: 40px;
+    height: 40px;
+    border: 6px solid #e5383b;
   }
 
-  button::before {
-    width: 30px;
-    margin-left: -15px;
+  #add-recipe::before {
+    width: 20px;
+    margin-left: -10px;
     margin-top: -4px;
-    border-top: 8px solid #e5383b;
+    border-top: 6px solid #e5383b;
   }
 
-  button::after {
-    height: 30px;
-    margin-left: -18px;
-    margin-top: -14px;
-    border-left: 8px solid #e5383b;
+  #add-recipe::after {
+    height: 20px;
+    margin-left: -13px;
+    margin-top: -10px;
+    border-left: 6px solid #e5383b;
   }
 
   h2 {
