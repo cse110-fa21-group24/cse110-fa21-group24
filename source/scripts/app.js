@@ -9,10 +9,44 @@ const DEFAULT_READY_TIME = 300;
 let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
 
-const router = new Router("home-page");
+const router = new Router("home-page", "home-page");
 const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
 
+/**
+ * Attaches "click" event listeners to the back button on the recipe page
+ * that return to the previous page when clicked.
+ */
+function connectRecipeBackButton() {
+  "use strict";
+  //Get references to buttons in shadowRoot
+  let recipePage = document.querySelector("recipe-page");
+  let recipeShadow = recipePage.shadowRoot;
+  let backButtonRecipe = recipeShadow.getElementById("back-button");
+
+  backButtonRecipe.addEventListener("click", () => {
+    let prevPage = router.prevPage;
+    router.navigate(prevPage);
+  });
+}
+
+/**
+ * Attaches "click" event listeners to the back button on the singleCookbook
+ * page that navigate to the my cookbooks page when clicked.
+ */
+function connectCookbookBackButton() {
+  "use strict";
+  //Get references to buttons in shadowRoot
+  let singleCookbookPage = document.querySelector("single-cookbook");
+  let cookBookShadow = singleCookbookPage.shadowRoot;
+  let backButtonCookbook = cookBookShadow.getElementById(
+    "cookbook-back-button"
+  );
+
+  backButtonCookbook.addEventListener("click", () => {
+    router.navigate("cook-book");
+  });
+}
 /**
  * Creates a recipe card element
  * @returns A recipe card element
@@ -1165,6 +1199,8 @@ async function init() {
   bindSelectCookbookButtons();
 
   populateCookbooksPage();
+  connectRecipeBackButton();
+  connectCookbookBackButton();
 
   initializeDefaultCookbook();
 }
