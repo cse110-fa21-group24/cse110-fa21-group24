@@ -25,7 +25,8 @@ function connectRecipeBackButton() {
   let backButtonRecipe = recipeShadow.getElementById("back-button");
 
   backButtonRecipe.addEventListener("click", () => {
-    router.return();
+    let prevPage = router.prevPage;
+    router.navigate(prevPage);
   });
 }
 
