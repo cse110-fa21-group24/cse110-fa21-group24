@@ -21,12 +21,11 @@ h2 {
 }
 
 #cookbook-back-button {
-  background-color: #e7e7e7;
+  background-color: #e5383b;
   border: none;
   text-align: center;
   cursor: pointer;
-  font-weight: 600;
-  color: #ff5356;
+  color: white;
 }
 
 .title {

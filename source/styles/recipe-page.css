@@ -9,16 +9,15 @@
 }
 
 #back-button {
-  background-color: #e7e7e7;
+  background-color: #ba181b;
   border: none;
   text-align: center;
   font-size: 2.5vw;
   cursor: pointer;
   height: 6vh;
   width: 10vw;
-  border-radius: 2vh;
-  font-weight: 800;
-  color: #ff5356;
+  border-radius: 4vh;
+  color: white;
 }
 
 #back-button:hover {
