@@ -58,3 +58,5 @@ N/A
 # What should we change or improve
 
 - No comments, last sprint
+
+![Retrium Image](./meeting-artifacts/retrium-sprint-2.png)
