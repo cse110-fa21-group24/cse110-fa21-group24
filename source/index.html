@@ -367,43 +367,68 @@
     </template>
 
     <template id="recipe-form-template">
-      <div class="edit-recipe">Edit Recipe</div>
-      <div class="title">Title:</div>
-      <div class="title-box">
-        <input />
-      </div>
-      <div class="description">Description:</div>
-      <div class="description-box">
-        <input />
-      </div>
-      <div class="ingredients">Ingredients:</div>
-      <div class="ingredients-box">
-        <input />
-      </div>
-      <img class="recycle-bin-ingredients" src="images/recycle-bin-4@2x.png" />
+      <h1>Edit Recipe</h1>
 
-      <div class="add-ingredient-button">
-        <div class="add-ingredient-text valign-text-middle">
-          + Add Ingredient
+      <div class="title-box">
+        <p class="title">Title:</p>
+        <input type="text" class="title-input" />
+      </div>
+
+      <div class="description-box">
+        <p class="description">Description:</p>
+        <textarea class="description-input" rows="10" cols="30"> </textarea>
+      </div>
+
+      <div class="ingredients-box">
+        <p class="ingredients">Ingredients:</p>
+        <div class="ingredient-1">
+          <label for="1">1. </label>
+          <input type="text" class="ingredient-input" id="1" />
+          <input
+            type="image"
+            class="recycle-bin"
+            src="images/recycle-bin-4@2x.png"
+          />
+        </div>
+
+        <div class="add-ingredient-button">
+          <button class="add-ingredient-text">+ Add Ingredient</button>
         </div>
       </div>
 
-      <div class="instructions">Instructions: 1.</div>
       <div class="instructions-box">
-        <input />
-      </div>
+        <p class="instructions">Instructions:</p>
+        <div class="instruction-1">
+          <label for="input-instr-1">1. </label>
+          <input type="text" class="instruction-input" id="input-instr-1" />
+          <input
+            type="image"
+            class="recycle-bin"
+            src="images/recycle-bin-4@2x.png"
+          />
+        </div>
 
-      <img class="recycle-bin-instructions" src="images/recycle-bin-4@2x.png" />
+        <!-- <div class="instruction-2">
+          <label for="input-instr-2">2. </label>
+          <input type="text" class="instruction-input" id="input-instr-2" />
+          <input
+            type="image"
+            class="recycle-bin"
+            src="images/recycle-bin-4@2x.png"
+          />
+        </div> -->
 
-      <div class="add-instruction-button">
-        <div class="add-instruction-text valign-text-middle">
-          + Add Instruction
+        <div class="add-instruction-button">
+          <button class="add-instruction-text">+ Add Instruction</button>
         </div>
       </div>
 
       <div class="save-button">
-        <div class="save-text valign-text-middle">Save changes</div>
+        <button class="save-text">Save</button>
       </div>
+      <br />
+      <br />
+      <br />
     </template>
 
     <template id="recipe-page-template">
