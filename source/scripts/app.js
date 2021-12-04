@@ -687,7 +687,12 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
     let ingredientCheckbox = document.createElement("input");
     ingredientCheckbox.type = "checkbox";
     ingredientCheckbox.classList.add("ingredient-checkbox");
-    ingredientLabel.textContent = recipeObj.ingredients[i];
+    ingredientLabel.textContent =
+      recipeObj.ingredients[i].amount +
+      " " +
+      recipeObj.ingredients[i].unit +
+      " " +
+      recipeObj.ingredients[i].name;
 
     item.appendChild(ingredientCheckbox);
     item.appendChild(ingredientLabel);
