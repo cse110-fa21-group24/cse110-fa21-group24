@@ -72,7 +72,7 @@ function toggleExplorePageType() {
   if (topLevel.classList.contains("type-explore")) {
     loadButton.textContent = "Explore More";
   } else {
-    loadButton.textContent = "Explore Recipes";
+    loadButton.textContent = "Load More";
   }
 }
 
@@ -85,17 +85,29 @@ async function populateExplorePage(filtersObj) {
   "use strict";
   let shadow = document.querySelector("explore-page").shadowRoot;
   let topLevel = shadow.getElementById("explore-top-level");
+  const recipeCardsSection = shadow.getElementById(
+    "recipe-cards-section"
+  );
+  shadow.getElementById("no-results-text").classList.add("make-invisible");
+  let recipeCards = shadow.getElementById("recipe-cards-section").children;
+  let curr = recipeCards.length;
+
 
   let recipes = {};
   if (topLevel.classList.contains("type-explore")) {
     recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
   } else {
     recipes = await spoonacular.getRecipes(filtersObj);
-  }
-  shadow.getElementById("no-results-text").classList.add("make-invisible");
-  let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
-  for (let i = 0; i < recipes.length; ++i) {
+    //add cards for next loads
+    for (let i = 0; i < recipes.length - EXPLORE_PAGE_NUM_RESULTS; ++i) {
+      const recipeCard = createRecipeCard();
+      recipeCardsSection.append(recipeCard);
+    }
+  }
+
+  //load recipes
+  for (let i = 0; i < recipeCards.length; ++i) {
     if (recipeCards[i]) {
       recipeCards[i].classList.remove("make-invisible");
       let cardShadow = recipeCards[i].shadowRoot;
