@@ -1073,16 +1073,6 @@ async function initializeDefaultCookbook() {
 }
 
 /**
- * Adds event listener to the edit button in cookbook cards so that
- * the recipe-form page has contents filled up properly.
- * @function
- */
-async function fillEditForm() {
-  // Get edit button from each cookbook card
-  let cookbooks = await indexedDb.getAllCookbooks();
-}
-
-/**
  * Adds event listeners to the "Add Ingredient", "Add Instruction"
  * and the recycle bin buttons. Upon clicking the button, adds
  * another input text box with its respective number.
@@ -1093,10 +1083,6 @@ async function editFormAddAndRemoveButtons() {
   let shadow = templatePage.shadowRoot;
   let ingredientButton = shadow.querySelector(".add-ingredient-button");
   let instructionButton = shadow.querySelector(".add-instruction-button");
-
-  let recIngrBtn = shadow.querySelector(".recycle-bin-ingredients");
-  console.log(recIngrBtn);
-  let recInstrBtn = shadow.querySelector(".recycle-bin-instructions");
 
   // Used to keep track of how many inputs there are on the page.
   let ingredientCount = 1;
@@ -1171,6 +1157,8 @@ async function editFormAddAndRemoveButtons() {
     lastChild.parentNode.insertBefore(div, lastChild);
   });
 
+  // Add an event listener and check if the object clicked
+  // is a recycle bin.
   shadow.addEventListener("click", function (e) {
     if (e.target.id == "recycle-ingredient") {
       let className = ".ingredient-" + ingredientCount;
