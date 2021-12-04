@@ -41,8 +41,8 @@ const MOCK_RECIPE_INFO = {
   image: "images/pasta.jpg",
   summary: "description",
   extendedIngredients: [
-    { original: "ingredient-0" },
-    { original: "ingredient-1" },
+    { amount: 1, unit: "cup", name: "ingredient-0" },
+    { amount: 3, unit: "cup", name: "ingredient-1" },
   ],
   analyzedInstructions: [
     { steps: [{ step: "instruction-1" }, { step: "instruction-2" }] },
@@ -50,7 +50,7 @@ const MOCK_RECIPE_INFO = {
 };
 
 // Change this variable to true to make real API calls to Spoonacular
-let SPOONACULAR_ENABLED = true;
+let SPOONACULAR_ENABLED = false;
 
 /**
  * @classdesc An interface for fetching recipes and recipe information using
