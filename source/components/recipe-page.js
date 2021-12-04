@@ -3,7 +3,7 @@
  *            displaying detailed info about an open recipe
  *
  */
-class RecipePage extends HTMLElement {
+export class RecipePage extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -34,41 +34,6 @@ class RecipePage extends HTMLElement {
 
   get recipe() {
     return this.internalRecipe;
-  }
-
-  /**
-   * Scale the ingredient amounts on the recipe page by a specified factor
-   * @param {number} scaleFactor The factor to multiply the original ingredient
-   *                             amounts by
-   */
-  scaleIngredientAmounts(scaleFactor) {
-    let shadow = this.shadowRoot;
-    let originalIngredients = this.recipe.ingredients;
-
-    let ingredientsLeft = shadow.getElementById(
-      "recipe-ingredients-section-left"
-    ).children;
-    let ingredientsRight = shadow.getElementById(
-      "recipe-ingredients-section-right"
-    ).children;
-
-    for (let i = 0; i < originalIngredients.length; ++i) {
-      let ingredientElement = null;
-      let scaledAmount = originalIngredients[i].amount * scaleFactor;
-
-      if (i % 2 === 0) {
-        ingredientElement = ingredientsLeft[i / 2];
-      } else {
-        ingredientElement = ingredientsRight[(i - 1) / 2];
-      }
-
-      ingredientElement.querySelector("label").textContent =
-        scaledAmount +
-        " " +
-        originalIngredients[i].unit +
-        " " +
-        originalIngredients[i].name;
-    }
   }
 
   /**
@@ -181,6 +146,41 @@ class RecipePage extends HTMLElement {
       instruction.classList.add("instruction-item");
       instruction.textContent = recipeObj.instructions[i];
       instructionsList.append(instruction);
+    }
+  }
+
+  /**
+   * Scale the ingredient amounts on the recipe page by a specified factor
+   * @param {number} scaleFactor The factor to multiply the original ingredient
+   *                             amounts by
+   */
+  scaleIngredientAmounts(scaleFactor) {
+    let shadow = this.shadowRoot;
+    let originalIngredients = this.recipe.ingredients;
+
+    let ingredientsLeft = shadow.getElementById(
+      "recipe-ingredients-section-left"
+    ).children;
+    let ingredientsRight = shadow.getElementById(
+      "recipe-ingredients-section-right"
+    ).children;
+
+    for (let i = 0; i < originalIngredients.length; ++i) {
+      let ingredientElement = null;
+      let scaledAmount = originalIngredients[i].amount * scaleFactor;
+
+      if (i % 2 === 0) {
+        ingredientElement = ingredientsLeft[i / 2];
+      } else {
+        ingredientElement = ingredientsRight[(i - 1) / 2];
+      }
+
+      ingredientElement.querySelector("label").textContent =
+        scaledAmount +
+        " " +
+        originalIngredients[i].unit +
+        " " +
+        originalIngredients[i].name;
     }
   }
 }
