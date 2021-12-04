@@ -10,7 +10,7 @@ let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
 
 const router = new Router("home-page");
-//const spoonacular = new SpoonacularInterface();
+const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
 
 /**
@@ -1083,6 +1083,111 @@ async function fillEditForm() {
 }
 
 /**
+ * Adds event listeners to the "Add Ingredient", "Add Instruction"
+ * and the recycle bin buttons. Upon clicking the button, adds
+ * another input text box with its respective number.
+ * @function
+ */
+async function editFormAddAndRemoveButtons() {
+  let templatePage = document.querySelector("recipe-form");
+  let shadow = templatePage.shadowRoot;
+  let ingredientButton = shadow.querySelector(".add-ingredient-button");
+  let instructionButton = shadow.querySelector(".add-instruction-button");
+
+  let recIngrBtn = shadow.querySelector(".recycle-bin-ingredients");
+  console.log(recIngrBtn);
+  let recInstrBtn = shadow.querySelector(".recycle-bin-instructions");
+
+  // Used to keep track of how many inputs there are on the page.
+  let ingredientCount = 1;
+  ingredientButton.addEventListener("click", () => {
+    ingredientCount++;
+
+    // Create div that contains the elements
+    let div = document.createElement("div");
+    let divClassName = "ingredient-" + ingredientCount;
+    div.classList.add(divClassName);
+
+    // Build label element up and add it to div
+    let label = document.createElement("label");
+    label.setAttribute("for", ingredientCount);
+    label.innerHTML = ingredientCount + ". ";
+    div.appendChild(label);
+
+    // Build input element up and add it to div
+    let input = document.createElement("input");
+    input.type = "text";
+    let inputClassName = "ingredient-input-" + ingredientCount;
+    input.classList.add(inputClassName);
+    input.id = "ingredientCount";
+    div.appendChild(input);
+
+    // Add the recycle bin
+    let recycleBin = document.createElement("input");
+    recycleBin.type = "image";
+    recycleBin.classList.add("recycle-bin-ingredients");
+    recycleBin.src = "images/recycle-bin-4@2x.png";
+    recycleBin.id = "recycle-ingredient";
+    div.appendChild(recycleBin);
+
+    // Add everything after the last ingredient on page
+    let lastChild = shadow.querySelector(".add-ingredient-box");
+    lastChild.parentNode.insertBefore(div, lastChild);
+  });
+
+  let instructionCount = 1;
+  instructionButton.addEventListener("click", () => {
+    instructionCount++;
+
+    // Create div that contains the elements
+    let div = document.createElement("div");
+    let divClassName = "instruction-" + instructionCount;
+    div.classList.add(divClassName);
+
+    // Build label element up and add it to div
+    let label = document.createElement("label");
+    label.setAttribute("for", instructionCount);
+    label.innerHTML = instructionCount + ". ";
+    div.appendChild(label);
+
+    // Build input element up and add it to div
+    let input = document.createElement("input");
+    input.type = "text";
+    let inputClassName = "instruction-input-" + instructionCount;
+    input.classList.add(inputClassName);
+    input.id = "instructionCount";
+    div.appendChild(input);
+
+    // Add the recycle bin
+    let recycleBin = document.createElement("input");
+    recycleBin.type = "image";
+    recycleBin.classList.add("recycle-bin-instructions");
+    recycleBin.src = "images/recycle-bin-4@2x.png";
+    recycleBin.id = "recycle-instruction";
+    div.appendChild(recycleBin);
+
+    // Add everything after the last instruction on page
+    let lastChild = shadow.querySelector(".add-instruction-box");
+    lastChild.parentNode.insertBefore(div, lastChild);
+  });
+
+  shadow.addEventListener("click", function (e) {
+    if (e.target.id == "recycle-ingredient") {
+      let className = ".ingredient-" + ingredientCount;
+      let divToRemove = shadow.querySelector(className);
+      divToRemove.remove();
+      ingredientCount--;
+    }
+    if (e.target.id == "recycle-instruction") {
+      let className = ".instruction-" + instructionCount;
+      let divToRemove = shadow.querySelector(className);
+      divToRemove.remove();
+      instructionCount--;
+    }
+  });
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function init
  */
@@ -1130,6 +1235,8 @@ async function init() {
   populateCookbooksPage();
 
   initializeDefaultCookbook();
+
+  editFormAddAndRemoveButtons();
 }
 
 window.addEventListener("DOMContentLoaded", init);

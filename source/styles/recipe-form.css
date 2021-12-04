@@ -50,11 +50,12 @@ button:hover {
   cursor: pointer;
 }
 
-.add-instruction-button {
+.add-instruction-box {
   padding: 10px;
 }
 
-.recycle-bin {
+.recycle-bin-ingredients,
+.recycle-bin-instructions {
   height: 25px;
   width: 25px;
   box-shadow: none;
