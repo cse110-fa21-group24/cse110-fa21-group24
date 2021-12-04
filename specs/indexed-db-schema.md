@@ -36,4 +36,4 @@ OBJ_STORE: `"cookbook-obj-store"`
 
 - The `key` of a `recipe-obj` is a unique number
 - When adding new recipes to a cookbook, generate a new `key` by randomizing between `0` and the biggest safe integer until a new unique key is found
-- The ingredients array holds objects which contains the name of the recipe, the unit that ingredient should be measured in, and the amount of that unit to be used in the recipe where the amount is a Number
+- The ingredients array holds objects which contains the name of the ingredient, the unit that ingredient should be measured in, and the amount of that unit to be used in the recipe where the amount is a Number
