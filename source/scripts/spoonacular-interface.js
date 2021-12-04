@@ -1,4 +1,4 @@
-const SPOONACULAR_API_KEY = "83c84ad2b0e4486f93cfbe9658d21c66";
+const SPOONACULAR_API_KEY = "b1dfe789b60940b38f1768ccf739ffcf";
 const MOCK_RECIPES_ARRAY = {
   results: [
     {
@@ -135,7 +135,11 @@ export class SpoonacularInterface {
     let ingredients = [];
 
     for (let i = 0; i < recipe.extendedIngredients.length; ++i) {
-      ingredients.push(recipe.extendedIngredients[i].original);
+      let ingredientObj = {};
+      ingredientObj.amount = recipe.extendedIngredients[i].amount;
+      ingredientObj.unit = recipe.extendedIngredients[i].unit;
+      ingredientObj.name = recipe.extendedIngredients[i].name;
+      ingredients.push(ingredientObj);
     }
 
     let instructions = [];
