@@ -20,6 +20,13 @@
   filter: brightness(75%);
 }
 
+#increase-scale,
+#decrease-scale {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 @media (orientation: landscape) {
   #recipe-container {
     padding: 6vw 3vw;

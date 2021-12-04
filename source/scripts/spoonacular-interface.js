@@ -50,7 +50,7 @@ const MOCK_RECIPE_INFO = {
 };
 
 // Change this variable to true to make real API calls to Spoonacular
-let SPOONACULAR_ENABLED = true;
+let SPOONACULAR_ENABLED = false;
 
 /**
  * @classdesc An interface for fetching recipes and recipe information using
