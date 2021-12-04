@@ -1052,6 +1052,12 @@ async function initializeDefaultCookbook() {
   }
 }
 
+/**
+ * Binds the scaling buttons on the recipe page by the ingredients. Allows users
+ * to scale the serving size for their recipes.
+ *
+ * @function bindScaling
+ */
 function bindScaling() {
   "use strict";
 
