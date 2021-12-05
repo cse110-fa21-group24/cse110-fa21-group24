@@ -793,9 +793,6 @@ async function populateSingleCookbook(cookbook) {
  * Attaches event listeners to the buttons within a recipe card in the single cookbook view
  * @function bindCookbookRecipeCardButtons
  * @param {object} card The recipe card element
- * @param {object} recipe The recipe object
- * @param {object} recipeKey The key of the recipe object within the cookbook
- * @param {object} cookbook The cookbook object
  */
 function bindCookbookRecipeCardButtons(card) {
   "use strict";
@@ -807,14 +804,15 @@ function bindCookbookRecipeCardButtons(card) {
 
   openButton.addEventListener("click", () => {
     let recipePage = document.querySelector("recipe-page");
-    recipePage.populateRecipePage(recipe, false);
+    recipePage.recipeKey = card.recipeKey;
+    recipePage.cookbookTitle = card.cookbookTitle;
+    recipePage.populateRecipePage(card.recipe, false);
     router.navigate("recipe-page");
   });
 
-  deleteButton.addEventListener("click", async () => {
-    // delete, then repopulate to clear it
-    await indexedDb.deleteRecipe(cookbook.title, recipeKey);
-    populateSingleCookbook(cookbook);
+  deleteButton.addEventListener("click", () => {
+    indexedDb.deleteRecipe(card.cookbookTitle, card.recipeKey);
+    card.remove();
   });
 }
 
