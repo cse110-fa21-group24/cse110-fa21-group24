@@ -76,9 +76,8 @@ async function populateExplorePage(filtersObj) {
   "use strict";
   let shadow = document.querySelector("explore-page").shadowRoot;
   let topLevel = shadow.getElementById("explore-top-level");
-  const recipeCardsSection = shadow.getElementById("recipe-cards-section");
   shadow.getElementById("no-results-text").classList.add("make-invisible");
-  let recipeCards = recipeCardsSection.children;
+  let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
   let recipes = {};
   if (topLevel.classList.contains("type-explore")) {
