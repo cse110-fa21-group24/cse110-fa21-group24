@@ -20,11 +20,23 @@
   filter: brightness(75%);
 }
 
+/* Scaling Buttons */
+
 #increase-scale,
 #decrease-scale {
   border: none;
   background: none;
   cursor: pointer;
+}
+
+#increase-scale:hover,
+#decrease-scale:hover {
+  background: #e0dad9;
+}
+
+#increase-scale:active,
+#decrease-scale:active {
+  background-color: #b1a7a6;
 }
 
 @media (orientation: landscape) {
