@@ -9,7 +9,7 @@
 #explore-top-level {
   display: flex; /* Row alignment */
   margin-top: 5%;
-  height: 80vh; /* Relative height */
+  height: max(auto, 80vh); /* Relative height */
 }
 
 #filter-section {
