@@ -199,12 +199,30 @@ function bindExploreSearchBar() {
 
   //Get references to filter checkboxes
   let input = shadow.getElementById("search-bar");
+
+  //References for diet
   let vegan = shadow.getElementById("vegan");
   let glutenFree = shadow.getElementById("gluten-free");
   let vegetarian = shadow.getElementById("vegetarian");
-  let italian = shadow.getElementById("italian");
-  let mexican = shadow.getElementById("mexican");
+  let ketogenic = shadow.getElementById("ketogenic");
+  let pescetarian = shadow.getElementById("pescetarian");
+  let paleo = shadow.getElementById("paleo");
+
+  //References for cuisine
+  let african = shadow.getElementById("african");
   let american = shadow.getElementById("american");
+  let british = shadow.getElementById("british");
+  let caribbean = shadow.getElementById("caribbean");
+  let chinese = shadow.getElementById("chinese");
+  let greek = shadow.getElementById("greek");
+  let indian = shadow.getElementById("indian");
+  let italian = shadow.getElementById("italian");
+  let japanese = shadow.getElementById("japanese");
+  let mexican = shadow.getElementById("mexican");
+  let thai = shadow.getElementById("thai");
+  let vietnamese = shadow.getElementById("vietnamese");
+
+  //References for time
   let tenMin = shadow.getElementById("ten-min");
   let twentyMin = shadow.getElementById("twenty-min");
   let thirtyMin = shadow.getElementById("thirty-min");
@@ -227,9 +245,21 @@ function bindExploreSearchBar() {
       vegan.checked ||
       glutenFree.checked ||
       vegetarian.checked ||
-      italian.checked ||
-      mexican.checked ||
+      ketogenic.checked ||
+      paleo.checked ||
+      pescetarian.checked ||
+      african.checked ||
       american.checked ||
+      british.checked ||
+      caribbean.checked ||
+      chinese.checked ||
+      greek.checked ||
+      indian.checked ||
+      italian.checked ||
+      japanese.checked ||
+      mexican.checked ||
+      thai.checked ||
+      vietnamese.checked ||
       tenMin.checked ||
       twentyMin.checked ||
       thirtyMin.checked
@@ -258,15 +288,55 @@ function bindExploreSearchBar() {
       if (vegetarian.checked) {
         queryObj.diet += "vegetarian ";
       }
-      if (italian.checked) {
-        queryObj.cuisine += "Italian ";
+      if (ketogenic.checked) {
+        queryObj.diet += "ketogenic ";
       }
-      if (mexican.checked) {
-        queryObj.cuisine += "Mexican ";
+      if (paleo.checked) {
+        queryObj.diet += "paleo ";
+      }
+      if (pescetarian.checked) {
+        queryObj.diet += "pescetarian";
+      }
+
+      // Add checkboxes to cuisine
+      if (african.checked) {
+        queryObj.cuisine += "African ";
       }
       if (american.checked) {
         queryObj.cuisine += "American ";
       }
+      if (british.checked) {
+        queryObj.cuisine += "British ";
+      }
+      if (caribbean.checked) {
+        queryObj.cuisine += "Caribbean ";
+      }
+      if (chinese.checked) {
+        queryObj.cuisine += "Chinese ";
+      }
+      if (greek.checked) {
+        queryObj.cuisine += "Greek ";
+      }
+      if (indian.checked) {
+        queryObj.cuisine += "Indian ";
+      }
+      if (italian.checked) {
+        queryObj.cuisine += "Italian ";
+      }
+      if (japanese.checked) {
+        queryObj.cuisine += "Japanese ";
+      }
+      if (mexican.checked) {
+        queryObj.cuisine += "Mexican ";
+      }
+      if (thai.checked) {
+        queryObj.cuisine += "Thai ";
+      }
+      if (vietnamese.checked) {
+        queryObj.cuisine += "Vietnamese ";
+      }
+
+      //Add checkboxes to time
       if (tenMin.checked) {
         queryObj.maxReadyTime = parseInt(tenMin.value);
       }
