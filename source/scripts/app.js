@@ -197,9 +197,10 @@ function bindExploreSearchBar() {
   let shadow = explorePage.shadowRoot;
   let searchButton = shadow.getElementById("search-button");
 
-  //Get references to filter checkboxes
   let input = shadow.getElementById("search-bar");
+  let applyFilters = shadow.getElementById("apply-filters");
 
+  //Get references to filter checkboxes
   //References for diet
   let vegan = shadow.getElementById("vegan");
   let glutenFree = shadow.getElementById("gluten-free");
@@ -240,6 +241,17 @@ function bindExploreSearchBar() {
       event.preventDefault();
       searchButton.click();
     }
+  });
+
+  ingredientInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchButton.click();
+    }
+  });
+
+  applyFilters.addEventListener("click", () => {
+    searchButton.click();
   });
 
   searchButton.addEventListener("click", async () => {

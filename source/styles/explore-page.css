@@ -105,6 +105,22 @@ label {
   background-position: 1vw;
 }
 
+#apply-filters {
+  border-radius: 50vh;
+  background-color: #d6d6d6;
+  cursor: pointer;
+  color: black;
+  margin: 3vh;
+}
+
+#apply-filters:hover {
+  background-color: #adadad;
+}
+
+#apply-filters:active {
+  background-color: #808080;
+}
+
 #search-button {
   padding: 0;
   width: 15%;
