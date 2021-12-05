@@ -550,7 +550,7 @@ function homeSearchFunction() {
       let searchQuery = { query: e.target.value };
 
       //clear search and route to explore
-      e.target.value = "";
+      e.target.value = NO_INPUT;
       router.navigate("explore-page");
 
       //display results of search
@@ -676,11 +676,11 @@ function bindCookbookCardButtons(card) {
     fillEditCookbook(card.cookbook.title, card.cookbook.description);
   });
 
-  removeButton.addEventListener("click", async () => {
-    // delete cookbook, then repopulate page
-    await indexedDb.deleteCookbook(card.cookbook.title);
-    populateCookbooksPage();
+  removeButton.addEventListener("click", (event) => {
+    let cookbookCard = event.currentTarget.getRootNode().host;
+    indexedDb.deleteCookbook(card.cookbook.title);
     populateSelectCookbookOptions();
+    cookbookCard.remove();
   });
 
   openButton.addEventListener("click", async () => {
@@ -718,7 +718,7 @@ async function populateSingleCookbook(cookbook) {
       card.recipeKey = key;
       card.cookbookTitle = cookbook.title;
       card.populateRecipeCard(recipe, false);
-      bindCookbookRecipeCardButtons(card, cookbook);
+      bindCookbookRecipeCardButtons(card);
 
       cardContainer.appendChild(card);
     }
@@ -729,9 +729,8 @@ async function populateSingleCookbook(cookbook) {
  * Attaches event listeners to the buttons within a recipe card in the single cookbook view
  * @function bindCookbookRecipeCardButtons
  * @param {object} card The recipe card element
- * @param {object} cookbook The cookbook object
  */
-function bindCookbookRecipeCardButtons(card, cookbook) {
+function bindCookbookRecipeCardButtons(card) {
   "use strict";
 
   // get button references
@@ -747,10 +746,9 @@ function bindCookbookRecipeCardButtons(card, cookbook) {
     router.navigate("recipe-page");
   });
 
-  deleteButton.addEventListener("click", async () => {
-    // delete, then repopulate to clear it
-    await indexedDb.deleteRecipe(card.cookbookTitle, card.recipeKey);
-    populateSingleCookbook(cookbook);
+  deleteButton.addEventListener("click", () => {
+    indexedDb.deleteRecipe(card.cookbookTitle, card.recipeKey);
+    card.remove();
   });
 }
 
@@ -930,7 +928,13 @@ function connectRecipeAction() {
       recipeForm.recipeKey = recipePage.recipeKey;
       recipeForm.cookbookTitle = recipePage.cookbookTitle;
       recipeForm.populateRecipeForm(recipePage.recipe);
-      router.navigate("recipe-form");
+
+      // We do not use router.navigate() here because doing so would cause the
+      // Back button on the recipe page to redirect to the edit recipe page if
+      // the edit recipe page was previously opened
+      recipePage.classList.add("hidden");
+      recipeForm.classList.remove("hidden");
+      document.querySelector("html").scrollTop = 0;
     } else {
       let notification = document.querySelector("notification-select-cookbook");
       notification.classList.toggle("hidden");
@@ -1043,109 +1047,66 @@ async function initializeDefaultCookbook() {
 }
 
 /**
- * Adds functionality to the Add Ingredients and Add Instructions buttons to
- * allow adding new ingredients or instructions. Adds functionality to the
- * recycle bin buttons to allow removing ingredients or instructions. And
- * finally, adds functionality to the Save Changes and Cancel buttons to either
- * save or discard recipe edits.
+ * Adds functionality to the Add Ingredients, Add Instructions, recycle bins,
+ * Save Changes, and Cancel buttons on the recipe edit page
  * @function bindRecipeFormButtons
  */
 async function bindRecipeFormButtons() {
   "use strict";
-  // let templatePage = document.querySelector("recipe-form");
-  // let shadow = templatePage.shadowRoot;
-  // let ingredientButton = shadow.querySelector("#add-ingredient-button");
-  // let instructionButton = shadow.querySelector("#add-instruction-button");
+  let recipeForm = document.querySelector("recipe-form");
+  let recipePage = document.querySelector("recipe-page");
+  let shadow = recipeForm.shadowRoot;
 
-  // // Used to keep track of how many inputs there are on the page.
-  // let ingredientCount = 1;
-  // ingredientButton.addEventListener("click", () => {
-  //   ingredientCount++;
+  // Bind Add Ingredient to create a new ingredient field
+  let addIngredient = shadow.getElementById("add-ingredient-button");
+  addIngredient.addEventListener("click", () => {
+    recipeForm.addIngredient(NO_INPUT, NO_INPUT, NO_INPUT);
+  });
 
-  //   // Create div that contains the elements
-  //   let div = document.createElement("div");
-  //   let divClassName = "ingredient-" + ingredientCount;
-  //   div.classList.add(divClassName);
+  // Bind Add Instruction to create a new instruction field
+  let addInstruction = shadow.getElementById("add-instruction-button");
+  addInstruction.addEventListener("click", () => {
+    recipeForm.addInstruction(NO_INPUT);
+  });
 
-  //   // Build label element up and add it to div
-  //   let label = document.createElement("label");
-  //   label.setAttribute("for", ingredientCount);
-  //   label.textContent = ingredientCount + ". ";
-  //   div.appendChild(label);
+  // Bind recycle bin buttons to delete a specific ingredient or instruction
+  shadow.addEventListener("click", (event) => {
+    if (event.target.classList.contains("ingredient-recycle-bin")) {
+      recipeForm.deleteIngredient(event.target);
+    } else if (event.target.classList.contains("instruction-recycle-bin")) {
+      recipeForm.deleteInstruction(event.target);
+    }
+  });
 
-  //   // Build input element up and add it to div
-  //   let input = document.createElement("input");
-  //   input.type = "text";
-  //   let inputClassName = "ingredient-input-" + ingredientCount;
-  //   input.classList.add(inputClassName);
-  //   input.id = "ingredientCount";
-  //   div.appendChild(input);
+  // Bind Save Changes button to update the recipe with the new changes
+  let saveChanges = shadow.getElementById("recipe-form-save-button");
+  saveChanges.addEventListener("click", () => {
+    let recipeObj = recipeForm.getEditedRecipe();
+    recipePage.populateRecipePage(recipeObj, false);
+    indexedDb.editRecipe(
+      recipeForm.cookbookTitle,
+      recipeForm.recipeKey,
+      recipeObj
+    );
 
-  //   // Add the recycle bin
-  //   let recycleBin = document.createElement("input");
-  //   recycleBin.type = "image";
-  //   recycleBin.classList.add("recycle-bin-ingredients");
-  //   recycleBin.src = "images/recycle-bin.png";
-  //   recycleBin.id = "recycle-ingredient";
-  //   div.appendChild(recycleBin);
+    // We do not use router.navigate() here because doing so would cause the
+    // Back button on the recipe page to redirect to the edit recipe page if
+    // the edit recipe page was previously opened
+    recipeForm.classList.add("hidden");
+    recipePage.classList.remove("hidden");
+    document.querySelector("html").scrollTop = 0;
+  });
 
-  //   // Add everything after the last ingredient on page
-  //   let lastChild = shadow.querySelector(".add-ingredient-box");
-  //   lastChild.parentNode.insertBefore(div, lastChild);
-  // });
-
-  // let instructionCount = 1;
-  // instructionButton.addEventListener("click", () => {
-  //   instructionCount++;
-
-  //   // Create div that contains the elements
-  //   let div = document.createElement("div");
-  //   let divClassName = "instruction-" + instructionCount;
-  //   div.classList.add(divClassName);
-
-  //   // Build label element up and add it to div
-  //   let label = document.createElement("label");
-  //   label.setAttribute("for", instructionCount);
-  //   label.textContent = instructionCount + ". ";
-  //   div.appendChild(label);
-
-  //   // Build input element up and add it to div
-  //   let input = document.createElement("input");
-  //   input.type = "text";
-  //   let inputClassName = "instruction-input-" + instructionCount;
-  //   input.classList.add(inputClassName);
-  //   input.id = "instructionCount";
-  //   div.appendChild(input);
-
-  //   // Add the recycle bin
-  //   let recycleBin = document.createElement("input");
-  //   recycleBin.type = "image";
-  //   recycleBin.classList.add("recycle-bin-instructions");
-  //   recycleBin.src = "images/recycle-bin.png";
-  //   recycleBin.id = "recycle-instruction";
-  //   div.appendChild(recycleBin);
-
-  //   // Add everything after the last instruction on page
-  //   let lastChild = shadow.querySelector(".add-instruction-box");
-  //   lastChild.parentNode.insertBefore(div, lastChild);
-  // });
-
-  // // Add an event listener and check if the object clicked
-  // // is a recycle bin.
-  // shadow.addEventListener("click", function (e) {
-  //   if (e.target.id === "recycle-ingredient") {
-  //     let className = ".ingredient-" + ingredientCount;
-  //     let divToRemove = shadow.querySelector(className);
-  //     divToRemove.remove();
-  //     ingredientCount--;
-  //   }
-  //   if (e.target.id === "recycle-instruction") {
-  //     let className = ".instruction-" + instructionCount;
-  //     let divToRemove = shadow.querySelector(className);
-  //     divToRemove.remove();
-  //     instructionCount--;
-  //   }
-  // });
+  // Bind Cancel button to go back to the recipe page
+  let cancel = shadow.getElementById("recipe-form-cancel-button");
+  cancel.addEventListener("click", () => {
+    // We do not use router.navigate() here because doing so would cause the
+    // Back button on the recipe page to redirect to the edit recipe page if
+    // the edit recipe page was previously opened
+    recipeForm.classList.add("hidden");
+    recipePage.classList.remove("hidden");
+    document.querySelector("html").scrollTop = 0;
+  });
 }
 
 /**

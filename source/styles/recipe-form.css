@@ -139,7 +139,7 @@ button:active {
 }
 
 .edit-ingredient-amount-input {
-  width: 5%;
+  width: 10%;
 }
 
 .edit-ingredient-unit-input {
@@ -147,7 +147,7 @@ button:active {
 }
 
 .edit-ingredient-name-input {
-  width: 50%;
+  width: 40%;
 }
 
 #edit-instructions-box {
