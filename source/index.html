@@ -61,7 +61,7 @@
             <button id="remove">
               <input
                 type="image"
-                src="images/icons8-remove-24.png"
+                src="images/trash-can.png"
                 name="remove-image"
               />
             </button>
@@ -335,36 +335,8 @@
       </div>
     </template>
 
-    <template id="recipe-card-delete-template">
-      <div id="recipe-card-delete-top-level">
-        <div class="recipe-card">
-          <figure>
-            <img src="source/images/pasta.jpg" alt="Card image" />
-          </figure>
-          <h1>Delicious Pasta Recipe</h1>
-          <p class="description">Lorem ipsum dolor</p>
-
-          <div class="card-meta">
-            <button class="recipe-action-button" type="button">
-              <p class="recipe-info">Learn More</p>
-            </button>
-            <div class="recipe-action">
-              <button class="recipe-delete-button" type="button">
-                <input
-                  type="image"
-                  src="images/icons8-remove-24.png"
-                  name="remove-image"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-
     <template id="recipe-card-template">
       <div id="recipe-card-top-level">
-        <div id="recipe-id">Add recipe ID here</div>
         <div id="recipe-card">
           <img id="recipe-card-image" src="images/pasta.jpg" alt="Card image" />
           <p id="recipe-card-title">Add recipe title here</p>
@@ -373,10 +345,17 @@
               <p id="recipe-info">Learn More</p>
             </button>
             <div id="recipe-card-action">
-              <button id="recipe-card-action-button" type="button">
-                <div id="recipe-card-action-image-outline">
-                  <div id="recipe-card-action-image-content"></div>
+              <button id="recipe-card-add-button" type="button">
+                <div id="recipe-card-add-image-outline">
+                  <div id="recipe-card-add-image-content"></div>
                 </div>
+              </button>
+              <button id="recipe-card-delete-button" type="button">
+                <input
+                  type="image"
+                  src="images/trash-can.png"
+                  name="remove-image"
+                />
               </button>
             </div>
           </div>
@@ -398,7 +377,7 @@
       <div class="ingredients-box">
         <input />
       </div>
-      <img class="recycle-bin-ingredients" src="images/recycle-bin-4@2x.png" />
+      <img class="recycle-bin-ingredients" src="images/recycle-bin.png" />
 
       <div class="add-ingredient-button">
         <div class="add-ingredient-text valign-text-middle">
@@ -411,7 +390,7 @@
         <input />
       </div>
 
-      <img class="recycle-bin-instructions" src="images/recycle-bin-4@2x.png" />
+      <img class="recycle-bin-instructions" src="images/recycle-bin.png" />
 
       <div class="add-instruction-button">
         <div class="add-instruction-text valign-text-middle">
@@ -474,7 +453,22 @@
         <hr class="recipe-horizontal-rule" />
 
         <!-- Recipe Ingredients -->
-        <h2 class="recipe-section-header">Ingredients Checklist</h2>
+        <div>
+          <h2 class="recipe-section-header">Ingredients Checklist</h2>
+        </div>
+
+        <div>
+          <span id="scale-text"
+            >Serving size (scaled amounts are estimates):</span
+          >
+          <button id="decrease-scale">
+            <img src="/source/images/down-arrow.png" />
+          </button>
+          <button id="increase-scale">
+            <img src="/source/images/up-arrow.png" />
+          </button>
+          <span id="scale-value">1</span>
+        </div>
         <div id="recipe-ingredients-container">
           <section id="recipe-ingredients-section-left">
             <li class="ingredient-item">Lorem</li>
