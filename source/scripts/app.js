@@ -47,16 +47,6 @@ function connectCookbookBackButton() {
     router.navigate("cook-book");
   });
 }
-/**
- * Creates a recipe card element
- * @returns A recipe card element
- */
-function createRecipeCard() {
-  "use strict";
-  const recipeCard = document.createElement("recipe-card");
-  recipeCard.classList.add("make-invisible");
-  return recipeCard;
-}
 
 /**
  * This function toggles whether the explore page will display recipes based on a filter or
@@ -98,11 +88,7 @@ async function populateExplorePage(filtersObj) {
   for (let i = 0; i < recipes.length; ++i) {
     if (recipeCards[i]) {
       recipeCards[i].classList.remove("make-invisible");
-      let cardShadow = recipeCards[i].shadowRoot;
-      cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
-      cardShadow.getElementById("recipe-card-title").textContent =
-        recipes[i].title;
-      cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
+      recipeCards[i].populateRecipeCard(recipes[i], true);
     }
   }
 }
@@ -189,7 +175,8 @@ function createExplorePage() {
   );
 
   for (let i = 0; i < EXPLORE_PAGE_NUM_RESULTS; ++i) {
-    const recipeCard = createRecipeCard();
+    const recipeCard = document.createElement("recipe-card");
+    recipeCard.classList.add("make-invisible");
     recipeCardsSection.append(recipeCard);
   }
 
@@ -724,44 +711,43 @@ async function populateSingleCookbook(cookbook) {
   let recipes = await indexedDb.getAllRecipes(cookbook.title);
   for (const key in recipes) {
     if (recipes.hasOwnProperty(key)) {
-      // TODO consolidate with regular recipe card
       // set up card
       const recipe = recipes[key];
-      let card = document.createElement("recipe-card-delete");
+      let card = document.createElement("recipe-card");
       card.recipe = recipe;
-      bindCookbookRecipeCardButtons(card, recipe, key, cookbook);
+      card.recipeKey = key;
+      card.cookbookTitle = cookbook.title;
+      card.populateRecipeCard(recipe, false);
+      bindCookbookRecipeCardButtons(card, cookbook);
 
       cardContainer.appendChild(card);
     }
   }
 }
 
-// TODO avoid using so many params
 /**
  * Attaches event listeners to the buttons within a recipe card in the single cookbook view
  * @function bindCookbookRecipeCardButtons
  * @param {object} card The recipe card element
- * @param {object} recipe The recipe object
- * @param {object} recipeKey The key of the recipe object within the cookbook
  * @param {object} cookbook The cookbook object
  */
-function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
+function bindCookbookRecipeCardButtons(card, cookbook) {
   "use strict";
 
   // get button references
   let shadow = card.shadowRoot;
-  let openButton = shadow.querySelector(".recipe-action-button");
-  let deleteButton = shadow.querySelector(".recipe-delete-button");
+  let openButton = shadow.getElementById("recipe-info-button");
+  let deleteButton = shadow.getElementById("recipe-card-delete-button");
 
   openButton.addEventListener("click", () => {
     let recipePage = document.querySelector("recipe-page");
-    recipePage.populateRecipePage(recipe, false);
+    recipePage.populateRecipePage(card.recipe, false);
     router.navigate("recipe-page");
   });
 
   deleteButton.addEventListener("click", async () => {
     // delete, then repopulate to clear it
-    await indexedDb.deleteRecipe(cookbook.title, recipeKey);
+    await indexedDb.deleteRecipe(card.cookbookTitle, card.recipeKey);
     populateSingleCookbook(cookbook);
   });
 }
@@ -859,10 +845,7 @@ async function populateHomePage() {
   let recipeCards = explore.children;
 
   for (let i = 0; i < recipeCards.length; ++i) {
-    let shadow = recipeCards[i].shadowRoot;
-    shadow.getElementById("recipe-id").textContent = recipes[i].id;
-    shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
-    shadow.getElementById("recipe-card-image").src = recipes[i].image;
+    recipeCards[i].populateRecipeCard(recipes[i], true);
   }
 }
 
@@ -876,7 +859,8 @@ function bindHomeExploreRecipeCards() {
 
   let redirectToRecipe = async (event) => {
     let recipeCardShadow = event.currentTarget.getRootNode();
-    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
+    let recipeCard = recipeCardShadow.host;
+    let recipeId = recipeCard.recipeId;
     let recipeObj = await spoonacular.getRecipeInfo(recipeId);
     let recipePage = document.querySelector("recipe-page");
     recipePage.populateRecipePage(recipeObj, true);
@@ -885,11 +869,12 @@ function bindHomeExploreRecipeCards() {
 
   let openCookbookSelection = (event) => {
     let recipeCardShadow = event.currentTarget.getRootNode();
-    let recipeId = recipeCardShadow.getElementById("recipe-id");
+    let recipeCard = recipeCardShadow.host;
+    let recipeId = recipeCard.recipeId;
     let notificationSelectCookbook = document.querySelector(
       "notification-select-cookbook"
     );
-    notificationSelectCookbook.recipe = recipeId.textContent;
+    notificationSelectCookbook.recipe = recipeId;
     notificationSelectCookbook.classList.toggle("hidden");
   };
 
@@ -901,7 +886,7 @@ function bindHomeExploreRecipeCards() {
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
 
-    let addButton = cardShadow.getElementById("recipe-card-action-button");
+    let addButton = cardShadow.getElementById("recipe-card-add-button");
     addButton.addEventListener("click", openCookbookSelection);
   }
 
@@ -913,7 +898,7 @@ function bindHomeExploreRecipeCards() {
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
 
-    let addButton = cardShadow.getElementById("recipe-card-action-button");
+    let addButton = cardShadow.getElementById("recipe-card-add-button");
     addButton.addEventListener("click", openCookbookSelection);
   }
 }
