@@ -1086,6 +1086,121 @@ function addRecipe() {
   });
 }
 
+/**
+ * Adds functionality to the Add Ingredients, Add Instructions, recycle bins,
+ * Save Changes, and Cancel buttons on the recipe edit page
+ * @function bindRecipeFormButtons
+ */
+async function bindRecipeFormButtons() {
+  "use strict";
+  let recipeForm = document.querySelector("recipe-form");
+  let recipePage = document.querySelector("recipe-page");
+  let shadow = recipeForm.shadowRoot;
+
+  // Bind Add Ingredient to create a new ingredient field
+  let addIngredient = shadow.getElementById("add-ingredient-button");
+  addIngredient.addEventListener("click", () => {
+    recipeForm.addIngredient(NO_INPUT, NO_INPUT, NO_INPUT);
+  });
+
+  // Bind Add Instruction to create a new instruction field
+  let addInstruction = shadow.getElementById("add-instruction-button");
+  addInstruction.addEventListener("click", () => {
+    recipeForm.addInstruction(NO_INPUT);
+  });
+
+  // Bind recycle bin buttons to delete a specific ingredient or instruction
+  shadow.addEventListener("click", (event) => {
+    if (event.target.classList.contains("ingredient-recycle-bin")) {
+      recipeForm.deleteIngredient(event.target);
+    } else if (event.target.classList.contains("instruction-recycle-bin")) {
+      recipeForm.deleteInstruction(event.target);
+    }
+  });
+
+  // Bind Save Changes button to update the recipe with the new changes
+  let saveChanges = shadow.getElementById("recipe-form-save-button");
+  saveChanges.addEventListener("click", () => {
+    let recipeObj = recipeForm.getEditedRecipe();
+    recipePage.populateRecipePage(recipeObj, false);
+    indexedDb.editRecipe(
+      recipeForm.cookbookTitle,
+      recipeForm.recipeKey,
+      recipeObj
+    );
+    populateSingleCookbook({ title: recipeForm.cookbookTitle });
+
+    // We do not use router.navigate() here because doing so would cause the
+    // Back button on the recipe page to redirect to the edit recipe page if
+    // the edit recipe page was previously opened
+    recipeForm.classList.add("hidden");
+    recipePage.classList.remove("hidden");
+    document.querySelector("html").scrollTop = 0;
+  });
+
+  // Bind Cancel button to go back to the recipe page
+  let cancel = shadow.getElementById("recipe-form-cancel-button");
+  cancel.addEventListener("click", () => {
+    // We do not use router.navigate() here because doing so would cause the
+    // Back button on the recipe page to redirect to the edit recipe page if
+    // the edit recipe page was previously opened
+    recipeForm.classList.add("hidden");
+    recipePage.classList.remove("hidden");
+    document.querySelector("html").scrollTop = 0;
+  });
+}
+
+/**
+ * Binds the scaling buttons on the recipe page by the ingredients. Allows users
+ * to scale the serving size for their recipes.
+ *
+ * @function bindScaling
+ */
+function bindScaling() {
+  "use strict";
+
+  let recipePage = document.querySelector("recipe-page");
+  let shadow = recipePage.shadowRoot;
+  let downButton = shadow.getElementById("decrease-scale");
+  let upButton = shadow.getElementById("increase-scale");
+  let scaleValue = shadow.getElementById("scale-value");
+
+  upButton.addEventListener("click", () => {
+    let increment = 1;
+    let numScale = Number(scaleValue.textContent);
+
+    if (numScale === 0.25) {
+      increment = 0.25;
+    } else if (numScale === 0.5) {
+      increment = 0.5;
+    } else if (numScale < 10) {
+      increment = 1;
+    } else {
+      increment = 0;
+    }
+    scaleValue.textContent = numScale + increment;
+    recipePage.scaleIngredientAmounts(numScale + increment);
+  });
+
+  downButton.addEventListener("click", () => {
+    let decrement = 1;
+    let numScale = Number(scaleValue.textContent);
+
+    if (numScale > 1) {
+      decrement = 1;
+    } else if (numScale === 1) {
+      decrement = 0.5;
+    } else if (numScale === 0.5) {
+      decrement = 0.25;
+    } else {
+      decrement = 0;
+    }
+
+    scaleValue.textContent = numScale - decrement;
+    recipePage.scaleIngredientAmounts(numScale - decrement);
+  });
+}
+
 async function initializeDefaultCookbook() {
   "use strict";
 
