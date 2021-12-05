@@ -327,17 +327,15 @@ function bindExploreSearchBar() {
         queryObj.cuisine += "American ";
       }
 
-      /* This section causing errors */
-
-      // if (tenMin.checked) {
-      //   queryObj.maxReadyTime = parseInt(tenMin.value);
-      // }
-      // if (twentyMin.checked) {
-      //   queryObj.maxReadyTime = parseInt(twentyMin.value);
-      // }
-      // if (thirtyMin.checked) {
-      //   queryObj.maxReadyTime = parseInt(thirtyMin.value);
-      // }
+      if (tenMin.checked) {
+        queryObj.maxReadyTime = parseInt(tenMin.value);
+      }
+      if (twentyMin.checked) {
+        queryObj.maxReadyTime = parseInt(twentyMin.value);
+      }
+      if (thirtyMin.checked) {
+        queryObj.maxReadyTime = parseInt(thirtyMin.value);
+      }
 
       await populateExplorePage(queryObj); //API call with queries
     } else {
