@@ -1038,6 +1038,57 @@ async function initializeDefaultCookbook() {
 }
 
 /**
+ * Binds the scaling buttons on the recipe page by the ingredients. Allows users
+ * to scale the serving size for their recipes.
+ *
+ * @function bindScaling
+ */
+function bindScaling() {
+  "use strict";
+
+  let recipePage = document.querySelector("recipe-page");
+  let shadow = recipePage.shadowRoot;
+  let downButton = shadow.getElementById("decrease-scale");
+  let upButton = shadow.getElementById("increase-scale");
+  let scaleValue = shadow.getElementById("scale-value");
+
+  upButton.addEventListener("click", () => {
+    let increment = 1;
+    let numScale = Number(scaleValue.textContent);
+
+    if (numScale === 0.25) {
+      increment = 0.25;
+    } else if (numScale === 0.5) {
+      increment = 0.5;
+    } else if (numScale < 10) {
+      increment = 1;
+    } else {
+      increment = 0;
+    }
+    scaleValue.textContent = numScale + increment;
+    recipePage.scaleIngredientAmounts(numScale + increment);
+  });
+
+  downButton.addEventListener("click", () => {
+    let decrement = 1;
+    let numScale = Number(scaleValue.textContent);
+
+    if (numScale > 1) {
+      decrement = 1;
+    } else if (numScale === 1) {
+      decrement = 0.5;
+    } else if (numScale === 0.5) {
+      decrement = 0.25;
+    } else {
+      decrement = 0;
+    }
+
+    scaleValue.textContent = numScale - decrement;
+    recipePage.scaleIngredientAmounts(numScale - decrement);
+  });
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function init
  */
@@ -1076,6 +1127,7 @@ async function init() {
   bindExploreSearchBar();
   connectRecipeAction();
   buttonsEditCookbook();
+  bindScaling();
 
   populateSelectCookbookOptions();
   bindSelectCookbookButtons();
