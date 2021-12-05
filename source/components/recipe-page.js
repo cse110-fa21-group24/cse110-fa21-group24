@@ -51,6 +51,8 @@ export class RecipePage extends HTMLElement {
 
     if (fromSpoonacular) {
       this.recipeId = recipeObj.id;
+    } else {
+      this.recipeId = undefined;
     }
 
     shadow.getElementById("recipe-title").textContent = recipeObj.title;
