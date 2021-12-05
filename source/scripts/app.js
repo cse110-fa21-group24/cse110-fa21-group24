@@ -117,7 +117,7 @@ async function populateExplorePage(filtersObj) {
 }
 
 /**
- * Loads rest of recipes on explore page 
+ * Loads rest of recipes on explore page
  * @function loadExplorePage
  */
 async function loadExplorePage(filtersObj) {
