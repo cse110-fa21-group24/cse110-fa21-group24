@@ -1088,6 +1088,7 @@ async function bindRecipeFormButtons() {
       recipeForm.recipeKey,
       recipeObj
     );
+    populateSingleCookbook({ title: recipeForm.cookbookTitle });
 
     // We do not use router.navigate() here because doing so would cause the
     // Back button on the recipe page to redirect to the edit recipe page if
