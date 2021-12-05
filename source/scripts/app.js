@@ -117,9 +117,8 @@ async function populateExplorePage(filtersObj) {
 }
 
 /**
- * Populates new recipes in the Explore page by retrieving new recipes from
- * Spoonacular
- * @function populateExplorePage
+ * Loads rest of recipes on explore page 
+ * @function loadExplorePage
  */
 async function loadExplorePage(filtersObj) {
   "use strict";
@@ -779,7 +778,10 @@ async function populateSingleCookbook(cookbook) {
       const recipe = recipes[key];
       let card = document.createElement("recipe-card-delete");
       card.recipe = recipe;
-      bindCookbookRecipeCardButtons(card, recipe, key, cookbook);
+      card.recipeKey = key;
+      card.cookbookTitle = cookbook.title;
+      card.populateRecipeCard(recipe, false);
+      bindCookbookRecipeCardButtons(card);
 
       cardContainer.appendChild(card);
     }
@@ -795,7 +797,7 @@ async function populateSingleCookbook(cookbook) {
  * @param {object} recipeKey The key of the recipe object within the cookbook
  * @param {object} cookbook The cookbook object
  */
-function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
+function bindCookbookRecipeCardButtons(card) {
   "use strict";
 
   // get button references
