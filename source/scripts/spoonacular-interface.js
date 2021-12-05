@@ -1,4 +1,4 @@
-const SPOONACULAR_API_KEY = "84c00e893a534bcb9267099b1ca7e63f";
+const SPOONACULAR_API_KEY = "83c84ad2b0e4486f93cfbe9658d21c66";
 const MOCK_RECIPES_ARRAY = {
   results: [
     {
