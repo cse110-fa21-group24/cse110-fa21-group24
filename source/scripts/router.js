@@ -32,22 +32,24 @@ export class Router {
     let currentElement = document.querySelector(this.currentPage);
 
     // hide the current page
-    currentElement.classList.toggle("hidden");
+    currentElement.classList.add("hidden");
     if (pageElement.classList.contains("hidden")) {
       //set previous page to the current page
       this.previousPage = this.currentPage;
       //Set new current page to page
       this.currentPage = page;
-      // toggle hidden on page
-      pageElement.classList.toggle("hidden");
+      // show the next page
+      pageElement.classList.remove("hidden");
       // scroll to top of page
       document.querySelector("html").scrollTop = 0;
     }
 
-    // hide notification
+    // hide pages and notifications that are not redirected to using
+    // navigate(page)
     document
       .querySelector("notification-select-cookbook")
       .classList.add("hidden");
+    document.querySelector("recipe-form").classList.add("hidden");
   }
 
   get prevPage() {
