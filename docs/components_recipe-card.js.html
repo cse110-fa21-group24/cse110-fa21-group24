@@ -27,11 +27,9 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @classdesc A recipe card component to be used in the Explore page
- *            and in the Home page. This component does not include
- *            the delete button.
+ * @classdesc A recipe card that shows some preview info about a recipe
  */
-class RecipeCard extends HTMLElement {
+export class RecipeCard extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -47,6 +45,69 @@ class RecipeCard extends HTMLElement {
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(recipeCard);
   }
+
+  set recipe(recipeObj) {
+    this.internalRecipe = recipeObj;
+  }
+
+  get recipe() {
+    return this.internalRecipe;
+  }
+
+  set recipeId(newRecipeId) {
+    this.internalRecipeId = newRecipeId;
+  }
+
+  get recipeId() {
+    return this.internalRecipeId;
+  }
+
+  set recipeKey(newRecipeKey) {
+    this.internalRecipeKey = newRecipeKey;
+  }
+
+  get recipeKey() {
+    return this.internalRecipeKey;
+  }
+
+  set cookbookTitle(newCookbookTitle) {
+    this.internalCookbookTitle = newCookbookTitle;
+  }
+
+  get cookbookTitle() {
+    return this.internalCookbookTitle;
+  }
+
+  /**
+   * Populate the recipe card with some recipe preview info
+   * @param {object} recipeObj An object containing a title and an image to
+   *                           preview on the recipe card and, possibly, the
+   *                           corresponding recipe ID
+   * @param {boolean} fromSpoonacular If fromSpoonacular is true, then the
+   *                                  recipeObj came from Spoonacular, otherwise,
+   *                                  it will be inferred that the recipeObj came
+   *                                  from another source besides Spoonacular
+   */
+  populateRecipeCard(recipeObj, fromSpoonacular) {
+    let shadow = this.shadowRoot;
+
+    if (fromSpoonacular) {
+      this.recipeId = recipeObj.id;
+      shadow
+        .getElementById("recipe-card-delete-button")
+        .classList.add("hide-recipe-card-part");
+      shadow.getElementById("recipe-info").textContent = "Learn More";
+    } else {
+      this.recipeId = undefined;
+      shadow
+        .getElementById("recipe-card-add-button")
+        .classList.add("hide-recipe-card-part");
+      shadow.getElementById("recipe-info").textContent = "Open";
+    }
+
+    shadow.getElementById("recipe-card-title").textContent = recipeObj.title;
+    shadow.getElementById("recipe-card-image").src = recipeObj.image;
+  }
 }
 
 customElements.define("recipe-card", RecipeCard);
@@ -60,7 +121,7 @@ customElements.define("recipe-card", RecipeCard);
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="cookbook.html">cookbook</a></li><li><a href="cookbookCard.html">cookbookCard</a></li><li><a href="CreateCookbook.html">CreateCookbook</a></li><li><a href="EditCookbook.html">EditCookbook</a></li><li><a href="ExplorePage.html">ExplorePage</a></li><li><a href="FooterImg.html">FooterImg</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="IndexedDbInterface.html">IndexedDbInterface</a></li><li><a href="Navbar.html">Navbar</a></li><li><a href="NotificationRecipeAdded.html">NotificationRecipeAdded</a></li><li><a href="NotificationRecipeDeleted.html">NotificationRecipeDeleted</a></li><li><a href="NotificationSelectCookbook.html">NotificationSelectCookbook</a></li><li><a href="RecipeCard.html">RecipeCard</a></li><li><a href="RecipeCardDelete.html">RecipeCardDelete</a></li><li><a href="RecipeForm.html">RecipeForm</a></li><li><a href="RecipePage.html">RecipePage</a></li><li><a href="Router.html">Router</a></li><li><a href="SingleCookbook.html">SingleCookbook</a></li><li><a href="SpoonacularInterface.html">SpoonacularInterface</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addRecipe">addRecipe</a></li><li><a href="global.html#bindCookbookCardButtons">bindCookbookCardButtons</a></li><li><a href="global.html#bindCookbookRecipeCardButtons">bindCookbookRecipeCardButtons</a></li><li><a href="global.html#bindCreateCookbookSave">bindCreateCookbookSave</a></li><li><a href="global.html#bindExploreLoadButton">bindExploreLoadButton</a></li><li><a href="global.html#bindExploreSearchBarThisfunctionbindsthesearchbarintheexplorepagesothatyoucanenterqueriesandgetresultsbasedontheuserinput.">bindExploreSearchBar
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="cookbook.html">cookbook</a></li><li><a href="cookbookCard.html">cookbookCard</a></li><li><a href="CreateCookbook.html">CreateCookbook</a></li><li><a href="EditCookbook.html">EditCookbook</a></li><li><a href="ExplorePage.html">ExplorePage</a></li><li><a href="FooterImg.html">FooterImg</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="IndexedDbInterface.html">IndexedDbInterface</a></li><li><a href="Navbar.html">Navbar</a></li><li><a href="NotificationRecipeAdded.html">NotificationRecipeAdded</a></li><li><a href="NotificationRecipeDeleted.html">NotificationRecipeDeleted</a></li><li><a href="NotificationSelectCookbook.html">NotificationSelectCookbook</a></li><li><a href="RecipeCard.html">RecipeCard</a></li><li><a href="RecipeForm.html">RecipeForm</a></li><li><a href="RecipePage.html">RecipePage</a></li><li><a href="Router.html">Router</a></li><li><a href="SingleCookbook.html">SingleCookbook</a></li><li><a href="SpoonacularInterface.html">SpoonacularInterface</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addRecipe">addRecipe</a></li><li><a href="global.html#bindCookbookCardButtons">bindCookbookCardButtons</a></li><li><a href="global.html#bindCookbookRecipeCardButtons">bindCookbookRecipeCardButtons</a></li><li><a href="global.html#bindCreateCookbookSave">bindCreateCookbookSave</a></li><li><a href="global.html#bindExploreLoadButton">bindExploreLoadButton</a></li><li><a href="global.html#bindExploreSearchBarThisfunctionbindsthesearchbarintheexplorepagesothatyoucanenterqueriesandgetresultsbasedontheuserinput.">bindExploreSearchBar
 
 This function binds the search bar in the explore page so
 that you can enter queries and get results based on the user input.</a></li><li><a href="global.html#bindHomeExploreRecipeCards">bindHomeExploreRecipeCards</a></li><li><a href="global.html#bindSelectCookbookButtons">bindSelectCookbookButtons</a></li><li><a href="global.html#buttonsEditCookbook">buttonsEditCookbook</a></li><li><a href="global.html#connectRecipeAction">connectRecipeAction</a></li><li><a href="global.html#connectRecipeBackButton">connectRecipeBackButton</a></li><li><a href="global.html#createCookbook">createCookbook</a></li><li><a href="global.html#createCreateCookbook">createCreateCookbook</a></li><li><a href="global.html#createEditCookbook">createEditCookbook</a></li><li><a href="global.html#createExplorePage">createExplorePage</a></li><li><a href="global.html#createFooterImg">createFooterImg</a></li><li><a href="global.html#createHomePage">createHomePage</a></li><li><a href="global.html#createNotificationRecipeAdded">createNotificationRecipeAdded</a></li><li><a href="global.html#createNotificationRecipeDeleted">createNotificationRecipeDeleted</a></li><li><a href="global.html#createNotificationSelectCookbook">createNotificationSelectCookbook</a></li><li><a href="global.html#createRecipeForm">createRecipeForm</a></li><li><a href="global.html#createRecipePage">createRecipePage</a></li><li><a href="global.html#createSingleCookbook">createSingleCookbook</a></li><li><a href="global.html#fillEditCookbook">fillEditCookbook</a></li><li><a href="global.html#homeExploreButton">homeExploreButton</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#populateCookbooksPage">populateCookbooksPage</a></li><li><a href="global.html#populateExplorePage">populateExplorePage</a></li><li><a href="global.html#populateHomePage">populateHomePage</a></li><li><a href="global.html#populateSelectCookbookOptions">populateSelectCookbookOptions</a></li><li><a href="global.html#populateSingleCookbook">populateSingleCookbook</a></li></ul>
@@ -69,7 +130,7 @@ that you can enter queries and get results based on the user input.</a></li><li>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Dec 04 2021 10:33:48 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Dec 05 2021 02:34:25 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
