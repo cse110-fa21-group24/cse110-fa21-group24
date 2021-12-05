@@ -27,7 +27,6 @@
       src="components/notification-select-cookbook.js"
       type="module"
     ></script>
-    <script src="components/recipe-card-delete.js" type="module"></script>
     <script src="components/recipe-card.js" type="module"></script>
     <script src="components/recipe-form.js" type="module"></script>
     <script src="components/recipe-page.js" type="module"></script>
@@ -364,56 +363,102 @@
     </template>
 
     <template id="recipe-form-template">
-      <h1>Edit Recipe</h1>
+      <p id="recipe-form-header">Edit Recipe</p>
 
-      <div class="title-box">
-        <p class="title">Title:</p>
-        <input type="text" class="title-input" />
+      <div id="edit-title-box">
+        <div id="edit-title-subheader-container">
+          <p class="recipe-form-subheader">Title:</p>
+        </div>
+        <input id="edit-title-input" type="text" placeholder="Title" />
       </div>
 
-      <div class="description-box">
-        <p class="description">Description:</p>
-        <textarea class="description-input" rows="10" cols="30"> </textarea>
+      <div id="edit-description-box">
+        <div id="edit-description-subheader-container">
+          <p class="recipe-form-subheader">Description:</p>
+        </div>
+        <textarea
+          id="edit-description-input"
+          placeholder="Description"
+        ></textarea>
       </div>
 
-      <div class="ingredients-box">
-        <p class="ingredients">Ingredients:</p>
-        <div class="ingredient-1">
-          <label for="1">1. </label>
-          <input type="text" class="ingredient-input-1" id="1" />
-          <input
-            type="image"
-            class="recycle-bin-ingredients"
-            id="recycle-ingredient"
-            src="images/recycle-bin.png"
-          />
+      <div id="edit-ingredients-box">
+        <div id="edit-ingredients-subheader-container">
+          <p class="recipe-form-subheader">Ingredients:</p>
         </div>
-
-        <div class="add-ingredient-box">
-          <button class="add-ingredient-button">+ Add Ingredient</button>
+        <div id="ingredients-list-container">
+          <div class="edit-ingredient-item">
+            <input
+              type="text"
+              class="edit-ingredient-amount-input"
+              placeholder="0"
+            />
+            <input
+              type="text"
+              class="edit-ingredient-unit-input"
+              placeholder="unit"
+            />
+            <input
+              type="text"
+              class="edit-ingredient-name-input"
+              placeholder="Ingredient name"
+            />
+            <button class="recycle-bin-button" type="button">
+              <img
+                class="recycle-bin-icon"
+                src="images/recycle-bin.png"
+                alt="recycle-bin"
+              />
+            </button>
+          </div>
+          <button
+            id="add-ingredient-button"
+            class="recipe-form-add-button"
+            type="button"
+          >
+            + Add Ingredient
+          </button>
         </div>
       </div>
 
-      <div class="instructions-box">
-        <p class="instructions">Instructions:</p>
-        <div class="instruction-1">
-          <label for="input-instr-1">1. </label>
-          <input type="text" class="instruction-input" id="input-instr-1" />
-          <input
-            type="image"
-            class="recycle-bin-instructions"
-            id="recycle-instruction"
-            src="images/recycle-bin.png"
-          />
+      <div id="edit-instructions-box">
+        <div id="edit-instructions-subheader-container">
+          <p class="recipe-form-subheader">Instructions:</p>
         </div>
-
-        <div class="add-instruction-box">
-          <button class="add-instruction-button">+ Add Instruction</button>
+        <div id="instructions-list-container">
+          <ol id="edit-instructions-list">
+            <div class="edit-instruction-item">
+              <li class="edit-instruction-number"></li>
+              <div class="edit-instruction-content">
+                <textarea
+                  class="edit-instruction-input"
+                  placeholder="Instruction"
+                ></textarea>
+                <button class="recycle-bin-button" type="button">
+                  <img
+                    class="recycle-bin-icon"
+                    src="images/recycle-bin.png"
+                    alt="recycle-bin"
+                  />
+                </button>
+              </div>
+            </div>
+          </ol>
+          <button
+            id="add-instruction-button"
+            class="recipe-form-add-button"
+            type="button"
+          >
+            + Add Instruction
+          </button>
         </div>
       </div>
 
-      <div class="save-button">
-        <button class="save-text">Save</button>
+      <div id="recipe-form-save-button-container">
+        <button id="recipe-form-save-button" type="button">Save Changes</button>
+      </div>
+      <div id="recipe-form-cancel-button-container">
+        <button id="recipe-form-cancel-button" type="button">Cancel</button>
       </div>
     </template>
 
