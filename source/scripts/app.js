@@ -667,7 +667,7 @@ function bindCookbookCardButtons(card) {
   let removeButton = shadow.getElementById("remove");
   let openButton = shadow.getElementById("open");
 
-  editButton.addEventListener("click", async () => {
+  editButton.addEventListener("click", () => {
     // Updates the COOKBOOK_TO_EDIT
     COOKBOOK_TO_EDIT = title;
     router.navigate("edit-cookbook");
@@ -1078,7 +1078,7 @@ async function editFormAddAndRemoveButtons() {
     let recycleBin = document.createElement("input");
     recycleBin.type = "image";
     recycleBin.classList.add("recycle-bin-ingredients");
-    recycleBin.src = "images/recycle-bin-4@2x.png";
+    recycleBin.src = "images/recycle-bin.png";
     recycleBin.id = "recycle-ingredient";
     div.appendChild(recycleBin);
 
@@ -1114,7 +1114,7 @@ async function editFormAddAndRemoveButtons() {
     let recycleBin = document.createElement("input");
     recycleBin.type = "image";
     recycleBin.classList.add("recycle-bin-instructions");
-    recycleBin.src = "images/recycle-bin-4@2x.png";
+    recycleBin.src = "images/recycle-bin.png";
     recycleBin.id = "recycle-instruction";
     div.appendChild(recycleBin);
 
