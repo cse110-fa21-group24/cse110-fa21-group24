@@ -89,7 +89,7 @@ async function populateExplorePage(filtersObj) {
   let topLevel = shadow.getElementById("explore-top-level");
   const recipeCardsSection = shadow.getElementById("recipe-cards-section");
   shadow.getElementById("no-results-text").classList.add("make-invisible");
-  let recipeCards = shadow.getElementById("recipe-cards-section").children;
+  let recipeCards = recipeCardsSection.children;
 
   let recipes = {};
   if (topLevel.classList.contains("type-explore")) {
@@ -132,7 +132,10 @@ async function loadExplorePage(filtersObj) {
   recipes = await spoonacular.getRecipes(filtersObj);
   for (let i = 0; i < recipes.length - EXPLORE_PAGE_NUM_RESULTS; ++i) {
     // set cap
-    if (i > EXPLORE_PAGE_MAX) break;
+    if (i > EXPLORE_PAGE_MAX) {
+      break;
+    }
+
     const recipeCard = createRecipeCard();
     recipeCardsSection.append(recipeCard);
   }
@@ -327,15 +330,17 @@ function bindExploreSearchBar() {
         queryObj.cuisine += "American ";
       }
 
-      if (tenMin.checked) {
-        queryObj.maxReadyTime = parseInt(tenMin.value);
-      }
-      if (twentyMin.checked) {
-        queryObj.maxReadyTime = parseInt(twentyMin.value);
-      }
-      if (thirtyMin.checked) {
-        queryObj.maxReadyTime = parseInt(thirtyMin.value);
-      }
+      /* This section causing errors */
+
+      // if (tenMin.checked) {
+      //   queryObj.maxReadyTime = parseInt(tenMin.value);
+      // }
+      // if (twentyMin.checked) {
+      //   queryObj.maxReadyTime = parseInt(twentyMin.value);
+      // }
+      // if (thirtyMin.checked) {
+      //   queryObj.maxReadyTime = parseInt(thirtyMin.value);
+      // }
 
       await populateExplorePage(queryObj); //API call with queries
     } else {
