@@ -20,6 +20,10 @@
   filter: brightness(75%);
 }
 
+#scaling-box {
+  font-size: 1.5vw;
+}
+
 /* Scaling Buttons */
 
 #increase-scale,
@@ -177,6 +181,11 @@
   }
 
   /* Recipe Ingredients */
+
+  #scale-text,
+  #scale-value {
+    font-size: 1.5vw;
+  }
 
   #recipe-ingredients-container {
     display: flex;
@@ -377,6 +386,11 @@
   }
 
   /* Recipe Ingredients */
+
+  #scale-text,
+  #scale-value {
+    font-size: max(1.3vh, 12px);
+  }
 
   #recipe-ingredients-container {
     display: flex;
