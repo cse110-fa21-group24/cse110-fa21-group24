@@ -8,6 +8,7 @@ const NO_INPUT = "";
 const DEFAULT_READY_TIME = 300;
 let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
+const EXPLORE_PAGE_MAX = 30;
 
 const router = new Router("home-page", "home-page");
 const spoonacular = new SpoonacularInterface();
@@ -101,6 +102,8 @@ async function populateExplorePage(filtersObj) {
 
     //add cards for next loads
     for (let i = 0; i < recipes.length - EXPLORE_PAGE_NUM_RESULTS; ++i) {
+      // set cap
+      if(i > EXPLORE_PAGE_MAX) break;
       const recipeCard = createRecipeCard();
       recipeCardsSection.append(recipeCard);
     }
