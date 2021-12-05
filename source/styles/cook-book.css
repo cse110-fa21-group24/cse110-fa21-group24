@@ -34,6 +34,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  bottom: 3vh;
+  position: sticky;
 }
 
 button {
@@ -41,12 +43,15 @@ button {
   border-radius: 50%;
   filter: brightness(115%);
   color: transparent;
+  cursor: pointer;
 }
 
-@media (hover: hover) {
-  button:hover {
-    filter: brightness(90%);
-  }
+button:hover {
+  filter: brightness(90%);
+}
+
+button:active {
+  filter: brightness(110%);
 }
 
 button::before {
@@ -88,7 +93,6 @@ button::after {
 
   .add-button {
     max-width: 1100px;
-    padding: 2vw;
   }
 
   #button-name {
@@ -114,10 +118,6 @@ button::after {
     margin-top: -8px;
     border-left: 4px solid #e5383b;
   }
-
-  button:hover {
-    cursor: pointer;
-  }
 }
 
 @media (orientation: portrait) {
@@ -142,30 +142,29 @@ button::after {
 
   .add-button {
     max-width: 600px;
-    padding: 2vw;
   }
 
   #button-name {
-    font-size: 5vw;
+    font-size: 3vh;
   }
 
   button {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border: 6px solid #e5383b;
   }
 
   button::before {
-    width: 30px;
-    margin-left: -15px;
+    width: 20px;
+    margin-left: -10px;
     margin-top: -3px;
     border-top: 6px solid #e5383b;
   }
 
   button::after {
-    height: 30px;
-    margin-left: -18px;
-    margin-top: -14px;
+    height: 20px;
+    margin-left: -13px;
+    margin-top: -10px;
     border-left: 6px solid #e5383b;
   }
 }

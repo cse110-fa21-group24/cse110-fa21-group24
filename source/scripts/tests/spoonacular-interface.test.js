@@ -63,7 +63,9 @@ test("get recipe info", async () => {
       summary: "pasta dish",
       extendedIngredients: [
         {
-          original: "pasta ingredient",
+          amount: 1,
+          unit: "cup",
+          name: "pasta ingredient",
         },
       ],
       analyzedInstructions: [
@@ -87,6 +89,8 @@ test("get recipe info", async () => {
   expect(recipe.readyInMinutes).toEqual(1);
   expect(recipe.image).toMatch("pasta image");
   expect(recipe.description).toMatch("pasta dish");
-  expect(recipe.ingredients[0]).toMatch("pasta ingredient");
+  expect(recipe.ingredients[0].amount).toEqual(1);
+  expect(recipe.ingredients[0].unit).toMatch("cup");
+  expect(recipe.ingredients[0].name).toMatch("pasta ingredient");
   expect(recipe.instructions[0]).toMatch("make pasta");
 });

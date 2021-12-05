@@ -9,8 +9,9 @@ export class Router {
    *
    * @param {Element} currentPage
    */
-  constructor(currentPage) {
+  constructor(currentPage, previousPage) {
     this.currentPage = currentPage;
+    this.previousPage = previousPage;
   }
 
   /**
@@ -33,7 +34,9 @@ export class Router {
     // hide the current page
     currentElement.classList.toggle("hidden");
     if (pageElement.classList.contains("hidden")) {
-      // set new current page to page
+      //set previous page to the current page
+      this.previousPage = this.currentPage;
+      //Set new current page to page
       this.currentPage = page;
       // toggle hidden on page
       pageElement.classList.toggle("hidden");
@@ -45,5 +48,9 @@ export class Router {
     document
       .querySelector("notification-select-cookbook")
       .classList.add("hidden");
+  }
+
+  get prevPage() {
+    return this.previousPage;
   }
 }

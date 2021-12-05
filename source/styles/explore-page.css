@@ -81,6 +81,15 @@ label {
   align-items: center;
 }
 
+#explore-search-section {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Details taken from  https://www.w3schools.com/howto/howto_css_searchbar.asp */
 #search-bar {
   border: 1px solid #000;
@@ -88,12 +97,34 @@ label {
   box-shadow: 0 4px 4px rgba(0 0 0 / 25%);
   border-radius: 0.5vw;
   font-size: 1em;
-  height: 5%;
-  width: 70%;
+  width: 60%;
+  height: 100%;
   text-align: center;
   background-image: url("../images/magnifyingglass.png");
   background-repeat: no-repeat;
   background-position: 1vw;
+}
+
+#search-button {
+  padding: 0;
+  width: 15%;
+  height: 100%;
+  margin-left: 3%;
+  background-color: #ba181b;
+  color: #fff;
+  border-style: none;
+  border-radius: 50vh;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
+}
+
+#search-button:hover {
+  filter: brightness(90%);
+}
+
+#search-button:active {
+  filter: brightness(110%);
 }
 
 #explore-title-text {
@@ -196,6 +227,11 @@ label {
 
   form {
     padding-top: 1vw;
+  }
+
+  #search-button {
+    width: 25%;
+    margin-left: 2%;
   }
 
   #recipe-cards-section {

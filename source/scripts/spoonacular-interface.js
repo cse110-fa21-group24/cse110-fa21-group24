@@ -41,8 +41,8 @@ const MOCK_RECIPE_INFO = {
   image: "images/pasta.jpg",
   summary: "description",
   extendedIngredients: [
-    { original: "ingredient-0" },
-    { original: "ingredient-1" },
+    { amount: 1, unit: "cup", name: "ingredient-0" },
+    { amount: 3, unit: "cup", name: "ingredient-1" },
   ],
   analyzedInstructions: [
     { steps: [{ step: "instruction-1" }, { step: "instruction-2" }] },
@@ -135,7 +135,11 @@ export class SpoonacularInterface {
     let ingredients = [];
 
     for (let i = 0; i < recipe.extendedIngredients.length; ++i) {
-      ingredients.push(recipe.extendedIngredients[i].original);
+      let ingredientObj = {};
+      ingredientObj.amount = recipe.extendedIngredients[i].amount;
+      ingredientObj.unit = recipe.extendedIngredients[i].unit;
+      ingredientObj.name = recipe.extendedIngredients[i].name;
+      ingredients.push(ingredientObj);
     }
 
     let instructions = [];
