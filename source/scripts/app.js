@@ -226,6 +226,10 @@ function bindExploreSearchBar() {
   let tenMin = shadow.getElementById("ten-min");
   let twentyMin = shadow.getElementById("twenty-min");
   let thirtyMin = shadow.getElementById("thirty-min");
+
+  //Reference for ingredient input
+  let ingredientInput = shadow.getElementById("ingredient-input");
+
   /**
    * Can add more above for more hardcoded filters!
    */
@@ -262,7 +266,8 @@ function bindExploreSearchBar() {
       vietnamese.checked ||
       tenMin.checked ||
       twentyMin.checked ||
-      thirtyMin.checked
+      thirtyMin.checked ||
+      ingredientInput.value
     ) {
       if (
         //Toggle off explore type
@@ -278,6 +283,7 @@ function bindExploreSearchBar() {
       queryObj.diet = NO_INPUT;
       queryObj.cuisine = NO_INPUT;
       queryObj.maxReadyTime = DEFAULT_READY_TIME;
+      queryObj.ingredientInput = NO_INPUT;
       //Add checkboxes to diet
       if (vegan.checked) {
         queryObj.diet += "vegan ";
@@ -345,6 +351,11 @@ function bindExploreSearchBar() {
       }
       if (thirtyMin.checked) {
         queryObj.maxReadyTime = parseInt(thirtyMin.value);
+      }
+
+      //Add ingredient values to ingredient-input
+      if (ingredientInput.value) {
+        queryObj.ingredientInput += ingredientInput.value;
       }
 
       await populateExplorePage(queryObj); //API call with queries

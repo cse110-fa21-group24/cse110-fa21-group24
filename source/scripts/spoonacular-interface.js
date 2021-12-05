@@ -1,4 +1,4 @@
-const SPOONACULAR_API_KEY = "83c84ad2b0e4486f93cfbe9658d21c66";
+const SPOONACULAR_API_KEY = "b1dfe789b60940b38f1768ccf739ffcf";
 const MOCK_RECIPES_ARRAY = {
   results: [
     {
@@ -50,7 +50,7 @@ const MOCK_RECIPE_INFO = {
 };
 
 // Change this variable to true to make real API calls to Spoonacular
-let SPOONACULAR_ENABLED = false;
+let SPOONACULAR_ENABLED = true;
 
 /**
  * @classdesc An interface for fetching recipes and recipe information using
