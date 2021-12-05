@@ -241,9 +241,10 @@ export class RecipeForm extends HTMLElement {
     for (let i = 0; i < updatedIngredients.length - 1; ++i) {
       let ingredient = {};
 
-      ingredient.amount = updatedIngredients[i].querySelector(
-        ".edit-ingredient-amount-input"
-      ).value;
+      ingredient.amount = Number(
+        updatedIngredients[i].querySelector(".edit-ingredient-amount-input")
+          .value
+      );
       ingredient.unit = updatedIngredients[i].querySelector(
         ".edit-ingredient-unit-input"
       ).value;
