@@ -131,6 +131,7 @@ button:active {
 
 .edit-ingredient-item {
   width: 60%;
+  margin-bottom: 1%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -177,6 +178,7 @@ button:active {
 
 .edit-instruction-item {
   width: 60%;
+  margin-bottom: 1%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -251,7 +253,7 @@ button:active {
 
   .edit-ingredient-item {
     width: 60%;
-    margin-top: 25%;
+    margin-top: 7%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -275,7 +277,7 @@ button:active {
 
   .edit-instruction-item {
     width: 60%;
-    margin-top: 25%;
+    margin-top: 7%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

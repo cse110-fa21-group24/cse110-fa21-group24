@@ -741,6 +741,8 @@ function bindCookbookRecipeCardButtons(card, cookbook) {
 
   openButton.addEventListener("click", () => {
     let recipePage = document.querySelector("recipe-page");
+    recipePage.recipeKey = card.recipeKey;
+    recipePage.cookbookTitle = card.cookbookTitle;
     recipePage.populateRecipePage(card.recipe, false);
     router.navigate("recipe-page");
   });
@@ -913,8 +915,8 @@ function connectRecipeAction() {
   "use strict";
 
   // get references to button and text
-  let templatePage = document.querySelector("recipe-page");
-  let shadow = templatePage.shadowRoot;
+  let recipePage = document.querySelector("recipe-page");
+  let shadow = recipePage.shadowRoot;
   let button = shadow.getElementById("recipe-action-button");
   let text = shadow.getElementById("recipe-action-text");
 
@@ -924,7 +926,10 @@ function connectRecipeAction() {
 
     // open edit page or cookbook selector, respectively
     if (string === "Edit Recipe") {
-      // TODO pass recipe object to edit page
+      let recipeForm = document.querySelector("recipe-form");
+      recipeForm.recipeKey = recipePage.recipeKey;
+      recipeForm.cookbookTitle = recipePage.cookbookTitle;
+      recipeForm.populateRecipeForm(recipePage.recipe);
       router.navigate("recipe-form");
     } else {
       let notification = document.querySelector("notification-select-cookbook");
@@ -1038,107 +1043,109 @@ async function initializeDefaultCookbook() {
 }
 
 /**
- * Adds event listeners to the "Add Ingredient", "Add Instruction"
- * and the recycle bin buttons. Upon clicking the button, adds
- * another input text box with its respective number.
- * @function
+ * Adds functionality to the Add Ingredients and Add Instructions buttons to
+ * allow adding new ingredients or instructions. Adds functionality to the
+ * recycle bin buttons to allow removing ingredients or instructions. And
+ * finally, adds functionality to the Save Changes and Cancel buttons to either
+ * save or discard recipe edits.
+ * @function bindRecipeFormButtons
  */
-async function editFormAddAndRemoveButtons() {
+async function bindRecipeFormButtons() {
   "use strict";
-  let templatePage = document.querySelector("recipe-form");
-  let shadow = templatePage.shadowRoot;
-  let ingredientButton = shadow.querySelector(".add-ingredient-button");
-  let instructionButton = shadow.querySelector(".add-instruction-button");
+  // let templatePage = document.querySelector("recipe-form");
+  // let shadow = templatePage.shadowRoot;
+  // let ingredientButton = shadow.querySelector("#add-ingredient-button");
+  // let instructionButton = shadow.querySelector("#add-instruction-button");
 
-  // Used to keep track of how many inputs there are on the page.
-  let ingredientCount = 1;
-  ingredientButton.addEventListener("click", () => {
-    ingredientCount++;
+  // // Used to keep track of how many inputs there are on the page.
+  // let ingredientCount = 1;
+  // ingredientButton.addEventListener("click", () => {
+  //   ingredientCount++;
 
-    // Create div that contains the elements
-    let div = document.createElement("div");
-    let divClassName = "ingredient-" + ingredientCount;
-    div.classList.add(divClassName);
+  //   // Create div that contains the elements
+  //   let div = document.createElement("div");
+  //   let divClassName = "ingredient-" + ingredientCount;
+  //   div.classList.add(divClassName);
 
-    // Build label element up and add it to div
-    let label = document.createElement("label");
-    label.setAttribute("for", ingredientCount);
-    label.innerHTML = ingredientCount + ". ";
-    div.appendChild(label);
+  //   // Build label element up and add it to div
+  //   let label = document.createElement("label");
+  //   label.setAttribute("for", ingredientCount);
+  //   label.textContent = ingredientCount + ". ";
+  //   div.appendChild(label);
 
-    // Build input element up and add it to div
-    let input = document.createElement("input");
-    input.type = "text";
-    let inputClassName = "ingredient-input-" + ingredientCount;
-    input.classList.add(inputClassName);
-    input.id = "ingredientCount";
-    div.appendChild(input);
+  //   // Build input element up and add it to div
+  //   let input = document.createElement("input");
+  //   input.type = "text";
+  //   let inputClassName = "ingredient-input-" + ingredientCount;
+  //   input.classList.add(inputClassName);
+  //   input.id = "ingredientCount";
+  //   div.appendChild(input);
 
-    // Add the recycle bin
-    let recycleBin = document.createElement("input");
-    recycleBin.type = "image";
-    recycleBin.classList.add("recycle-bin-ingredients");
-    recycleBin.src = "images/recycle-bin.png";
-    recycleBin.id = "recycle-ingredient";
-    div.appendChild(recycleBin);
+  //   // Add the recycle bin
+  //   let recycleBin = document.createElement("input");
+  //   recycleBin.type = "image";
+  //   recycleBin.classList.add("recycle-bin-ingredients");
+  //   recycleBin.src = "images/recycle-bin.png";
+  //   recycleBin.id = "recycle-ingredient";
+  //   div.appendChild(recycleBin);
 
-    // Add everything after the last ingredient on page
-    let lastChild = shadow.querySelector(".add-ingredient-box");
-    lastChild.parentNode.insertBefore(div, lastChild);
-  });
+  //   // Add everything after the last ingredient on page
+  //   let lastChild = shadow.querySelector(".add-ingredient-box");
+  //   lastChild.parentNode.insertBefore(div, lastChild);
+  // });
 
-  let instructionCount = 1;
-  instructionButton.addEventListener("click", () => {
-    instructionCount++;
+  // let instructionCount = 1;
+  // instructionButton.addEventListener("click", () => {
+  //   instructionCount++;
 
-    // Create div that contains the elements
-    let div = document.createElement("div");
-    let divClassName = "instruction-" + instructionCount;
-    div.classList.add(divClassName);
+  //   // Create div that contains the elements
+  //   let div = document.createElement("div");
+  //   let divClassName = "instruction-" + instructionCount;
+  //   div.classList.add(divClassName);
 
-    // Build label element up and add it to div
-    let label = document.createElement("label");
-    label.setAttribute("for", instructionCount);
-    label.innerHTML = instructionCount + ". ";
-    div.appendChild(label);
+  //   // Build label element up and add it to div
+  //   let label = document.createElement("label");
+  //   label.setAttribute("for", instructionCount);
+  //   label.textContent = instructionCount + ". ";
+  //   div.appendChild(label);
 
-    // Build input element up and add it to div
-    let input = document.createElement("input");
-    input.type = "text";
-    let inputClassName = "instruction-input-" + instructionCount;
-    input.classList.add(inputClassName);
-    input.id = "instructionCount";
-    div.appendChild(input);
+  //   // Build input element up and add it to div
+  //   let input = document.createElement("input");
+  //   input.type = "text";
+  //   let inputClassName = "instruction-input-" + instructionCount;
+  //   input.classList.add(inputClassName);
+  //   input.id = "instructionCount";
+  //   div.appendChild(input);
 
-    // Add the recycle bin
-    let recycleBin = document.createElement("input");
-    recycleBin.type = "image";
-    recycleBin.classList.add("recycle-bin-instructions");
-    recycleBin.src = "images/recycle-bin.png";
-    recycleBin.id = "recycle-instruction";
-    div.appendChild(recycleBin);
+  //   // Add the recycle bin
+  //   let recycleBin = document.createElement("input");
+  //   recycleBin.type = "image";
+  //   recycleBin.classList.add("recycle-bin-instructions");
+  //   recycleBin.src = "images/recycle-bin.png";
+  //   recycleBin.id = "recycle-instruction";
+  //   div.appendChild(recycleBin);
 
-    // Add everything after the last instruction on page
-    let lastChild = shadow.querySelector(".add-instruction-box");
-    lastChild.parentNode.insertBefore(div, lastChild);
-  });
+  //   // Add everything after the last instruction on page
+  //   let lastChild = shadow.querySelector(".add-instruction-box");
+  //   lastChild.parentNode.insertBefore(div, lastChild);
+  // });
 
-  // Add an event listener and check if the object clicked
-  // is a recycle bin.
-  shadow.addEventListener("click", function (e) {
-    if (e.target.id === "recycle-ingredient") {
-      let className = ".ingredient-" + ingredientCount;
-      let divToRemove = shadow.querySelector(className);
-      divToRemove.remove();
-      ingredientCount--;
-    }
-    if (e.target.id === "recycle-instruction") {
-      let className = ".instruction-" + instructionCount;
-      let divToRemove = shadow.querySelector(className);
-      divToRemove.remove();
-      instructionCount--;
-    }
-  });
+  // // Add an event listener and check if the object clicked
+  // // is a recycle bin.
+  // shadow.addEventListener("click", function (e) {
+  //   if (e.target.id === "recycle-ingredient") {
+  //     let className = ".ingredient-" + ingredientCount;
+  //     let divToRemove = shadow.querySelector(className);
+  //     divToRemove.remove();
+  //     ingredientCount--;
+  //   }
+  //   if (e.target.id === "recycle-instruction") {
+  //     let className = ".instruction-" + instructionCount;
+  //     let divToRemove = shadow.querySelector(className);
+  //     divToRemove.remove();
+  //     instructionCount--;
+  //   }
+  // });
 }
 
 /**
@@ -1242,7 +1249,7 @@ async function init() {
 
   initializeDefaultCookbook();
 
-  editFormAddAndRemoveButtons();
+  bindRecipeFormButtons();
 }
 
 window.addEventListener("DOMContentLoaded", init);
