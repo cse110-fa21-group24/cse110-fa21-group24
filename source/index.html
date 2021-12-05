@@ -27,7 +27,6 @@
       src="components/notification-select-cookbook.js"
       type="module"
     ></script>
-    <script src="components/recipe-card-delete.js" type="module"></script>
     <script src="components/recipe-card.js" type="module"></script>
     <script src="components/recipe-form.js" type="module"></script>
     <script src="components/recipe-page.js" type="module"></script>
@@ -61,7 +60,7 @@
             <button id="remove">
               <input
                 type="image"
-                src="images/icons8-remove-24.png"
+                src="images/trash-can.png"
                 name="remove-image"
               />
             </button>
@@ -335,24 +334,25 @@
       </div>
     </template>
 
-    <template id="recipe-card-delete-template">
-      <div id="recipe-card-delete-top-level">
-        <div class="recipe-card">
-          <figure>
-            <img src="source/images/pasta.jpg" alt="Card image" />
-          </figure>
-          <h1>Delicious Pasta Recipe</h1>
-          <p class="description">Lorem ipsum dolor</p>
-
-          <div class="card-meta">
-            <button class="recipe-action-button" type="button">
-              <p class="recipe-info">Learn More</p>
+    <template id="recipe-card-template">
+      <div id="recipe-card-top-level">
+        <div id="recipe-card">
+          <img id="recipe-card-image" src="images/pasta.jpg" alt="Card image" />
+          <p id="recipe-card-title">Add recipe title here</p>
+          <div id="recipe-buttons-container">
+            <button id="recipe-info-button" type="button">
+              <p id="recipe-info">Learn More</p>
             </button>
-            <div class="recipe-action">
-              <button class="recipe-delete-button" type="button">
+            <div id="recipe-card-action">
+              <button id="recipe-card-add-button" type="button">
+                <div id="recipe-card-add-image-outline">
+                  <div id="recipe-card-add-image-content"></div>
+                </div>
+              </button>
+              <button id="recipe-card-delete-button" type="button">
                 <input
                   type="image"
-                  src="images/icons8-remove-24.png"
+                  src="images/trash-can.png"
                   name="remove-image"
                 />
               </button>
@@ -362,65 +362,109 @@
       </div>
     </template>
 
-    <template id="recipe-card-template">
-      <div id="recipe-card-top-level">
-        <div id="recipe-id">Add recipe ID here</div>
-        <div id="recipe-card">
-          <img id="recipe-card-image" src="images/pasta.jpg" alt="Card image" />
-          <p id="recipe-card-title">Add recipe title here</p>
-          <div id="recipe-buttons-container">
-            <button id="recipe-info-button" type="button">
-              <p id="recipe-info">Learn More</p>
-            </button>
-            <div id="recipe-card-action">
-              <button id="recipe-card-action-button" type="button">
-                <div id="recipe-card-action-image-outline">
-                  <div id="recipe-card-action-image-content"></div>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-
     <template id="recipe-form-template">
-      <div class="edit-recipe">Edit Recipe</div>
-      <div class="title">Title:</div>
-      <div class="title-box">
-        <input />
-      </div>
-      <div class="description">Description:</div>
-      <div class="description-box">
-        <input />
-      </div>
-      <div class="ingredients">Ingredients:</div>
-      <div class="ingredients-box">
-        <input />
-      </div>
-      <img class="recycle-bin-ingredients" src="images/recycle-bin-4@2x.png" />
+      <p id="recipe-form-header">Edit Recipe</p>
 
-      <div class="add-ingredient-button">
-        <div class="add-ingredient-text valign-text-middle">
-          + Add Ingredient
+      <div id="edit-title-box">
+        <div id="edit-title-subheader-container">
+          <p class="recipe-form-subheader">Title:</p>
+        </div>
+        <input id="edit-title-input" type="text" placeholder="Title" />
+      </div>
+
+      <div id="edit-description-box">
+        <div id="edit-description-subheader-container">
+          <p class="recipe-form-subheader">Description:</p>
+        </div>
+        <textarea
+          id="edit-description-input"
+          placeholder="Description"
+        ></textarea>
+      </div>
+
+      <div id="edit-ingredients-box">
+        <div id="edit-ingredients-subheader-container">
+          <p class="recipe-form-subheader">Ingredients:</p>
+        </div>
+        <div id="ingredients-list-container">
+          <div class="edit-ingredient-item">
+            <input
+              type="number"
+              class="edit-ingredient-amount-input"
+              placeholder="0"
+            />
+            <input
+              type="text"
+              class="edit-ingredient-unit-input"
+              placeholder="unit"
+            />
+            <input
+              type="text"
+              class="edit-ingredient-name-input"
+              placeholder="Ingredient name"
+            />
+            <button
+              class="recycle-bin-button ingredient-recycle-bin"
+              type="button"
+            >
+              <img
+                class="recycle-bin-icon ingredient-recycle-bin"
+                src="images/recycle-bin.png"
+                alt="recycle-bin"
+              />
+            </button>
+          </div>
+          <button
+            id="add-ingredient-button"
+            class="recipe-form-add-button"
+            type="button"
+          >
+            + Add Ingredient
+          </button>
         </div>
       </div>
 
-      <div class="instructions">Instructions: 1.</div>
-      <div class="instructions-box">
-        <input />
-      </div>
-
-      <img class="recycle-bin-instructions" src="images/recycle-bin-4@2x.png" />
-
-      <div class="add-instruction-button">
-        <div class="add-instruction-text valign-text-middle">
-          + Add Instruction
+      <div id="edit-instructions-box">
+        <div id="edit-instructions-subheader-container">
+          <p class="recipe-form-subheader">Instructions:</p>
+        </div>
+        <div id="instructions-list-container">
+          <ol id="edit-instructions-list">
+            <div class="edit-instruction-item">
+              <li class="edit-instruction-number"></li>
+              <div class="edit-instruction-content">
+                <textarea
+                  class="edit-instruction-input"
+                  placeholder="Instruction"
+                ></textarea>
+                <button
+                  class="recycle-bin-button instruction-recycle-bin"
+                  type="button"
+                >
+                  <img
+                    class="recycle-bin-icon instruction-recycle-bin"
+                    src="images/recycle-bin.png"
+                    alt="recycle-bin"
+                  />
+                </button>
+              </div>
+            </div>
+          </ol>
+          <button
+            id="add-instruction-button"
+            class="recipe-form-add-button"
+            type="button"
+          >
+            + Add Instruction
+          </button>
         </div>
       </div>
 
-      <div class="save-button">
-        <div class="save-text valign-text-middle">Save changes</div>
+      <div id="recipe-form-save-button-container">
+        <button id="recipe-form-save-button" type="button">Save Changes</button>
+      </div>
+      <div id="recipe-form-cancel-button-container">
+        <button id="recipe-form-cancel-button" type="button">Cancel</button>
       </div>
     </template>
 
@@ -474,7 +518,22 @@
         <hr class="recipe-horizontal-rule" />
 
         <!-- Recipe Ingredients -->
-        <h2 class="recipe-section-header">Ingredients Checklist</h2>
+        <div>
+          <h2 class="recipe-section-header">Ingredients Checklist</h2>
+        </div>
+
+        <div>
+          <span id="scale-text"
+            >Serving size (scaled amounts are estimates):</span
+          >
+          <button id="decrease-scale">
+            <img src="/source/images/down-arrow.png" />
+          </button>
+          <button id="increase-scale">
+            <img src="/source/images/up-arrow.png" />
+          </button>
+          <span id="scale-value">1</span>
+        </div>
         <div id="recipe-ingredients-container">
           <section id="recipe-ingredients-section-left">
             <li class="ingredient-item">Lorem</li>

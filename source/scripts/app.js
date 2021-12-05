@@ -48,17 +48,6 @@ function connectCookbookBackButton() {
     router.navigate("cook-book");
   });
 }
-/**
- * Creates a recipe card element
- * @returns A recipe card element
- */
-function createRecipeCard() {
-  "use strict";
-  const recipeCard = document.createElement("recipe-card");
-  recipeCard.classList.add("make-invisible");
-  recipeCard.classList.add("hidden");
-  return recipeCard;
-}
 
 /**
  * This function toggles whether the explore page will display recipes based on a filter or
@@ -102,12 +91,7 @@ async function populateExplorePage(filtersObj) {
   for (let i = 0; i < EXPLORE_PAGE_MAX; ++i) {
     if (i < EXPLORE_PAGE_NUM_RESULTS && recipeCards[i]) {
       recipeCards[i].classList.remove("make-invisible");
-      recipeCards[i].classList.remove("hidden");
-      let cardShadow = recipeCards[i].shadowRoot;
-      cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
-      cardShadow.getElementById("recipe-card-title").textContent =
-        recipes[i].title;
-      cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
+      recipeCards[i].populateRecipeCard(recipes[i], true);
     } else if (i >= EXPLORE_PAGE_NUM_RESULTS && recipeCards[i]) {
       recipeCards[i].classList.add("hidden");
     } else {
@@ -117,9 +101,8 @@ async function populateExplorePage(filtersObj) {
 }
 
 /**
- * Populates new recipes in the Explore page by retrieving new recipes from
- * Spoonacular
- * @function populateExplorePage
+ * Loads rest of recipes on explore page
+ * @function loadExplorePage
  */
 async function loadExplorePage(filtersObj) {
   "use strict";
@@ -128,15 +111,15 @@ async function loadExplorePage(filtersObj) {
   shadow.getElementById("no-results-text").classList.add("make-invisible");
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
-  let recipes = {};
-  recipes = await spoonacular.getRecipes(filtersObj);
+  let recipes = await spoonacular.getRecipes(filtersObj);
   for (let i = 0; i < recipes.length - EXPLORE_PAGE_NUM_RESULTS; ++i) {
     // set cap
     if (i > EXPLORE_PAGE_MAX) {
       break;
     }
 
-    const recipeCard = createRecipeCard();
+    const recipeCard = document.createElement("recipe-card");
+    recipeCard.classList.add("make-invisible");
     recipeCardsSection.append(recipeCard);
   }
 
@@ -144,12 +127,7 @@ async function loadExplorePage(filtersObj) {
   for (let i = 0; i < recipeCards.length; ++i) {
     if (recipeCards[i]) {
       recipeCards[i].classList.remove("make-invisible");
-      recipeCards[i].classList.remove("hidden");
-      let cardShadow = recipeCards[i].shadowRoot;
-      cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
-      cardShadow.getElementById("recipe-card-title").textContent =
-        recipes[i].title;
-      cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
+      recipeCards[i].populateRecipeCard(recipes[i], true);
     } else {
       break;
     }
@@ -238,7 +216,8 @@ function createExplorePage() {
   );
 
   for (let i = 0; i < EXPLORE_PAGE_MAX; ++i) {
-    const recipeCard = createRecipeCard();
+    const recipeCard = document.createElement("recipe-card");
+    recipeCard.classList.add("make-invisible");
     recipeCardsSection.append(recipeCard);
   }
 
@@ -618,7 +597,7 @@ function homeSearchFunction() {
       let searchQuery = { query: e.target.value };
 
       //clear search and route to explore
-      e.target.value = "";
+      e.target.value = NO_INPUT;
       router.navigate("explore-page");
 
       //display results of search
@@ -744,11 +723,11 @@ function bindCookbookCardButtons(card) {
     fillEditCookbook(card.cookbook.title, card.cookbook.description);
   });
 
-  removeButton.addEventListener("click", async () => {
-    // delete cookbook, then repopulate page
-    await indexedDb.deleteCookbook(card.cookbook.title);
-    populateCookbooksPage();
+  removeButton.addEventListener("click", (event) => {
+    let cookbookCard = event.currentTarget.getRootNode().host;
+    indexedDb.deleteCookbook(card.cookbook.title);
     populateSelectCookbookOptions();
+    cookbookCard.remove();
   });
 
   openButton.addEventListener("click", async () => {
@@ -779,45 +758,44 @@ async function populateSingleCookbook(cookbook) {
   let recipes = await indexedDb.getAllRecipes(cookbook.title);
   for (const key in recipes) {
     if (recipes.hasOwnProperty(key)) {
-      // TODO consolidate with regular recipe card
       // set up card
       const recipe = recipes[key];
-      let card = document.createElement("recipe-card-delete");
+      let card = document.createElement("recipe-card");
       card.recipe = recipe;
-      bindCookbookRecipeCardButtons(card, recipe, key, cookbook);
+      card.recipeKey = key;
+      card.cookbookTitle = cookbook.title;
+      card.populateRecipeCard(recipe, false);
+      bindCookbookRecipeCardButtons(card);
 
       cardContainer.appendChild(card);
     }
   }
 }
 
-// TODO avoid using so many params
 /**
  * Attaches event listeners to the buttons within a recipe card in the single cookbook view
  * @function bindCookbookRecipeCardButtons
  * @param {object} card The recipe card element
- * @param {object} recipe The recipe object
- * @param {object} recipeKey The key of the recipe object within the cookbook
- * @param {object} cookbook The cookbook object
  */
-function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
+function bindCookbookRecipeCardButtons(card) {
   "use strict";
 
   // get button references
   let shadow = card.shadowRoot;
-  let openButton = shadow.querySelector(".recipe-action-button");
-  let deleteButton = shadow.querySelector(".recipe-delete-button");
+  let openButton = shadow.getElementById("recipe-info-button");
+  let deleteButton = shadow.getElementById("recipe-card-delete-button");
 
   openButton.addEventListener("click", () => {
     let recipePage = document.querySelector("recipe-page");
-    recipePage.populateRecipePage(recipe, false);
+    recipePage.recipeKey = card.recipeKey;
+    recipePage.cookbookTitle = card.cookbookTitle;
+    recipePage.populateRecipePage(card.recipe, false);
     router.navigate("recipe-page");
   });
 
-  deleteButton.addEventListener("click", async () => {
-    // delete, then repopulate to clear it
-    await indexedDb.deleteRecipe(cookbook.title, recipeKey);
-    populateSingleCookbook(cookbook);
+  deleteButton.addEventListener("click", () => {
+    indexedDb.deleteRecipe(card.cookbookTitle, card.recipeKey);
+    card.remove();
   });
 }
 
@@ -914,10 +892,7 @@ async function populateHomePage() {
   let recipeCards = explore.children;
 
   for (let i = 0; i < recipeCards.length; ++i) {
-    let shadow = recipeCards[i].shadowRoot;
-    shadow.getElementById("recipe-id").textContent = recipes[i].id;
-    shadow.getElementById("recipe-card-title").textContent = recipes[i].title;
-    shadow.getElementById("recipe-card-image").src = recipes[i].image;
+    recipeCards[i].populateRecipeCard(recipes[i], true);
   }
 }
 
@@ -931,7 +906,8 @@ function bindHomeExploreRecipeCards() {
 
   let redirectToRecipe = async (event) => {
     let recipeCardShadow = event.currentTarget.getRootNode();
-    let recipeId = recipeCardShadow.getElementById("recipe-id").textContent;
+    let recipeCard = recipeCardShadow.host;
+    let recipeId = recipeCard.recipeId;
     let recipeObj = await spoonacular.getRecipeInfo(recipeId);
     let recipePage = document.querySelector("recipe-page");
     recipePage.populateRecipePage(recipeObj, true);
@@ -940,11 +916,12 @@ function bindHomeExploreRecipeCards() {
 
   let openCookbookSelection = (event) => {
     let recipeCardShadow = event.currentTarget.getRootNode();
-    let recipeId = recipeCardShadow.getElementById("recipe-id");
+    let recipeCard = recipeCardShadow.host;
+    let recipeId = recipeCard.recipeId;
     let notificationSelectCookbook = document.querySelector(
       "notification-select-cookbook"
     );
-    notificationSelectCookbook.recipe = recipeId.textContent;
+    notificationSelectCookbook.recipe = recipeId;
     notificationSelectCookbook.classList.toggle("hidden");
   };
 
@@ -956,7 +933,7 @@ function bindHomeExploreRecipeCards() {
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
 
-    let addButton = cardShadow.getElementById("recipe-card-action-button");
+    let addButton = cardShadow.getElementById("recipe-card-add-button");
     addButton.addEventListener("click", openCookbookSelection);
   }
 
@@ -968,7 +945,7 @@ function bindHomeExploreRecipeCards() {
     let button = cardShadow.getElementById("recipe-info-button");
     button.addEventListener("click", redirectToRecipe);
 
-    let addButton = cardShadow.getElementById("recipe-card-action-button");
+    let addButton = cardShadow.getElementById("recipe-card-add-button");
     addButton.addEventListener("click", openCookbookSelection);
   }
 }
@@ -983,8 +960,8 @@ function connectRecipeAction() {
   "use strict";
 
   // get references to button and text
-  let templatePage = document.querySelector("recipe-page");
-  let shadow = templatePage.shadowRoot;
+  let recipePage = document.querySelector("recipe-page");
+  let shadow = recipePage.shadowRoot;
   let button = shadow.getElementById("recipe-action-button");
   let text = shadow.getElementById("recipe-action-text");
 
@@ -994,8 +971,17 @@ function connectRecipeAction() {
 
     // open edit page or cookbook selector, respectively
     if (string === "Edit Recipe") {
-      // TODO pass recipe object to edit page
-      router.navigate("recipe-form");
+      let recipeForm = document.querySelector("recipe-form");
+      recipeForm.recipeKey = recipePage.recipeKey;
+      recipeForm.cookbookTitle = recipePage.cookbookTitle;
+      recipeForm.populateRecipeForm(recipePage.recipe);
+
+      // We do not use router.navigate() here because doing so would cause the
+      // Back button on the recipe page to redirect to the edit recipe page if
+      // the edit recipe page was previously opened
+      recipePage.classList.add("hidden");
+      recipeForm.classList.remove("hidden");
+      document.querySelector("html").scrollTop = 0;
     } else {
       let notification = document.querySelector("notification-select-cookbook");
       notification.classList.toggle("hidden");
@@ -1108,6 +1094,121 @@ async function initializeDefaultCookbook() {
 }
 
 /**
+ * Adds functionality to the Add Ingredients, Add Instructions, recycle bins,
+ * Save Changes, and Cancel buttons on the recipe edit page
+ * @function bindRecipeFormButtons
+ */
+async function bindRecipeFormButtons() {
+  "use strict";
+  let recipeForm = document.querySelector("recipe-form");
+  let recipePage = document.querySelector("recipe-page");
+  let shadow = recipeForm.shadowRoot;
+
+  // Bind Add Ingredient to create a new ingredient field
+  let addIngredient = shadow.getElementById("add-ingredient-button");
+  addIngredient.addEventListener("click", () => {
+    recipeForm.addIngredient(NO_INPUT, NO_INPUT, NO_INPUT);
+  });
+
+  // Bind Add Instruction to create a new instruction field
+  let addInstruction = shadow.getElementById("add-instruction-button");
+  addInstruction.addEventListener("click", () => {
+    recipeForm.addInstruction(NO_INPUT);
+  });
+
+  // Bind recycle bin buttons to delete a specific ingredient or instruction
+  shadow.addEventListener("click", (event) => {
+    if (event.target.classList.contains("ingredient-recycle-bin")) {
+      recipeForm.deleteIngredient(event.target);
+    } else if (event.target.classList.contains("instruction-recycle-bin")) {
+      recipeForm.deleteInstruction(event.target);
+    }
+  });
+
+  // Bind Save Changes button to update the recipe with the new changes
+  let saveChanges = shadow.getElementById("recipe-form-save-button");
+  saveChanges.addEventListener("click", () => {
+    let recipeObj = recipeForm.getEditedRecipe();
+    recipePage.populateRecipePage(recipeObj, false);
+    indexedDb.editRecipe(
+      recipeForm.cookbookTitle,
+      recipeForm.recipeKey,
+      recipeObj
+    );
+    populateSingleCookbook({ title: recipeForm.cookbookTitle });
+
+    // We do not use router.navigate() here because doing so would cause the
+    // Back button on the recipe page to redirect to the edit recipe page if
+    // the edit recipe page was previously opened
+    recipeForm.classList.add("hidden");
+    recipePage.classList.remove("hidden");
+    document.querySelector("html").scrollTop = 0;
+  });
+
+  // Bind Cancel button to go back to the recipe page
+  let cancel = shadow.getElementById("recipe-form-cancel-button");
+  cancel.addEventListener("click", () => {
+    // We do not use router.navigate() here because doing so would cause the
+    // Back button on the recipe page to redirect to the edit recipe page if
+    // the edit recipe page was previously opened
+    recipeForm.classList.add("hidden");
+    recipePage.classList.remove("hidden");
+    document.querySelector("html").scrollTop = 0;
+  });
+}
+
+/**
+ * Binds the scaling buttons on the recipe page by the ingredients. Allows users
+ * to scale the serving size for their recipes.
+ *
+ * @function bindScaling
+ */
+function bindScaling() {
+  "use strict";
+
+  let recipePage = document.querySelector("recipe-page");
+  let shadow = recipePage.shadowRoot;
+  let downButton = shadow.getElementById("decrease-scale");
+  let upButton = shadow.getElementById("increase-scale");
+  let scaleValue = shadow.getElementById("scale-value");
+
+  upButton.addEventListener("click", () => {
+    let increment = 1;
+    let numScale = Number(scaleValue.textContent);
+
+    if (numScale === 0.25) {
+      increment = 0.25;
+    } else if (numScale === 0.5) {
+      increment = 0.5;
+    } else if (numScale < 10) {
+      increment = 1;
+    } else {
+      increment = 0;
+    }
+    scaleValue.textContent = numScale + increment;
+    recipePage.scaleIngredientAmounts(numScale + increment);
+  });
+
+  downButton.addEventListener("click", () => {
+    let decrement = 1;
+    let numScale = Number(scaleValue.textContent);
+
+    if (numScale > 1) {
+      decrement = 1;
+    } else if (numScale === 1) {
+      decrement = 0.5;
+    } else if (numScale === 0.5) {
+      decrement = 0.25;
+    } else {
+      decrement = 0;
+    }
+
+    scaleValue.textContent = numScale - decrement;
+    recipePage.scaleIngredientAmounts(numScale - decrement);
+  });
+}
+
+/**
  * Runs initial setup functions when the page first loads
  * @function init
  */
@@ -1146,6 +1247,7 @@ async function init() {
   bindExploreSearchBar();
   connectRecipeAction();
   buttonsEditCookbook();
+  bindScaling();
 
   populateSelectCookbookOptions();
   bindSelectCookbookButtons();
@@ -1155,6 +1257,8 @@ async function init() {
   connectCookbookBackButton();
 
   initializeDefaultCookbook();
+
+  bindRecipeFormButtons();
 }
 
 window.addEventListener("DOMContentLoaded", init);

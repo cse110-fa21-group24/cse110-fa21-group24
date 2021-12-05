@@ -20,6 +20,29 @@
   filter: brightness(75%);
 }
 
+#scaling-box {
+  font-size: 1.5vw;
+}
+
+/* Scaling Buttons */
+
+#increase-scale,
+#decrease-scale {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+#increase-scale:hover,
+#decrease-scale:hover {
+  background: #e0dad9;
+}
+
+#increase-scale:active,
+#decrease-scale:active {
+  background-color: #b1a7a6;
+}
+
 @media (orientation: landscape) {
   #recipe-container {
     padding: 6vw 3vw;
@@ -158,6 +181,11 @@
   }
 
   /* Recipe Ingredients */
+
+  #scale-text,
+  #scale-value {
+    font-size: 1.5vw;
+  }
 
   #recipe-ingredients-container {
     display: flex;
@@ -358,6 +386,11 @@
   }
 
   /* Recipe Ingredients */
+
+  #scale-text,
+  #scale-value {
+    font-size: max(1.3vh, 12px);
+  }
 
   #recipe-ingredients-container {
     display: flex;

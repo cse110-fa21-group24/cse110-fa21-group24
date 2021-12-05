@@ -28,12 +28,28 @@ export class RecipePage extends HTMLElement {
     return this.internalRecipeId;
   }
 
+  set recipeKey(newRecipeKey) {
+    this.internalRecipeKey = newRecipeKey;
+  }
+
+  get recipeKey() {
+    return this.internalRecipeKey;
+  }
+
   set recipe(recipeObj) {
     this.internalRecipe = recipeObj;
   }
 
   get recipe() {
     return this.internalRecipe;
+  }
+
+  set cookbookTitle(newCookbookTitle) {
+    this.internalCookbookTitle = newCookbookTitle;
+  }
+
+  get cookbookTitle() {
+    return this.internalCookbookTitle;
   }
 
   /**
@@ -51,6 +67,8 @@ export class RecipePage extends HTMLElement {
 
     if (fromSpoonacular) {
       this.recipeId = recipeObj.id;
+    } else {
+      this.recipeId = undefined;
     }
 
     shadow.getElementById("recipe-title").textContent = recipeObj.title;
