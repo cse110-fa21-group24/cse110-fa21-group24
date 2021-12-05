@@ -91,6 +91,7 @@ async function populateExplorePage(filtersObj) {
   for (let i = 0; i < EXPLORE_PAGE_MAX; ++i) {
     if (i < EXPLORE_PAGE_NUM_RESULTS && recipeCards[i]) {
       recipeCards[i].classList.remove("make-invisible");
+      recipeCards[i].classList.remove("hidden");
       recipeCards[i].populateRecipeCard(recipes[i], true);
     } else if (i >= EXPLORE_PAGE_NUM_RESULTS && recipeCards[i]) {
       recipeCards[i].classList.add("hidden");
@@ -120,6 +121,7 @@ async function loadExplorePage(filtersObj) {
 
     const recipeCard = document.createElement("recipe-card");
     recipeCard.classList.add("make-invisible");
+    recipeCard.classList.add("hidden");
     recipeCardsSection.append(recipeCard);
   }
 
@@ -127,6 +129,7 @@ async function loadExplorePage(filtersObj) {
   for (let i = 0; i < recipeCards.length; ++i) {
     if (recipeCards[i]) {
       recipeCards[i].classList.remove("make-invisible");
+      recipeCards[i].classList.remove("hidden");
       recipeCards[i].populateRecipeCard(recipes[i], true);
     } else {
       break;
@@ -218,6 +221,7 @@ function createExplorePage() {
   for (let i = 0; i < EXPLORE_PAGE_MAX; ++i) {
     const recipeCard = document.createElement("recipe-card");
     recipeCard.classList.add("make-invisible");
+    recipeCard.classList.add("hidden");
     recipeCardsSection.append(recipeCard);
   }
 
