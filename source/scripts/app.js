@@ -8,7 +8,7 @@ const NO_INPUT = "";
 const DEFAULT_READY_TIME = 300;
 let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
-const EXPLORE_PAGE_MAX = 30;
+const EXPLORE_PAGE_MAX = 15;
 
 const router = new Router("home-page", "home-page");
 const spoonacular = new SpoonacularInterface();
@@ -56,6 +56,7 @@ function createRecipeCard() {
   "use strict";
   const recipeCard = document.createElement("recipe-card");
   recipeCard.classList.add("make-invisible");
+  recipeCard.classList.add("hidden");
   return recipeCard;
 }
 
@@ -86,38 +87,68 @@ async function populateExplorePage(filtersObj) {
   "use strict";
   let shadow = document.querySelector("explore-page").shadowRoot;
   let topLevel = shadow.getElementById("explore-top-level");
-  const recipeCardsSection = shadow.getElementById(
-    "recipe-cards-section"
-  );
+  const recipeCardsSection = shadow.getElementById("recipe-cards-section");
   shadow.getElementById("no-results-text").classList.add("make-invisible");
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
-  let curr = recipeCards.length;
-
 
   let recipes = {};
   if (topLevel.classList.contains("type-explore")) {
     recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
   } else {
     recipes = await spoonacular.getRecipes(filtersObj);
-
-    //add cards for next loads
-    for (let i = 0; i < recipes.length - EXPLORE_PAGE_NUM_RESULTS; ++i) {
-      // set cap
-      if(i > EXPLORE_PAGE_MAX) break;
-      const recipeCard = createRecipeCard();
-      recipeCardsSection.append(recipeCard);
-    }
   }
 
-  //load recipes
-  for (let i = 0; i < recipeCards.length; ++i) {
-    if (recipeCards[i]) {
+  //load initial recipes
+  for (let i = 0; i < EXPLORE_PAGE_MAX; ++i) {
+    if (i < EXPLORE_PAGE_NUM_RESULTS && recipeCards[i]) {
       recipeCards[i].classList.remove("make-invisible");
+      recipeCards[i].classList.remove("hidden");
       let cardShadow = recipeCards[i].shadowRoot;
       cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
       cardShadow.getElementById("recipe-card-title").textContent =
         recipes[i].title;
       cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
+    } else if (i >= EXPLORE_PAGE_NUM_RESULTS && recipeCards[i]) {
+      recipeCards[i].classList.add("hidden");
+    } else {
+      break;
+    }
+  }
+}
+
+/**
+ * Populates new recipes in the Explore page by retrieving new recipes from
+ * Spoonacular
+ * @function populateExplorePage
+ */
+async function loadExplorePage(filtersObj) {
+  "use strict";
+  let shadow = document.querySelector("explore-page").shadowRoot;
+  const recipeCardsSection = shadow.getElementById("recipe-cards-section");
+  shadow.getElementById("no-results-text").classList.add("make-invisible");
+  let recipeCards = shadow.getElementById("recipe-cards-section").children;
+
+  let recipes = {};
+  recipes = await spoonacular.getRecipes(filtersObj);
+  for (let i = 0; i < recipes.length - EXPLORE_PAGE_NUM_RESULTS; ++i) {
+    // set cap
+    if (i > EXPLORE_PAGE_MAX) break;
+    const recipeCard = createRecipeCard();
+    recipeCardsSection.append(recipeCard);
+  }
+
+  //load all recipes
+  for (let i = 0; i < recipeCards.length; ++i) {
+    if (recipeCards[i]) {
+      recipeCards[i].classList.remove("make-invisible");
+      recipeCards[i].classList.remove("hidden");
+      let cardShadow = recipeCards[i].shadowRoot;
+      cardShadow.getElementById("recipe-id").textContent = recipes[i].id;
+      cardShadow.getElementById("recipe-card-title").textContent =
+        recipes[i].title;
+      cardShadow.getElementById("recipe-card-image").src = recipes[i].image;
+    } else {
+      break;
     }
   }
 }
@@ -203,7 +234,7 @@ function createExplorePage() {
     "recipe-cards-section"
   );
 
-  for (let i = 0; i < EXPLORE_PAGE_NUM_RESULTS; ++i) {
+  for (let i = 0; i < EXPLORE_PAGE_MAX; ++i) {
     const recipeCard = createRecipeCard();
     recipeCardsSection.append(recipeCard);
   }
@@ -295,15 +326,18 @@ function bindExploreSearchBar() {
       if (american.checked) {
         queryObj.cuisine += "American ";
       }
-      if (tenMin.checked) {
-        queryObj.maxReadyTime = parseInt(tenMin.value);
-      }
-      if (twentyMin.checked) {
-        queryObj.maxReadyTime = parseInt(twentyMin.value);
-      }
-      if (thirtyMin.checked) {
-        queryObj.maxReadyTime = parseInt(thirtyMin.value);
-      }
+
+      /* This section causing errors */
+
+      // if (tenMin.checked) {
+      //   queryObj.maxReadyTime = parseInt(tenMin.value);
+      // }
+      // if (twentyMin.checked) {
+      //   queryObj.maxReadyTime = parseInt(twentyMin.value);
+      // }
+      // if (thirtyMin.checked) {
+      //   queryObj.maxReadyTime = parseInt(thirtyMin.value);
+      // }
 
       await populateExplorePage(queryObj); //API call with queries
     } else {
@@ -525,17 +559,20 @@ function bindExploreLoadButton() {
         if (american.checked) {
           queryObj.cuisine += "American ";
         }
-        if (tenMin.checked) {
-          queryObj.maxReadyTime = parseInt(tenMin.value);
-        }
-        if (twentyMin.checked) {
-          queryObj.maxReadyTime = parseInt(twentyMin.value);
-        }
-        if (thirtyMin.checked) {
-          queryObj.maxReadyTime = parseInt(thirtyMin.value);
-        }
 
-        await populateExplorePage(queryObj);
+        //getting errors here
+
+        // if (tenMin.checked) {
+        //   queryObj.maxReadyTime = parseInt(tenMin.value);
+        // }
+        // if (twentyMin.checked) {
+        //   queryObj.maxReadyTime = parseInt(twentyMin.value);
+        // }
+        // if (thirtyMin.checked) {
+        //   queryObj.maxReadyTime = parseInt(thirtyMin.value);
+        // }
+        console.log("loading");
+        await loadExplorePage(queryObj);
       }
     }
   });

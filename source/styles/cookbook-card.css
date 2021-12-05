@@ -2,6 +2,10 @@
   visibility: hidden;
 }
 
+.hidden {
+  display: none;
+}
+
 #cookbook-card-top-level {
   display: flex;
   justify-content: center;
