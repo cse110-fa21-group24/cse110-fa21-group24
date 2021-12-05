@@ -1,6 +1,5 @@
-* {
-  font-family: Inter, sans-serif;
-  font-style: normal;
+.make-invisible {
+  visibility: hidden;
 }
 
 #cookbook-card-top-level {
@@ -11,7 +10,7 @@
 }
 
 article {
-  width: 285px;
+  width: 260px;
   height: 340px;
   background-color: #f5f3f4;
   border-radius: 25px;
@@ -27,15 +26,36 @@ article {
   border: none;
   background: none;
   padding: 8%;
+  cursor: pointer;
+}
+
+#edit:hover {
+  filter: brightness(150%);
+}
+
+#edit:active {
+  background: none;
+  filter: brightness(100%);
 }
 
 #remove {
   border: none;
   background: none;
   padding: 8%;
+  cursor: pointer;
+}
+
+#remove:hover {
+  filter: brightness(150%);
+}
+
+#remove:active {
+  background: none;
+  filter: brightness(100%);
 }
 
 .title-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +64,11 @@ article {
 }
 
 .title {
-  display: flex;
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
   font-size: 24px;
   font-weight: 800;
   margin: 0 auto;
@@ -83,15 +107,8 @@ article {
 }
 
 @media (orientation: portrait) {
-  /* article {
-    width: 90%;
-    height: 300px;
-    border-radius: 30px;
-    margin-left: 6vw;
-  } */
-
   .edit-remove-container {
-    column-gap: 70%;
+    column-gap: 64%;
   }
 
   #edit {

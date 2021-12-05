@@ -1,27 +1,3 @@
-@media (orientation: portrait) {
-  #filter-section {
-    display: none;
-  }
-
-  #display-section {
-    width: 100vw;
-  }
-}
-
-@media (orientation: landscape) {
-  #filter-section {
-    width: 20vw;
-  }
-
-  #display-section {
-    width: 80vw;
-  }
-}
-
-* {
-  font-family: Helvetica, sans-serif;
-}
-
 .make-invisible {
   visibility: hidden;
 }
@@ -37,7 +13,6 @@
   border-radius: 1vw;
   padding: 2.5vw;
   display: flex;
-  flex-direction: column;
   justify-content: flex-start;
 }
 
@@ -78,31 +53,24 @@ label {
 }
 
 /* END Checkbox Related */
-.form-container {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: row;
-}
-
-input[type="number"] {
-  width: min(50px, 20vw);
-  align-self: center;
-  height: min(30px, 4vh);
-  box-shadow: none;
-}
-
-p.filter-cooking-time {
-  font-size: min(20px, 3vw);
-  margin: 0;
-}
 
 #display-section {
+  box-sizing: border-box;
   border-radius: 1vw;
   background-color: hsl(359deg 60% 75%);
   padding: 1vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+}
+
+#explore-search-section {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
 }
 
@@ -113,12 +81,34 @@ p.filter-cooking-time {
   box-shadow: 0 4px 4px rgba(0 0 0 / 25%);
   border-radius: 0.5vw;
   font-size: 1em;
-  height: 5%;
-  width: 70%;
+  width: 60%;
+  height: 100%;
   text-align: center;
   background-image: url("../images/magnifyingglass.png");
   background-repeat: no-repeat;
   background-position: 1vw;
+}
+
+#search-button {
+  padding: 0;
+  width: 15%;
+  height: 100%;
+  margin-left: 3%;
+  background-color: #ba181b;
+  color: #fff;
+  border-style: none;
+  border-radius: 50vh;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
+}
+
+#search-button:hover {
+  filter: brightness(90%);
+}
+
+#search-button:active {
+  filter: brightness(110%);
 }
 
 #explore-title-text {
@@ -139,7 +129,7 @@ p.filter-cooking-time {
 #recipe-cards-section {
   width: 100%;
   height: 70%;
-  margin-bottom: 1%;
+  margin-bottom: 2%;
   display: grid;
   grid-template-columns: 30% 30% 30%;
   grid-template-rows: 45% 45%;
@@ -152,8 +142,8 @@ p.filter-cooking-time {
   border: 1px solid #adadad;
   border-radius: 1vw;
   box-sizing: border-box;
-  height: 7%;
-  width: 15%;
+  height: 6vh;
+  width: 10vw;
   font-size: 1em;
   font-weight: bold;
   cursor: pointer;
@@ -165,4 +155,92 @@ p.filter-cooking-time {
 
 #load-button:active {
   filter: brightness(100%);
+}
+
+@media (orientation: landscape) {
+  #filter-section {
+    width: 20vw;
+    flex-direction: column;
+  }
+
+  #display-section {
+    width: 80vw;
+  }
+}
+
+@media (orientation: portrait) {
+  #explore-top-level {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    flex-direction: column;
+  }
+
+  #filter-section {
+    flex-direction: row;
+  }
+
+  input[type="checkbox"] {
+    margin: 0;
+    height: 3vh;
+  }
+
+  #display-section {
+    width: 100vw;
+  }
+
+  #filter-by-text {
+    display: inline;
+    font-size: 3vw;
+    padding: 0;
+    margin: 0;
+  }
+
+  .filter-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .filter-choice {
+    display: inline;
+    position: relative;
+    left: 2vw;
+    top: -1vh;
+  }
+
+  form {
+    padding-top: 1vw;
+  }
+
+  #search-button {
+    width: 25%;
+    margin-left: 2%;
+  }
+
+  #recipe-cards-section {
+    width: 90%;
+    height: 60vh;
+    margin-bottom: 1%;
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-template-rows: 30% 30% 30%;
+    justify-content: space-around;
+    align-content: space-between;
+    align-items: stretch;
+  }
+
+  #explore-title-text {
+    font-size: 3vh;
+  }
+
+  #load-button-container {
+    padding: 1vh;
+  }
+
+  #load-button {
+    font-size: 3vw;
+    width: 30vw;
+    height: 4vh;
+  }
 }

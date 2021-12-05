@@ -13,7 +13,7 @@
 }
 
 .navbar-tab:hover {
-  filter: brightness(120%);
+  filter: brightness(150%);
 }
 
 .navbar-tab:active {
@@ -24,7 +24,6 @@
 @media (orientation: landscape) {
   #navbar {
     background: #e5383b;
-    font-family: Helvetica, sans-serif;
     position: fixed;
     top: 0;
     width: 100%;
@@ -70,14 +69,18 @@
     justify-content: center;
     align-items: center;
   }
+
+  .navbar-tab:hover {
+    filter: brightness(150%);
+    font-size: 1em;
+  }
 }
 
 @media (orientation: portrait) {
   #navbar {
     background: #e5383b;
-    font-family: Helvetica, sans-serif;
-    position: fixed;
-    bottom: 0;
+    position: sticky;
+    top: 0;
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
@@ -116,5 +119,10 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+  }
+
+  .navbar-tab:hover {
+    filter: brightness(150%);
+    font-size: 1.1em;
   }
 }
