@@ -80,7 +80,7 @@ async function populateExplorePage(filtersObj) {
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
   let displaySection = shadow.getElementById("display-section");
-  displaySection.style.height = "80vh";
+  displaySection.style.height = "110vh";
 
   for (let i = 0; i < EXPLORE_PAGE_MAX_RESULTS; ++i) {
     recipeCards[i].classList.add("make-invisible");

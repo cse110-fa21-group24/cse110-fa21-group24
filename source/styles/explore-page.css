@@ -79,7 +79,6 @@ label {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 80vh;
 }
 
 #explore-search-section {
@@ -161,7 +160,6 @@ label {
 
 #recipe-cards-section {
   width: 100%;
-  margin-bottom: 2%;
   display: grid;
   grid-template-columns: 30% 30% 30%;
   grid-template-rows: auto;
@@ -201,6 +199,10 @@ recipe-card {
   #display-section {
     width: 80vw;
   }
+
+  #recipe-cards-section {
+    margin-bottom: 10vh;
+  }
 }
 
 @media (orientation: portrait) {
@@ -212,7 +214,7 @@ recipe-card {
   }
 
   #filter-section {
-    flex-direction: row;
+    flex-direction: column;
   }
 
   input[type="checkbox"] {
@@ -233,14 +235,12 @@ recipe-card {
 
   .filter-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .filter-choice {
     display: inline;
     position: relative;
-    left: 2vw;
-    top: -1vh;
   }
 
   form {
