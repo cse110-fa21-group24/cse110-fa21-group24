@@ -19,6 +19,14 @@ class ExplorePage extends HTMLElement {
     this.shadowRoot.append(stylesheet);
     this.shadowRoot.append(explore);
   }
+
+  set numResults(totalResults) {
+    this.internNumResults = totalResults;
+  }
+
+  get numResults() {
+    return this.internNumResults;
+  }
 }
 
 customElements.define("explore-page", ExplorePage);
