@@ -413,15 +413,11 @@ function bindExploreSearchBar() {
       if (thai.checked) {
         queryObj.cuisine += "Thai ";
       }
-<<<<<<< HEAD
       if (vietnamese.checked) {
         queryObj.cuisine += "Vietnamese ";
       }
 
       //Add checkboxes to time
-=======
-
->>>>>>> 82e32b18fde34fb9b8ccf517d654a12f37d0f077
       if (tenMin.checked) {
         queryObj.maxReadyTime = parseInt(tenMin.value);
       }
@@ -432,14 +428,11 @@ function bindExploreSearchBar() {
         queryObj.maxReadyTime = parseInt(thirtyMin.value);
       }
 
-<<<<<<< HEAD
       //Add ingredient values to ingredient-input
       if (ingredientInput.value) {
         queryObj.ingredientInput += ingredientInput.value;
       }
-=======
       queryObj.number = EXPLORE_PAGE_MAX_RESULTS;
->>>>>>> 82e32b18fde34fb9b8ccf517d654a12f37d0f077
 
       await populateExplorePage(queryObj); //API call with queries
     } else {
