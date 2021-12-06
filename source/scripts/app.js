@@ -312,17 +312,15 @@ function bindExploreSearchBar() {
         queryObj.cuisine += "American ";
       }
 
-      /* This section causing errors */
-
-      // if (tenMin.checked) {
-      //   queryObj.maxReadyTime = parseInt(tenMin.value);
-      // }
-      // if (twentyMin.checked) {
-      //   queryObj.maxReadyTime = parseInt(twentyMin.value);
-      // }
-      // if (thirtyMin.checked) {
-      //   queryObj.maxReadyTime = parseInt(thirtyMin.value);
-      // }
+      if (tenMin.checked) {
+        queryObj.maxReadyTime = parseInt(tenMin.value);
+      }
+      if (twentyMin.checked) {
+        queryObj.maxReadyTime = parseInt(twentyMin.value);
+      }
+      if (thirtyMin.checked) {
+        queryObj.maxReadyTime = parseInt(thirtyMin.value);
+      }
 
       await populateExplorePage(queryObj); //API call with queries
     } else {
@@ -489,7 +487,9 @@ function bindExploreLoadButton() {
   let italian = shadow.getElementById("italian");
   let mexican = shadow.getElementById("mexican");
   let american = shadow.getElementById("american");
-  let time = shadow.getElementById("cooking-time");
+  let tenMin = shadow.getElementById("ten-min");
+  let twentyMin = shadow.getElementById("twenty-min");
+  let thirtyMin = shadow.getElementById("thirty-min");
 
   loadButton.addEventListener("click", async () => {
     if (
@@ -501,7 +501,9 @@ function bindExploreLoadButton() {
       !italian.checked &&
       !mexican.checked &&
       !american.checked &&
-      time.value === NO_INPUT
+      !tenMin.value &&
+      !twentyMin.value &&
+      !thirtyMin.value
     ) {
       await populateExplorePage();
     } else {
@@ -513,7 +515,9 @@ function bindExploreLoadButton() {
         !italian.checked &&
         !mexican.checked &&
         !american.checked &&
-        time.value === NO_INPUT
+        !tenMin.value &&
+        !twentyMin.value &&
+        !thirtyMin.value
       ) {
         toggleExplorePageType();
         await populateExplorePage();
@@ -544,18 +548,15 @@ function bindExploreLoadButton() {
         if (american.checked) {
           queryObj.cuisine += "American ";
         }
-
-        //getting errors here
-
-        // if (tenMin.checked) {
-        //   queryObj.maxReadyTime = parseInt(tenMin.value);
-        // }
-        // if (twentyMin.checked) {
-        //   queryObj.maxReadyTime = parseInt(twentyMin.value);
-        // }
-        // if (thirtyMin.checked) {
-        //   queryObj.maxReadyTime = parseInt(thirtyMin.value);
-        // }
+        if (tenMin.checked) {
+          queryObj.maxReadyTime = parseInt(tenMin.value);
+        }
+        if (twentyMin.checked) {
+          queryObj.maxReadyTime = parseInt(twentyMin.value);
+        }
+        if (thirtyMin.checked) {
+          queryObj.maxReadyTime = parseInt(thirtyMin.value);
+        }
         console.log("loading");
         await loadExplorePage(queryObj);
       }
