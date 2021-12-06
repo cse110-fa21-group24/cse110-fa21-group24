@@ -36,6 +36,7 @@ const NO_INPUT = "";
 const DEFAULT_READY_TIME = 300;
 let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
+const EXPLORE_PAGE_MAX_RESULTS = 18;
 
 const router = new Router("home-page", "home-page");
 const spoonacular = new SpoonacularInterface();
@@ -90,7 +91,7 @@ function toggleExplorePageType() {
   if (topLevel.classList.contains("type-explore")) {
     loadButton.textContent = "Explore More";
   } else {
-    loadButton.textContent = "Explore Recipes";
+    loadButton.textContent = "Load More";
   }
 }
 
@@ -101,22 +102,83 @@ function toggleExplorePageType() {
  */
 async function populateExplorePage(filtersObj) {
   "use strict";
-  let shadow = document.querySelector("explore-page").shadowRoot;
+  let explorePage = document.querySelector("explore-page");
+  let shadow = explorePage.shadowRoot;
   let topLevel = shadow.getElementById("explore-top-level");
+  let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
-  let recipes = {};
+  for (let i = 0; i &lt; EXPLORE_PAGE_MAX_RESULTS; ++i) {
+    recipeCards[i].classList.add("make-invisible");
+
+    if (i >= EXPLORE_PAGE_NUM_RESULTS) {
+      recipeCards[i].classList.add("hidden");
+    }
+  }
+
+  let recipes = [];
   if (topLevel.classList.contains("type-explore")) {
     recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
   } else {
     recipes = await spoonacular.getRecipes(filtersObj);
   }
-  shadow.getElementById("no-results-text").classList.add("make-invisible");
+  explorePage.numResults = recipes.length;
+
+  // When no results are returned
+  if (explorePage.numResults === 0) {
+    shadow.getElementById("no-results-text").classList.remove("make-invisible");
+
+    for (let i = 0; i &lt; EXPLORE_PAGE_MAX_RESULTS; ++i) {
+      recipeCards[i].classList.add("make-invisible");
+
+      if (i >= EXPLORE_PAGE_NUM_RESULTS) {
+        recipeCards[i].classList.add("hidden");
+      }
+    }
+  }
+  // Display up to EXPLORE_PAGE_NUM_RESULTS recipe cards
+  else {
+    shadow.getElementById("no-results-text").classList.add("make-invisible");
+
+    if (explorePage.numResults > EXPLORE_PAGE_MAX_RESULTS) {
+      explorePage.numResults = EXPLORE_PAGE_MAX_RESULTS;
+    }
+
+    //load initial recipes
+    for (let i = 0; i &lt; EXPLORE_PAGE_MAX_RESULTS; ++i) {
+      if (i &lt; EXPLORE_PAGE_NUM_RESULTS &amp;&amp; i &lt; explorePage.numResults) {
+        recipeCards[i].populateRecipeCard(recipes[i], true);
+        recipeCards[i].classList.remove("make-invisible");
+        recipeCards[i].classList.remove("hidden");
+      } else if (i >= EXPLORE_PAGE_NUM_RESULTS &amp;&amp; i &lt; explorePage.numResults) {
+        recipeCards[i].classList.add("hidden");
+        recipeCards[i].populateRecipeCard(recipes[i], true);
+      } else if (i &lt; EXPLORE_PAGE_NUM_RESULTS &amp;&amp; i >= explorePage.numResults) {
+        recipeCards[i].classList.add("make-invisible");
+      } else {
+        break;
+      }
+    }
+  }
+}
+
+/**
+ * Loads rest of recipes on explore page
+ * @function loadExplorePage
+ */
+async function loadExplorePage() {
+  "use strict";
+  let explorePage = document.querySelector("explore-page");
+  let shadow = explorePage.shadowRoot;
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
-  for (let i = 0; i &lt; recipes.length; ++i) {
-    if (recipeCards[i]) {
+  //load all recipes
+  for (let i = 0; i &lt; explorePage.numResults; ++i) {
+    if (
+      recipeCards[i].classList.contains("make-invisible") ||
+      recipeCards[i].classList.contains("hidden")
+    ) {
       recipeCards[i].classList.remove("make-invisible");
-      recipeCards[i].populateRecipeCard(recipes[i], true);
+      recipeCards[i].classList.remove("hidden");
     }
   }
 }
@@ -202,9 +264,10 @@ function createExplorePage() {
     "recipe-cards-section"
   );
 
-  for (let i = 0; i &lt; EXPLORE_PAGE_NUM_RESULTS; ++i) {
+  for (let i = 0; i &lt; EXPLORE_PAGE_MAX_RESULTS; ++i) {
     const recipeCard = document.createElement("recipe-card");
     recipeCard.classList.add("make-invisible");
+    recipeCard.classList.add("hidden");
     recipeCardsSection.append(recipeCard);
   }
 
@@ -295,6 +358,7 @@ function bindExploreSearchBar() {
       if (american.checked) {
         queryObj.cuisine += "American ";
       }
+
       if (tenMin.checked) {
         queryObj.maxReadyTime = parseInt(tenMin.value);
       }
@@ -304,6 +368,8 @@ function bindExploreSearchBar() {
       if (thirtyMin.checked) {
         queryObj.maxReadyTime = parseInt(thirtyMin.value);
       }
+
+      queryObj.number = EXPLORE_PAGE_MAX_RESULTS;
 
       await populateExplorePage(queryObj); //API call with queries
     } else {
@@ -470,7 +536,9 @@ function bindExploreLoadButton() {
   let italian = shadow.getElementById("italian");
   let mexican = shadow.getElementById("mexican");
   let american = shadow.getElementById("american");
-  let time = shadow.getElementById("cooking-time");
+  let tenMin = shadow.getElementById("ten-min");
+  let twentyMin = shadow.getElementById("twenty-min");
+  let thirtyMin = shadow.getElementById("thirty-min");
 
   loadButton.addEventListener("click", async () => {
     if (
@@ -482,7 +550,9 @@ function bindExploreLoadButton() {
       !italian.checked &amp;&amp;
       !mexican.checked &amp;&amp;
       !american.checked &amp;&amp;
-      time.value === NO_INPUT
+      !tenMin.checked &amp;&amp;
+      !twentyMin.checked &amp;&amp;
+      !thirtyMin.checked
     ) {
       await populateExplorePage();
     } else {
@@ -494,7 +564,9 @@ function bindExploreLoadButton() {
         !italian.checked &amp;&amp;
         !mexican.checked &amp;&amp;
         !american.checked &amp;&amp;
-        time.value === NO_INPUT
+        !tenMin.checked &amp;&amp;
+        !twentyMin.checked &amp;&amp;
+        !thirtyMin.checked
       ) {
         toggleExplorePageType();
         await populateExplorePage();
@@ -534,8 +606,7 @@ function bindExploreLoadButton() {
         if (thirtyMin.checked) {
           queryObj.maxReadyTime = parseInt(thirtyMin.value);
         }
-
-        await populateExplorePage(queryObj);
+        await loadExplorePage();
       }
     }
   });
@@ -591,6 +662,8 @@ function homeSearchFunction() {
         if (topLevel.classList.contains("type-explore")) {
           toggleExplorePageType();
         }
+
+        searchQuery.number = EXPLORE_PAGE_MAX_RESULTS;
         populateExplorePage(searchQuery);
       } else {
         if (!topLevel.classList.contains("type-explore")) {
@@ -1256,13 +1329,13 @@ window.addEventListener("DOMContentLoaded", init);
     <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="cookbook.html">cookbook</a></li><li><a href="cookbookCard.html">cookbookCard</a></li><li><a href="CreateCookbook.html">CreateCookbook</a></li><li><a href="EditCookbook.html">EditCookbook</a></li><li><a href="ExplorePage.html">ExplorePage</a></li><li><a href="FooterImg.html">FooterImg</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="IndexedDbInterface.html">IndexedDbInterface</a></li><li><a href="Navbar.html">Navbar</a></li><li><a href="NotificationRecipeAdded.html">NotificationRecipeAdded</a></li><li><a href="NotificationRecipeDeleted.html">NotificationRecipeDeleted</a></li><li><a href="NotificationSelectCookbook.html">NotificationSelectCookbook</a></li><li><a href="RecipeCard.html">RecipeCard</a></li><li><a href="RecipeForm.html">RecipeForm</a></li><li><a href="RecipePage.html">RecipePage</a></li><li><a href="Router.html">Router</a></li><li><a href="SingleCookbook.html">SingleCookbook</a></li><li><a href="SpoonacularInterface.html">SpoonacularInterface</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addRecipe">addRecipe</a></li><li><a href="global.html#bindCookbookCardButtons">bindCookbookCardButtons</a></li><li><a href="global.html#bindCookbookRecipeCardButtons">bindCookbookRecipeCardButtons</a></li><li><a href="global.html#bindCreateCookbookSave">bindCreateCookbookSave</a></li><li><a href="global.html#bindExploreLoadButton">bindExploreLoadButton</a></li><li><a href="global.html#bindExploreSearchBarThisfunctionbindsthesearchbarintheexplorepagesothatyoucanenterqueriesandgetresultsbasedontheuserinput.">bindExploreSearchBar
 
 This function binds the search bar in the explore page so
-that you can enter queries and get results based on the user input.</a></li><li><a href="global.html#bindHomeExploreRecipeCards">bindHomeExploreRecipeCards</a></li><li><a href="global.html#bindRecipeFormButtons">bindRecipeFormButtons</a></li><li><a href="global.html#bindScaling">bindScaling</a></li><li><a href="global.html#bindSelectCookbookButtons">bindSelectCookbookButtons</a></li><li><a href="global.html#buttonsEditCookbook">buttonsEditCookbook</a></li><li><a href="global.html#connectRecipeAction">connectRecipeAction</a></li><li><a href="global.html#connectRecipeBackButton">connectRecipeBackButton</a></li><li><a href="global.html#createCookbook">createCookbook</a></li><li><a href="global.html#createCreateCookbook">createCreateCookbook</a></li><li><a href="global.html#createEditCookbook">createEditCookbook</a></li><li><a href="global.html#createExplorePage">createExplorePage</a></li><li><a href="global.html#createFooterImg">createFooterImg</a></li><li><a href="global.html#createHomePage">createHomePage</a></li><li><a href="global.html#createNotificationRecipeAdded">createNotificationRecipeAdded</a></li><li><a href="global.html#createNotificationRecipeDeleted">createNotificationRecipeDeleted</a></li><li><a href="global.html#createNotificationSelectCookbook">createNotificationSelectCookbook</a></li><li><a href="global.html#createRecipeForm">createRecipeForm</a></li><li><a href="global.html#createRecipePage">createRecipePage</a></li><li><a href="global.html#createSingleCookbook">createSingleCookbook</a></li><li><a href="global.html#fillEditCookbook">fillEditCookbook</a></li><li><a href="global.html#homeExploreButton">homeExploreButton</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#populateCookbooksPage">populateCookbooksPage</a></li><li><a href="global.html#populateExplorePage">populateExplorePage</a></li><li><a href="global.html#populateHomePage">populateHomePage</a></li><li><a href="global.html#populateSelectCookbookOptions">populateSelectCookbookOptions</a></li><li><a href="global.html#populateSingleCookbook">populateSingleCookbook</a></li></ul>
+that you can enter queries and get results based on the user input.</a></li><li><a href="global.html#bindHomeExploreRecipeCards">bindHomeExploreRecipeCards</a></li><li><a href="global.html#bindRecipeFormButtons">bindRecipeFormButtons</a></li><li><a href="global.html#bindScaling">bindScaling</a></li><li><a href="global.html#bindSelectCookbookButtons">bindSelectCookbookButtons</a></li><li><a href="global.html#buttonsEditCookbook">buttonsEditCookbook</a></li><li><a href="global.html#connectRecipeAction">connectRecipeAction</a></li><li><a href="global.html#connectRecipeBackButton">connectRecipeBackButton</a></li><li><a href="global.html#createCookbook">createCookbook</a></li><li><a href="global.html#createCreateCookbook">createCreateCookbook</a></li><li><a href="global.html#createEditCookbook">createEditCookbook</a></li><li><a href="global.html#createExplorePage">createExplorePage</a></li><li><a href="global.html#createFooterImg">createFooterImg</a></li><li><a href="global.html#createHomePage">createHomePage</a></li><li><a href="global.html#createNotificationRecipeAdded">createNotificationRecipeAdded</a></li><li><a href="global.html#createNotificationRecipeDeleted">createNotificationRecipeDeleted</a></li><li><a href="global.html#createNotificationSelectCookbook">createNotificationSelectCookbook</a></li><li><a href="global.html#createRecipeForm">createRecipeForm</a></li><li><a href="global.html#createRecipePage">createRecipePage</a></li><li><a href="global.html#createSingleCookbook">createSingleCookbook</a></li><li><a href="global.html#fillEditCookbook">fillEditCookbook</a></li><li><a href="global.html#homeExploreButton">homeExploreButton</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadExplorePage">loadExplorePage</a></li><li><a href="global.html#populateCookbooksPage">populateCookbooksPage</a></li><li><a href="global.html#populateExplorePage">populateExplorePage</a></li><li><a href="global.html#populateHomePage">populateHomePage</a></li><li><a href="global.html#populateSelectCookbookOptions">populateSelectCookbookOptions</a></li><li><a href="global.html#populateSingleCookbook">populateSingleCookbook</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Dec 05 2021 21:09:05 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Dec 06 2021 04:24:34 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
