@@ -79,6 +79,9 @@ async function populateExplorePage(filtersObj) {
   let topLevel = shadow.getElementById("explore-top-level");
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
+  let displaySection = shadow.getElementById("display-section");
+  displaySection.style.height = "80vh";
+
   for (let i = 0; i < EXPLORE_PAGE_MAX_RESULTS; ++i) {
     recipeCards[i].classList.add("make-invisible");
 
@@ -379,7 +382,7 @@ function bindExploreSearchBar() {
         queryObj.diet += "pescetarian";
       }
 
-      // Add checkboxes to cuisine
+      //Add checkboxes to cuisine
       if (african.checked) {
         queryObj.cuisine += "African ";
       }
@@ -592,31 +595,66 @@ function bindExploreLoadButton() {
   let topLevel = shadow.getElementById("explore-top-level");
   let loadButton = shadow.getElementById("load-button");
 
-  //TODO: update with new values!!!!
+  let input = shadow.getElementById("search-bar");
+
+  //References for diet
   let vegan = shadow.getElementById("vegan");
   let glutenFree = shadow.getElementById("gluten-free");
   let vegetarian = shadow.getElementById("vegetarian");
-  let input = shadow.getElementById("search-bar");
-  let italian = shadow.getElementById("italian");
-  let mexican = shadow.getElementById("mexican");
+  let ketogenic = shadow.getElementById("ketogenic");
+  let pescetarian = shadow.getElementById("pescetarian");
+  let paleo = shadow.getElementById("paleo");
+
+  //References for cuisine
+  let african = shadow.getElementById("african");
   let american = shadow.getElementById("american");
+  let british = shadow.getElementById("british");
+  let caribbean = shadow.getElementById("caribbean");
+  let chinese = shadow.getElementById("chinese");
+  let greek = shadow.getElementById("greek");
+  let indian = shadow.getElementById("indian");
+  let italian = shadow.getElementById("italian");
+  let japanese = shadow.getElementById("japanese");
+  let mexican = shadow.getElementById("mexican");
+  let thai = shadow.getElementById("thai");
+  let vietnamese = shadow.getElementById("vietnamese");
+
+  //References for time
   let tenMin = shadow.getElementById("ten-min");
   let twentyMin = shadow.getElementById("twenty-min");
   let thirtyMin = shadow.getElementById("thirty-min");
 
+  //Reference for ingredient input
+  let ingredientInput = shadow.getElementById("ingredient-input");
+
   loadButton.addEventListener("click", async () => {
+    let displaySection = shadow.getElementById("display-section");
+    displaySection.style.height = "auto";
     if (
       topLevel.classList.contains("type-explore") &&
       input.value === NO_INPUT &&
       !vegan.checked &&
       !glutenFree.checked &&
       !vegetarian.checked &&
-      !italian.checked &&
-      !mexican.checked &&
+      !ketogenic.checked &&
+      !pescetarian.checked &&
+      !paleo.checked &&
+      !african.checked &&
       !american.checked &&
+      !british.checked &&
+      !caribbean.checked &&
+      !chinese.checked &&
+      !greek.checked &&
+      !indian.checked &&
+      !italian.checked &&
+      !japanese.checked &&
+      !mexican.checked &&
+      !thai.checked &&
+      !vietnamese.checked &&
       !tenMin.checked &&
       !twentyMin.checked &&
-      !thirtyMin.checked
+      !thirtyMin.checked &&
+      !ingredientInput.value
     ) {
       await populateExplorePage();
     } else {
@@ -625,12 +663,25 @@ function bindExploreLoadButton() {
         !vegan.checked &&
         !glutenFree.checked &&
         !vegetarian.checked &&
-        !italian.checked &&
-        !mexican.checked &&
+        !ketogenic.checked &&
+        !pescetarian.checked &&
+        !paleo.checked &&
+        !african.checked &&
         !american.checked &&
+        !british.checked &&
+        !caribbean.checked &&
+        !chinese.checked &&
+        !greek.checked &&
+        !indian.checked &&
+        !italian.checked &&
+        !japanese.checked &&
+        !mexican.checked &&
+        !thai.checked &&
+        !vietnamese.checked &&
         !tenMin.checked &&
         !twentyMin.checked &&
-        !thirtyMin.checked
+        !thirtyMin.checked &&
+        !ingredientInput.value
       ) {
         toggleExplorePageType();
         await populateExplorePage();
@@ -643,6 +694,9 @@ function bindExploreLoadButton() {
         queryObj.diet = NO_INPUT;
         queryObj.cuisine = NO_INPUT;
         queryObj.maxReadyTime = DEFAULT_READY_TIME;
+        queryObj.ingredientInput = NO_INPUT;
+
+        //Add checkboxes to diet
         if (vegan.checked) {
           queryObj.diet += "vegan ";
         }
@@ -652,15 +706,55 @@ function bindExploreLoadButton() {
         if (vegetarian.checked) {
           queryObj.diet += "vegetarian ";
         }
-        if (italian.checked) {
-          queryObj.cuisine += "Italian ";
+        if (ketogenic.checked) {
+          queryObj.diet += "ketogenic ";
         }
-        if (mexican.checked) {
-          queryObj.cuisine += "Mexican ";
+        if (paleo.checked) {
+          queryObj.diet += "paleo ";
+        }
+        if (pescetarian.checked) {
+          queryObj.diet += "pescetarian";
+        }
+
+        //Add checkboxes to cuisine
+        if (african.checked) {
+          queryObj.cuisine += "African ";
         }
         if (american.checked) {
           queryObj.cuisine += "American ";
         }
+        if (british.checked) {
+          queryObj.cuisine += "British ";
+        }
+        if (caribbean.checked) {
+          queryObj.cuisine += "Caribbean ";
+        }
+        if (chinese.checked) {
+          queryObj.cuisine += "Chinese ";
+        }
+        if (greek.checked) {
+          queryObj.cuisine += "Greek ";
+        }
+        if (indian.checked) {
+          queryObj.cuisine += "Indian ";
+        }
+        if (italian.checked) {
+          queryObj.cuisine += "Italian ";
+        }
+        if (japanese.checked) {
+          queryObj.cuisine += "Japanese ";
+        }
+        if (mexican.checked) {
+          queryObj.cuisine += "Mexican ";
+        }
+        if (thai.checked) {
+          queryObj.cuisine += "Thai ";
+        }
+        if (vietnamese.checked) {
+          queryObj.cuisine += "Vietnamese ";
+        }
+
+        //Add checkboxes to time
         if (tenMin.checked) {
           queryObj.maxReadyTime = parseInt(tenMin.value);
         }
@@ -669,6 +763,11 @@ function bindExploreLoadButton() {
         }
         if (thirtyMin.checked) {
           queryObj.maxReadyTime = parseInt(thirtyMin.value);
+        }
+
+        //Add ingredient values to ingredient-input
+        if (ingredientInput.value) {
+          queryObj.ingredientInput += ingredientInput.value;
         }
         await loadExplorePage();
       }

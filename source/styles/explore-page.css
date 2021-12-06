@@ -9,7 +9,6 @@
 #explore-top-level {
   display: flex; /* Row alignment */
   margin-top: 5%;
-  height: max(auto, 80vh); /* Relative height */
   margin-bottom: 5%;
 }
 
@@ -80,6 +79,7 @@ label {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  height: 80vh;
 }
 
 #explore-search-section {
