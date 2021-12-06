@@ -9,6 +9,7 @@
 #explore-top-level {
   display: flex; /* Row alignment */
   margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 #filter-section {

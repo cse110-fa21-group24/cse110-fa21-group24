@@ -8,7 +8,7 @@ const NO_INPUT = "";
 const DEFAULT_READY_TIME = 300;
 let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
-const EXPLORE_PAGE_MAX = 15;
+const EXPLORE_PAGE_MAX_RESULTS = 18;
 
 const router = new Router("home-page", "home-page");
 const spoonacular = new SpoonacularInterface();
@@ -74,28 +74,61 @@ function toggleExplorePageType() {
  */
 async function populateExplorePage(filtersObj) {
   "use strict";
-  let shadow = document.querySelector("explore-page").shadowRoot;
+  let explorePage = document.querySelector("explore-page");
+  let shadow = explorePage.shadowRoot;
   let topLevel = shadow.getElementById("explore-top-level");
-  shadow.getElementById("no-results-text").classList.add("make-invisible");
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
-  let recipes = {};
+  for (let i = 0; i < EXPLORE_PAGE_MAX_RESULTS; ++i) {
+    recipeCards[i].classList.add("make-invisible");
+
+    if (i >= EXPLORE_PAGE_NUM_RESULTS) {
+      recipeCards[i].classList.add("hidden");
+    }
+  }
+
+  let recipes = [];
   if (topLevel.classList.contains("type-explore")) {
     recipes = await spoonacular.getRandomRecipes(EXPLORE_PAGE_NUM_RESULTS);
   } else {
     recipes = await spoonacular.getRecipes(filtersObj);
   }
+  explorePage.numResults = recipes.length;
 
-  //load initial recipes
-  for (let i = 0; i < EXPLORE_PAGE_MAX; ++i) {
-    if (i < EXPLORE_PAGE_NUM_RESULTS && recipeCards[i]) {
-      recipeCards[i].classList.remove("make-invisible");
-      recipeCards[i].classList.remove("hidden");
-      recipeCards[i].populateRecipeCard(recipes[i], true);
-    } else if (i >= EXPLORE_PAGE_NUM_RESULTS && recipeCards[i]) {
-      recipeCards[i].classList.add("hidden");
-    } else {
-      break;
+  // When no results are returned
+  if (explorePage.numResults === 0) {
+    shadow.getElementById("no-results-text").classList.remove("make-invisible");
+
+    for (let i = 0; i < EXPLORE_PAGE_MAX_RESULTS; ++i) {
+      recipeCards[i].classList.add("make-invisible");
+
+      if (i >= EXPLORE_PAGE_NUM_RESULTS) {
+        recipeCards[i].classList.add("hidden");
+      }
+    }
+  }
+  // Display up to EXPLORE_PAGE_NUM_RESULTS recipe cards
+  else {
+    shadow.getElementById("no-results-text").classList.add("make-invisible");
+
+    if (explorePage.numResults > EXPLORE_PAGE_MAX_RESULTS) {
+      explorePage.numResults = EXPLORE_PAGE_MAX_RESULTS;
+    }
+
+    //load initial recipes
+    for (let i = 0; i < EXPLORE_PAGE_MAX_RESULTS; ++i) {
+      if (i < EXPLORE_PAGE_NUM_RESULTS && i < explorePage.numResults) {
+        recipeCards[i].populateRecipeCard(recipes[i], true);
+        recipeCards[i].classList.remove("make-invisible");
+        recipeCards[i].classList.remove("hidden");
+      } else if (i >= EXPLORE_PAGE_NUM_RESULTS && i < explorePage.numResults) {
+        recipeCards[i].classList.add("hidden");
+        recipeCards[i].populateRecipeCard(recipes[i], true);
+      } else if (i < EXPLORE_PAGE_NUM_RESULTS && i >= explorePage.numResults) {
+        recipeCards[i].classList.add("make-invisible");
+      } else {
+        break;
+      }
     }
   }
 }
@@ -104,34 +137,20 @@ async function populateExplorePage(filtersObj) {
  * Loads rest of recipes on explore page
  * @function loadExplorePage
  */
-async function loadExplorePage(filtersObj) {
+async function loadExplorePage() {
   "use strict";
-  let shadow = document.querySelector("explore-page").shadowRoot;
-  const recipeCardsSection = shadow.getElementById("recipe-cards-section");
-  shadow.getElementById("no-results-text").classList.add("make-invisible");
+  let explorePage = document.querySelector("explore-page");
+  let shadow = explorePage.shadowRoot;
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
-  let recipes = await spoonacular.getRecipes(filtersObj);
-  for (let i = 0; i < recipes.length - EXPLORE_PAGE_NUM_RESULTS; ++i) {
-    // set cap
-    if (i > EXPLORE_PAGE_MAX) {
-      break;
-    }
-
-    const recipeCard = document.createElement("recipe-card");
-    recipeCard.classList.add("make-invisible");
-    recipeCard.classList.add("hidden");
-    recipeCardsSection.append(recipeCard);
-  }
-
   //load all recipes
-  for (let i = 0; i < recipeCards.length; ++i) {
-    if (recipeCards[i]) {
+  for (let i = 0; i < explorePage.numResults; ++i) {
+    if (
+      recipeCards[i].classList.contains("make-invisible") ||
+      recipeCards[i].classList.contains("hidden")
+    ) {
       recipeCards[i].classList.remove("make-invisible");
       recipeCards[i].classList.remove("hidden");
-      recipeCards[i].populateRecipeCard(recipes[i], true);
-    } else {
-      break;
     }
   }
 }
@@ -217,7 +236,7 @@ function createExplorePage() {
     "recipe-cards-section"
   );
 
-  for (let i = 0; i < EXPLORE_PAGE_MAX; ++i) {
+  for (let i = 0; i < EXPLORE_PAGE_MAX_RESULTS; ++i) {
     const recipeCard = document.createElement("recipe-card");
     recipeCard.classList.add("make-invisible");
     recipeCard.classList.add("hidden");
@@ -321,6 +340,8 @@ function bindExploreSearchBar() {
       if (thirtyMin.checked) {
         queryObj.maxReadyTime = parseInt(thirtyMin.value);
       }
+
+      queryObj.number = EXPLORE_PAGE_MAX_RESULTS;
 
       await populateExplorePage(queryObj); //API call with queries
     } else {
@@ -501,9 +522,9 @@ function bindExploreLoadButton() {
       !italian.checked &&
       !mexican.checked &&
       !american.checked &&
-      !tenMin.value &&
-      !twentyMin.value &&
-      !thirtyMin.value
+      !tenMin.checked &&
+      !twentyMin.checked &&
+      !thirtyMin.checked
     ) {
       await populateExplorePage();
     } else {
@@ -515,9 +536,9 @@ function bindExploreLoadButton() {
         !italian.checked &&
         !mexican.checked &&
         !american.checked &&
-        !tenMin.value &&
-        !twentyMin.value &&
-        !thirtyMin.value
+        !tenMin.checked &&
+        !twentyMin.checked &&
+        !thirtyMin.checked
       ) {
         toggleExplorePageType();
         await populateExplorePage();
@@ -557,8 +578,7 @@ function bindExploreLoadButton() {
         if (thirtyMin.checked) {
           queryObj.maxReadyTime = parseInt(thirtyMin.value);
         }
-        console.log("loading");
-        await loadExplorePage(queryObj);
+        await loadExplorePage();
       }
     }
   });
@@ -614,6 +634,8 @@ function homeSearchFunction() {
         if (topLevel.classList.contains("type-explore")) {
           toggleExplorePageType();
         }
+
+        searchQuery.number = EXPLORE_PAGE_MAX_RESULTS;
         populateExplorePage(searchQuery);
       } else {
         if (!topLevel.classList.contains("type-explore")) {
