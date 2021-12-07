@@ -2,6 +2,10 @@
   visibility: hidden;
 }
 
+.hidden {
+  display: none;
+}
+
 #cookbook-card-top-level {
   display: flex;
   justify-content: center;
@@ -26,15 +30,36 @@ article {
   border: none;
   background: none;
   padding: 8%;
+  cursor: pointer;
+}
+
+#edit:hover {
+  filter: brightness(150%);
+}
+
+#edit:active {
+  background: none;
+  filter: brightness(100%);
 }
 
 #remove {
   border: none;
   background: none;
   padding: 8%;
+  cursor: pointer;
+}
+
+#remove:hover {
+  filter: brightness(150%);
+}
+
+#remove:active {
+  background: none;
+  filter: brightness(100%);
 }
 
 .title-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,7 +68,11 @@ article {
 }
 
 .title {
-  display: flex;
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
   font-size: 24px;
   font-weight: 800;
   margin: 0 auto;
@@ -83,7 +112,7 @@ article {
 
 @media (orientation: portrait) {
   .edit-remove-container {
-    column-gap: 70%;
+    column-gap: 64%;
   }
 
   #edit {

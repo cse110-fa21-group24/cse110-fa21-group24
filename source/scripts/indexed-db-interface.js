@@ -10,8 +10,8 @@ export class IndexedDbInterface {
   /**
    * @function openDb
    * @description Open a connection to a local IndexedDB database
-   * @returns A promise that resolves when the database is successfully opened
-   *          or rejects when the database cannot be opened
+   * @returns {Promise} A promise that resolves when the database is successfully opened
+   *                    or rejects when the database cannot be opened
    */
   async openDb() {
     return new Promise((resolve, reject) => {
@@ -38,9 +38,9 @@ export class IndexedDbInterface {
    * @description Create a new cookbook
    * @param {string} title The title of the new cookbook
    * @param {string} description The description of the new cookbook
-   * @returns A promise that resolves with true when the cookbook is 
-   *          successfully added or rejects with false when adding is 
-   *          unsuccessful
+   * @returns {Promise} A promise that resolves with true when the cookbook is
+   *                    successfully added or rejects with false when adding is
+   *                    unsuccessful
    */
   async createCookbook(title, description) {
     return new Promise((resolve, reject) => {
@@ -67,9 +67,9 @@ export class IndexedDbInterface {
   /**
    * @function getAllCookbooks
    * @description Retrieve the titles and descriptions of all cookbooks
-   * @returns A promise that resolves with an array containing objects which 
-   *          contain the title and description of each cookbook or rejects with
-   *          an empty array
+   * @returns {Promise} A promise that resolves with an array containing
+   *                    objects which contain the title and description of each
+   *                    cookbook or rejects with an empty array
    */
   async getAllCookbooks() {
     return new Promise((resolve, reject) => {
@@ -106,8 +106,9 @@ export class IndexedDbInterface {
    * @param {string} oldTitle The old title of the cookbook
    * @param {string} newTitle The new title of the cookbook
    * @param {string} description The new description of the cookbook
-   * @returns A promise which resolves with true if the cookbook was
-   *          successfully updated or rejects with false if the update failed
+   * @returns {Promise} A promise which resolves with true if the cookbook was
+   *                    successfully updated or rejects with false if the
+   *                    update failed
    */
   async editCookbook(oldTitle, newTitle, description) {
     return new Promise((resolve, reject) => {
@@ -191,8 +192,8 @@ export class IndexedDbInterface {
    * @function deleteCookbook
    * @description Delete a cookbook
    * @param {string} title The title of the cookbook to delete
-   * @returns A promise which resolves with true when deletion is successful or rejects 
-   *          with false if deletion failed
+   * @returns {Promise} A promise which resolves with true when deletion is
+   *                    successful or rejects with false if deletion failed
    */
   async deleteCookbook(title) {
     return new Promise((resolve, reject) => {
@@ -217,8 +218,9 @@ export class IndexedDbInterface {
    * @param {string} cookbookTitle Title of the cookbook to add the recipe to
    * @param {object} recipeObj An object containing all the properties of a 
    *                           recipe
-   * @returns A promise which resolves when the recipe is successfully added or 
-   *          rejects when adding is unsuccessful
+   * @returns {Promise} A promise which resolves when the recipe is
+   *                    successfully added or rejects when adding is
+   *                    unsuccessful
    */
   async addRecipe(cookbookTitle, recipeObj) {
     return new Promise((resolve, reject) => {
@@ -266,8 +268,8 @@ export class IndexedDbInterface {
    * @description Get all the recipes from a cookbook
    * @param {string} cookbookTitle Title of the cookbook to retrieve all recipes
    *                               from
-   * @returns A promise which resolves with an object containing all the recipes
-  *           or rejects with an empty object
+   * @returns {Promise} A promise which resolves with an object containing all
+   *                    the recipes or rejects with an empty object
    */
   async getAllRecipes(cookbookTitle) {
     return new Promise((resolve, reject) => {
@@ -295,8 +297,8 @@ export class IndexedDbInterface {
 *                                  in
    * @param {number} recipeKey The key of the recipe to edit
    * @param {object} recipeObj An object containing the edited recipe info
-   * @returns A promise which resolves with true if editing was successful or rejects 
-   *          with false when editing is unsuccessful
+   * @returns {Promise} A promise which resolves with true if editing was
+   *                    successful or rejects with false when editing is unsuccessful
    */
   async editRecipe(cookbookTitle, recipeKey, recipeObj) {
     return new Promise((resolve, reject) => {
@@ -339,8 +341,9 @@ export class IndexedDbInterface {
    * @description Delete a recipe from a cookbook
    * @param {string} cookbookTitle The title of the cookbook to delete a recipe from
    * @param {number} recipeKey The key of the recipe to delete
-   * @returns A promise which resolves to true if deletion was successful or 
-   *          resolves to false if deletion was unsuccessful
+   * @returns {Promise} A promise which resolves to true if deletion was
+   *                    successful or resolves to false if deletion was
+   *                    unsuccessful
    */
   async deleteRecipe(cookbookTitle, recipeKey) {
     return new Promise((resolve, reject) => {
