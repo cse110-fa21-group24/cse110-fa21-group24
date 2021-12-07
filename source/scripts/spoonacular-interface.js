@@ -1,4 +1,4 @@
-const SPOONACULAR_API_KEY = "83c84ad2b0e4486f93cfbe9658d21c66";
+const SPOONACULAR_API_KEY = "b1dfe789b60940b38f1768ccf739ffcf";
 const MOCK_RECIPES_ARRAY = {
   results: [
     {
@@ -158,6 +158,7 @@ export class SpoonacularInterface {
       description: recipe.summary,
       ingredients: ingredients,
       instructions: instructions,
+      servings: recipe.servings,
     };
   }
 

@@ -1,4 +1,4 @@
-### Team 24 | 11-19-2021 | Zoom | 13:30 - 14:00
+### Team 24 | 12-03-2021 | Zoom | 13:30 - 14:00
 
 ## Sprint 2 Retrospective
 
