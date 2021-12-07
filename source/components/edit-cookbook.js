@@ -1,5 +1,5 @@
 /**
- * @classdesc A component in which users can edit a cookbook they created 
+ * @classdesc A component in which users can edit a cookbook they created
  *            previously
  */
 class EditCookbook extends HTMLElement {

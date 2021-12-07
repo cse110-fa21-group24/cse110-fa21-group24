@@ -1,5 +1,5 @@
 /**
- * @classdesc A notification that shows up asking users to determine which 
+ * @classdesc A notification that shows up asking users to determine which
  *            cookbook they would like to add the current recipe to
  *
  */

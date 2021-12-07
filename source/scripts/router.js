@@ -17,8 +17,8 @@ export class Router {
 
   /**
    * @function navigate
-   * @description This function navigates to another page by toggling the 
-   *              "hidden" name on the element's classList. If the current page 
+   * @description This function navigates to another page by toggling the
+   *              "hidden" name on the element's classList. If the current page
    *              is the one that is being navigated to, then do nothing.
    * @param {Element} page the page that the user wants to go to
    */
