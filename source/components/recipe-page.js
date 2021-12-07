@@ -115,8 +115,10 @@ export class RecipePage extends HTMLElement {
     }
 
     shadow.getElementById("recipe-image").src = recipeObj.image;
-    shadow.getElementById("recipe-description").innerHTML =
-      recipeObj.description.replace(ANCHOR_REGEX, ""); // remove links
+
+    let cleanedDesc = recipeObj.description.replace(ANCHOR_REGEX, ""); // remove links
+    shadow.getElementById("recipe-description").innerHTML = cleanedDesc;
+    this.recipe.description = cleanedDesc;
 
     let ingredientAmounts = [];
     let ingredientsLeft = shadow.getElementById(
