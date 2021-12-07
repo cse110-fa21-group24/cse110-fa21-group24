@@ -97,7 +97,7 @@ async function populateExplorePage(filtersObj) {
 
   // When no results are returned
   if (explorePage.numResults === 0) {
-    shadow.getElementById("no-results-text").classList.remove("make-invisible");
+    shadow.getElementById("no-results-text").classList.remove("hidden");
 
     for (let i = 0; i < EXPLORE_PAGE_MAX_RESULTS; ++i) {
       recipeCards[i].classList.add("make-invisible");
@@ -109,7 +109,7 @@ async function populateExplorePage(filtersObj) {
   }
   // Display up to EXPLORE_PAGE_NUM_RESULTS recipe cards
   else {
-    shadow.getElementById("no-results-text").classList.add("make-invisible");
+    shadow.getElementById("no-results-text").classList.add("hidden");
 
     if (explorePage.numResults > EXPLORE_PAGE_MAX_RESULTS) {
       explorePage.numResults = EXPLORE_PAGE_MAX_RESULTS;
