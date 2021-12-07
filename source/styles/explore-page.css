@@ -225,11 +225,13 @@ recipe-card {
     width: 100vw;
     flex-direction: column;
   }
+
   #note {
     margin: 0;
     font-size: 3vw;
     padding-left: 3vw;
   }
+
   #filter-section {
     flex-direction: column;
   }
