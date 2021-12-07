@@ -1,3 +1,5 @@
+const ANCHOR_REGEX = /(<a(.+?)?>|<\/a>)/g;
+
 /**
  * @classdesc This class represents the recipe page, which is used for
  *            displaying detailed info about an open recipe
@@ -114,7 +116,7 @@ export class RecipePage extends HTMLElement {
 
     shadow.getElementById("recipe-image").src = recipeObj.image;
     shadow.getElementById("recipe-description").innerHTML =
-      recipeObj.description;
+      recipeObj.description.replace(ANCHOR_REGEX, ""); // remove links
 
     let ingredientAmounts = [];
     let ingredientsLeft = shadow.getElementById(
