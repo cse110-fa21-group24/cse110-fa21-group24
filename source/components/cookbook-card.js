@@ -1,5 +1,6 @@
 /**
- * @classdesc A component in which users can create their own cookbook-cards.
+ * @classdesc A component in which users can create a card to represent a 
+ *            cookbook in the My Cookbooks page.
  */
 class cookbookCard extends HTMLElement {
   constructor() {

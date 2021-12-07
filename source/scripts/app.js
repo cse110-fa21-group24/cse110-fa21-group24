@@ -14,7 +14,8 @@ const spoonacular = new SpoonacularInterface();
 const indexedDb = new IndexedDbInterface();
 
 /**
- * Creates a recipe card element
+ * @function createRecipeCard() 
+ * @description Creates a recipe card element
  * @returns A recipe card element
  */
 function createRecipeCard() {
@@ -25,8 +26,9 @@ function createRecipeCard() {
 }
 
 /**
- * This function toggles whether the explore page will display recipes based on a filter or
- * by random.
+ * @function toggleExplorePageType 
+ * @description This function toggles whether the explore page will display 
+ *              recipes based on a filter or by random.
  */
 function toggleExplorePageType() {
   "use strict";
@@ -43,9 +45,9 @@ function toggleExplorePageType() {
 }
 
 /**
- * Populates new recipes in the Explore page by retrieving new recipes from
- * Spoonacular
- * @function populateExplorePage
+ * @function populateExplorePage 
+ * @description Populates new recipes in the Explore page by retrieving new 
+ *              recipes from Spoonacular
  */
 async function populateExplorePage(filtersObj) {
   "use strict";
@@ -74,8 +76,8 @@ async function populateExplorePage(filtersObj) {
 }
 
 /**
- * Creates a cookbook element and adds it to the document
- * @function createCookbook
+ * @function createCookbook 
+ * @description Creates a cookbook element and adds it to document
  */
 function createCookbook() {
   "use strict";
@@ -85,9 +87,9 @@ function createCookbook() {
 }
 
 /**
- * Binds the Create Cookbook button in the Create Cookbook form to save
- * cookbooks to local storage
- * @function bindCreateCookbookSave
+ * @function bindCreateCookbookSave 
+ * @description Binds the 'Create Cookbook' button in the 'Create Cookbook' form
+ *              to save cookbooks to local storage
  */
 function bindCreateCookbookSave() {
   "use strict";
@@ -121,8 +123,8 @@ function bindCreateCookbookSave() {
 }
 
 /**
- * Creates a form for creating a new cookbook and adds it to the document
- * @function createCreateCookbook
+ * @function createCreateCookbook 
+ * @description Creates a form for creating a new cookbook and adds it to the document
  */
 function createCreateCookbook() {
   "use strict";
@@ -132,8 +134,8 @@ function createCreateCookbook() {
 }
 
 /**
- * Creates a form for editing a cookbook and adds it to the document
- * @function createEditCookbook
+ * @function createEditCookbook 
+ * @description Creates a form for editing a cookbook and adds it to the document
  */
 function createEditCookbook() {
   "use strict";
@@ -143,8 +145,8 @@ function createEditCookbook() {
 }
 
 /**
- * Creates the explore page and adds it to the document
- * @function createExplorePage
+ * @function createExplorePage 
+ * @description Creates the explore page and adds it to the document
  */
 function createExplorePage() {
   "use strict";
@@ -163,11 +165,9 @@ function createExplorePage() {
 }
 
 /**
- * @function bindExploreSearchBar
- *
- * This function binds the search bar in the explore page so
- * that you can enter queries and get results based on the user input.
- *
+ * @function bindExploreSearchBar 
+ * @description This function binds the search bar in the explore page so that 
+ *              you can enter queries and get results based on the user input.
  */
 function bindExploreSearchBar() {
   "use strict";
@@ -268,8 +268,8 @@ function bindExploreSearchBar() {
 }
 
 /**
- * Creates a wave custom element and adds it to the document
- * @function createFooterImg
+ * @function createFooterImg 
+ * @description Creates a wave custom element and adds it to the document
  */
 function createFooterImg() {
   "use strict";
@@ -278,8 +278,8 @@ function createFooterImg() {
 }
 
 /**
- * Creates a home page element and adds it to the document
- * @function createHomePage
+ * @function createHomePage 
+ * @description Creates a home page element and adds it to the document
  */
 function createHomePage() {
   "use strict";
@@ -288,8 +288,8 @@ function createHomePage() {
 }
 
 /**
- * Creates a navbar custom element and adds it to the document
- * @function
+ * @function createNavbar 
+ * @description Creates a navbar custom element and adds it to the document
  */
 function createNavbar() {
   "use strict";
@@ -298,8 +298,8 @@ function createNavbar() {
 }
 
 /**
- * Creates the recipe added notification and adds it to the document
- * @function createNotificationRecipeAdded
+ * @function createNotificationRecipeAdded 
+ * @description Creates the recipe added notificationand adds it to the document
  */
 function createNotificationRecipeAdded() {
   "use strict";
@@ -309,8 +309,9 @@ function createNotificationRecipeAdded() {
 }
 
 /**
- * Creates the recipe deleted notification and adds it to the document
- * @function createNotificationRecipeDeleted
+ * @function createNotificationRecipeDeleted 
+ * @description Creates the recipe deleted notification and adds it to the 
+ *              document
  */
 function createNotificationRecipeDeleted() {
   "use strict";
@@ -320,8 +321,9 @@ function createNotificationRecipeDeleted() {
 }
 
 /**
- * Creates the select cookbook notification and adds it to the document
- * @function createNotificationSelectCookbook
+ * @function createNotificationSelectCookbook 
+ * @description Creates the select cookbook notification and adds it to the 
+ *              document
  */
 function createNotificationSelectCookbook() {
   "use strict";
@@ -331,8 +333,9 @@ function createNotificationSelectCookbook() {
 }
 
 /**
- * Creates the form for editing a recipe and adds it to the document
- * @function createRecipeForm
+ * @function createRecipeForm 
+ * @description Creates the form for editing a recipe and adds it to the 
+ *              document
  */
 function createRecipeForm() {
   "use strict";
@@ -342,8 +345,8 @@ function createRecipeForm() {
 }
 
 /**
- * Creates the recipe page and adds it to the document
  * @function createRecipePage
+ * @description Creates the recipe page and adds it to the document
  */
 function createRecipePage() {
   "use strict";
@@ -353,8 +356,8 @@ function createRecipePage() {
 }
 
 /**
- * Creates the single cookbook page and adds it to the document
- * @function createSingleCookbook
+ * @function createSingleCookbook 
+ * @description Creates the single cookbook page and adds it to the document
  */
 function createSingleCookbook() {
   "use strict";
@@ -364,8 +367,9 @@ function createSingleCookbook() {
 }
 
 /**
- * Attaches "click" event listeners to the buttons on the navbar
- * that navigate to the correct page when clicked.
+ * @function connectNavbarButtons 
+ * @description Attaches "click" event listeners to the buttons on the navbar 
+ *              that navigate to the correct page when clicked.
  */
 function connectNavbarButtons() {
   "use strict";
@@ -399,9 +403,9 @@ function connectNavbarButtons() {
 }
 
 /**
- * Allows new recipes to be populated in the Explore when pressing the Explore
- * More or Explore Recipes buttons in the Explore page
- * @function bindExploreLoadButton
+ * @function bindExploreLoadButton 
+ * @description Allows new recipes to be populated in the Explore when pressing 
+ *              the Explore More or Explore Recipes buttons in the Explore page
  */
 function bindExploreLoadButton() {
   "use strict";
@@ -488,9 +492,8 @@ function bindExploreLoadButton() {
 }
 
 /**
- * Navigate to explore page if "Explore" button is clicked
- *
- * @function homeExploreButton
+ * @function homeExploreButton 
+ * @description Navigate to explore page if "Explore" button is clicked
  */
 function homeExploreButton() {
   "use strict";
@@ -506,8 +509,8 @@ function homeExploreButton() {
 }
 
 /**
- * Navigate to explore page if "Explore" button is clicked
- *
+ * @function homeSearchFunction() 
+ * @description Navigate to explore page if "Explore" button is clicked
  */
 function homeSearchFunction() {
   "use strict";
@@ -549,8 +552,10 @@ function homeSearchFunction() {
 }
 
 /**
- * Attaches "click" event listeners to the Create New Cookbook
- * button on My Cookbook page which will navigate to Create Cookbook page.
+ * @function connectCreateNewCookbook() 
+ * @description Attaches "click" event listeners to the Create New Cookbook 
+ *              button on My Cookbook page which will navigate to Create 
+ *              Cookbook page.
  */
 function connectCreateNewCookbook() {
   "use strict";
@@ -566,14 +571,15 @@ function connectCreateNewCookbook() {
 }
 
 /**
- * Populate the recipe page with all the necessary recipe information
- * @function populateRecipePage
- * @param {object} recipeObj An object containing all the necessary properties
+ * @function populateRecipePage 
+ * @description Populate the recipe page with all the necessary recipe 
+ *              information
+ * @param {object} recipeObj An object containing all the necessary properties 
  *                           that would show up in the recipe page
- * @param {boolean} fromSpoonacular If fromSpoonacular is true, then the
- *                                  recipeObj came from Spoonacular, otherwise,
- *                                  it will be inferred that the recipeObj came
- *                                  from another source besides Spoonacular
+ * @param {boolean} fromSpoonacular If fromSpoonacular is true, then the 
+ *                                  recipeObj came from Spoonacular. Otherwise, 
+ *                                  it will be inferred that the recipeObj came 
+ *                                  from another source besides Spoonacular.
  */
 function populateRecipePage(recipeObj, fromSpoonacular) {
   "use strict";
@@ -675,8 +681,8 @@ function populateRecipePage(recipeObj, fromSpoonacular) {
 }
 
 /**
- * Populate the my cookbooks page with cookbook cards
- * @function populateCookbooksPage
+ * @function populateCookbooksPage 
+ * @description Populate the my cookbooks page with cookbook cards
  */
 async function populateCookbooksPage() {
   "use strict";
@@ -717,10 +723,10 @@ async function populateCookbooksPage() {
 }
 
 /**
- * Helper Method for bindCookbookCardButtons
- * @function fillEditCookbook
- * @param {string} title of cookbook
- * @param {string} description of cookbook
+ * @function fillEditCookbook 
+ * @description helper method for bindCookbookCardButtons
+ * @param {string} title a string to hold the title of cookbook
+ * @param {string} description a string to hold a description of cookbook
  */
 function fillEditCookbook(title, description) {
   "use strict";
@@ -736,9 +742,10 @@ function fillEditCookbook(title, description) {
 }
 
 /**
- * Attaches event listeners to the buttons within a given cookbook card
- * @function bindCookbookCardButtons
- * @param {object} card The cookbook card element
+ * @function bindCookbookCardButtons 
+ * @description Attaches event listeners to the buttons within a given cookbook 
+ *              card
+ * @param {object} card The cookbook-card element assigned to a cookbook
  */
 function bindCookbookCardButtons(card) {
   "use strict";
@@ -773,9 +780,9 @@ function bindCookbookCardButtons(card) {
 }
 
 /**
- * Populates the single cookbook view with the recipe cards of the
- * given cookbook.
- * @function populateSingleCookbook
+ * @function populateSingleCookbook 
+ * @description Populates the single cookbook view with the recipe cards of the 
+ *              given cookbook.
  * @param {object} cookbook The cookbook object from indexedDb
  */
 async function populateSingleCookbook(cookbook) {
@@ -806,10 +813,10 @@ async function populateSingleCookbook(cookbook) {
   }
 }
 
-// TODO avoid using so many params
 /**
- * Attaches event listeners to the buttons within a recipe card in the single cookbook view
- * @function bindCookbookRecipeCardButtons
+ * @function bindCookbookRecipeCardButtons 
+ * @description Attaches event listeners to the buttons within a recipe card in 
+ *              the single cookbook view
  * @param {object} card The recipe card element
  * @param {object} recipe The recipe object
  * @param {object} recipeKey The key of the recipe object within the cookbook
@@ -836,9 +843,9 @@ function bindCookbookRecipeCardButtons(card, recipe, recipeKey, cookbook) {
 }
 
 /**
- * Populates the Select Cookbook notification options with all of the user's
- * cookbooks
  * @function populateSelectCookbookOptions
+ * @description Populates the Select Cookbook notification options with all of 
+ *              the user's cookbooks
  */
 async function populateSelectCookbookOptions() {
   "use strict";
@@ -865,10 +872,10 @@ async function populateSelectCookbookOptions() {
 }
 
 /**
- * In the Select Cookbooks popup, this function binds the X button to close
- * the popup and binds the Add button to save the currently opened recipe to
- * the selected cookbook
  * @function bindSelectCookbookButtons
+ * @description In the Select Cookbooks popup, this function binds the X button 
+ *              to close the popup and binds the Add button to save the 
+ *              currently opened recipe to the selected cookbook
  */
 function bindSelectCookbookButtons() {
   "use strict";
@@ -911,9 +918,9 @@ function bindSelectCookbookButtons() {
 }
 
 /**
- * Populates new recipes in the home page by retrieving new recipes from
- * Spoonacular
  * @function populateHomePage
+ * @description Populates new recipes in the home page by retrieving new recipes
+ *              from Spoonacular
  */
 async function populateHomePage() {
   "use strict";
@@ -937,9 +944,9 @@ async function populateHomePage() {
 }
 
 /**
- * Bind event listeners to the buttons of recipe cards on the Home and Explore
- * pages
  * @function bindHomeExploreRecipeCards
+ * @description Bind event listeners to the buttons of recipe cards on the Home 
+ *              and Explore pages
  */
 function bindHomeExploreRecipeCards() {
   "use strict";
@@ -988,10 +995,10 @@ function bindHomeExploreRecipeCards() {
 }
 
 /**
- * Attaches "click" event listener to the Edit Recipe/Add to Cookbook
- * button on the recipe page, which will either open the recipe edit form,
- * or the cookbook select pop up
  * @function connectRecipeAction
+ * @description Attaches "click" event listener to the Edit Recipe/Add to 
+ *              Cookbook button on the recipe page, which will either open the 
+ *              recipe edit form or the cookbook select pop up
  */
 function connectRecipeAction() {
   "use strict";
@@ -1018,9 +1025,9 @@ function connectRecipeAction() {
 }
 
 /**
- * Adds an event listener to the "Save Changes" button in the "Edit Cookbook"
- * page.
  * @function buttonsEditCookbook
+ * @description Adds an event listener to the "Save Changes" button in the "Edit
+ *              Cookbook" page.
  */
 function buttonsEditCookbook() {
   // Get the "Save Changes" button
@@ -1087,9 +1094,9 @@ function buttonsEditCookbook() {
 }
 
 /**
- * When the user clicks Add New Recipe when viewing a cookbook, the user
- * should be redirected to the Explore page.
  * @function addRecipe
+ * @description When the user clicks Add New Recipe when viewing a cookbook, 
+ *              the user should be redirected to the Explore page.
  */
 function addRecipe() {
   "use strict";
@@ -1104,7 +1111,11 @@ function addRecipe() {
     router.navigate("explore-page");
   });
 }
-
+ /**
+  * @function initializeDefaultCookbook
+  * @description initialize a default cookbook when the user creates their first
+  *              cookbook with insufficient informatioin
+  */
 async function initializeDefaultCookbook() {
   "use strict";
 
@@ -1122,8 +1133,8 @@ async function initializeDefaultCookbook() {
 }
 
 /**
- * Runs initial setup functions when the page first loads
  * @function init
+ * @description Runs initial setup functions when the page first loads
  */
 async function init() {
   "use strict";

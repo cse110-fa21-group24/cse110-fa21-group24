@@ -4,21 +4,22 @@
  */
 export class Router {
   /**
-   * This constructor stores the current page in order to tell when
-   * and what to hide when navigating.
-   *
-   * @param {Element} currentPage
+   * @function constructor
+   * @description This constructor stores the current page in order to tell when
+   *              and what to hide when navigating.
+   * @param {Element} currentPage sets the currentPage variable to the page the
+   *                              user is currently on
    */
   constructor(currentPage) {
     this.currentPage = currentPage;
   }
 
   /**
-   * This function navigates to another page by toggling the "hidden" name
-   * on the element's classList. If the current page is the one that is being
-   * navigated to, then do nothing.
-   *
-   * @param {Element} page
+   * @function navigate
+   * @description This function navigates to another page by toggling the 
+   *              "hidden" name on the element's classList. If the current page 
+   *              is the one that is being navigated to, then do nothing.
+   * @param {Element} page the page that the user wants to go to
    */
   navigate(page) {
     // if navigating to same page as current, do nothing

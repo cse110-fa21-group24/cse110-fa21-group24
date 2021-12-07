@@ -1,6 +1,7 @@
 /**
- * @classdesc A recipe card component to be used in the Cookbook Page.
- *            This component includes a delete button.
+ * @classdesc A recipe card component to be used in a single-cookbook view. 
+ *            This component allows users to delete a recipe from the current 
+ *            cookbook they are viewing.
  */
 class RecipeCardDelete extends HTMLElement {
   constructor() {

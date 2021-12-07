@@ -1,6 +1,6 @@
 /**
- * @classdesc A notification that shows up when selecting which cookbook to add
- *            recipes to
+ * @classdesc A notification that shows up asking users to determine which 
+ *            cookbook they would like to add the current recipe to
  *
  */
 class NotificationSelectCookbook extends HTMLElement {
