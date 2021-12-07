@@ -79,9 +79,6 @@ async function populateExplorePage(filtersObj) {
   let topLevel = shadow.getElementById("explore-top-level");
   let recipeCards = shadow.getElementById("recipe-cards-section").children;
 
-  let displaySection = shadow.getElementById("display-section");
-  displaySection.style.height = "110vh";
-
   for (let i = 0; i < EXPLORE_PAGE_MAX_RESULTS; ++i) {
     recipeCards[i].classList.add("make-invisible");
 
@@ -628,8 +625,8 @@ function bindExploreLoadButton() {
   let ingredientInput = shadow.getElementById("ingredient-input");
 
   loadButton.addEventListener("click", async () => {
-    let displaySection = shadow.getElementById("display-section");
-    displaySection.style.height = "auto";
+    // let displaySection = shadow.getElementById("display-section");
+    // displaySection.style.height = "auto";
     if (
       topLevel.classList.contains("type-explore") &&
       input.value === NO_INPUT &&

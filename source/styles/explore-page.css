@@ -1,5 +1,5 @@
 .make-invisible {
-  visibility: hidden;
+  display: none;
 }
 
 .hidden {
@@ -107,10 +107,11 @@ label {
 
 #apply-filters {
   border-radius: 50vh;
-  background-color: #d6d6d6;
+  background-color: #ba181b;
+  color: #fff;
+  border-style: none;
   cursor: pointer;
-  color: black;
-  margin: 3vh;
+  margin-top: 2vh;
 }
 
 #apply-filters:hover {
@@ -198,10 +199,22 @@ recipe-card {
 
   #display-section {
     width: 80vw;
+    height: 110vh;
   }
 
   #recipe-cards-section {
     margin-bottom: 10vh;
+  }
+
+  #apply-filters {
+    width: 10vw;
+    height: 5vh;
+  }
+
+  #note {
+    margin: 0;
+    font-size: 1.5vw;
+    padding-left: 0.5vw;
   }
 }
 
@@ -212,9 +225,19 @@ recipe-card {
     width: 100vw;
     flex-direction: column;
   }
-
+  #note {
+    margin: 0;
+    font-size: 3vw;
+    padding-left: 3vw;
+  }
   #filter-section {
     flex-direction: column;
+  }
+
+  #apply-filters {
+    width: 30vw;
+    height: 4vh;
+    margin-left: 30vw;
   }
 
   input[type="checkbox"] {
@@ -224,6 +247,8 @@ recipe-card {
 
   #display-section {
     width: 100vw;
+    justify-content: flex-start;
+    height: auto;
   }
 
   #filter-by-text {
@@ -265,6 +290,7 @@ recipe-card {
 
   #explore-title-text {
     font-size: 3vh;
+    height: 4%;
   }
 
   #load-button-container {

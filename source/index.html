@@ -147,16 +147,16 @@
 
         <section id="filter-section">
           <p id="filter-by-text">Filter By:</p>
-
+          <p id="note">[+]: click to expand</p>
           <!-- Each filter category goes here -->
           <div class="filter-container">
             <p class="filter-choice">
               <button class="filter-button" id="diet-button">
-                <img class="minus" src="/source/images/minus.png" />
+                <img class="plus" src="/source/images/plus.png" />
               </button>
               Diet
             </p>
-            <form class="filter-diet-choices">
+            <form class="filter-diet-choices hidden">
               <div class="checkbox-container">
                 <input
                   type="checkbox"
@@ -215,11 +215,11 @@
           <div class="filter-container">
             <p class="filter-choice">
               <button class="filter-button" id="cuisine-button">
-                <img class="minus" src="/source/images/minus.png" />
+                <img class="plus" src="/source/images/plus.png" />
               </button>
               Cuisine
             </p>
-            <form class="filter-cuisine-choices">
+            <form class="filter-cuisine-choices hidden">
               <div class="checkbox-container">
                 <input
                   type="checkbox"
@@ -323,11 +323,11 @@
           <div class="filter-container">
             <p class="filter-choice">
               <button class="filter-button" id="time-button">
-                <img class="minus" src="/source/images/minus.png" />
+                <img class="plus" src="/source/images/plus.png" />
               </button>
               Cooking Time
             </p>
-            <form class="filter-time-choices">
+            <form class="filter-time-choices hidden">
               <div class="checkbox-container">
                 <input type="checkbox" id="ten-min" name="ten-min" value="10" />
                 <label for="ten-min">10 Min</label>
