@@ -39,6 +39,17 @@
   height: 20px;
 }
 
+.plus:hover,
+.minus:hover {
+  filter: brightness(150%);
+}
+
+.plus:active,
+.minus:active {
+  background: none;
+  filter: brightness(100%);
+}
+
 .filter-button {
   border: none;
   background: none;
@@ -115,11 +126,11 @@ label {
 }
 
 #apply-filters:hover {
-  background-color: #adadad;
+  filter: brightness(90%);
 }
 
 #apply-filters:active {
-  background-color: #808080;
+  filter: brightness(110%);
 }
 
 #search-button {
