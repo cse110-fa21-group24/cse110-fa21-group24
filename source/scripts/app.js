@@ -1121,7 +1121,7 @@ async function initializeDefaultCookbook() {
       DEFAULT_COOKBOOK_NAME,
       "Your default cookbook!"
     );
-    await populateCookbooksPage().then(() => { });
+    await populateCookbooksPage().then(() => {});
   } catch (err) {
     console.log(
       "Default attempted to be created again. Probably just a page reload."

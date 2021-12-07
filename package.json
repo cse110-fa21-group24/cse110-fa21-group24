@@ -20,7 +20,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.0",
     "babel-jest": "^27.3.1",
-    "htmlhint": "^0.9.9",
+    "htmlhint": "^0.16.1",
     "jest": "^27.3.1",
     "jsdoc": "^3.6.7",
     "jshint": "^2.13.1",
