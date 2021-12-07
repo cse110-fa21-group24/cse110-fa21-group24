@@ -13,6 +13,8 @@
 }
 
 #filter-section {
+  height: min-content;
+  box-sizing: border-box;
   background-color: #e7e4e6;
   border-radius: 1vw;
   padding: 2.5vw;
@@ -82,13 +84,14 @@ label {
 /* END Checkbox Related */
 
 #display-section {
+  height: min-content;
   box-sizing: border-box;
   border-radius: 1vw;
   background-color: hsl(359deg 60% 75%);
   padding: 1vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -204,16 +207,19 @@ recipe-card {
 
 @media (orientation: landscape) {
   #filter-section {
-    width: 20vw;
+    width: 20%;
+    min-height: 85vh;
+    position: sticky;
     flex-direction: column;
   }
 
   #display-section {
-    width: 80vw;
+    width: 80%;
+    min-height: 85vh;
   }
 
   #recipe-cards-section {
-    margin-bottom: 10vh;
+    margin-bottom: 2vh;
   }
 
   #apply-filters {
@@ -260,7 +266,6 @@ recipe-card {
   #display-section {
     width: 100vw;
     justify-content: flex-start;
-    height: auto;
   }
 
   #filter-by-text {
