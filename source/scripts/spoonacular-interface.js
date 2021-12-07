@@ -41,8 +41,8 @@ const MOCK_RECIPE_INFO = {
   image: "images/pasta.jpg",
   summary: "description",
   extendedIngredients: [
-    { original: "ingredient-0" },
-    { original: "ingredient-1" },
+    { amount: 1, unit: "cup", name: "ingredient-0" },
+    { amount: 3, unit: "cup", name: "ingredient-1" },
   ],
   analyzedInstructions: [
     { steps: [{ step: "instruction-1" }, { step: "instruction-2" }] },
@@ -62,8 +62,8 @@ export class SpoonacularInterface {
    * @param {object} filtersObj An object containing queries where keys
    *                            represent the query and key values represent
    *                            the query value
-   * @returns An array containing multiple smaller objects which contain an ID
-   *          title, and image for each retrieved recipe
+   * @returns {array} An array containing multiple smaller objects which
+   *                  contain an ID title, and image for each retrieved recipe
    */
   async getRecipes(filtersObj) {
     let requestUrl =
@@ -94,8 +94,8 @@ export class SpoonacularInterface {
   /**
    * Retrieves the ID, title, and image of multiple random recipes
    * @param {number} numResults The number of recipes to retrieve
-   * @returns An array containing multiple smaller objects which contain an ID
-   *          title, and image for each retrieved recipe
+   * @returns {array} An array containing multiple smaller objects which
+   *                  contain an ID title, and image for each retrieved recipe
    */
   async getRandomRecipes(numResults) {
     let requestUrl =
@@ -122,7 +122,7 @@ export class SpoonacularInterface {
   /**
    * Retrieves detailed information about a recipe
    * @param {number} id The ID of the recipe to parse information from
-   * @returns An object containing several properties of the recipe
+   * @returns {object} An object containing several properties of the recipe
    */
   async getRecipeInfo(id) {
     let requestUrl =
@@ -135,7 +135,11 @@ export class SpoonacularInterface {
     let ingredients = [];
 
     for (let i = 0; i < recipe.extendedIngredients.length; ++i) {
-      ingredients.push(recipe.extendedIngredients[i].original);
+      let ingredientObj = {};
+      ingredientObj.amount = recipe.extendedIngredients[i].amount;
+      ingredientObj.unit = recipe.extendedIngredients[i].unit;
+      ingredientObj.name = recipe.extendedIngredients[i].name;
+      ingredients.push(ingredientObj);
     }
 
     let instructions = [];
@@ -160,7 +164,7 @@ export class SpoonacularInterface {
   /**
    * An internal function that makes API calls
    * @param {string} requestUrl The url to fetch from
-   * @returns The data parsed from the response
+   * @returns {Promise} The data parsed from the response
    */
   async makeRequest(requestUrl) {
     if (!SPOONACULAR_ENABLED) {
