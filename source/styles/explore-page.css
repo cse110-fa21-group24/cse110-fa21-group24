@@ -44,16 +44,6 @@
   align-items: center;
 }
 
-.filter-choice:hover {
-  filter: brightness(150%);
-  background-color: #2e2e2e59;
-}
-
-.filter-choice:active {
-  background-color: #131313a8;
-  filter: brightness(100%);
-}
-
 .filter-button {
   border: none;
   background: none;
@@ -130,6 +120,7 @@ input[type="radio"] {
   border-style: none;
   cursor: pointer;
   margin-top: 2vh;
+  margin-bottom: 4%;
 }
 
 #apply-filters:hover {
@@ -138,6 +129,27 @@ input[type="radio"] {
 
 #apply-filters:active {
   filter: brightness(110%);
+}
+
+#clear-filters-button {
+  background: none;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2em;
+  color: #000;
+  cursor: pointer;
+}
+
+.filter-choice:hover,
+#clear-filters-button:hover {
+  filter: brightness(150%);
+  background-color: #2e2e2e59;
+}
+
+.filter-choice:active,
+#clear-filters-button:active {
+  background-color: #131313a8;
+  filter: brightness(100%);
 }
 
 #search-button {
@@ -235,6 +247,12 @@ recipe-card {
     height: 5vh;
   }
 
+  #clear-filters-button {
+    width: 10vw;
+    height: 5vh;
+    font-size: 1.5vw;
+  }
+
   .filter-choice {
     font-size: 1.5vw;
     margin: 0;
@@ -273,6 +291,13 @@ recipe-card {
     width: 30vw;
     height: 4vh;
     margin-left: 30vw;
+  }
+
+  #clear-filters-button {
+    width: 30vw;
+    height: 4vh;
+    margin-left: 30vw;
+    font-size: 3vw;
   }
 
   input[type="checkbox"],

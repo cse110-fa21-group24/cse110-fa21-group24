@@ -4,6 +4,7 @@ const RADIO = "radio";
 const TEXT = "text";
 const NUMBER = "number";
 const NONE = "None";
+const NO_INPUT = "";
 
 /**
  * @classdesc A component for the explore page where users can view
@@ -212,30 +213,25 @@ class ExplorePage extends HTMLElement {
     let cookingTimeInput = shadow.getElementById("cooking-time-input");
     let ingredientInput = shadow.getElementById("ingredient-input");
 
+    // Create search bar query
     if (searchInput.value) {
       queryObj.query = searchInput.value;
     }
 
+    // Create max cooking time query
     if (cookingTimeInput.value) {
       queryObj.maxReadyTime = cookingTimeInput.value;
     }
 
+    // Create ingredients query
     if (ingredientInput.value) {
       queryObj.includeIngredients = ingredientInput.value;
     }
 
+    // Create cuisines query
     let cuisineInputs = shadow
       .getElementById("filter-cuisines")
       .querySelectorAll(`input[type=${CHECKBOX}]`);
-    let dietInputs = shadow
-      .getElementById("filter-diets")
-      .querySelectorAll(`input[type=${RADIO}]`);
-    let intoleranceInputs = shadow
-      .getElementById("filter-intolerances")
-      .querySelectorAll(`input[type=${CHECKBOX}]`);
-    let mealTypeInputs = shadow
-      .getElementById("filter-meal-types")
-      .querySelectorAll(`input[type=${RADIO}]`);
 
     let cuisines = "";
     for (let i = 0; i < cuisineInputs.length; ++i) {
@@ -254,6 +250,11 @@ class ExplorePage extends HTMLElement {
       queryObj.cuisine = cuisines;
     }
 
+    // Create diet query
+    let dietInputs = shadow
+      .getElementById("filter-diets")
+      .querySelectorAll(`input[type=${RADIO}]`);
+
     let diet = "";
     for (let i = 0; i < dietInputs.length; ++i) {
       if (dietInputs[i].checked) {
@@ -268,6 +269,11 @@ class ExplorePage extends HTMLElement {
     if (diet) {
       queryObj.diet = diet;
     }
+
+    // Create intolerances query
+    let intoleranceInputs = shadow
+      .getElementById("filter-intolerances")
+      .querySelectorAll(`input[type=${CHECKBOX}]`);
 
     let intolerances = "";
     for (let i = 0; i < intoleranceInputs.length; ++i) {
@@ -286,6 +292,11 @@ class ExplorePage extends HTMLElement {
       queryObj.intolerance = intolerances;
     }
 
+    // Create meal type query
+    let mealTypeInputs = shadow
+      .getElementById("filter-meal-types")
+      .querySelectorAll(`input[type=${RADIO}]`);
+
     let mealType = "";
     for (let i = 0; i < mealTypeInputs.length; ++i) {
       if (mealTypeInputs[i].checked) {
@@ -302,6 +313,30 @@ class ExplorePage extends HTMLElement {
     }
 
     return queryObj;
+  }
+
+  /**
+   * Resets all filter options back to their default states
+   */
+  clearAllFilters() {
+    let shadow = this.shadowRoot;
+    let checkboxInputs = shadow.querySelectorAll(`input[type=${CHECKBOX}]`);
+    let radioInputs = shadow.querySelectorAll(`input[type=${RADIO}]`);
+    let cookingTimeInput = shadow.getElementById("cooking-time-input");
+    let ingredientInput = shadow.getElementById("ingredient-input");
+
+    for (let i = 0; i < checkboxInputs.length; ++i) {
+      checkboxInputs[i].checked = false;
+    }
+
+    for (let i = 0; i < radioInputs.length; ++i) {
+      if (radioInputs[i].value === NONE) {
+        radioInputs[i].checked = true;
+      }
+    }
+
+    cookingTimeInput.value = NO_INPUT;
+    ingredientInput.value = NO_INPUT;
   }
 }
 
