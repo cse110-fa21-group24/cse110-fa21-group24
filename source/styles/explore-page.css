@@ -30,25 +30,27 @@
   justify-content: center;
 }
 
-.filter-choice {
-  font-size: min(25px, 3vw);
-  margin: 0;
-}
-
 .plus,
 .minus {
   width: 20px;
   height: 20px;
 }
 
-.plus:hover,
-.minus:hover {
-  filter: brightness(150%);
+.filter-choice {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.plus:active,
-.minus:active {
-  background: none;
+.filter-choice:hover {
+  filter: brightness(150%);
+  background-color: #2e2e2e59;
+}
+
+.filter-choice:active {
+  background-color: #131313a8;
   filter: brightness(100%);
 }
 
@@ -66,7 +68,8 @@
   flex-direction: row;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="radio"] {
   width: min(30px, 4vw);
   align-self: center;
   height: min(30px, 4vh);
@@ -74,10 +77,11 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-label {
+.filter-option {
+  box-sizing: border-box;
   align-self: center;
-  margin-left: 3vw;
-  font-size: min(18px, 2vw);
+  width: 100%;
+  padding-left: 2%;
   cursor: pointer;
 }
 
@@ -201,6 +205,10 @@ label {
   filter: brightness(100%);
 }
 
+.filter-input-box {
+  max-width: 90%;
+}
+
 recipe-card {
   margin-top: 2vh;
 }
@@ -227,8 +235,17 @@ recipe-card {
     height: 5vh;
   }
 
-  #note {
+  .filter-choice {
+    font-size: 1.5vw;
     margin: 0;
+  }
+
+  .filter-option {
+    font-size: 1.5vw;
+  }
+
+  #note {
+    margin: 0 0 1vh;
     font-size: 1.5vw;
     padding-left: 0.5vw;
   }
@@ -243,7 +260,7 @@ recipe-card {
   }
 
   #note {
-    margin: 0;
+    margin: 1vh 0;
     font-size: 3vw;
     padding-left: 3vw;
   }
@@ -258,7 +275,8 @@ recipe-card {
     margin-left: 30vw;
   }
 
-  input[type="checkbox"] {
+  input[type="checkbox"],
+  input[type="radio"] {
     margin: 0;
     height: 3vh;
   }
@@ -281,8 +299,12 @@ recipe-card {
   }
 
   .filter-choice {
-    display: inline;
-    position: relative;
+    font-size: 3vw;
+    margin: 0;
+  }
+
+  .filter-option {
+    font-size: 3vw;
   }
 
   form {

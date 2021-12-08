@@ -2,13 +2,84 @@ import { Router } from "./router.js";
 import { SpoonacularInterface } from "./spoonacular-interface.js";
 import { IndexedDbInterface } from "./indexed-db-interface.js";
 
-const EXPLORE_PAGE_NUM_RESULTS = 6;
-const HOME_PAGE_NUM_RESULTS = 4;
 const NO_INPUT = "";
+const EXPLORE_PAGE_NUM_RESULTS = 6;
+const EXPLORE_PAGE_MAX_RESULTS = 18;
 const DEFAULT_READY_TIME = 300;
+const CUISINE_FILTERS = [
+  "African",
+  "American",
+  "British",
+  "Cajun",
+  "Caribbean",
+  "Chinese",
+  "Eastern European",
+  "European",
+  "French",
+  "German",
+  "Greek",
+  "Indian",
+  "Irish",
+  "Italian",
+  "Japanese",
+  "Jewish",
+  "Korean",
+  "Latin American",
+  "Mediterranean",
+  "Mexican",
+  "Middle Eastern",
+  "Nordic",
+  "Southern",
+  "Spanish",
+  "Thai",
+  "Vietnamese",
+];
+const DIET_FILTERS = [
+  "None",
+  "Gluten Free",
+  "Ketogenic",
+  "Vegetarian",
+  "Lacto-vegetarian",
+  "Ovo-vegetarian",
+  "Vegan",
+  "Pescetarian",
+  "Paleo",
+  "Primal",
+];
+const INTOLERANCE_FILTERS = [
+  "Dairy",
+  "Egg",
+  "Gluten",
+  "Grain",
+  "Peanut",
+  "Seafood",
+  "Sesame",
+  "Shellfish",
+  "Soy",
+  "Sulfite",
+  "Tree Nut",
+  "Wheat",
+];
+const MEAL_TYPE_FILTERS = [
+  "None",
+  "Appetizer",
+  "Beverage",
+  "Break",
+  "Breakfast",
+  "Dessert",
+  "Drink",
+  "Fingerfood",
+  "Main Course",
+  "Marinade",
+  "Salad",
+  "Sauce",
+  "Side Dish",
+  "Snack",
+  "Soup",
+];
+const HOME_PAGE_NUM_RESULTS = 4;
 let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
-const EXPLORE_PAGE_MAX_RESULTS = 18;
 
 const router = new Router("home-page", "home-page");
 const spoonacular = new SpoonacularInterface();
@@ -244,6 +315,11 @@ function createExplorePage() {
   }
 
   document.querySelector("body").append(explorePage);
+
+  explorePage.addCuisineFilters(CUISINE_FILTERS);
+  explorePage.addDietFilters(DIET_FILTERS);
+  explorePage.addIntoleranceFilters(INTOLERANCE_FILTERS);
+  explorePage.addMealTypeFilters(MEAL_TYPE_FILTERS);
 }
 
 /**
@@ -287,9 +363,7 @@ function bindExploreSearchBar() {
   let vietnamese = shadow.getElementById("vietnamese");
 
   //References for time
-  let tenMin = shadow.getElementById("ten-min");
-  let twentyMin = shadow.getElementById("twenty-min");
-  let thirtyMin = shadow.getElementById("thirty-min");
+  let cookingTimeInput = shadow.getElementById("cooking-time-input");
 
   //Reference for ingredient input
   let ingredientInput = shadow.getElementById("ingredient-input");
@@ -300,6 +374,13 @@ function bindExploreSearchBar() {
 
   //Attaches KeyUp bind for the enter key
   input.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchButton.click();
+    }
+  });
+
+  cookingTimeInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       searchButton.click();
@@ -318,32 +399,7 @@ function bindExploreSearchBar() {
   });
 
   searchButton.addEventListener("click", async () => {
-    if (
-      //If there are queries (checkbox or text)
-      input.value !== NO_INPUT ||
-      vegan.checked ||
-      glutenFree.checked ||
-      vegetarian.checked ||
-      ketogenic.checked ||
-      paleo.checked ||
-      pescetarian.checked ||
-      african.checked ||
-      american.checked ||
-      british.checked ||
-      caribbean.checked ||
-      chinese.checked ||
-      greek.checked ||
-      indian.checked ||
-      italian.checked ||
-      japanese.checked ||
-      mexican.checked ||
-      thai.checked ||
-      vietnamese.checked ||
-      tenMin.checked ||
-      twentyMin.checked ||
-      thirtyMin.checked ||
-      ingredientInput.value
-    ) {
+    if (explorePage.inputsPresent()) {
       if (
         //Toggle off explore type
         shadow
@@ -588,184 +644,26 @@ function connectNavbarButtons() {
  */
 function bindExploreLoadButton() {
   "use strict";
-  let shadow = document.querySelector("explore-page").shadowRoot;
+  let explorePage = document.querySelector("explore-page");
+  let shadow = explorePage.shadowRoot;
   let topLevel = shadow.getElementById("explore-top-level");
   let loadButton = shadow.getElementById("load-button");
 
-  let input = shadow.getElementById("search-bar");
-
-  //References for diet
-  let vegan = shadow.getElementById("vegan");
-  let glutenFree = shadow.getElementById("gluten-free");
-  let vegetarian = shadow.getElementById("vegetarian");
-  let ketogenic = shadow.getElementById("ketogenic");
-  let pescetarian = shadow.getElementById("pescetarian");
-  let paleo = shadow.getElementById("paleo");
-
-  //References for cuisine
-  let african = shadow.getElementById("african");
-  let american = shadow.getElementById("american");
-  let british = shadow.getElementById("british");
-  let caribbean = shadow.getElementById("caribbean");
-  let chinese = shadow.getElementById("chinese");
-  let greek = shadow.getElementById("greek");
-  let indian = shadow.getElementById("indian");
-  let italian = shadow.getElementById("italian");
-  let japanese = shadow.getElementById("japanese");
-  let mexican = shadow.getElementById("mexican");
-  let thai = shadow.getElementById("thai");
-  let vietnamese = shadow.getElementById("vietnamese");
-
-  //References for time
-  let tenMin = shadow.getElementById("ten-min");
-  let twentyMin = shadow.getElementById("twenty-min");
-  let thirtyMin = shadow.getElementById("thirty-min");
-
-  //Reference for ingredient input
-  let ingredientInput = shadow.getElementById("ingredient-input");
-
   loadButton.addEventListener("click", async () => {
-    // let displaySection = shadow.getElementById("display-section");
-    // displaySection.style.height = "auto";
     if (
       topLevel.classList.contains("type-explore") &&
-      input.value === NO_INPUT &&
-      !vegan.checked &&
-      !glutenFree.checked &&
-      !vegetarian.checked &&
-      !ketogenic.checked &&
-      !pescetarian.checked &&
-      !paleo.checked &&
-      !african.checked &&
-      !american.checked &&
-      !british.checked &&
-      !caribbean.checked &&
-      !chinese.checked &&
-      !greek.checked &&
-      !indian.checked &&
-      !italian.checked &&
-      !japanese.checked &&
-      !mexican.checked &&
-      !thai.checked &&
-      !vietnamese.checked &&
-      !tenMin.checked &&
-      !twentyMin.checked &&
-      !thirtyMin.checked &&
-      !ingredientInput.value
+      !explorePage.inputsPresent()
     ) {
       await populateExplorePage();
     } else {
-      if (
-        input.value === NO_INPUT &&
-        !vegan.checked &&
-        !glutenFree.checked &&
-        !vegetarian.checked &&
-        !ketogenic.checked &&
-        !pescetarian.checked &&
-        !paleo.checked &&
-        !african.checked &&
-        !american.checked &&
-        !british.checked &&
-        !caribbean.checked &&
-        !chinese.checked &&
-        !greek.checked &&
-        !indian.checked &&
-        !italian.checked &&
-        !japanese.checked &&
-        !mexican.checked &&
-        !thai.checked &&
-        !vietnamese.checked &&
-        !tenMin.checked &&
-        !twentyMin.checked &&
-        !thirtyMin.checked &&
-        !ingredientInput.value
-      ) {
+      if (!explorePage.inputsPresent()) {
         toggleExplorePageType();
         await populateExplorePage();
       } else {
         if (topLevel.classList.contains("type-explore")) {
           toggleExplorePageType();
         }
-        let queryObj = {};
-        queryObj.query = input.value;
-        queryObj.diet = NO_INPUT;
-        queryObj.cuisine = NO_INPUT;
-        queryObj.maxReadyTime = DEFAULT_READY_TIME;
-        queryObj.ingredientInput = NO_INPUT;
 
-        //Add checkboxes to diet
-        if (vegan.checked) {
-          queryObj.diet += "vegan ";
-        }
-        if (glutenFree.checked) {
-          queryObj.diet += "gluten free ";
-        }
-        if (vegetarian.checked) {
-          queryObj.diet += "vegetarian ";
-        }
-        if (ketogenic.checked) {
-          queryObj.diet += "ketogenic ";
-        }
-        if (paleo.checked) {
-          queryObj.diet += "paleo ";
-        }
-        if (pescetarian.checked) {
-          queryObj.diet += "pescetarian";
-        }
-
-        //Add checkboxes to cuisine
-        if (african.checked) {
-          queryObj.cuisine += "African ";
-        }
-        if (american.checked) {
-          queryObj.cuisine += "American ";
-        }
-        if (british.checked) {
-          queryObj.cuisine += "British ";
-        }
-        if (caribbean.checked) {
-          queryObj.cuisine += "Caribbean ";
-        }
-        if (chinese.checked) {
-          queryObj.cuisine += "Chinese ";
-        }
-        if (greek.checked) {
-          queryObj.cuisine += "Greek ";
-        }
-        if (indian.checked) {
-          queryObj.cuisine += "Indian ";
-        }
-        if (italian.checked) {
-          queryObj.cuisine += "Italian ";
-        }
-        if (japanese.checked) {
-          queryObj.cuisine += "Japanese ";
-        }
-        if (mexican.checked) {
-          queryObj.cuisine += "Mexican ";
-        }
-        if (thai.checked) {
-          queryObj.cuisine += "Thai ";
-        }
-        if (vietnamese.checked) {
-          queryObj.cuisine += "Vietnamese ";
-        }
-
-        //Add checkboxes to time
-        if (tenMin.checked) {
-          queryObj.maxReadyTime = parseInt(tenMin.value);
-        }
-        if (twentyMin.checked) {
-          queryObj.maxReadyTime = parseInt(twentyMin.value);
-        }
-        if (thirtyMin.checked) {
-          queryObj.maxReadyTime = parseInt(thirtyMin.value);
-        }
-
-        //Add ingredient values to ingredient-input
-        if (ingredientInput.value) {
-          queryObj.ingredientInput += ingredientInput.value;
-        }
         await loadExplorePage();
       }
     }
@@ -779,51 +677,17 @@ function bindExploreLoadButton() {
  */
 function bindCollapsibleFilters() {
   "use strict";
+  let explorePage = document.querySelector("explore-page");
+  let shadow = explorePage.shadowRoot;
+  let filterButtons = shadow.querySelectorAll(".filter-choice");
 
-  let shadow = document.querySelector("explore-page").shadowRoot;
-  let dietButton = shadow.getElementById("diet-button");
-  dietButton.addEventListener("click", () => {
-    let image = dietButton.querySelector("img");
-    if (image.classList.contains("plus")) {
-      image.classList.replace("plus", "minus");
-      image.src = "/source/images/minus.png";
-      shadow.querySelector(".filter-diet-choices").classList.remove("hidden");
-    } else {
-      image.classList.replace("minus", "plus");
-      image.src = "/source/images/plus.png";
-      shadow.querySelector(".filter-diet-choices").classList.add("hidden");
-    }
-  });
+  let makeCollapsible = (event) => {
+    explorePage.expandOrCollapseFilter(event.currentTarget);
+  };
 
-  let cuisineButton = shadow.getElementById("cuisine-button");
-  cuisineButton.addEventListener("click", () => {
-    let image = cuisineButton.querySelector("img");
-    if (image.classList.contains("plus")) {
-      image.classList.replace("plus", "minus");
-      image.src = "/source/images/minus.png";
-      shadow
-        .querySelector(".filter-cuisine-choices")
-        .classList.remove("hidden");
-    } else {
-      image.classList.replace("minus", "plus");
-      image.src = "/source/images/plus.png";
-      shadow.querySelector(".filter-cuisine-choices").classList.add("hidden");
-    }
-  });
-
-  let timeButton = shadow.getElementById("time-button");
-  timeButton.addEventListener("click", () => {
-    let image = timeButton.querySelector("img");
-    if (image.classList.contains("plus")) {
-      image.classList.replace("plus", "minus");
-      image.src = "/source/images/minus.png";
-      shadow.querySelector(".filter-time-choices").classList.remove("hidden");
-    } else {
-      image.classList.replace("minus", "plus");
-      image.src = "/source/images/plus.png";
-      shadow.querySelector(".filter-time-choices").classList.add("hidden");
-    }
-  });
+  for (let i = 0; i < filterButtons.length; ++i) {
+    filterButtons[i].addEventListener("click", makeCollapsible);
+  }
 }
 
 /**
