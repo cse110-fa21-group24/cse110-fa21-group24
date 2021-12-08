@@ -315,10 +315,22 @@ function createExplorePage() {
 
   document.querySelector("body").append(explorePage);
 
-  explorePage.addCuisineFilters(CUISINE_FILTERS);
-  explorePage.addDietFilters(DIET_FILTERS);
-  explorePage.addIntoleranceFilters(INTOLERANCE_FILTERS);
-  explorePage.addMealTypeFilters(MEAL_TYPE_FILTERS);
+  explorePage.createFilterOptions(
+    "filter-cuisines",
+    CUISINE_FILTERS,
+    "checkbox"
+  );
+  explorePage.createFilterOptions("filter-diets", DIET_FILTERS, "radio");
+  explorePage.createFilterOptions(
+    "filter-intolerances",
+    INTOLERANCE_FILTERS,
+    "checkbox"
+  );
+  explorePage.createFilterOptions(
+    "filter-meal-types",
+    MEAL_TYPE_FILTERS,
+    "radio"
+  );
 }
 
 /**

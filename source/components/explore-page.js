@@ -1,17 +1,18 @@
 const SPACE_REGEX = / /g;
-const CHECKBOX = "checkbox";
-const RADIO = "radio";
-const TEXT = "text";
-const NUMBER = "number";
-const NONE = "None";
-const NO_INPUT = "";
+const SECTION = "section-";
+export const CHECKBOX = "checkbox";
+export const RADIO = "radio";
+export const TEXT = "text";
+export const NUMBER = "number";
+export const NONE = "None";
+export const NO_INPUT = "";
 
 /**
  * @classdesc A component for the explore page where users can view
  *            random recipes or recipes they search for.
  *
  */
-class ExplorePage extends HTMLElement {
+export class ExplorePage extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -63,31 +64,34 @@ class ExplorePage extends HTMLElement {
 
   /**
    * Add options to a specified filter section
-   * @param {Element} section An element representing the filter section to add
-   *                          options to
+   * @param {string} section The element ID of the filter section to add
+   *                         options to
    * @param {array} options An array containing the Spoonacular values of the
    *                        corresponding options to add
-   * @param {string} optionType The type of the input element that corresponds
-   *                            to each option
+   * @param {string} inputType The type of the input element that corresponds
+   *                           to each option
    */
-  createFilterOptions(section, options, optionType) {
+  createFilterOptions(section, options, inputType) {
+    let filterSection = this.shadowRoot.getElementById(section);
+    filterSection.innerHTML = "";
+
     for (let i = 0; i < options.length; ++i) {
       let optionId = options[i].replace(SPACE_REGEX, "-");
 
       // Build the option container
       let container = document.createElement("div");
       container.classList.add("checkbox-container");
-      section.append(container);
+      filterSection.append(container);
 
       // Build the option input
       let input = document.createElement("input");
-      input.type = optionType;
+      input.type = inputType;
       input.id = optionId;
-      if (optionType === RADIO) {
+      if (inputType === RADIO) {
         if (options[i] === NONE) {
           input.checked = true;
         }
-        input.name = section;
+        input.name = SECTION + filterSection;
       } else {
         input.name = optionId;
       }
@@ -101,60 +105,6 @@ class ExplorePage extends HTMLElement {
       label.textContent = options[i];
       container.append(label);
     }
-  }
-
-  /**
-   * Add cuisine filters to the Cuisine filter section
-   * @param {array} cuisines An array containing the Spoonacular values of the
-   *                         corresponding cuisines to add
-   */
-  addCuisineFilters(cuisines) {
-    let cuisineSection = this.shadowRoot.getElementById("filter-cuisines");
-    cuisineSection.innerHTML = "";
-
-    // Create an option for each given cuisine
-    this.createFilterOptions(cuisineSection, cuisines, CHECKBOX);
-  }
-
-  /**
-   * Add diet filters to the Diet filter section
-   * @param {array} diets An array containing the Spoonacular values of the
-   *                      corresponding diets to add
-   */
-  addDietFilters(diets) {
-    let dietSection = this.shadowRoot.getElementById("filter-diets");
-    dietSection.innerHTML = "";
-
-    // Create an option for each given diet
-    this.createFilterOptions(dietSection, diets, RADIO);
-  }
-
-  /**
-   * Add intolerance filters to the Intolerances filter section
-   * @param {array} intolerances An array containing the Spoonacular values of
-   *                             the corresponding intolerances to add
-   */
-  addIntoleranceFilters(intolerances) {
-    let intoleranceSection = this.shadowRoot.getElementById(
-      "filter-intolerances"
-    );
-    intoleranceSection.innerHTML = "";
-
-    // Create an option for each given intolerance
-    this.createFilterOptions(intoleranceSection, intolerances, CHECKBOX);
-  }
-
-  /**
-   * Add meal type filters to the Meal Type filter section
-   * @param {array} mealTypes An array containing the Spoonacular values of the
-   *                          corresponding meal types to add
-   */
-  addMealTypeFilters(mealTypes) {
-    let mealTypeSection = this.shadowRoot.getElementById("filter-meal-types");
-    mealTypeSection.innerHTML = "";
-
-    // Create an option for each given meal type
-    this.createFilterOptions(mealTypeSection, mealTypes, RADIO);
   }
 
   /**
@@ -289,7 +239,7 @@ class ExplorePage extends HTMLElement {
     }
 
     if (intolerances) {
-      queryObj.intolerance = intolerances;
+      queryObj.intolerances = intolerances;
     }
 
     // Create meal type query
@@ -309,7 +259,7 @@ class ExplorePage extends HTMLElement {
     }
 
     if (mealType) {
-      queryObj.mealType = mealType;
+      queryObj.type = mealType;
     }
 
     return queryObj;
