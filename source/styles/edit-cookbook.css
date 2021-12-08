@@ -69,6 +69,16 @@
   color: white;
 }
 
+.input-container input {
+  padding: 12px;
+  font-style: normal;
+  font-family: Helvetica, sans-serif;
+  box-shadow: 0 4px 16px #33333314, 0 4px 4px #3333330a;
+  border-radius: 5px;
+  border: none;
+  resize: none;
+}
+
 @media (orientation: landscape) {
   /* for desktop */
   .title-container {
@@ -140,6 +150,13 @@
     width: 80vw;
     height: 5vh;
     font-size: 3vh;
+    padding: 12px;
+    font-style: normal;
+    font-family: Helvetica, sans-serif;
+    box-shadow: 0 4px 16px #33333314, 0 4px 4px #3333330a;
+    border-radius: 5px;
+    border: none;
+    resize: none;
   }
 
   .input-container label {

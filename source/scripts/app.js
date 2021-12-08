@@ -2,13 +2,83 @@ import { Router } from "./router.js";
 import { SpoonacularInterface } from "./spoonacular-interface.js";
 import { IndexedDbInterface } from "./indexed-db-interface.js";
 
-const EXPLORE_PAGE_NUM_RESULTS = 6;
-const HOME_PAGE_NUM_RESULTS = 4;
 const NO_INPUT = "";
-const DEFAULT_READY_TIME = 300;
+const EXPLORE_PAGE_NUM_RESULTS = 6;
+const EXPLORE_PAGE_MAX_RESULTS = 18;
+const CUISINE_FILTERS = [
+  "African",
+  "American",
+  "British",
+  "Cajun",
+  "Caribbean",
+  "Chinese",
+  "Eastern European",
+  "European",
+  "French",
+  "German",
+  "Greek",
+  "Indian",
+  "Irish",
+  "Italian",
+  "Japanese",
+  "Jewish",
+  "Korean",
+  "Latin American",
+  "Mediterranean",
+  "Mexican",
+  "Middle Eastern",
+  "Nordic",
+  "Southern",
+  "Spanish",
+  "Thai",
+  "Vietnamese",
+];
+const DIET_FILTERS = [
+  "None",
+  "Gluten Free",
+  "Ketogenic",
+  "Vegetarian",
+  "Lacto-vegetarian",
+  "Ovo-vegetarian",
+  "Vegan",
+  "Pescetarian",
+  "Paleo",
+  "Primal",
+];
+const INTOLERANCE_FILTERS = [
+  "Dairy",
+  "Egg",
+  "Gluten",
+  "Grain",
+  "Peanut",
+  "Seafood",
+  "Sesame",
+  "Shellfish",
+  "Soy",
+  "Sulfite",
+  "Tree Nut",
+  "Wheat",
+];
+const MEAL_TYPE_FILTERS = [
+  "None",
+  "Appetizer",
+  "Beverage",
+  "Break",
+  "Breakfast",
+  "Dessert",
+  "Drink",
+  "Fingerfood",
+  "Main Course",
+  "Marinade",
+  "Salad",
+  "Sauce",
+  "Side Dish",
+  "Snack",
+  "Soup",
+];
+const HOME_PAGE_NUM_RESULTS = 4;
 let COOKBOOK_TO_EDIT = null;
 const DEFAULT_COOKBOOK_NAME = "My cookbook";
-const EXPLORE_PAGE_MAX_RESULTS = 18;
 
 const router = new Router("home-page", "home-page");
 const spoonacular = new SpoonacularInterface();
@@ -97,7 +167,7 @@ async function populateExplorePage(filtersObj) {
 
   // When no results are returned
   if (explorePage.numResults === 0) {
-    shadow.getElementById("no-results-text").classList.remove("make-invisible");
+    shadow.getElementById("no-results-text").classList.remove("hidden");
 
     for (let i = 0; i < EXPLORE_PAGE_MAX_RESULTS; ++i) {
       recipeCards[i].classList.add("make-invisible");
@@ -109,7 +179,7 @@ async function populateExplorePage(filtersObj) {
   }
   // Display up to EXPLORE_PAGE_NUM_RESULTS recipe cards
   else {
-    shadow.getElementById("no-results-text").classList.add("make-invisible");
+    shadow.getElementById("no-results-text").classList.add("hidden");
 
     if (explorePage.numResults > EXPLORE_PAGE_MAX_RESULTS) {
       explorePage.numResults = EXPLORE_PAGE_MAX_RESULTS;
@@ -244,59 +314,71 @@ function createExplorePage() {
   }
 
   document.querySelector("body").append(explorePage);
+
+  explorePage.createFilterOptions(
+    "filter-cuisines",
+    CUISINE_FILTERS,
+    "checkbox"
+  );
+  explorePage.createFilterOptions("filter-diets", DIET_FILTERS, "radio");
+  explorePage.createFilterOptions(
+    "filter-intolerances",
+    INTOLERANCE_FILTERS,
+    "checkbox"
+  );
+  explorePage.createFilterOptions(
+    "filter-meal-types",
+    MEAL_TYPE_FILTERS,
+    "radio"
+  );
 }
 
 /**
- * @function bindExploreSearchBar
- *
- * This function binds the search bar in the explore page so
- * that you can enter queries and get results based on the user input.
- *
+ * @function bindExploreSearchButton
+ * @description This function binds the search bar in the explore page so that
+ *              you can enter queries and get results based on the user input.
  */
-function bindExploreSearchBar() {
+function bindExploreSearchButton() {
   "use strict";
-  //Get references to search bar on explore
   let explorePage = document.querySelector("explore-page");
   let shadow = explorePage.shadowRoot;
   let searchButton = shadow.getElementById("search-button");
 
-  //Get references to filter checkboxes
-  let input = shadow.getElementById("search-bar");
-  let vegan = shadow.getElementById("vegan");
-  let glutenFree = shadow.getElementById("gluten-free");
-  let vegetarian = shadow.getElementById("vegetarian");
-  let italian = shadow.getElementById("italian");
-  let mexican = shadow.getElementById("mexican");
-  let american = shadow.getElementById("american");
-  let tenMin = shadow.getElementById("ten-min");
-  let twentyMin = shadow.getElementById("twenty-min");
-  let thirtyMin = shadow.getElementById("thirty-min");
-  /**
-   * Can add more above for more hardcoded filters!
-   */
+  let searchBar = shadow.getElementById("search-bar");
+  let applyFilters = shadow.getElementById("apply-filters");
+  let cookingTimeInput = shadow.getElementById("cooking-time-input");
+  let ingredientInput = shadow.getElementById("ingredient-input");
 
-  //Attaches KeyUp bind for the enter key
-  input.addEventListener("keyup", (event) => {
+  // The search bar, cooking time input, ingredient input, and Apply Filters
+  // button all trigger queries through the Search button
+  searchBar.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       searchButton.click();
     }
   });
 
+  cookingTimeInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchButton.click();
+    }
+  });
+
+  ingredientInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchButton.click();
+    }
+  });
+
+  applyFilters.addEventListener("click", () => {
+    searchButton.click();
+  });
+
   searchButton.addEventListener("click", async () => {
-    if (
-      //If there are queries (checkbox or text)
-      input.value !== NO_INPUT ||
-      vegan.checked ||
-      glutenFree.checked ||
-      vegetarian.checked ||
-      italian.checked ||
-      mexican.checked ||
-      american.checked ||
-      tenMin.checked ||
-      twentyMin.checked ||
-      thirtyMin.checked
-    ) {
+    // If there are queries present
+    if (explorePage.inputsPresent()) {
       if (
         //Toggle off explore type
         shadow
@@ -305,45 +387,13 @@ function bindExploreSearchBar() {
       ) {
         toggleExplorePageType();
       }
+
       //Create query object for parameter to API call
-      let queryObj = {};
-      queryObj.query = input.value; //Set query value to text
-      queryObj.diet = NO_INPUT;
-      queryObj.cuisine = NO_INPUT;
-      queryObj.maxReadyTime = DEFAULT_READY_TIME;
-      //Add checkboxes to diet
-      if (vegan.checked) {
-        queryObj.diet += "vegan ";
-      }
-      if (glutenFree.checked) {
-        queryObj.diet += "gluten free ";
-      }
-      if (vegetarian.checked) {
-        queryObj.diet += "vegetarian ";
-      }
-      if (italian.checked) {
-        queryObj.cuisine += "Italian ";
-      }
-      if (mexican.checked) {
-        queryObj.cuisine += "Mexican ";
-      }
-      if (american.checked) {
-        queryObj.cuisine += "American ";
-      }
-
-      if (tenMin.checked) {
-        queryObj.maxReadyTime = parseInt(tenMin.value);
-      }
-      if (twentyMin.checked) {
-        queryObj.maxReadyTime = parseInt(twentyMin.value);
-      }
-      if (thirtyMin.checked) {
-        queryObj.maxReadyTime = parseInt(thirtyMin.value);
-      }
-
+      let queryObj = explorePage.createQueryFromInputs();
       queryObj.number = EXPLORE_PAGE_MAX_RESULTS;
 
-      await populateExplorePage(queryObj); //API call with queries
+      // Call Spoonacular API with queries
+      await populateExplorePage(queryObj);
     } else {
       //Otherwise, if there are no queries,
       if (
@@ -354,7 +404,9 @@ function bindExploreSearchBar() {
       ) {
         toggleExplorePageType();
       }
-      await populateExplorePage(); //Call API with random recipes
+
+      //Call Spoonacular API with random recipes
+      await populateExplorePage();
     }
   });
 }
@@ -497,90 +549,66 @@ function connectNavbarButtons() {
  */
 function bindExploreLoadButton() {
   "use strict";
-  let shadow = document.querySelector("explore-page").shadowRoot;
+  let explorePage = document.querySelector("explore-page");
+  let shadow = explorePage.shadowRoot;
   let topLevel = shadow.getElementById("explore-top-level");
   let loadButton = shadow.getElementById("load-button");
-
-  let vegan = shadow.getElementById("vegan");
-  let glutenFree = shadow.getElementById("gluten-free");
-  let vegetarian = shadow.getElementById("vegetarian");
-  let input = shadow.getElementById("search-bar");
-  let italian = shadow.getElementById("italian");
-  let mexican = shadow.getElementById("mexican");
-  let american = shadow.getElementById("american");
-  let tenMin = shadow.getElementById("ten-min");
-  let twentyMin = shadow.getElementById("twenty-min");
-  let thirtyMin = shadow.getElementById("thirty-min");
 
   loadButton.addEventListener("click", async () => {
     if (
       topLevel.classList.contains("type-explore") &&
-      input.value === NO_INPUT &&
-      !vegan.checked &&
-      !glutenFree.checked &&
-      !vegetarian.checked &&
-      !italian.checked &&
-      !mexican.checked &&
-      !american.checked &&
-      !tenMin.checked &&
-      !twentyMin.checked &&
-      !thirtyMin.checked
+      !explorePage.inputsPresent()
     ) {
       await populateExplorePage();
     } else {
-      if (
-        input.value === NO_INPUT &&
-        !vegan.checked &&
-        !glutenFree.checked &&
-        !vegetarian.checked &&
-        !italian.checked &&
-        !mexican.checked &&
-        !american.checked &&
-        !tenMin.checked &&
-        !twentyMin.checked &&
-        !thirtyMin.checked
-      ) {
+      if (!explorePage.inputsPresent()) {
         toggleExplorePageType();
         await populateExplorePage();
       } else {
         if (topLevel.classList.contains("type-explore")) {
           toggleExplorePageType();
         }
-        let queryObj = {};
-        queryObj.query = input.value;
-        queryObj.diet = NO_INPUT;
-        queryObj.cuisine = NO_INPUT;
-        queryObj.maxReadyTime = DEFAULT_READY_TIME;
-        if (vegan.checked) {
-          queryObj.diet += "vegan ";
-        }
-        if (glutenFree.checked) {
-          queryObj.diet += "gluten free ";
-        }
-        if (vegetarian.checked) {
-          queryObj.diet += "vegetarian ";
-        }
-        if (italian.checked) {
-          queryObj.cuisine += "Italian ";
-        }
-        if (mexican.checked) {
-          queryObj.cuisine += "Mexican ";
-        }
-        if (american.checked) {
-          queryObj.cuisine += "American ";
-        }
-        if (tenMin.checked) {
-          queryObj.maxReadyTime = parseInt(tenMin.value);
-        }
-        if (twentyMin.checked) {
-          queryObj.maxReadyTime = parseInt(twentyMin.value);
-        }
-        if (thirtyMin.checked) {
-          queryObj.maxReadyTime = parseInt(thirtyMin.value);
-        }
+
         await loadExplorePage();
       }
     }
+  });
+}
+
+/**
+ * @function bindCollapsibleFilters
+ *
+ * Bind the buttons to collapse and expand the filters for the filters on the explore page.
+ */
+function bindCollapsibleFilters() {
+  "use strict";
+  let explorePage = document.querySelector("explore-page");
+  let shadow = explorePage.shadowRoot;
+  let filterButtons = shadow.querySelectorAll(".filter-choice");
+
+  let makeCollapsible = (event) => {
+    explorePage.expandOrCollapseFilter(event.currentTarget);
+  };
+
+  for (let i = 0; i < filterButtons.length; ++i) {
+    filterButtons[i].addEventListener("click", makeCollapsible);
+  }
+}
+
+/**
+ * @function bindClearFiltersButton
+ * @description Allows the Clear Filters button to reset all filters back to
+ *              their default state
+ */
+function bindClearFiltersButton() {
+  "use strict";
+  let explorePage = document.querySelector("explore-page");
+  let clearFiltersButton = explorePage.shadowRoot.getElementById(
+    "clear-filters-button"
+  );
+
+  clearFiltersButton.addEventListener("click", () => {
+    explorePage.clearAllFilters();
   });
 }
 
@@ -1270,7 +1298,9 @@ async function init() {
   homeSearchFunction();
   homeExploreButton();
   connectCreateNewCookbook();
-  bindExploreSearchBar();
+  bindExploreSearchButton();
+  bindCollapsibleFilters();
+  bindClearFiltersButton();
   connectRecipeAction();
   buttonsEditCookbook();
   bindScaling();

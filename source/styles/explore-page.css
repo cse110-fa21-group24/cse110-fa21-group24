@@ -13,6 +13,8 @@
 }
 
 #filter-section {
+  height: min-content;
+  box-sizing: border-box;
   background-color: #e7e4e6;
   border-radius: 1vw;
   padding: 2.5vw;
@@ -28,9 +30,24 @@
   justify-content: center;
 }
 
+.plus,
+.minus {
+  width: 20px;
+  height: 20px;
+}
+
 .filter-choice {
-  font-size: min(25px, 3vw);
-  margin: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.filter-button {
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 /* Checkbox related */
@@ -41,7 +58,8 @@
   flex-direction: row;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="radio"] {
   width: min(30px, 4vw);
   align-self: center;
   height: min(30px, 4vh);
@@ -49,23 +67,25 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-label {
+.filter-option {
+  box-sizing: border-box;
   align-self: center;
-  margin-left: 3vw;
-  font-size: min(18px, 2vw);
+  width: 100%;
+  padding-left: 2%;
   cursor: pointer;
 }
 
 /* END Checkbox Related */
 
 #display-section {
+  height: min-content;
   box-sizing: border-box;
   border-radius: 1vw;
   background-color: hsl(359deg 60% 75%);
   padding: 1vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -91,6 +111,45 @@ label {
   background-image: url("../images/magnifyingglass.png");
   background-repeat: no-repeat;
   background-position: 1vw;
+}
+
+#apply-filters {
+  border-radius: 50vh;
+  background-color: #ba181b;
+  color: #fff;
+  border-style: none;
+  cursor: pointer;
+  margin-top: 2vh;
+  margin-bottom: 4%;
+}
+
+#apply-filters:hover {
+  filter: brightness(90%);
+}
+
+#apply-filters:active {
+  filter: brightness(110%);
+}
+
+#clear-filters-button {
+  background: none;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2em;
+  color: #000;
+  cursor: pointer;
+}
+
+.filter-choice:hover,
+#clear-filters-button:hover {
+  filter: brightness(150%);
+  background-color: #2e2e2e59;
+}
+
+.filter-choice:active,
+#clear-filters-button:active {
+  background-color: #131313a8;
+  filter: brightness(100%);
 }
 
 #search-button {
@@ -132,7 +191,6 @@ label {
 
 #recipe-cards-section {
   width: 100%;
-  margin-bottom: 2%;
   display: grid;
   grid-template-columns: 30% 30% 30%;
   grid-template-rows: auto;
@@ -159,18 +217,55 @@ label {
   filter: brightness(100%);
 }
 
+.filter-input-box {
+  max-width: 90%;
+}
+
 recipe-card {
   margin-top: 2vh;
 }
 
 @media (orientation: landscape) {
   #filter-section {
-    width: 20vw;
+    width: 20%;
+    min-height: 85vh;
+    position: sticky;
     flex-direction: column;
   }
 
   #display-section {
-    width: 80vw;
+    width: 80%;
+    min-height: 85vh;
+  }
+
+  #recipe-cards-section {
+    margin-bottom: 2vh;
+  }
+
+  #apply-filters {
+    width: 10vw;
+    height: 5vh;
+  }
+
+  #clear-filters-button {
+    width: 10vw;
+    height: 5vh;
+    font-size: 1.5vw;
+  }
+
+  .filter-choice {
+    font-size: 1.5vw;
+    margin: 0;
+  }
+
+  .filter-option {
+    font-size: 1.5vw;
+  }
+
+  #note {
+    margin: 0 0 1vh;
+    font-size: 1.5vw;
+    padding-left: 0.5vw;
   }
 }
 
@@ -182,17 +277,38 @@ recipe-card {
     flex-direction: column;
   }
 
-  #filter-section {
-    flex-direction: row;
+  #note {
+    margin: 1vh 0;
+    font-size: 3vw;
+    padding-left: 3vw;
   }
 
-  input[type="checkbox"] {
+  #filter-section {
+    flex-direction: column;
+  }
+
+  #apply-filters {
+    width: 30vw;
+    height: 4vh;
+    margin-left: 30vw;
+  }
+
+  #clear-filters-button {
+    width: 30vw;
+    height: 4vh;
+    margin-left: 30vw;
+    font-size: 3vw;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
     margin: 0;
     height: 3vh;
   }
 
   #display-section {
     width: 100vw;
+    justify-content: flex-start;
   }
 
   #filter-by-text {
@@ -204,14 +320,16 @@ recipe-card {
 
   .filter-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .filter-choice {
-    display: inline;
-    position: relative;
-    left: 2vw;
-    top: -1vh;
+    font-size: 3vw;
+    margin: 0;
+  }
+
+  .filter-option {
+    font-size: 3vw;
   }
 
   form {
@@ -236,6 +354,7 @@ recipe-card {
 
   #explore-title-text {
     font-size: 3vh;
+    height: 4%;
   }
 
   #load-button-container {
