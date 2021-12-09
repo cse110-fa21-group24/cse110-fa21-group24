@@ -1,5 +1,5 @@
 /**
- * @classdesc A component for the home page (default load).
+ * @classdesc A component for the home page (default load for all users).
  *
  */
 class HomePage extends HTMLElement {

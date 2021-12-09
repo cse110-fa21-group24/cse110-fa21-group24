@@ -147,94 +147,123 @@
 
         <section id="filter-section">
           <p id="filter-by-text">Filter By:</p>
-
+          <p id="note">[+]: click to expand</p>
           <!-- Each filter category goes here -->
           <div class="filter-container">
-            <p class="filter-choice">Diet</p>
-            <form class="filter-diet-choices">
+            <p class="filter-choice">
+              <button class="filter-button">
+                <img class="plus" src="images/plus.png" />
+              </button>
+              Cuisine
+            </p>
+            <form id="filter-cuisines" class="filter-choices-form hidden">
               <div class="checkbox-container">
                 <input
                   type="checkbox"
-                  id="vegetarian"
-                  name="vegetarian"
-                  value="vegetarian"
+                  id="cuisine-value"
+                  name="cuisine-value"
+                  value="cuisine value"
                 />
-                <label for="vegetarian">Vegetarian</label>
-              </div>
-              <div class="checkbox-container">
-                <input type="checkbox" id="vegan" name="vegan" value="vegan" />
-                <label for="vegan">Vegan</label>
-              </div>
-              <div class="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="gluten-free"
-                  name="gluten-free"
-                  value="gluten free"
-                />
-                <label for="gluten-free">Gluten Free</label>
+                <label for="cuisine-value">cuisine value</label>
               </div>
             </form>
           </div>
           <div class="filter-container">
-            <p class="filter-choice">Cuisine</p>
-            <form class="filter-cuisine-choices">
+            <p class="filter-choice">
+              <button class="filter-button">
+                <img class="plus" src="images/plus.png" />
+              </button>
+              Diet
+            </p>
+            <form id="filter-diets" class="filter-choices-form hidden">
               <div class="checkbox-container">
                 <input
                   type="checkbox"
-                  id="italian"
-                  name="italian"
-                  value="italian"
+                  id="diet-value"
+                  name="diet-value"
+                  value="diet value"
                 />
-                <label for="italian">Italian</label>
-              </div>
-              <div class="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="mexican"
-                  name="mexican"
-                  value="mexican"
-                />
-                <label for="mexican">Mexican</label>
-              </div>
-              <div class="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="american"
-                  name="american"
-                  value="american"
-                />
-                <label for="american">American</label>
+                <label for="diet-value" class="filter-option">diet value</label>
               </div>
             </form>
           </div>
           <div class="filter-container">
-            <p class="filter-choice">Cooking Time</p>
-            <form class="filter-time-choices">
-              <div class="checkbox-container">
-                <input type="checkbox" id="ten-min" name="ten-min" value="10" />
-                <label for="ten-min">10 Min</label>
-              </div>
-              <div class="checkbox-container">
-                <input
-                  type="checkbox"
-                  id="twenty-min"
-                  name="twenty-min"
-                  value="20"
-                />
-                <label for="twenty-min">20 Min</label>
-              </div>
+            <p class="filter-choice">
+              <button class="filter-button">
+                <img class="plus" src="images/plus.png" />
+              </button>
+              Interolerances
+            </p>
+            <form id="filter-intolerances" class="filter-choices-form hidden">
               <div class="checkbox-container">
                 <input
                   type="checkbox"
-                  id="thirty-min"
-                  name="thirty-min"
-                  value="30"
+                  id="intolerance-value"
+                  name="intolerance-value"
+                  value="intolerance value"
                 />
-                <label for="thirty-min">30 Min</label>
+                <label for="intolerance-value">intolerance value</label>
               </div>
             </form>
           </div>
+          <div class="filter-container">
+            <p class="filter-choice">
+              <button class="filter-button">
+                <img class="plus" src="images/plus.png" />
+              </button>
+              Meal Type
+            </p>
+            <form id="filter-meal-types" class="filter-choices-form hidden">
+              <div class="checkbox-container">
+                <input
+                  meal
+                  type="checkbox"
+                  id="meal-type-value"
+                  name="meal-type-value"
+                  value="meal type value"
+                />
+                <label for="meal-type-value">meal type value</label>
+              </div>
+            </form>
+          </div>
+          <div class="filter-container">
+            <p class="filter-choice">
+              <button class="filter-button">
+                <img class="plus" src="images/plus.png" />
+              </button>
+              Cooking Time
+            </p>
+            <form class="filter-choices-form hidden">
+              <input
+                type="number"
+                step="15"
+                placeholder="60"
+                id="cooking-time-input"
+                class="filter-input-box"
+                name="cooking-time-input"
+              />
+              <label for="cooking-time-input">minutes</label>
+            </form>
+          </div>
+          <div class="filter-container">
+            <p class="filter-choice">
+              <button class="filter-button">
+                <img class="plus" src="images/plus.png" />
+              </button>
+              Ingredients
+            </p>
+            <form class="filter-choices-form hidden">
+              <input
+                type="text"
+                placeholder="corn,rice,etc"
+                id="ingredient-input"
+                class="filter-input-box"
+                name="ingredient-input"
+              />
+            </form>
+          </div>
+          <button id="apply-filters" type="button">Apply Filters</button>
+          <button id="clear-filters-button" type="button">Clear Filters</button>
         </section>
         <!-- Display with search bar, food options -->
         <section id="display-section">
