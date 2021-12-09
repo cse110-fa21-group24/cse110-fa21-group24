@@ -8,8 +8,8 @@ export const NONE = "None";
 export const NO_INPUT = "";
 
 /**
- * @classdesc A component for the explore page where users can view
- *            random recipes or recipes they search for.
+ * @classdesc A component where users can search for recipes by giving key words
+ *            and criterias or view randomly generated recipes
  *
  */
 export class ExplorePage extends HTMLElement {

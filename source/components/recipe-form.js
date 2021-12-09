@@ -1,6 +1,6 @@
 /**
  * @classdesc A template for the recipe form which allows users to edit
- *            their recipes and their details.
+ *            a recipe in their cookbook and their details.
  *
  */
 export class RecipeForm extends HTMLElement {
