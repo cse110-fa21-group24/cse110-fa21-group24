@@ -1,5 +1,6 @@
 /**
- * @classdesc A component in which users can create their own cookbook view page.
+ * @classdesc A component in which users can create a page to view a single
+ *            cookbook.
  */
 class cookbook extends HTMLElement {
   constructor() {
