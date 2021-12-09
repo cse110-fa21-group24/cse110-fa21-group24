@@ -43,6 +43,10 @@
   background-color: #b1a7a6;
 }
 
+#estimate-text {
+  font-size: 1.2vw;
+}
+
 @media (orientation: landscape) {
   #recipe-container {
     padding: 6vw 3vw;
