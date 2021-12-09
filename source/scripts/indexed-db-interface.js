@@ -293,8 +293,7 @@ export class IndexedDbInterface {
   /**
    * @function editRecipe
    * @description Edit a recipe in a cookbook
-   * @param {string} cookbookTitle The title of the cookbook to edit the recipe
-   *                                  in
+   * @param {string} cookbookTitle The title of the cookbook to edit the recipe in
    * @param {number} recipeKey The key of the recipe to edit
    * @param {object} recipeObj An object containing the edited recipe info
    * @returns {Promise} A promise which resolves with true if editing was
