@@ -14,6 +14,7 @@ const RECIPE_OBJ = {
   readyInMinutes: 10,
   image: "images/pasta.jpg",
   description: "description",
+  servings: 2,
   ingredients: [
     {
       amount: 1,
@@ -86,7 +87,22 @@ beforeAll(() => {
         <hr class="recipe-horizontal-rule" />
 
         <!-- Recipe Ingredients -->
-        <h2 class="recipe-section-header">Ingredients Checklist</h2>
+        <div>
+          <h2 class="recipe-section-header">Ingredients Checklist</h2>
+        </div>
+
+        <div>
+          <span id="scale-text">
+            Serving size multiplier (Default size is ):
+          </span>
+          <button id="decrease-scale">
+            <img src="images/down-arrow.png" />
+          </button>
+          <button id="increase-scale">
+            <img src="images/up-arrow.png" />
+          </button>
+          <span id="scale-value">1</span>
+        </div>
         <div id="recipe-ingredients-container">
           <section id="recipe-ingredients-section-left">
             <li class="ingredient-item">Lorem</li>
@@ -95,6 +111,7 @@ beforeAll(() => {
             <li class="ingredient-item">Sit</li>
           </section>
         </div>
+        <div id="estimate-text">(Scaled amounts are estimates.)</div>
         <hr class="recipe-horizontal-rule" />
 
         <!-- Recipe Instructions -->
@@ -146,6 +163,9 @@ test("populate recipe page with recipe info from Spoonacular", () => {
   expect(shadow.getElementById("recipe-image").src).toMatch("images/pasta.jpg");
   expect(shadow.getElementById("recipe-description").innerHTML).toMatch(
     "description"
+  );
+  expect(shadow.getElementById("scale-text").innerHTML).toMatch(
+    "Serving Size Multiplier (The default multiplier 1 has a serving size of <b>2</b>): "
   );
   expect(
     shadow

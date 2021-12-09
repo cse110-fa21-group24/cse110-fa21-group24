@@ -158,6 +158,11 @@ export class RecipePage extends HTMLElement {
       }
     }
 
+    shadow.getElementById("scale-text").innerHTML =
+      "Serving Size Multiplier (The default multiplier 1 has a serving size of <b>" +
+      recipeObj.servings +
+      "</b>): ";
+
     this.ingredientAmounts = ingredientAmounts;
 
     let instructionsList = shadow.getElementById("instructions-list");

@@ -40,6 +40,7 @@ const MOCK_RECIPE_INFO = {
   readyInMinutes: 10,
   image: "images/pasta.jpg",
   summary: "description",
+  servings: 2,
   extendedIngredients: [
     { amount: 1, unit: "cup", name: "ingredient-0" },
     { amount: 3, unit: "cup", name: "ingredient-1" },
@@ -159,6 +160,7 @@ export class SpoonacularInterface {
       readyInMinutes: recipe.readyInMinutes,
       image: recipe.image,
       description: recipe.summary,
+      servings: recipe.servings,
       ingredients: ingredients,
       instructions: instructions,
     };
