@@ -1,6 +1,6 @@
 /**
- * @classdesc A navbar custom element which contains Home, Explore, and My
- *            Cookbooks navigation buttons
+ * @classdesc A custom element which contains Home, Explore, and My Cookbooks
+ *            navigation buttons
  */
 class Navbar extends HTMLElement {
   constructor() {

@@ -58,7 +58,8 @@ let SPOONACULAR_ENABLED = true;
  */
 export class SpoonacularInterface {
   /**
-   * Retrieves the ID, title, and image of several recipes
+   * @function getRecipes
+   * @description Retrieves the ID, title, and image of several recipes
    * @param {object} filtersObj An object containing queries where keys
    *                            represent the query and key values represent
    *                            the query value
@@ -92,7 +93,8 @@ export class SpoonacularInterface {
   }
 
   /**
-   * Retrieves the ID, title, and image of multiple random recipes
+   * @function getRandomRecipes
+   * @description Retrieves the ID, title, and image of multiple random recipes
    * @param {number} numResults The number of recipes to retrieve
    * @returns {array} An array containing multiple smaller objects which
    *                  contain an ID title, and image for each retrieved recipe
@@ -120,7 +122,8 @@ export class SpoonacularInterface {
   }
 
   /**
-   * Retrieves detailed information about a recipe
+   * @function getRecipeInfo
+   * @description Retrieves detailed information about a recipe
    * @param {number} id The ID of the recipe to parse information from
    * @returns {object} An object containing several properties of the recipe
    */
@@ -163,7 +166,8 @@ export class SpoonacularInterface {
   }
 
   /**
-   * An internal function that makes API calls
+   * @function makeRequest
+   * @description An internal function that makes API calls
    * @param {string} requestUrl The url to fetch from
    * @returns {Promise} The data parsed from the response
    */

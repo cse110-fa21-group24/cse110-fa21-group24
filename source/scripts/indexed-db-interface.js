@@ -8,10 +8,10 @@ const OBJ_STORE = "cookbook-obj-store";
  */
 export class IndexedDbInterface {
   /**
-   * Open a connection to a local IndexedDB database
-   * @returns {Promise} A promise that resolves when the database is
-   *                    successfully opened or rejects when the database cannot
-   *                    be opened
+   * @function openDb
+   * @description Open a connection to a local IndexedDB database
+   * @returns {Promise} A promise that resolves when the database is successfully opened
+   *                    or rejects when the database cannot be opened
    */
   async openDb() {
     return new Promise((resolve, reject) => {
@@ -34,7 +34,8 @@ export class IndexedDbInterface {
   }
 
   /**
-   * Create a new cookbook
+   * @function createCookbook
+   * @description Create a new cookbook
    * @param {string} title The title of the new cookbook
    * @param {string} description The description of the new cookbook
    * @returns {Promise} A promise that resolves with true when the cookbook is
@@ -64,7 +65,8 @@ export class IndexedDbInterface {
   }
 
   /**
-   * Retrieve the titles and descriptions of all cookbooks
+   * @function getAllCookbooks
+   * @description Retrieve the titles and descriptions of all cookbooks
    * @returns {Promise} A promise that resolves with an array containing
    *                    objects which contain the title and description of each
    *                    cookbook or rejects with an empty array
@@ -99,7 +101,8 @@ export class IndexedDbInterface {
   }
 
   /**
-   * Edit the title and description of a cookbook
+   * @function editCookbook
+   * @description Edit the title and description of a cookbook
    * @param {string} oldTitle The old title of the cookbook
    * @param {string} newTitle The new title of the cookbook
    * @param {string} description The new description of the cookbook
@@ -186,7 +189,8 @@ export class IndexedDbInterface {
   }
 
   /**
-   *
+   * @function deleteCookbook
+   * @description Delete a cookbook
    * @param {string} title The title of the cookbook to delete
    * @returns {Promise} A promise which resolves with true when deletion is
    *                    successful or rejects with false if deletion failed
@@ -209,7 +213,8 @@ export class IndexedDbInterface {
   }
 
   /**
-   * Add a recipe to a cookbook
+   * @function addRecipe
+   * @description Add a recipe to a cookbook
    * @param {string} cookbookTitle Title of the cookbook to add the recipe to
    * @param {object} recipeObj An object containing all the properties of a
    *                           recipe
@@ -259,9 +264,10 @@ export class IndexedDbInterface {
   }
 
   /**
-   * Get all the recipes from a cookbook
-   * @param {string} cookbookTitle Title of the cookbook to retrieve all
-   *                               recipes from
+   * @function getAllRecipes
+   * @description Get all the recipes from a cookbook
+   * @param {string} cookbookTitle Title of the cookbook to retrieve all recipes
+   *                               from
    * @returns {Promise} A promise which resolves with an object containing all
    *                    the recipes or rejects with an empty object
    */
@@ -285,9 +291,9 @@ export class IndexedDbInterface {
   }
 
   /**
-   * Edit a recipe in a cookbook
-   * @param {string} cookbookTitle The title of the cookbook to edit the recipe
-   *                               in
+   * @function editRecipe
+   * @description Edit a recipe in a cookbook
+   * @param {string} cookbookTitle The title of the cookbook to edit the recipe in
    * @param {number} recipeKey The key of the recipe to edit
    * @param {object} recipeObj An object containing the edited recipe info
    * @returns {Promise} A promise which resolves with true if editing was
@@ -330,9 +336,9 @@ export class IndexedDbInterface {
   }
 
   /**
-   * Delete a recipe from a cookbook
-   * @param {string} cookbookTitle The title of the cookbook to delete a recipe
-   *                               from
+   * @function deleteRecipe
+   * @description Delete a recipe from a cookbook
+   * @param {string} cookbookTitle The title of the cookbook to delete a recipe from
    * @param {number} recipeKey The key of the recipe to delete
    * @returns {Promise} A promise which resolves to true if deletion was
    *                    successful or resolves to false if deletion was
