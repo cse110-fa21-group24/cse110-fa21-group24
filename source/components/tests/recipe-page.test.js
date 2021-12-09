@@ -14,6 +14,7 @@ const RECIPE_OBJ = {
   readyInMinutes: 10,
   image: "images/pasta.jpg",
   description: "description",
+  servings: 2,
   ingredients: [
     {
       amount: 1,
@@ -37,89 +38,89 @@ beforeAll(() => {
   // Keep this template up to date with the corresponding template in
   // source/index.html
   recipePageTemplate.innerHTML = `
-  <div id="recipe-container">
-  <!-- Recipe Header -->
-  <div id="recipe-header-container">
-    <div id="recipe-header">
-      <h1 id="recipe-title">Recipe Title</h1>
-      <p id="recipe-author">Recipe by: Author</p>
-    </div>
-    <div id="back-button-container">
-      <button id="back-button">Back</button>
-    </div>
-  </div>
+      <div id="recipe-container">
+        <!-- Recipe Header -->
+        <div id="recipe-header-container">
+          <div id="recipe-header">
+            <h1 id="recipe-title">Recipe Title</h1>
+            <p id="recipe-author">Recipe by: Author</p>
+          </div>
+          <div id="back-button-container">
+            <button id="back-button">Back</button>
+          </div>
+        </div>
 
-  <!-- Recipe Subheader -->
-  <div id="recipe-subheader">
-    <div id="recipe-tags">
-      <p id="recipe-cuisine" class="recipe-tag-info">Cuisine: Italian</p>
-      <p id="recipe-ready-in" class="recipe-tag-info">Ready In: x min</p>
-    </div>
-    <div id="recipe-action">
-      <button id="recipe-action-button" type="button">
-        <div id="recipe-action-image-outline">
-          <div id="recipe-action-image-plus">+</div>
+        <!-- Recipe Subheader -->
+        <div id="recipe-subheader">
+          <div id="recipe-tags">
+            <p id="recipe-cuisine" class="recipe-tag-info">Cuisine: Italian</p>
+            <p id="recipe-ready-in" class="recipe-tag-info">Ready In: x min</p>
+          </div>
+          <div id="recipe-action">
+            <button id="recipe-action-button" type="button">
+              <div id="recipe-action-image-outline">
+                <div id="recipe-action-image-plus">+</div>
+                <img
+                  id="recipe-action-image-pencil"
+                  class="hide-recipe-part"
+                  src="images/pencil_red.png"
+                  alt="Red pencil"
+                />
+              </div>
+              <p id="recipe-action-text">Add to Cookbook</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- Recipe Image -->
+        <div id="recipe-image-container">
           <img
-            id="recipe-action-image-pencil"
-            class="hide-recipe-part"
-            src="images/pencil_red.png"
-            alt="Red pencil"
+            id="recipe-image"
+            src="images/pasta.jpg"
+            alt="Picture of Recipe"
           />
         </div>
-        <p id="recipe-action-text">Add to Cookbook</p>
-      </button>
-    </div>
-  </div>
 
-  <!-- Recipe Image -->
-  <div id="recipe-image-container">
-    <img
-      id="recipe-image"
-      src="images/pasta.jpg"
-      alt="Picture of Recipe"
-    />
-  </div>
+        <!-- Recipe Description -->
+        <h2 class="recipe-section-header">Description</h2>
+        <p id="recipe-description">Description</p>
+        <hr class="recipe-horizontal-rule" />
 
-  <!-- Recipe Description -->
-  <h2 class="recipe-section-header">Description</h2>
-  <p id="recipe-description">Description</p>
-  <hr class="recipe-horizontal-rule" />
+        <!-- Recipe Ingredients -->
+        <div>
+          <h2 class="recipe-section-header">Ingredients Checklist</h2>
+        </div>
 
-  <!-- Recipe Ingredients -->
-  <div>
-    <h2 class="recipe-section-header">Ingredients Checklist</h2>
-  </div>
+        <div>
+          <span id="scale-text">
+            Serving size multiplier (Default size is ):
+          </span>
+          <button id="decrease-scale">
+            <img src="images/down-arrow.png" />
+          </button>
+          <button id="increase-scale">
+            <img src="images/up-arrow.png" />
+          </button>
+          <span id="scale-value">1</span>
+        </div>
+        <div id="recipe-ingredients-container">
+          <section id="recipe-ingredients-section-left">
+            <li class="ingredient-item">Lorem</li>
+          </section>
+          <section id="recipe-ingredients-section-right">
+            <li class="ingredient-item">Sit</li>
+          </section>
+        </div>
+        <div id="estimate-text">(Scaled amounts are estimates.)</div>
+        <hr class="recipe-horizontal-rule" />
 
-  <div>
-    <span id="scale-text"
-      >Serving size multiplier (Default size is ):</span
-    >
-    <button id="decrease-scale">
-      <img src="images/down-arrow.png" />
-    </button>
-    <button id="increase-scale">
-      <img src="images/up-arrow.png" />
-    </button>
-    <span id="scale-value">1</span>
-  </div>
-  <div id="recipe-ingredients-container">
-    <section id="recipe-ingredients-section-left">
-      <li class="ingredient-item">Lorem</li>
-    </section>
-    <section id="recipe-ingredients-section-right">
-      <li class="ingredient-item">Sit</li>
-    </section>
-  </div>
-  <div id="estimate-text">(Scaled amounts are estimates.)</div>
-  <hr class="recipe-horizontal-rule" />
-
-  <!-- Recipe Instructions -->
-  <h2 class="recipe-section-header">Instructions</h2>
-  <ol id="instructions-list">
-    <li class="instruction-item">Lorem</li>
-  </ol>
-  <hr class="recipe-horizontal-rule" />
-</div>
+        <!-- Recipe Instructions -->
+        <h2 class="recipe-section-header">Instructions</h2>
+        <ol id="instructions-list">
+          <li class="instruction-item">Lorem</li>
+        </ol>
+        <hr class="recipe-horizontal-rule" />
+      </div>
     `;
   document.body.append(recipePageTemplate);
 });
@@ -162,6 +163,9 @@ test("populate recipe page with recipe info from Spoonacular", () => {
   expect(shadow.getElementById("recipe-image").src).toMatch("images/pasta.jpg");
   expect(shadow.getElementById("recipe-description").innerHTML).toMatch(
     "description"
+  );
+  expect(shadow.getElementById("scale-text").innerHTML).toMatch(
+    "Serving Size Multiplier (The default multiplier 1 has a serving size of <b>2</b>): "
   );
   expect(
     shadow
